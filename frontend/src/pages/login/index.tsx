@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
-import { Input } from '@/ui-kit';
+import { Box, Input } from '@/ui-kit';
 
 const LoginPage = () => {
   const { t } = useTranslation();
@@ -9,9 +9,11 @@ const LoginPage = () => {
 
   return (
     <div>
-      {t('Login')}
-      <Input value={email} placeholder={t('Email')} />
-      <Input value={password} placeholder={t('Password')} />
+      <Box>
+        <h1>{t('Login')}</h1>
+        <Input value={email} placeholder={t('Email') as string} onChange={setEmail} />
+        <Input value={password} placeholder={t('Password') as string} onChange={setPassword} />
+      </Box>
     </div>
   );
 };

@@ -2,5 +2,22 @@
   "Login": "Вход",
   "Registration": "Регистрация",
   "Email": "Почта",
-  "Password": "Пароль"
+  "Password": "Пароль",
+  "Enter email": "Укажите почту",
+  "Your email will be used to login": "Ваша почта будет использоваться для входа в аккаунт",
+  "Create a password": "Придумайте пароль",
+  "To protect your account, create a strong password": "Чтобы защитить ваш аккаунт, придумайте надежный пароль",
+  "Enter password": "Введите пароль",
+  "Confirm password": "Подтвердите пароль",
+  "Personal information": "Информация о себе",
+  "Name": "Имя",
+  "Surname": "Фамилия",
+  "Birthday": "День рождения",
+  "Country": "Страна",
+  "City": "Город",
+  "Continue": "Продолжить",
+  "Register": "Зарегистрироваться",
+  "Congratulations!": "Поздравляем!",
+  "You have successfully registered!": "Вы успешно зарегистрировались!",
+  "In 5 seconds you will be redirected to the login page": "Через 5 секунд вы будете перенаправлены на страницу входа"
 }

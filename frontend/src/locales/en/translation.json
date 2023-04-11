@@ -2,5 +2,22 @@
   "Login": "Login",
   "Registration": "Registration",
   "Email": "Email",
-  "Password": "Password"
+  "Password": "Password",
+  "Enter email": "Enter email",
+  "Your email will be used to login": "Your email will be used to login",
+  "Create a password": "Create a password",
+  "To protect your account, create a strong password": "To protect your account, create a strong password",
+  "Enter password": "Enter password",
+  "Confirm password": "Confirm password",
+  "Personal information": "Personal information",
+  "Name": "Name",
+  "Surname": "Surname",
+  "Birthday": "Birthday",
+  "Country": "Country",
+  "City": "City",
+  "Continue": "Continue",
+  "Register": "Register",
+  "Congratulations!": "Congratulations!",
+  "You have successfully registered!": "You have successfully registered!",
+  "In 5 seconds you will be redirected to the login page": "In 5 seconds you will be redirected to the login page"
 }
