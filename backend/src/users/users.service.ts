@@ -20,4 +20,14 @@ export class UsersService {
     const user = await this.userRepostory.create(dto);
     return user;
   }
+
+  async getLoginData(email: string) {
+    const user = await this.userRepostory.findOne({
+      where: {
+        email,
+      },
+      attributes: ['email', 'password'],
+    });
+    return user.dataValues;
+  }
 }
