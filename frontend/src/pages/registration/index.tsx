@@ -1,7 +1,8 @@
-import { useTranslation } from 'react-i18next';
-import { Box } from '@/ui-kit';
-import { ReactNode, useState } from 'react';
-import { Finish, Step1, Step2, Step3 } from './components';
+import { useTranslation } from "react-i18next";
+import { useState } from "react";
+import { Finish, Step1, Step2, Step3 } from "./components";
+import { Box } from "@/ui-kit";
+import styles from "./styles.module.scss";
 
 const RegistrationPage = () => {
   const { t } = useTranslation();
@@ -19,12 +20,10 @@ const RegistrationPage = () => {
   ]);
 
   return (
-    <div>
-      <Box>
-        <h1>{t('Registration')}</h1>
-        {contentMap.get(step)}
-      </Box>
-    </div>
+    <Box className={styles.registrationContainer}>
+      <h1>{t("Registration")}</h1>
+      {contentMap.get(step)}
+    </Box>
   );
 };
 
