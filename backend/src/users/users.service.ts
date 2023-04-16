@@ -5,10 +5,10 @@ import { CreateUserDto } from './create-user.dto';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User) private userRepostory: typeof User) {}
+  constructor(@InjectModel(User) private userRepository: typeof User) {}
 
   async getById(id: number) {
-    const user = await this.userRepostory.findByPk(id, {
+    const user = await this.userRepository.findByPk(id, {
       attributes: {
         exclude: ['email', 'password'],
       },
@@ -17,17 +17,30 @@ export class UsersService {
   }
 
   async createUser(dto: CreateUserDto) {
-    const user = await this.userRepostory.create(dto);
+    const user = await this.userRepository.create(dto);
     return user;
   }
 
   async getLoginData(email: string) {
-    const user = await this.userRepostory.findOne({
+    const user = await this.userRepository.findOne({
       where: {
         email,
       },
-      attributes: ['email', 'password'],
+      attributes: ['id', 'firstName', 'lastName'],
     });
     return user.dataValues;
+  }
+
+  async getUserPasswordByEmail(email: string) {
+    const { password } = await this.userRepository.findOne({
+      where: {
+        email,
+      },
+      attributes: {
+        include: ['password'],
+      },
+    });
+
+    return password;
   }
 }
