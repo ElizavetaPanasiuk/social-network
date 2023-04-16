@@ -5,24 +5,35 @@ export interface UserState {
   id: number | null;
   firstName: string | null;
   lastName: string | null;
+  isAuth: boolean;
 }
+
+type SignInData = {
+  id: number;
+  firstName: string;
+  lastName: string;
+};
 
 const initialState: UserState = {
   id: null,
   firstName: null,
   lastName: null,
+  isAuth: false,
 };
 
 export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUserData: (state, action: PayloadAction<UserState>) => {
-      state = action.payload;
+    signIn: (state, action: PayloadAction<SignInData>) => {
+      state.id = action.payload.id;
+      state.firstName = action.payload.firstName;
+      state.lastName = action.payload.lastName;
+      state.isAuth = true;
     },
   },
 });
 
-export const { setUserData } = userSlice.actions;
+export const { signIn } = userSlice.actions;
 
 export default userSlice.reducer;

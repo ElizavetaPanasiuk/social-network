@@ -20,5 +20,8 @@
   "Congratulations!": "Поздравляем!",
   "You have successfully registered!": "Вы успешно зарегистрировались!",
   "In 5 seconds you will be redirected to the login page": "Через 5 секунд вы будете перенаправлены на страницу входа",
-  "Sign In": "Войти"
+  "Sign In": "Войти",
+  "Profile": "Профиль",
+  "Friends": "Друзья",
+  "Messenger": "Мессенджер"
 }

@@ -7,7 +7,7 @@ import { Box, Button, Input } from "@/ui-kit";
 import styles from "./styles.module.scss";
 import LoginService from "./service";
 import jwtDecode from "jwt-decode";
-import { setUserData } from "@/store/userSlice";
+import { signIn } from "@/store/userSlice";
 
 const LoginPage = () => {
   const { t } = useTranslation();
@@ -17,7 +17,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const loginService = new LoginService();
 
-  const signIn = async (email: string, password: string) => {
+  const login = async (email: string, password: string) => {
     const { access_token } = await loginService.signIn(email, password);
     Cookies.set("token", access_token);
     const { id, firstName, lastName } = jwtDecode(access_token) as {
@@ -25,8 +25,8 @@ const LoginPage = () => {
       firstName: string;
       lastName: string;
     };
-    dispatch(setUserData({ id, firstName, lastName }));
-    navigate(`/profile`);
+    dispatch(signIn({ id, firstName, lastName }));
+    navigate(`/profile/${id}`);
   };
 
   return (
@@ -43,7 +43,7 @@ const LoginPage = () => {
         onChange={setPassword}
         type="password"
       />
-      <Button title={t("Sign In")} onClick={() => signIn(email, password)} />
+      <Button title={t("Sign In")} onClick={() => login(email, password)} />
     </Box>
   );
 };

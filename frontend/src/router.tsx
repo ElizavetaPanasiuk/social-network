@@ -1,5 +1,12 @@
-import { createBrowserRouter } from "react-router-dom";
-import { LoginPage, RegistrationPage } from "@/pages";
+import { createBrowserRouter, Navigate } from "react-router-dom";
+import {
+  FriendsPage,
+  LoginPage,
+  MessengerPage,
+  ProfilePage,
+  RegistrationPage,
+} from "@/pages";
+import { Layout } from "./components";
 
 const router = createBrowserRouter([
   {
@@ -11,8 +18,22 @@ const router = createBrowserRouter([
     element: <LoginPage />,
   },
   {
-    path: "/profile",
-    element: <div>profile</div>,
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        path: "/profile/:profileId",
+        element: <ProfilePage />,
+      },
+      {
+        path: "/friends",
+        element: <FriendsPage />,
+      },
+      {
+        path: "/messenger",
+        element: <MessengerPage />,
+      },
+    ],
   },
 ]);
 

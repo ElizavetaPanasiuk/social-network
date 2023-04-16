@@ -1,4 +1,7 @@
-import LoginPage from './login';
-import RegistrationPage from './registration';
+import FriendsPage from "./friends";
+import LoginPage from "./login";
+import MessengerPage from "./messenger";
+import RegistrationPage from "./registration";
+import ProfilePage from "./profile";
 
-export { LoginPage, RegistrationPage };
+export { FriendsPage, LoginPage, MessengerPage, RegistrationPage, ProfilePage };
