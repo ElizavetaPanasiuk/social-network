@@ -6,3 +6,13 @@ export type Post = {
   text: string;
   createdAt: Date;
 };
+
+export type ProfileData = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  dateOfBirth: Date;
+  country: string;
+  city: string;
+  avatar: string;
+};

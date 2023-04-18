@@ -1,36 +1,30 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
-import {
-  FriendsPage,
-  LoginPage,
-  MessengerPage,
-  ProfilePage,
-  RegistrationPage,
-} from "@/pages";
-import { Layout } from "./components";
+import { createBrowserRouter } from 'react-router-dom';
+import { FriendsPage, LoginPage, MessengerPage, ProfilePage, RegistrationPage } from '@/pages';
+import { Layout } from './components';
 
 const router = createBrowserRouter([
   {
-    path: "/registration",
+    path: '/registration',
     element: <RegistrationPage />,
   },
   {
-    path: "/login",
+    path: '/login',
     element: <LoginPage />,
   },
   {
-    path: "/",
+    path: '/',
     element: <Layout />,
     children: [
       {
-        path: "/profile/:profileId",
+        path: '/profile/:profileId',
         element: <ProfilePage />,
       },
       {
-        path: "/friends",
+        path: '/friends',
         element: <FriendsPage />,
       },
       {
-        path: "/messenger",
+        path: '/messenger',
         element: <MessengerPage />,
       },
     ],

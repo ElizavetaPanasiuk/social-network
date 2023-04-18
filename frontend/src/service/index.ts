@@ -1,5 +1,5 @@
 class Service {
-  private BASE_URL = "http://localhost:5000";
+  private BASE_URL = 'http://localhost:5000';
   private url: string;
 
   constructor(url: string) {
@@ -8,26 +8,35 @@ class Service {
 
   async post(data: { [key: string]: string | number | Date }) {
     const response = await fetch(this.url, {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify(data),
       headers: {
-        "Content-Type": "application/json;charset=utf-8",
+        'Content-Type': 'application/json;charset=utf-8',
       },
     });
     if (response.ok) {
       const json = await response.json();
       return json;
     }
-    return "Error";
+    return 'Error';
   }
 
   async get() {
     const response = await fetch(this.url);
     if (response.ok) {
       const json = await response.json();
-      return JSON.parse(json);
+      return json;
     }
-    return "Error";
+    return 'Error';
+  }
+
+  async getById(id: number) {
+    const response = await fetch(`${this.url}/${id}`);
+    if (response.ok) {
+      const json = await response.json();
+      return json;
+    }
+    return 'Error';
   }
 }
 

@@ -1,20 +1,7 @@
-import { Box } from "@/ui-kit";
+import { Box } from '@/ui-kit';
+import { ProfileData as ProfileDataType } from '../types';
 
-type ProfileDataProps = {
-  firstName: string;
-  lastName: string;
-  dateOfBirth: Date;
-  country: string;
-  city: string;
-};
-
-const ProfileData = ({
-  firstName,
-  lastName,
-  dateOfBirth,
-  country,
-  city,
-}: ProfileDataProps) => {
+const ProfileData = ({ firstName, lastName, dateOfBirth, country, city }: ProfileDataType) => {
   return (
     <Box>
       <h1>

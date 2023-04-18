@@ -7,7 +7,7 @@ import { CreateUserDto } from './create-user.dto';
 export class UsersService {
   constructor(@InjectModel(User) private userRepository: typeof User) {}
 
-  async getById(id: number) {
+  async getUserById(id: number) {
     const user = await this.userRepository.findByPk(id, {
       attributes: {
         exclude: ['email', 'password'],
