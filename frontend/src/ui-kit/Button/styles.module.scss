@@ -1,7 +1,6 @@
 @import "@/styles/colors.scss";
 
 .button {
-  padding: 0.75rem 1rem;
   border-radius: 0.25rem;
   font-weight: 700;
   cursor: pointer;
@@ -49,5 +48,13 @@
       color: $gray-dark;
       border-color: $gray-dark;
     }
+  }
+
+  &.small {
+    padding: 0.5rem 1rem;
+  }
+
+  &.large {
+    padding: 0.75rem 1rem;
   }
 }

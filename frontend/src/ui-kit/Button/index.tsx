@@ -5,6 +5,7 @@ type ButtonProps = {
   onClick: () => void;
   disabled?: boolean;
   variant?: "contained" | "outlined";
+  size?: "small" | "large";
 };
 
 const Button = ({
@@ -12,10 +13,11 @@ const Button = ({
   onClick,
   disabled = false,
   variant = "contained",
+  size = "large",
 }: ButtonProps) => {
   return (
     <button
-      className={`${styles.button} ${styles[variant]}`}
+      className={`${styles.button} ${styles[variant]} ${styles[size]}`}
       type="button"
       onClick={onClick}
       disabled={disabled}

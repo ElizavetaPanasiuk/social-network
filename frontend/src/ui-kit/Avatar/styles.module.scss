@@ -1,6 +1,19 @@
 .avatar {
-  width: 5rem;
-  height: 5rem;
   border-radius: 50%;
   object-fit: cover;
+
+  &.small {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  &.medium {
+    width: 5rem;
+    height: 5rem;
+  }
+
+  &.large {
+    width: 10rem;
+    height: 10rem;
+  }
 }
