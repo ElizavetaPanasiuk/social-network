@@ -1,7 +1,16 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { ApiOperation, ApiTags, ApiResponse } from '@nestjs/swagger';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './create-post.dto';
+import { UpdatePostDto } from './update-post.dto';
 
 @ApiTags('Posts')
 @Controller('posts')
@@ -20,6 +29,12 @@ export class PostsController {
   @Post()
   createPost(@Body() createPostDto: CreatePostDto) {
     return this.postsService.createPost(createPostDto);
+  }
+
+  @ApiOperation({ summary: 'Update post' })
+  @Put(':id')
+  updatePost(@Param('id') id: number, @Body() updatePostDto: UpdatePostDto) {
+    return this.postsService.updatePost(id, updatePostDto);
   }
 
   @ApiOperation({ summary: 'Delete post' })

@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Post } from './post.model';
 import { User } from '../users/user.model';
 import { CreatePostDto } from './create-post.dto';
+import { UpdatePostDto } from './update-post.dto';
 
 @Injectable()
 export class PostsService {
@@ -24,6 +25,16 @@ export class PostsService {
   async createPost(dto: CreatePostDto) {
     const post = await this.postRepository.create(dto);
     return post;
+  }
+
+  async updatePost(id: number, dto: UpdatePostDto) {
+    const [, [updatedPost]] = await this.postRepository.update(dto, {
+      where: {
+        id,
+      },
+      returning: true,
+    });
+    return updatedPost;
   }
 
   async removePost(id: number) {
