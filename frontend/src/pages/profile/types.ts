@@ -1,10 +1,12 @@
 export type Post = {
   id: number;
-  firstName: string;
-  lastName: string;
   avatar: string;
   text: string;
-  createdAt: Date;
+  createdAt: string;
+  author: {
+    firstName: string;
+    lastName: string;
+  };
 };
 
 export type ProfileData = {

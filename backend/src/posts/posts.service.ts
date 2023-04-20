@@ -18,23 +18,34 @@ export class PostsService {
         model: User,
         attributes: ['firstName', 'lastName'],
       },
+      order: [['createdAt', 'DESC']],
     });
     return posts;
   }
 
-  async createPost(dto: CreatePostDto) {
-    const post = await this.postRepository.create(dto);
+  async getPostById(id: number) {
+    const post = await this.postRepository.findByPk(id, {
+      include: {
+        model: User,
+        attributes: ['firstName', 'lastName'],
+      },
+    });
     return post;
   }
 
+  async createPost(dto: CreatePostDto) {
+    const post = await this.postRepository.create(dto);
+    return await this.getPostById(post.id);
+  }
+
   async updatePost(id: number, dto: UpdatePostDto) {
-    const [, [updatedPost]] = await this.postRepository.update(dto, {
+    await this.postRepository.update(dto, {
       where: {
         id,
       },
       returning: true,
     });
-    return updatedPost;
+    return await this.getPostById(id);
   }
 
   async removePost(id: number) {
