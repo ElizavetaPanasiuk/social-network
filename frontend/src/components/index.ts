@@ -1,4 +1,4 @@
 import Layout from "./Layout";
-import Sidebar from "./Sidebar";
+import ProfileCard from "./ProfileCard";
 
-export { Layout, Sidebar };
+export { Layout, ProfileCard };

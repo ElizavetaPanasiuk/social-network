@@ -6,12 +6,11 @@ import {
   Post,
   ProfileData,
 } from "./components";
-import { Post as PostType, ProfileData as ProfileDataType } from "./types";
-import { useEffect, useState } from "react";
 import { ProfileService, PostsService } from "./service";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
+import { useQuery } from "@/hooks";
 
 const ProfilePage = () => {
   const profileService = new ProfileService();
@@ -20,13 +19,12 @@ const ProfilePage = () => {
   const userId = useSelector((state: RootState) => state.user.id);
   const profileId = Number(params.profileId);
 
-  const [profileData, setProfileData] = useState<ProfileDataType>();
-  const [posts, setPosts] = useState<PostType[]>([]);
-
-  const getPosts = async () => {
-    const data = await postsService.getPostsByUserId(profileId);
-    setPosts(data);
-  };
+  const [loadingPosts, posts, setPosts] = useQuery(() =>
+    postsService.getPostsByUserId(profileId)
+  );
+  const [loadingProfile, profile] = useQuery(() =>
+    profileService.getProfileData(profileId)
+  );
 
   const addPost = async (text: string) => {
     const newPost = await postsService.createPost(Number(userId), text);
@@ -43,47 +41,37 @@ const ProfilePage = () => {
     setPosts(posts.filter((post) => post.id !== id));
   };
 
-  const getProfileData = async (profileId: number) => {
-    const profileData = await profileService.getProfileData(profileId);
-    setProfileData({
-      ...profileData,
-      avatar:
-        "https://avatars.mds.yandex.net/i?id=bb951d00a0cb85705e3fb55d825cb1340a0a6b18-8498443-images-thumbs&n=13",
-    });
-  };
-
-  useEffect(() => {
-    getProfileData(profileId);
-    getPosts();
-  }, []);
-
-  return profileData ? (
+  return loadingProfile ? (
+    <p>loading</p>
+  ) : (
     <div className={styles.profileContainer}>
       <div className={styles.row}>
         <AvatarBlock
-          firstName={profileData.firstName}
-          lastName={profileData.lastName}
-          avatar={profileData.avatar}
+          firstName={profile.firstName}
+          lastName={profile.lastName}
+          avatar="https://avatars.mds.yandex.net/i?id=bb951d00a0cb85705e3fb55d825cb1340a0a6b18-8498443-images-thumbs&n=13"
         />
-        <ProfileData {...profileData} />
+        <ProfileData {...profile} />
       </div>
       <div className={styles.row}>
         <Friends />
         <div className={styles.posts}>
           {userId === profileId && <CreatePost addPost={addPost} />}
-          {posts.map((post) => (
-            <Post
-              key={post.id}
-              {...post}
-              updatePost={updatePost}
-              removePost={removePost}
-            />
-          ))}
+          {loadingPosts ? (
+            <p>loading</p>
+          ) : (
+            posts.map((post) => (
+              <Post
+                key={post.id}
+                {...post}
+                updatePost={updatePost}
+                removePost={removePost}
+              />
+            ))
+          )}
         </div>
       </div>
     </div>
-  ) : (
-    <p>loading guys, wait</p>
   );
 };
 

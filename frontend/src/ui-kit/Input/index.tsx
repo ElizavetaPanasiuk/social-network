@@ -5,6 +5,7 @@ type InputProps = {
   onChange: (value: string) => void;
   placeholder?: string;
   type?: "text" | "password";
+  onEnter?: () => void;
 };
 
 const Input = ({
@@ -12,6 +13,7 @@ const Input = ({
   onChange,
   placeholder = "",
   type = "text",
+  onEnter = () => {},
 }: InputProps) => {
   return (
     <input
@@ -20,6 +22,11 @@ const Input = ({
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
       type={type}
+      onKeyUp={(e) => {
+        if (e.key === "Enter") {
+          onEnter();
+        }
+      }}
     />
   );
 };

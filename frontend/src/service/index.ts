@@ -20,8 +20,8 @@ class Service {
     return "Error";
   }
 
-  async get() {
-    const response = await fetch(this.url);
+  async get(searchQuery: string) {
+    const response = await fetch(`${this.url}${searchQuery}`);
     if (response.ok) {
       return await response.json();
     }
