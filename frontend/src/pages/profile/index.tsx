@@ -49,7 +49,7 @@ const ProfilePage = () => {
         <AvatarBlock
           firstName={profile.firstName}
           lastName={profile.lastName}
-          avatar="https://avatars.mds.yandex.net/i?id=bb951d00a0cb85705e3fb55d825cb1340a0a6b18-8498443-images-thumbs&n=13"
+          avatar={profile.avatar}
         />
         <ProfileData {...profile} />
       </div>

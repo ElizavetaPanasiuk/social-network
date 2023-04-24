@@ -9,6 +9,7 @@ interface UserCreationAttrs {
   readonly dateOfBirth: Date;
   readonly country: string;
   readonly city: string;
+  readonly avatar: string;
 }
 
 @Table({ tableName: 'users' })
@@ -74,4 +75,11 @@ export class User extends Model<User, UserCreationAttrs> {
     allowNull: true,
   })
   city: string;
+
+  @ApiProperty({ example: 'TODO:ADD', description: 'Avatar' })
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  avatar: string;
 }

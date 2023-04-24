@@ -32,14 +32,17 @@ export class AuthService {
     };
   }
 
-  async singUp(signUpDto: CreateUserDto) {
+  async singUp(file: Express.Multer.File, signUpDto: CreateUserDto) {
     const passwordHash = await this.hashService.hashPassword(
       signUpDto.password,
     );
-    const { id, firstName, lastName } = await this.userService.createUser({
-      ...signUpDto,
-      password: passwordHash,
-    });
+    const { id, firstName, lastName } = await this.userService.createUser(
+      file,
+      {
+        ...signUpDto,
+        password: passwordHash,
+      },
+    );
 
     return {
       access_token: await this.jwtService.signAsync(

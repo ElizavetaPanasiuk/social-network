@@ -1,40 +1,37 @@
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button, Input, Select } from "@/ui-kit";
+import { RegistrationData } from "../types/registrationData";
 
 type Step3Props = {
   onContinue: () => void;
+  registrationData: RegistrationData;
+  onChange: (key: keyof RegistrationData, value: string) => void;
 };
 
-const Step3 = ({ onContinue }: Step3Props) => {
+const Step3 = ({ onContinue, registrationData, onChange }: Step3Props) => {
   const { t } = useTranslation();
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
-  const [country, setCountry] = useState("");
-  const [city, setCity] = useState("");
 
   return (
     <>
       <h2>{t("Personal information")}</h2>
       <Input
-        value={firstName}
-        onChange={setFirstName}
+        value={registrationData.firstName}
+        onChange={(value) => onChange("firstName", value)}
         placeholder={t("Name") as string}
       />
       <Input
-        value={lastName}
-        onChange={setLastName}
+        value={registrationData.lastName}
+        onChange={(value) => onChange("lastName", value)}
         placeholder={t("Surname") as string}
       />
       <Input
-        value={dateOfBirth}
-        onChange={setDateOfBirth}
+        value={registrationData.dateOfBirth}
+        onChange={(value) => onChange("dateOfBirth", value)}
         placeholder={t("Birthday") as string}
       />
       <Select
-        value={country}
-        onChange={setCountry}
+        value={registrationData.country}
+        onChange={(value) => onChange("country", value)}
         label={t("Country")}
         options={[
           { label: "Беларусь", value: "Беларусь" },
@@ -42,15 +39,15 @@ const Step3 = ({ onContinue }: Step3Props) => {
         ]}
       />
       <Select
-        value={city}
-        onChange={setCity}
+        value={registrationData.city}
+        onChange={(value) => onChange("city", value)}
         label={t("City")}
         options={[
           { label: "Минск", value: "Минск" },
           { label: "Брест", value: "Брест" },
         ]}
       />
-      <Button title={t("Register")} onClick={onContinue} />
+      <Button title={t("Continue")} onClick={onContinue} />
     </>
   );
 };

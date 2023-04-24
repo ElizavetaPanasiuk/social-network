@@ -6,14 +6,19 @@ class Service {
     this.url = `${this.BASE_URL}/${url}`;
   }
 
-  async post(data: { [key: string]: string | number | Date }) {
-    const response = await fetch(this.url, {
+  async post(data: { [key: string]: string | number | Date } | FormData) {
+    const options: RequestInit = {
       method: "POST",
-      body: JSON.stringify(data),
-      headers: {
+      body: data instanceof FormData ? data : JSON.stringify(data),
+    };
+
+    if (!(data instanceof FormData)) {
+      options.headers = {
         "Content-Type": "application/json;charset=utf-8",
-      },
-    });
+      };
+    }
+
+    const response = await fetch(this.url, options);
     if (response.ok) {
       return await response.json();
     }

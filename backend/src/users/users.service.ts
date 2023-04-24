@@ -3,10 +3,15 @@ import { InjectModel } from '@nestjs/sequelize';
 import { User } from './user.model';
 import { CreateUserDto } from './create-user.dto';
 import { Op } from 'sequelize';
+import { FilesService } from 'src/files/files.service';
+import * as path from 'path';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User) private userRepository: typeof User) {}
+  constructor(
+    @InjectModel(User) private userRepository: typeof User,
+    private filesService: FilesService,
+  ) {}
 
   async getUserById(id: number) {
     const user = await this.userRepository.findByPk(id, {
@@ -17,8 +22,9 @@ export class UsersService {
     return user;
   }
 
-  async createUser(dto: CreateUserDto) {
-    const user = await this.userRepository.create(dto);
+  async createUser(file: Express.Multer.File, dto: CreateUserDto) {
+    const avatar = await this.filesService.createFile(file);
+    const user = await this.userRepository.create({ avatar, ...dto });
     return user;
   }
 
@@ -85,7 +91,7 @@ export class UsersService {
       };
     }
     const users = await this.userRepository.findAll({
-      where: searchParams,
+      where: searchParams, // TODO: exclude current user from the kust
       order: [
         ['firstName', 'ASC'],
         ['lastName', 'ASC'],

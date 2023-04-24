@@ -1,8 +1,15 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  UseInterceptors,
+  UploadedFile,
+} from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { SignInDto } from './sign-in.dto';
 import { CreateUserDto } from 'src/users/create-user.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('auth')
 export class AuthController {
@@ -18,7 +25,11 @@ export class AuthController {
   @ApiOperation({ summary: 'Sign up' })
   @ApiResponse({ status: 201, type: SignInDto })
   @Post('signUp')
-  signUp(@Body() signUpDto: CreateUserDto) {
-    return this.authService.singUp(signUpDto);
+  @UseInterceptors(FileInterceptor('avatar'))
+  signUp(
+    @UploadedFile() file: Express.Multer.File,
+    @Body() signUpDto: CreateUserDto,
+  ) {
+    return this.authService.singUp(file, signUpDto);
   }
 }
