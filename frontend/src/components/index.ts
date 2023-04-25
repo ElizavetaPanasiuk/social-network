@@ -1,4 +1,4 @@
 import Layout from "./Layout";
-import ProfileCard from "./ProfileCard";
+import ProfileRow from "./ProfileRow";
 
-export { Layout, ProfileCard };
+export { Layout, ProfileRow };

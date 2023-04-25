@@ -25,7 +25,9 @@ import * as path from 'path';
       models: [User],
       autoLoadModels: true,
     }),
-    ServeStaticModule.forRoot({ rootPath: path.resolve(__dirname, 'static') }),
+    ServeStaticModule.forRoot({
+      rootPath: path.resolve(__dirname, '..', 'static'),
+    }),
     UsersModule,
     AuthModule,
     PostModule,

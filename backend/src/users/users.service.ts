@@ -4,7 +4,6 @@ import { User } from './user.model';
 import { CreateUserDto } from './create-user.dto';
 import { Op } from 'sequelize';
 import { FilesService } from 'src/files/files.service';
-import * as path from 'path';
 
 @Injectable()
 export class UsersService {

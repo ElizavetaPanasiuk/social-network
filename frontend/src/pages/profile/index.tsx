@@ -16,7 +16,7 @@ const ProfilePage = () => {
   const profileService = new ProfileService();
   const postsService = new PostsService();
   const params = useParams();
-  const userId = useSelector((state: RootState) => state.user.id);
+  const userId = useSelector((state: RootState) => state.user.id as number);
   const profileId = Number(params.profileId);
 
   const [loadingPosts, posts, setPosts] = useQuery(() =>
@@ -27,7 +27,7 @@ const ProfilePage = () => {
   );
 
   const addPost = async (text: string) => {
-    const newPost = await postsService.createPost(Number(userId), text);
+    const newPost = await postsService.createPost(userId, text);
     setPosts([newPost, ...posts]);
   };
 

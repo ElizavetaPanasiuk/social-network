@@ -41,8 +41,8 @@ class Service {
     return "Error";
   }
 
-  async removeById(id: number) {
-    const response = await fetch(`${this.url}/${id}`, {
+  async removeById(id: number, url: string = "") {
+    const response = await fetch(`${this.url}${url}/${id}`, {
       method: "DELETE",
     });
     if (response.ok) {
@@ -51,8 +51,12 @@ class Service {
     return "Error";
   }
 
-  async updateById(id: number, data: { [key: string]: string }) {
-    const response = await fetch(`${this.url}/${id}`, {
+  async updateById(
+    id: number,
+    data: { [key: string]: string } = {},
+    url: string = ""
+  ) {
+    const response = await fetch(`${this.url}${url}/${id}`, {
       method: "PUT",
       body: JSON.stringify(data),
       headers: {

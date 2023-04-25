@@ -1,4 +1,12 @@
-import { Controller, Post, Get, Param, Body, Put } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Get,
+  Param,
+  Body,
+  Put,
+  Delete,
+} from '@nestjs/common';
 import { FriendRequestsService } from './friend-requests.service';
 import { ApiOperation } from '@nestjs/swagger';
 import { CreateFriendRequestDto } from './create-friend-request.dto';
@@ -10,7 +18,6 @@ export class FriendRequestsController {
   @ApiOperation({ summary: 'Create friend request' })
   @Post()
   async createRequest(@Body() createFriendRequestDto: CreateFriendRequestDto) {
-    console.log('DTO:', createFriendRequestDto);
     return this.friendRequestsService.createRequest(createFriendRequestDto);
   }
 
@@ -26,23 +33,29 @@ export class FriendRequestsController {
     return this.friendRequestsService.declineRequest(id);
   }
 
+  @ApiOperation({ summary: 'Cancel friend request' })
+  @Delete('cancel/:id')
+  async cancelRequest(@Param('id') id: number) {
+    return this.friendRequestsService.cancelRequest(id);
+  }
+
   @ApiOperation({
     summary:
       'Get a list of friend requests waiting for other user (requestee) to approve or decline',
   })
-  @Get('requested/:userId')
-  async getRequestsInited(@Param('userId') userId: number) {
+  @Get('outcoming/:userId')
+  async getOutcomingRequests(@Param('userId') userId: number) {
     // TODO: get userID from token
-    return this.friendRequestsService.getRequestsInited(userId);
+    return this.friendRequestsService.getOutcomingRequests(userId);
   }
 
   @ApiOperation({
     summary:
       'Get a list of friend requests waiting for your (requester) approve or decline',
   })
-  @Get('received/:userId')
-  async getRequestsReceived(@Param('userId') userId: number) {
-    return this.friendRequestsService.getRequestsReceived(userId);
+  @Get('incoming/:userId')
+  async getIncomingRequests(@Param('userId') userId: number) {
+    return this.friendRequestsService.getIncomingRequests(userId);
     //TODO: get userID from token
   }
 

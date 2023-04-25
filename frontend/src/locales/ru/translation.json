@@ -28,5 +28,15 @@
   "What's new?": "Что у вас нового?",
   "Save": "Сохранить",
   "Enter post text": "Введите текст поста",
-  "Search": "Поиск"
+  "Search": "Поиск",
+  "Add to friends": "Добавить в друзья",
+  "Incoming": "Входящие",
+  "Outcoming": "Исходящие",
+  "My friends": "Мои друзья",
+  "Friend requests": "Заявки в друзья",
+  "Search for friends": "Поиск друзей",
+  "Approve": "Принять",
+  "Decline": "Отклонить",
+  "Cancel": "Отменить",
+  "Request friends": "Добавить в друзья"
 }

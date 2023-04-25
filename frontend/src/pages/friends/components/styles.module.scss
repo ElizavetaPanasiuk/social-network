@@ -1,0 +1,16 @@
+.friendsLayout {
+  display: flex;
+  gap: 1rem;
+
+  > :first-child {
+    flex: 2;
+  }
+
+  .navigationContainer {
+    flex: 1;
+
+    > :nth-child(n) {
+      display: block;
+    }
+  }
+}

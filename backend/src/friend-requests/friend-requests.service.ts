@@ -61,26 +61,65 @@ export class FriendRequestsService {
     );
   }
 
-  async getRequestsInited(userId: number) {
-    return await this.friendRequestsRepository.findAll({
+  async cancelRequest(requestId: number) {
+    return await this.friendRequestsRepository.destroy({
+      where: {
+        id: requestId,
+      },
+    });
+  }
+
+  async getOutcomingRequests(userId: number) {
+    const requests = await this.friendRequestsRepository.findAll({
       where: {
         requestorId: userId,
         status: 'pending',
       },
+      include: {
+        model: User,
+        as: 'requestee',
+        attributes: ['id', 'firstName', 'lastName', 'avatar'],
+      },
     });
+
+    return requests.map(
+      ({ id: requestId, requestee: { id, firstName, lastName, avatar } }) => ({
+        requestId,
+        id,
+        firstName,
+        lastName,
+        avatar,
+      }),
+    );
   }
 
-  async getRequestsReceived(userId: number) {
-    return await this.friendRequestsRepository.findAll({
+  async getIncomingRequests(userId: number) {
+    const requests = await this.friendRequestsRepository.findAll({
       where: {
         requesteeId: userId,
         status: 'pending',
       },
+      attributes: ['id'],
+      include: {
+        model: User,
+        as: 'requestor',
+        attributes: ['id', 'firstName', 'lastName', 'avatar'],
+      },
     });
+
+    return requests.map(
+      ({ id: requestId, requestor: { id, firstName, lastName, avatar } }) => ({
+        requestId,
+        id,
+        firstName,
+        lastName,
+        avatar,
+      }),
+    );
   }
 
   async getFriendsByUserId(userId: number) {
-    return await this.friendRequestsRepository.findAll({
+    const requests = await this.friendRequestsRepository.findAll({
       where: {
         [Op.or]: [{ requestorId: userId }, { requesteeId: userId }],
         status: 'approved',
@@ -89,14 +128,18 @@ export class FriendRequestsService {
         {
           model: User,
           as: 'requestor',
-          attributes: ['id'],
+          attributes: ['id', 'firstName', 'lastName', 'avatar'],
         },
         {
           model: User,
           as: 'requestee',
-          attributes: ['id'],
+          attributes: ['id', 'firstName', 'lastName', 'avatar'],
         },
       ],
     });
+
+    return requests.map((request) =>
+      request.requestor.id === +userId ? request.requestee : request.requestor,
+    );
   }
 }

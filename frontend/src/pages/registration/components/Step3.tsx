@@ -34,7 +34,7 @@ const Step3 = ({ onContinue, registrationData, onChange }: Step3Props) => {
         onChange={(value) => onChange("country", value)}
         label={t("Country")}
         options={[
-          { label: "Беларусь", value: "Беларусь" },
+          { label: "Belarus", value: "Belarus" },
           { label: "Польша", value: "Польша" },
         ]}
       />
@@ -43,8 +43,8 @@ const Step3 = ({ onContinue, registrationData, onChange }: Step3Props) => {
         onChange={(value) => onChange("city", value)}
         label={t("City")}
         options={[
-          { label: "Минск", value: "Минск" },
-          { label: "Брест", value: "Брест" },
+          { label: "Minsk", value: "Minsk" },
+          { label: "Brest", value: "Brest" },
         ]}
       />
       <Button title={t("Continue")} onClick={onContinue} />
