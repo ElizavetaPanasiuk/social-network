@@ -7,7 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { PostModule } from './posts/posts.module';
 import { FilesModule } from './files/files.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { FriendRequestsModule } from './friend-requests/friend-requests.module';
+import { SubscriptionsModule } from './subscriptions/subscriptions.module';
 import * as path from 'path';
 
 @Module({
@@ -32,7 +32,7 @@ import * as path from 'path';
     AuthModule,
     PostModule,
     FilesModule,
-    FriendRequestsModule,
+    SubscriptionsModule,
   ],
 })
 export class AppModule {}
