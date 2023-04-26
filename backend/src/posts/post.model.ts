@@ -12,6 +12,7 @@ import { User } from '../users/user.model';
 interface PostCreationAttrs {
   readonly text: string;
   readonly userId: number;
+  readonly photo: string;
 }
 
 @Table({ tableName: 'posts' })
