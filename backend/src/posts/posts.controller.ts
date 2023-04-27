@@ -33,7 +33,6 @@ export class PostsController {
   @UseGuards(AuthGuard)
   @Post()
   createPost(@Request() req, @Body() createPostDto: CreatePostDto) {
-    console.log('REQUEST:', req);
     return this.postsService.createPost(createPostDto);
   }
 
