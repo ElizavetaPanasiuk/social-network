@@ -26,9 +26,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid password');
     }
     return {
-      access_token: await this.jwtService.signAsync(user, {
-        secret: process.env.JWT_SECRET,
-      }),
+      access_token: await this.jwtService.signAsync(user),
     };
   }
 
@@ -45,12 +43,11 @@ export class AuthService {
     );
 
     return {
-      access_token: await this.jwtService.signAsync(
-        { id, firstName, lastName },
-        {
-          secret: process.env.JWT_SECRET,
-        },
-      ),
+      access_token: await this.jwtService.signAsync({
+        id,
+        firstName,
+        lastName,
+      }),
     };
   }
 }

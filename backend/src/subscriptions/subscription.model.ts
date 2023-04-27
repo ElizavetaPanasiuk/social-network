@@ -45,9 +45,9 @@ export class Subscription extends Model<
   })
   readonly profileId: number;
 
-  @BelongsTo(() => User, 'subscriber')
+  @BelongsTo(() => User, 'subscriberId')
   subscriber: User;
 
-  @BelongsTo(() => User, 'profile')
+  @BelongsTo(() => User, 'profileId')
   profile: User;
 }

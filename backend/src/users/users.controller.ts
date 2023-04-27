@@ -7,12 +7,14 @@ import {
   Query,
   UseInterceptors,
   UploadedFile,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { User } from './user.model';
 import { CreateUserDto } from './create-user.dto';
 import { UsersService } from './users.service';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @ApiTags('Users')
 @Controller('users')
@@ -21,6 +23,7 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Create user' })
   @ApiResponse({ status: 201, type: User })
+  @UseGuards(AuthGuard)
   @Post()
   @UseInterceptors(FileInterceptor('avatar'))
   post(
@@ -32,6 +35,7 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Search users' })
   @ApiResponse({ status: 200, type: User })
+  @UseGuards(AuthGuard)
   @Get()
   search(
     @Query('search') search: string,
@@ -45,6 +49,7 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Get user by ID' })
   @ApiResponse({ status: 200, type: User })
+  @UseGuards(AuthGuard)
   @Get(':id')
   getById(@Param('id') id: number) {
     return this.usersService.getUserById(id);

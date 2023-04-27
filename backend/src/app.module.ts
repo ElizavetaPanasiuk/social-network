@@ -10,6 +10,9 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { SubscriptionsModule } from './subscriptions/subscriptions.module';
 import { CommentsModule } from './comments/comments.module';
 import * as path from 'path';
+import { Post } from './posts/post.model';
+import { Subscription } from './subscriptions/subscription.model';
+import { Comment } from './comments/comment.model';
 
 @Module({
   imports: [
@@ -23,7 +26,7 @@ import * as path from 'path';
       username: process.env.PG_USERNAME,
       password: process.env.PG_PASSWORD,
       database: process.env.PG_DATABASE,
-      models: [User],
+      models: [Comment, User, Post, Subscription],
       autoLoadModels: true,
     }),
     ServeStaticModule.forRoot({

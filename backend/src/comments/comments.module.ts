@@ -3,6 +3,7 @@ import { CommentsService } from './comments.service';
 import { CommentsController } from './comments.controller';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { User } from 'src/users/user.model';
+import { Comment } from './comment.model';
 
 @Module({
   providers: [CommentsService],

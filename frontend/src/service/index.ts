@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 class Service {
   private BASE_URL = "http://localhost:5000";
   private url: string;
@@ -15,6 +17,7 @@ class Service {
     if (!(data instanceof FormData)) {
       options.headers = {
         "Content-Type": "application/json;charset=utf-8",
+        Authorization: `Bearer ${Cookies.get("token")}`,
       };
     }
 
@@ -26,7 +29,12 @@ class Service {
   }
 
   async get(searchQuery: string) {
-    const response = await fetch(`${this.url}${searchQuery}`);
+    const response = await fetch(`${this.url}${searchQuery}`, {
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        Authorization: `Bearer ${Cookies.get("token")}`,
+      },
+    });
     if (response.ok) {
       return await response.json();
     }
@@ -34,7 +42,12 @@ class Service {
   }
 
   async getById(id: number) {
-    const response = await fetch(`${this.url}/${id}`);
+    const response = await fetch(`${this.url}/${id}`, {
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        Authorization: `Bearer ${Cookies.get("token")}`,
+      },
+    });
     if (response.ok) {
       return await response.json();
     }
@@ -44,6 +57,10 @@ class Service {
   async removeById(id: number, url: string = "") {
     const response = await fetch(`${this.url}${url}/${id}`, {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        Authorization: `Bearer ${Cookies.get("token")}`,
+      },
     });
     if (response.ok) {
       return await response.json();
@@ -61,6 +78,7 @@ class Service {
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json;charset=utf-8",
+        Authorization: `Bearer ${Cookies.get("token")}`,
       },
     });
     if (response.ok) {
