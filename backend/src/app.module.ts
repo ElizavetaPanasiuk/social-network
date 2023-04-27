@@ -13,6 +13,8 @@ import * as path from 'path';
 import { Post } from './posts/post.model';
 import { Subscription } from './subscriptions/subscription.model';
 import { Comment } from './comments/comment.model';
+import { CommentLike } from './comments/comment-like';
+import { PostLike } from './posts/post-like.model';
 
 @Module({
   imports: [
@@ -26,7 +28,7 @@ import { Comment } from './comments/comment.model';
       username: process.env.PG_USERNAME,
       password: process.env.PG_PASSWORD,
       database: process.env.PG_DATABASE,
-      models: [Comment, User, Post, Subscription],
+      models: [Comment, User, Post, Subscription, CommentLike, PostLike],
       autoLoadModels: true,
     }),
     ServeStaticModule.forRoot({
