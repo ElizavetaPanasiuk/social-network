@@ -14,6 +14,7 @@ import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { CreatePostLikeDto } from './dto/create-like.dto';
 
 @ApiTags('Posts')
 @Controller('posts')
@@ -49,5 +50,17 @@ export class PostsController {
   @Delete(':id')
   removePost(@Param('id') id: number) {
     return this.postsService.removePost(id);
+  }
+
+  @ApiOperation({ summary: 'Like post' })
+  @Post()
+  likePost(@Body() createLikeDto: CreatePostLikeDto) {
+    return this.postsService.likePost(createLikeDto);
+  }
+
+  @ApiOperation({ summary: 'Dislike post' })
+  @Delete()
+  dislikePost(@Body() createLikeDto: CreatePostLikeDto) {
+    return this.postsService.dislikePost(createLikeDto);
   }
 }

@@ -6,9 +6,11 @@ import {
   DataType,
   ForeignKey,
   BelongsTo,
+  BelongsToMany,
 } from 'sequelize-typescript';
 import { Post } from '../posts/post.model';
 import { User } from '../users/user.model';
+import { CommentLike } from './comment-like';
 
 interface CommentCreationAttrs {
   readonly text: string;
@@ -64,4 +66,7 @@ export class Comment extends Model<Comment, CommentCreationAttrs> {
 
   @BelongsTo(() => Post)
   post: Post;
+
+  @BelongsToMany(() => User, () => CommentLike)
+  likes: User[];
 }

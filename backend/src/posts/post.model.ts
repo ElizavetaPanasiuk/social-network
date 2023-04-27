@@ -6,8 +6,10 @@ import {
   Model,
   BelongsTo,
   ForeignKey,
+  BelongsToMany,
 } from 'sequelize-typescript';
 import { User } from '../users/user.model';
+import { PostLike } from './post-like.model';
 
 interface PostCreationAttrs {
   readonly text: string;
@@ -46,4 +48,7 @@ export class Post extends Model<Post, PostCreationAttrs> {
 
   @BelongsTo(() => User)
   author: User;
+
+  @BelongsToMany(() => User, () => PostLike)
+  likes: User[];
 }

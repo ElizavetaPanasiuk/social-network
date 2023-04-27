@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
+import { CreateCommentLikeDto } from './dto/create-like.dto';
 
 @Controller('comments')
 export class CommentsController {
@@ -41,5 +42,17 @@ export class CommentsController {
   @Delete('id')
   deleteComment(@Param('id') id: number) {
     return this.commentsService.deleteComment(id);
+  }
+
+  @ApiOperation({ summary: 'Like comment' })
+  @Post()
+  likeComment(@Body() createLikeDto: CreateCommentLikeDto) {
+    return this.commentsService.likeComment(createLikeDto);
+  }
+
+  @ApiOperation({ summary: 'Dislike comment' })
+  @Delete()
+  dislikeComment(@Body() createLikeDto: CreateCommentLikeDto) {
+    return this.commentsService.dislikeCommnet(createLikeDto);
   }
 }

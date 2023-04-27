@@ -4,10 +4,15 @@ import { Post } from './post.model';
 import { User } from '../users/user.model';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { CreatePostLikeDto } from './dto/create-like.dto';
+import { PostLike } from './post-like.model';
 
 @Injectable()
 export class PostsService {
-  constructor(@InjectModel(Post) private postRepository: typeof Post) {}
+  constructor(
+    @InjectModel(Post) private postRepository: typeof Post,
+    @InjectModel(PostLike) private postLikeRepository: typeof PostLike,
+  ) {}
 
   async getPostsByUserId(userId: number) {
     const posts = await this.postRepository.findAll({
@@ -52,6 +57,22 @@ export class PostsService {
     return this.postRepository.destroy({
       where: {
         id,
+      },
+    });
+  }
+
+  async likePost(dto: CreatePostLikeDto) {
+    return await this.postLikeRepository.create(dto);
+  }
+
+  //TODO: change on removing by id
+  async dislikePost(dto: CreatePostLikeDto) {
+    const { userId, postId } = dto;
+
+    return await this.postLikeRepository.destroy({
+      where: {
+        userId,
+        postId,
       },
     });
   }
