@@ -13,7 +13,7 @@ import { ApiOperation, ApiTags, ApiResponse } from '@nestjs/swagger';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
-import { AuthGuard } from 'src/auth/auth.guard';
+import { AuthGuard } from '../auth/auth.guard';
 import { CreatePostLikeDto } from './dto/create-like.dto';
 
 @ApiTags('Posts')
@@ -53,14 +53,14 @@ export class PostsController {
   }
 
   @ApiOperation({ summary: 'Like post' })
-  @Post()
+  @Post('like')
   likePost(@Body() createLikeDto: CreatePostLikeDto) {
     return this.postsService.likePost(createLikeDto);
   }
 
   @ApiOperation({ summary: 'Dislike post' })
-  @Delete()
-  dislikePost(@Body() createLikeDto: CreatePostLikeDto) {
-    return this.postsService.dislikePost(createLikeDto);
+  @Delete('dislike/:id')
+  dislikePost(@Param('id') id: number) {
+    return this.postsService.dislikePost(id);
   }
 }

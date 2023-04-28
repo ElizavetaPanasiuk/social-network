@@ -1,5 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, DataType, Table, Model } from 'sequelize-typescript';
+import { Column, DataType, Table, Model, HasMany } from 'sequelize-typescript';
+import { Post } from '../posts/post.model';
+import { Subscription } from '../subscriptions/subscription.model';
 
 interface UserCreationAttrs {
   readonly firstName: string;
@@ -82,4 +84,13 @@ export class User extends Model<User, UserCreationAttrs> {
     allowNull: true,
   })
   avatar: string;
+
+  @HasMany(() => Post)
+  posts: Post[];
+
+  @HasMany(() => Subscription)
+  subscribers: Subscription[];
+
+  @HasMany(() => Subscription)
+  subscriptions: Subscription[];
 }

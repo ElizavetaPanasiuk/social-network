@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { User } from './user.model';
 import { CreateUserDto } from './create-user.dto';
 import { Op } from 'sequelize';
-import { FilesService } from 'src/files/files.service';
+import { FilesService } from '../files/files.service';
 
 @Injectable()
 export class UsersService {
@@ -34,7 +34,7 @@ export class UsersService {
       },
       attributes: ['id', 'firstName', 'lastName'],
     });
-    return user.dataValues;
+    return user?.dataValues;
   }
 
   async getUserPasswordByEmail(email: string) {
@@ -99,5 +99,11 @@ export class UsersService {
       offset: size * (page - 1),
     });
     return users;
+  }
+
+  async deleteUser(id: number) {
+    return this.userRepository.destroy({
+      where: { id },
+    });
   }
 }

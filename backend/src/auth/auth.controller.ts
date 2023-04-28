@@ -8,7 +8,7 @@ import {
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { SignInDto } from './sign-in.dto';
-import { CreateUserDto } from 'src/users/create-user.dto';
+import { CreateUserDto } from '../users/create-user.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('auth')

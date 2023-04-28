@@ -5,6 +5,7 @@ import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { CommentLike } from './comment-like';
 import { CreateCommentLikeDto } from './dto/create-like.dto';
+import { User } from '../users/user.model';
 
 @Injectable()
 export class CommentsService {
@@ -17,6 +18,11 @@ export class CommentsService {
     return await this.commentRepository.findAll({
       where: {
         postId,
+      },
+      include: {
+        model: User,
+        as: 'likes',
+        attributes: ['id', 'firstName', 'lastName', 'avatar'],
       },
     });
   }
@@ -46,14 +52,10 @@ export class CommentsService {
     return await this.commentLikeRepository.create(dto);
   }
 
-  //TODO: change on removing by id
-  async dislikeCommnet(dto: CreateCommentLikeDto) {
-    const { userId, commentId } = dto;
-
+  async dislikeCommnet(id: number) {
     return await this.commentLikeRepository.destroy({
       where: {
-        userId,
-        commentId,
+        id,
       },
     });
   }

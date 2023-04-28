@@ -7,7 +7,7 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { User } from 'src/users/user.model';
+import { User } from '../users/user.model';
 
 interface SubscriptionCreationAttrs {
   readonly subscriberId: number;
@@ -32,7 +32,7 @@ export class Subscription extends Model<
     type: DataType.INTEGER,
     allowNull: false,
   })
-  readonly subscriberId: number;
+  subscriberId: number;
 
   @ApiProperty({
     example: 2,
@@ -43,7 +43,7 @@ export class Subscription extends Model<
     type: DataType.INTEGER,
     allowNull: false,
   })
-  readonly profileId: number;
+  profileId: number;
 
   @BelongsTo(() => User, 'subscriberId')
   subscriber: User;

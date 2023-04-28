@@ -8,13 +8,14 @@ import {
   UseInterceptors,
   UploadedFile,
   UseGuards,
+  Delete,
 } from '@nestjs/common';
 import { ApiResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { User } from './user.model';
 import { CreateUserDto } from './create-user.dto';
 import { UsersService } from './users.service';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { AuthGuard } from 'src/auth/auth.guard';
+import { AuthGuard } from '../auth/auth.guard';
 
 @ApiTags('Users')
 @Controller('users')
@@ -53,5 +54,12 @@ export class UsersController {
   @Get(':id')
   getById(@Param('id') id: number) {
     return this.usersService.getUserById(id);
+  }
+
+  @ApiOperation({ summary: 'Delete user' })
+  @UseGuards(AuthGuard)
+  @Delete(':id')
+  deleteUser(@Param('id') id: number) {
+    return this.usersService.deleteUser(id);
   }
 }

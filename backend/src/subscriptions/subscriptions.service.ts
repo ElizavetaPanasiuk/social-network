@@ -27,6 +27,12 @@ export class SubscriptionsService {
 
   async subscribe(dto: CreateSubscriptionDto) {
     const { subscriberId, profileId } = dto;
+    if (subscriberId === profileId) {
+      throw new HttpException(
+        "A user can't subscribe on himself",
+        HttpStatus.NOT_ACCEPTABLE,
+      );
+    }
     const existingSubscription = await this.subsciptionRepository.findOne({
       where: {
         subscriberId,

@@ -3,7 +3,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { User } from './user.model';
-import { FilesModule } from 'src/files/files.module';
+import { FilesModule } from '../files/files.module';
 
 @Module({
   controllers: [UsersController],

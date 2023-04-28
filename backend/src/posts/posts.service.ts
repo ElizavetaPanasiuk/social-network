@@ -21,7 +21,8 @@ export class PostsService {
       },
       include: {
         model: User,
-        attributes: ['firstName', 'lastName'],
+        as: 'likes',
+        attributes: ['id', 'firstName', 'lastName', 'avatar'],
       },
       order: [['createdAt', 'DESC']],
     });
@@ -29,12 +30,7 @@ export class PostsService {
   }
 
   async getPostById(id: number) {
-    const post = await this.postRepository.findByPk(id, {
-      include: {
-        model: User,
-        attributes: ['firstName', 'lastName'],
-      },
-    });
+    const post = await this.postRepository.findByPk(id);
     return post;
   }
 
@@ -65,14 +61,10 @@ export class PostsService {
     return await this.postLikeRepository.create(dto);
   }
 
-  //TODO: change on removing by id
-  async dislikePost(dto: CreatePostLikeDto) {
-    const { userId, postId } = dto;
-
+  async dislikePost(id: number) {
     return await this.postLikeRepository.destroy({
       where: {
-        userId,
-        postId,
+        id,
       },
     });
   }
