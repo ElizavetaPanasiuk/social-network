@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateSubscriptionDto } from './create-subscription.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { Subscription } from './subscription.model';
+import { User } from '../users/user.model';
 
 @Injectable()
 export class SubscriptionsService {
@@ -14,6 +15,11 @@ export class SubscriptionsService {
       where: {
         subscriberId: userId,
       },
+      include: {
+        model: User,
+        as: 'profile',
+        attributes: ['id', 'firstName', 'lastName', 'avatar'],
+      },
     });
   }
 
@@ -21,6 +27,11 @@ export class SubscriptionsService {
     return await this.subsciptionRepository.findAll({
       where: {
         profileId: userId,
+      },
+      include: {
+        model: User,
+        as: 'subscriber',
+        attributes: ['id', 'firstName', 'lastName', 'avatar'],
       },
     });
   }

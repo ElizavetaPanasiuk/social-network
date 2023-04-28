@@ -26,6 +26,8 @@ export class Subscription extends Model<
     autoIncrement: true,
     unique: true,
   })
+  id: number;
+
   @ApiProperty({ example: 1, description: 'Subscriber ID' })
   @ForeignKey(() => User)
   @Column({
