@@ -22,21 +22,10 @@
   "In 5 seconds you will be redirected to the login page": "Через 5 секунд вы будете перенаправлены на страницу входа",
   "Sign In": "Войти",
   "Profile": "Профиль",
-  "Friends": "Друзья",
   "Messenger": "Мессенджер",
   "Publish": "Опубликовать",
   "What's new?": "Что у вас нового?",
   "Save": "Сохранить",
   "Enter post text": "Введите текст поста",
-  "Search": "Поиск",
-  "Add to friends": "Добавить в друзья",
-  "Incoming": "Входящие",
-  "Outcoming": "Исходящие",
-  "My friends": "Мои друзья",
-  "Friend requests": "Заявки в друзья",
-  "Search for friends": "Поиск друзей",
-  "Approve": "Принять",
-  "Decline": "Отклонить",
-  "Cancel": "Отменить",
-  "Request friends": "Добавить в друзья"
+  "Search": "Поиск"
 }

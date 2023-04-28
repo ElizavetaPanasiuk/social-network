@@ -22,21 +22,10 @@
   "In 5 seconds you will be redirected to the login page": "In 5 seconds you will be redirected to the login page",
   "Sign In": "Sign In",
   "Profile": "Profile",
-  "Friends": "Friends",
   "Messenger": "Messenger",
   "Publish": "Publish",
   "What's new?": "What's new?",
   "Save": "Save",
   "Enter post text": "Enter post text",
-  "Search": "Search",
-  "Add to friends": "Add to friends",
-  "Incoming": "Incoming",
-  "Outcoming": "Outcoming",
-  "My friends": "My friends",
-  "Friend requests": "Friend requests",
-  "Search for friends": "Search for friends",
-  "Approve": "Approve",
-  "Decline": "Decline",
-  "Cancel": "Cancel",
-  "Request friends": "Request friends"
+  "Search": "Search"
 }

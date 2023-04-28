@@ -13,10 +13,6 @@ const Sidebar = () => {
       to: `/profile/${id}`,
     },
     {
-      title: t("Friends"),
-      to: "/friends",
-    },
-    {
       title: t("Messenger"),
       to: "/messenger",
     },
