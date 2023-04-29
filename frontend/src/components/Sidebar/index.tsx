@@ -1,6 +1,20 @@
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBell,
+  faEnvelope,
+  faUser,
+  faEdit,
+} from "@fortawesome/free-regular-svg-icons";
+import {
+  faHashtag,
+  faUser as faUserSolid,
+  faBell as faBellSolid,
+  faEnvelope as faEnvelopeSolid,
+  faEdit as faEditSolid,
+} from "@fortawesome/free-solid-svg-icons";
 import { RootState } from "@/store";
 import styles from "./styles.module.scss";
 
@@ -11,27 +25,56 @@ const Sidebar = () => {
     {
       title: t("Profile"),
       to: `/profile/${id}`,
+      icon: faUser,
+      activeIcon: faUserSolid,
     },
     {
-      title: t("Messenger"),
-      to: "/messenger",
+      title: t("Explore"),
+      to: "/explore",
+      icon: faHashtag,
+      activeIcon: faHashtag,
+    },
+    {
+      title: t("Messages"),
+      to: "/messages",
+      icon: faEnvelope,
+      activeIcon: faEnvelopeSolid,
+    },
+    {
+      title: t("Notifications"),
+      to: "/notifications",
+      icon: faBell,
+      activeIcon: faBellSolid,
+    },
+    {
+      title: t("Settings"),
+      to: "/settings",
+      icon: faEdit,
+      activeIcon: faEditSolid,
     },
   ];
 
   return (
     <nav>
-      <ul>
-        {MENU_ITEMS.map(({ to, title }) => (
-          <li key={to}>
-            <NavLink
-              className={({ isActive }) => (isActive ? styles.active : "")}
-              to={to}
-            >
+      {MENU_ITEMS.map(({ to, title, icon, activeIcon }) => (
+        <NavLink
+          className={({ isActive }) =>
+            `${styles.navLink} ${isActive ? styles.active : ""}`
+          }
+          key={to}
+          to={to}
+        >
+          {({ isActive }) => (
+            <>
+              <FontAwesomeIcon
+                icon={isActive ? activeIcon : icon}
+                className={styles.navIcon}
+              />
               {title}
-            </NavLink>
-          </li>
-        ))}
-      </ul>
+            </>
+          )}
+        </NavLink>
+      ))}
     </nav>
   );
 };

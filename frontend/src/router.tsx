@@ -1,10 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
 import {
+  ExplorePage,
   LoginPage,
-  MessengerPage,
+  MessagesPage,
+  NotificationsPage,
   ProfilePage,
   RegistrationPage,
-  SearchPage,
+  SettingsPage,
 } from "@/pages";
 import { Layout } from "./components";
 
@@ -26,12 +28,20 @@ const router = createBrowserRouter([
         element: <ProfilePage />,
       },
       {
-        path: "/messenger",
-        element: <MessengerPage />,
+        path: "/explore",
+        element: <ExplorePage />,
       },
       {
-        path: "/search",
-        element: <SearchPage />,
+        path: "/messages",
+        element: <MessagesPage />,
+      },
+      {
+        path: "/notifications",
+        element: <NotificationsPage />,
+      },
+      {
+        path: "/settings",
+        element: <SettingsPage />,
       },
     ],
   },

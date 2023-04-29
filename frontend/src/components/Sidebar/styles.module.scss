@@ -1,3 +1,24 @@
+@import "@/styles/colors.scss";
+
+.navLink {
+  display: block;
+  padding: 1rem;
+  border-radius: 1.5rem;
+  font-size: 1.25rem;
+
+  &:hover {
+    background-color: $gray-dark;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 0.5rem;
+  }
+
+  .navIcon {
+    margin-right: 1rem;
+  }
+}
+
 .active {
   font-weight: bold;
 }

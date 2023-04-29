@@ -22,10 +22,12 @@
   "In 5 seconds you will be redirected to the login page": "In 5 seconds you will be redirected to the login page",
   "Sign In": "Sign In",
   "Profile": "Profile",
-  "Messenger": "Messenger",
+  "Explore": "Explore",
+  "Messages": "Messages",
+  "Notifications": "Notifications",
+  "Settings": "Settings",
   "Publish": "Publish",
   "What's new?": "What's new?",
   "Save": "Save",
-  "Enter post text": "Enter post text",
-  "Search": "Search"
+  "Enter post text": "Enter post text"
 }

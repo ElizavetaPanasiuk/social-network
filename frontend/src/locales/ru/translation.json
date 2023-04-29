@@ -22,10 +22,12 @@
   "In 5 seconds you will be redirected to the login page": "Через 5 секунд вы будете перенаправлены на страницу входа",
   "Sign In": "Войти",
   "Profile": "Профиль",
-  "Messenger": "Мессенджер",
+  "Explore": "Обзор",
+  "Messages": "Сообщения",
+  "Notifications": "Уведомления",
+  "Settings": "Настройки",
   "Publish": "Опубликовать",
   "What's new?": "Что у вас нового?",
   "Save": "Сохранить",
-  "Enter post text": "Введите текст поста",
-  "Search": "Поиск"
+  "Enter post text": "Введите текст поста"
 }

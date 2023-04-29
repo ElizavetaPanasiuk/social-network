@@ -1,13 +1,17 @@
 import LoginPage from "./login";
-import MessengerPage from "./messenger";
 import RegistrationPage from "./registration";
+import ExplorePage from "./explore";
+import MessagesPage from "./messages";
+import NotificationsPage from "./notifications";
 import ProfilePage from "./profile";
-import SearchPage from "./search";
+import SettingsPage from "./settings";
 
 export {
   LoginPage,
-  MessengerPage,
   RegistrationPage,
+  ExplorePage,
+  MessagesPage,
+  NotificationsPage,
   ProfilePage,
-  SearchPage,
+  SettingsPage,
 };

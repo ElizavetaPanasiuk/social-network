@@ -40,13 +40,12 @@ export class PostsService {
   }
 
   async updatePost(id: number, dto: UpdatePostDto) {
-    await this.postRepository.update(dto, {
+    return await this.postRepository.update(dto, {
       where: {
         id,
       },
       returning: true,
     });
-    return await this.getPostById(id);
   }
 
   async removePost(id: number) {
