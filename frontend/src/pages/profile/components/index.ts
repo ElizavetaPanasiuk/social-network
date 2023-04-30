@@ -1,3 +1,4 @@
-import ProfileHeader from "./ProfileHeader";
+import ProfileInfo from "./ProfileInfo";
+import NewPost from "./NewPost";
 
-export { ProfileHeader };
+export { ProfileInfo, NewPost };

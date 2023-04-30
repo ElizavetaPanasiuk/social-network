@@ -23,9 +23,9 @@
     }
 
     &:disabled {
-      color: $gray-dark;
-      background-color: $gray-light;
-      border-color: $gray-light
+      color: $gray-light;
+      background-color: $gray-super-light;
+      border-color: $gray-super-light
     }
   }
 
@@ -45,8 +45,8 @@
     }
 
     &:disabled {
-      color: $gray-dark;
-      border-color: $gray-dark;
+      color: $gray-light;
+      border-color: $gray-light;
     }
   }
 

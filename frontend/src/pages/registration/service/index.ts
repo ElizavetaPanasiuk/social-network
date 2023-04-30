@@ -1,4 +1,4 @@
-import Service from "@/service";
+import { Service } from "@/service";
 import { RegistrationData } from "../types/registrationData";
 
 class RegistrationService extends Service {

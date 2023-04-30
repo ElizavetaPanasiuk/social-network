@@ -1,0 +1,23 @@
+@import "@/styles/colors.scss";
+
+.profileHeader {
+  .profileHeaderBackground {
+    background-color: $gray-light;
+    height: 12rem;
+    position: relative;
+
+    > :first-child {
+      position: absolute;
+      bottom: -5rem;
+      left: 1rem;
+    }
+  }
+
+  .profileInfo {
+    margin-top: 6rem;
+
+    .details {
+      color: $gray-dark;
+    }
+  }
+}

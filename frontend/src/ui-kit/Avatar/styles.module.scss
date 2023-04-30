@@ -1,3 +1,5 @@
+@import "@/styles/colors.scss";
+
 .avatar {
   border-radius: 50%;
   object-fit: cover;
@@ -15,5 +17,9 @@
   &.large {
     width: 10rem;
     height: 10rem;
+  }
+
+  &.border {
+    border: $white 0.25rem solid;
   }
 }

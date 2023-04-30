@@ -8,6 +8,7 @@ import {
   Put,
   UseGuards,
   Request,
+  Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags, ApiResponse } from '@nestjs/swagger';
 import { PostsService } from './posts.service';
@@ -24,8 +25,8 @@ export class PostsController {
   @ApiOperation({ summary: 'Get posts by user id' })
   @ApiResponse({ status: 200, type: Post })
   @UseGuards(AuthGuard)
-  @Get(':userId')
-  getPostsByUserId(@Param('userId') userId: number) {
+  @Get('')
+  getPostsByUserId(@Query('userId') userId: number) {
     return this.postsService.getPostsByUserId(userId);
   }
 

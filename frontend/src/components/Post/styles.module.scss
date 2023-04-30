@@ -1,0 +1,53 @@
+@import "@/styles/colors.scss";
+
+.post {
+  border-bottom: 1px solid $gray-light;
+  cursor: pointer;
+  padding: 1rem;
+  display: flex;
+  gap: 1rem;
+
+  &:hover {
+    background-color: $gray-super-light;
+  }
+
+  .postContent {
+    > :not(:last-child) {
+      margin-bottom: 0.5rem;
+    }
+
+    .postHeader {
+      display: flex;
+
+      .name {
+        font-weight: bold;
+      }
+    }
+
+    .postFooter {
+      display: flex;
+      gap: 1rem;
+
+      .like {
+        &:hover {
+          color: $pink;
+        }
+      }
+
+      .comment {
+        &:hover {
+          color: $blue;
+        }
+      }
+
+      .like, .comment {
+        display: flex;
+        align-items: center;
+        
+        > :first-child {
+          margin-right: 0.5rem;
+        }
+      }
+    }
+  }
+}

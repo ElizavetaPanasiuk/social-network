@@ -4,6 +4,7 @@ import { User } from './user.model';
 import { CreateUserDto } from './create-user.dto';
 import { Op } from 'sequelize';
 import { FilesService } from '../files/files.service';
+import { Subscription } from '../subscriptions/subscription.model';
 
 @Injectable()
 export class UsersService {
@@ -14,9 +15,26 @@ export class UsersService {
 
   async getUserById(id: number) {
     const user = await this.userRepository.findByPk(id, {
-      attributes: {
-        exclude: ['email', 'password'],
-      },
+      attributes: [
+        'id',
+        'firstName',
+        'lastName',
+        'country',
+        'city',
+        'dateOfBirth',
+        'avatar',
+        ['createdAt', 'joined'],
+      ],
+      include: [
+        {
+          model: Subscription,
+          as: 'subscriptions',
+        },
+        {
+          model: Subscription,
+          as: 'subscribers',
+        },
+      ],
     });
     return user;
   }

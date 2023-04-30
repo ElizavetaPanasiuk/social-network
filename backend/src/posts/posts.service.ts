@@ -6,6 +6,7 @@ import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { CreatePostLikeDto } from './dto/create-like.dto';
 import { PostLike } from './post-like.model';
+import { Comment } from 'src/comments/comment.model';
 
 @Injectable()
 export class PostsService {
@@ -19,11 +20,21 @@ export class PostsService {
       where: {
         authorId: userId,
       },
-      include: {
-        model: User,
-        as: 'likes',
-        attributes: ['id', 'firstName', 'lastName', 'avatar'],
-      },
+      include: [
+        {
+          model: User,
+          as: 'likes',
+        },
+        {
+          model: User,
+          as: 'author',
+          attributes: ['firstName', 'lastName', 'avatar'],
+        },
+        {
+          model: Comment,
+          as: 'comments',
+        },
+      ],
       order: [['createdAt', 'DESC']],
     });
     return posts;
