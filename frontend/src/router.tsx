@@ -7,6 +7,8 @@ import {
   ProfilePage,
   RegistrationPage,
   SettingsPage,
+  SubscribersPage,
+  SubscriptionsPage,
 } from "@/pages";
 import { Layout } from "./components";
 
@@ -42,6 +44,14 @@ const router = createBrowserRouter([
       {
         path: "/settings",
         element: <SettingsPage />,
+      },
+      {
+        path: "/subscribers/:profileId",
+        element: <SubscribersPage />,
+      },
+      {
+        path: "/subscriptions/:profileId",
+        element: <SubscriptionsPage />,
       },
     ],
   },

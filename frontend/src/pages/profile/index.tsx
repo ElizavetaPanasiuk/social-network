@@ -21,9 +21,7 @@ const ProfilePage = () => {
     await postsService.like(userId, id);
     setPosts(
       posts.map((post) =>
-        post.id === id
-          ? { ...post, likes: post.likes + 1, liked: true }
-          : post
+        post.id === id ? { ...post, likes: post.likes + 1, liked: true } : post
       )
     );
   };
@@ -32,9 +30,7 @@ const ProfilePage = () => {
     await postsService.dislike(userId, id);
     setPosts(
       posts.map((post) =>
-        post.id === id
-          ? { ...post, likes: post.likes - 1, liked: false }
-          : post
+        post.id === id ? { ...post, likes: post.likes - 1, liked: false } : post
       )
     );
   };
@@ -52,7 +48,7 @@ const ProfilePage = () => {
   return (
     <>
       {profileLoading ? <p>loading</p> : <ProfileInfo {...profile} />}
-      <NewPost publish={publish} />
+      {profileId === userId && <NewPost publish={publish} />}
       {loading ? (
         <p>loading</p>
       ) : (

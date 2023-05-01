@@ -16,10 +16,10 @@ export class PostsService {
     @InjectModel(PostLike) private postLikeRepository: typeof PostLike,
   ) {}
 
-  async getPostsByUserId(userId: number) {
+  async getPostsByProfileId(profileId: number, userId: number) {
     const posts = await this.postRepository.findAll({
       where: {
-        authorId: userId,
+        authorId: profileId,
       },
       attributes: {
         include: [

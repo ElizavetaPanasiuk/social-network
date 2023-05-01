@@ -2,9 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from './user.model';
 import { CreateUserDto } from './create-user.dto';
-import { Op } from 'sequelize';
+import { Op, Sequelize } from 'sequelize';
 import { FilesService } from '../files/files.service';
-import { Subscription } from '../subscriptions/subscription.model';
 
 @Injectable()
 export class UsersService {
@@ -24,16 +23,22 @@ export class UsersService {
         'dateOfBirth',
         'avatar',
         ['createdAt', 'joined'],
-      ],
-      include: [
-        {
-          model: Subscription,
-          as: 'subscriptions',
-        },
-        {
-          model: Subscription,
-          as: 'subscribers',
-        },
+        [
+          Sequelize.literal(`(
+            SELECT COUNT(*)::int
+              FROM "subscriptions"
+              WHERE "subscriberId" = "User"."id"
+          )`),
+          'subscriptions',
+        ],
+        [
+          Sequelize.literal(`(
+            SELECT COUNT(*)::int
+              FROM "subscriptions"
+              WHERE "profileId" = "User"."id"
+          )`),
+          'subscribers',
+        ],
       ],
     });
     return user;

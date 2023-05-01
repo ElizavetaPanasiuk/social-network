@@ -5,6 +5,8 @@ import MessagesPage from "./messages";
 import NotificationsPage from "./notifications";
 import ProfilePage from "./profile";
 import SettingsPage from "./settings";
+import SubscribersPage from "./subscribers";
+import SubscriptionsPage from "./subscriptions";
 
 export {
   LoginPage,
@@ -14,4 +16,6 @@ export {
   NotificationsPage,
   ProfilePage,
   SettingsPage,
+  SubscribersPage,
+  SubscriptionsPage,
 };

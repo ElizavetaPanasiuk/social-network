@@ -8,6 +8,7 @@ import {
   faBirthdayCake,
   faMapMarkerAlt,
 } from "@fortawesome/free-solid-svg-icons";
+import { Link, useParams } from "react-router-dom";
 
 type ProfileInfoProps = {
   firstName: string;
@@ -30,19 +31,15 @@ const ProfileInfo = ({
   subscribers,
   country,
   city,
-  avatar
+  avatar,
 }: ProfileInfoProps) => {
   const { t } = useTranslation();
+  const { profileId } = useParams();
 
   return (
     <div className={styles.profileHeader}>
       <div className={styles.profileHeaderBackground}>
-        <Avatar
-          src={avatar}
-          alt="avatar"
-          size="large"
-          border
-        />
+        <Avatar src={avatar} alt="avatar" size="large" border />
       </div>
       <div className={styles.profileInfo}>
         <h2>
@@ -62,8 +59,12 @@ const ProfileInfo = ({
             {t("Joined")} {joined}
           </p>
           <p>
-            {subscriptions} {t("Subscipritons")} {subscribers}{" "}
-            {t("Subscribers")}
+            <Link to={`/subscribers/${profileId}`}>
+              {subscribers} {t("Subscribers")}
+            </Link>
+            <Link to={`/subscriptions/${profileId}`}>
+              {subscriptions} {t("Subscriptions")}
+            </Link>
           </p>
         </div>
       </div>

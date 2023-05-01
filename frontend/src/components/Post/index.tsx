@@ -1,6 +1,6 @@
 import styles from "./styles.module.scss";
 import { Avatar, IconButton } from "@/ui-kit";
-import {  faCommentAlt } from "@fortawesome/free-regular-svg-icons";
+import { faCommentAlt } from "@fortawesome/free-regular-svg-icons";
 import Like from "./Like";
 
 type PostProps = {
@@ -23,7 +23,7 @@ const Post = ({
   text,
   likes,
   comments,
-  liked = false, // TODO: Add to request
+  liked,
   author: { firstName, lastName, avatar },
   like,
   dislike,

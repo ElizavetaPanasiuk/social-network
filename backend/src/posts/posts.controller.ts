@@ -26,8 +26,8 @@ export class PostsController {
   @ApiResponse({ status: 200, type: Post })
   @UseGuards(AuthGuard)
   @Get('')
-  getPostsByUserId(@Query('userId') userId: number) {
-    return this.postsService.getPostsByUserId(userId);
+  getPostsByProfileId(@Query('userId') profileId: number, @Request() req) {
+    return this.postsService.getPostsByProfileId(profileId, req.user.id);
   }
 
   @ApiOperation({ summary: 'Get post by id' })
