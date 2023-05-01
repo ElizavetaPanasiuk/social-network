@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./styles.module.scss";
 import { Avatar, IconButton } from "@/ui-kit";
 import { faHeart, faCommentAlt } from "@fortawesome/free-regular-svg-icons";
@@ -6,13 +5,12 @@ import {
   faCommentAlt as faCommentAltSolid,
   faHeart as faHeartSolid,
 } from "@fortawesome/free-solid-svg-icons";
-import { PostsService } from "@/service";
 
 type PostProps = {
   id: number;
   text: string;
-  likes: number;
-  comments: number;
+  likesCount: number;
+  commentsCount: number;
   liked: boolean;
   author: {
     firstName: string;
@@ -24,11 +22,12 @@ type PostProps = {
 const Post = ({
   id,
   text,
-  likes,
-  comments,
+  likesCount,
+  commentsCount,
   liked = false, // TODO: Add to request
   author: { firstName, lastName, avatar },
 }: PostProps) => {
+  
   return (
     <article className={styles.post}>
       <Avatar src={avatar} size="small" alt="post" />
@@ -45,14 +44,14 @@ const Post = ({
               icon={liked ? faHeartSolid : faHeart}
               onClick={() => console.log("like")}
             />
-            <span>{likes}</span>
+            <span>{likesCount}</span>
           </div>
           <div className={styles.comment}>
             <IconButton
               icon={liked ? faCommentAltSolid : faCommentAlt}
               onClick={() => console.log("comment")}
             />
-            <span>{comments}</span>
+            <span>{commentsCount}</span>
           </div>
         </div>
       </div>

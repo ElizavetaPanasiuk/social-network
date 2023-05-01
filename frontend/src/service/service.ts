@@ -16,7 +16,10 @@ class Service {
     return "";
   }
 
-  async post(data: { [key: string]: string | number | Date } | FormData, url: string = "") {
+  async post(
+    data: { [key: string]: string | number | Date } | FormData,
+    url: string = ""
+  ) {
     const options: RequestInit = {
       method: "POST",
       body: data instanceof FormData ? data : JSON.stringify(data),
@@ -68,6 +71,21 @@ class Service {
   async removeById(id: number, url: string = "") {
     const response = await fetch(`${this.url}${url}/${id}`, {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        Authorization: `Bearer ${Cookies.get("token")}`,
+      },
+    });
+    if (response.ok) {
+      return await response.json();
+    }
+    return "Error";
+  }
+
+  async remove(data: { [key: string]: string | number }, url = "") {
+    const response = await fetch(`${this.url}${url}`, {
+      method: "DELETE",
+      body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json;charset=utf-8",
         Authorization: `Bearer ${Cookies.get("token")}`,

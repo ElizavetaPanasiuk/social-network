@@ -45,23 +45,25 @@ export class PostsController {
     return this.postsService.updatePost(id, updatePostDto);
   }
 
-  @ApiOperation({ summary: 'Delete post' })
-  //@ApiResponse({ status: 200, type: ok })
-  @UseGuards(AuthGuard)
-  @Delete(':id')
-  removePost(@Param('id') id: number) {
-    return this.postsService.removePost(id);
-  }
-
   @ApiOperation({ summary: 'Like post' })
+  @UseGuards(AuthGuard)
   @Post('like')
   likePost(@Body() createLikeDto: CreatePostLikeDto) {
     return this.postsService.likePost(createLikeDto);
   }
 
   @ApiOperation({ summary: 'Dislike post' })
-  @Delete('dislike/:id')
-  dislikePost(@Param('id') id: number) {
-    return this.postsService.dislikePost(id);
+  @UseGuards(AuthGuard)
+  @Delete('/dislike')
+  dislikePost(@Body() dto: CreatePostLikeDto) {
+    return this.postsService.dislikePost(dto);
+  }
+
+  @ApiOperation({ summary: 'Delete post' })
+  //@ApiResponse({ status: 200, type: ok })
+  @UseGuards(AuthGuard)
+  @Delete(':id')
+  removePost(@Param('id') id: number) {
+    return this.postsService.removePost(id);
   }
 }
