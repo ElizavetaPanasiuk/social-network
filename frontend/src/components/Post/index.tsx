@@ -17,6 +17,8 @@ type PostProps = {
     lastName: string;
     avatar: string;
   };
+  like: (id: number) => void;
+  dislike: (id: number) => void;
 };
 
 const Post = ({
@@ -26,8 +28,9 @@ const Post = ({
   commentsCount,
   liked = false, // TODO: Add to request
   author: { firstName, lastName, avatar },
+  like,
+  dislike,
 }: PostProps) => {
-  
   return (
     <article className={styles.post}>
       <Avatar src={avatar} size="small" alt="post" />
@@ -42,7 +45,7 @@ const Post = ({
           <div className={styles.like}>
             <IconButton
               icon={liked ? faHeartSolid : faHeart}
-              onClick={() => console.log("like")}
+              onClick={liked ? () => dislike(id) : () => like(id)}
             />
             <span>{likesCount}</span>
           </div>

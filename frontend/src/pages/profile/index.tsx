@@ -17,6 +17,28 @@ const ProfilePage = () => {
     postsService.getUserPosts(Number(profileId))
   );
 
+  const like = async (id: number) => {
+    await postsService.like(userId, id);
+    setPosts(
+      posts.map((post) =>
+        post.id === id
+          ? { ...post, likesCount: +post.likesCount + 1, liked: true }
+          : post
+      )
+    );
+  };
+
+  const dislike = async (id: number) => {
+    await postsService.dislike(userId, id);
+    setPosts(
+      posts.map((post) =>
+        post.id === id
+          ? { ...post, likesCount: post.likesCount - 1, liked: false }
+          : post
+      )
+    );
+  };
+
   const [profileLoading, profile] = useQuery(() =>
     profileService.getProfile(Number(profileId))
   );
@@ -34,7 +56,9 @@ const ProfilePage = () => {
       {loading ? (
         <p>loading</p>
       ) : (
-        posts.map((post) => <Post key={post.id} {...post} />)
+        posts.map((post) => (
+          <Post key={post.id} {...post} like={like} dislike={dislike} />
+        ))
       )}
     </>
   );

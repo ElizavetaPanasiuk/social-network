@@ -30,11 +30,18 @@ export class PostsController {
     return this.postsService.getPostsByUserId(userId);
   }
 
+  @ApiOperation({ summary: 'Get post by id' })
+  @UseGuards(AuthGuard)
+  @Get(':id')
+  getPostById(@Param('id') id: number, @Request() req) {
+    return this.postsService.getPostById(id, req.user.id);
+  }
+
   @ApiOperation({ summary: 'Create post' })
   //@ApiResponse
   @UseGuards(AuthGuard)
   @Post()
-  createPost(@Request() req, @Body() createPostDto: CreatePostDto) {
+  createPost(@Body() createPostDto: CreatePostDto) {
     return this.postsService.createPost(createPostDto);
   }
 

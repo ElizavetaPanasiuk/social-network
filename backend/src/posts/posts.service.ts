@@ -58,39 +58,55 @@ export class PostsService {
     return posts;
   }
 
-  async getPostById(id: number) {
+  async getPostById(id: number, userId: number) {
     const post = await this.postRepository.findByPk(id, {
-      attributes: [
-        'id',
-        'text',
-        'createdAt',
-        'authorId',
-        [Sequelize.fn('COUNT', Sequelize.col('likes')), 'likesCount'],
-        [Sequelize.fn('COUNT', Sequelize.col('comments')), 'commentsCount'],
-      ],
+      attributes: {
+        include: [
+          [
+            Sequelize.literal(`(
+              SELECT COUNT(*)::int
+                FROM "post-likes"
+                WHERE
+                  "postId" = ${id}
+            )`),
+            'likes',
+          ],
+          [
+            Sequelize.literal(`(
+              SELECT COUNT(*)::int
+                FROM comments
+                WHERE
+                  "postId" = ${id}
+            )`),
+            'comments',
+          ],
+          [
+            Sequelize.literal(`(
+              SELECT 
+                CASE 
+                WHEN EXISTS(
+                  SELECT 1 
+                  FROM "post-likes" 
+                  WHERE 
+                    "postId" = ${id}
+                    AND
+                    "userId" = ${userId}
+                )
+                THEN TRUE
+                ELSE FALSE
+              END
+            )`),
+            'liked',
+          ],
+        ],
+        exclude: ['updatedAt'],
+      },
       include: [
-        {
-          model: User,
-          as: 'likes',
-          attributes: [],
-        },
         {
           model: User,
           as: 'author',
           attributes: ['firstName', 'lastName', 'avatar'],
         },
-        {
-          model: Comment,
-          as: 'comments',
-          attributes: [],
-        },
-      ],
-      group: [
-        'Post.id',
-        'likes.id',
-        'likes.PostLike.id',
-        'author.id',
-        'comments.id',
       ],
     });
     return post;
@@ -98,7 +114,7 @@ export class PostsService {
 
   async createPost(dto: CreatePostDto) {
     const post = await this.postRepository.create(dto);
-    return await this.getPostById(post.id);
+    return await this.getPostById(post.id, dto.authorId);
   }
 
   async updatePost(id: number, dto: UpdatePostDto) {
