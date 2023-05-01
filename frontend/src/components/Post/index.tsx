@@ -1,10 +1,7 @@
 import styles from "./styles.module.scss";
 import { Avatar, IconButton } from "@/ui-kit";
-import { faHeart, faCommentAlt } from "@fortawesome/free-regular-svg-icons";
-import {
-  faCommentAlt as faCommentAltSolid,
-  faHeart as faHeartSolid,
-} from "@fortawesome/free-solid-svg-icons";
+import {  faCommentAlt } from "@fortawesome/free-regular-svg-icons";
+import Like from "./Like";
 
 type PostProps = {
   id: number;
@@ -42,16 +39,15 @@ const Post = ({
         </p>
         <p className={styles.postContent}>{text}</p>
         <div className={styles.postFooter}>
-          <div className={styles.like}>
-            <IconButton
-              icon={liked ? faHeartSolid : faHeart}
-              onClick={liked ? () => dislike(id) : () => like(id)}
-            />
-            <span>{likes}</span>
-          </div>
+          <Like
+            likes={likes}
+            liked={liked}
+            like={() => like(id)}
+            dislike={() => dislike(id)}
+          />
           <div className={styles.comment}>
             <IconButton
-              icon={liked ? faCommentAltSolid : faCommentAlt}
+              icon={faCommentAlt}
               onClick={() => console.log("comment")}
             />
             <span>{comments}</span>

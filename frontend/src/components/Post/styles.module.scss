@@ -28,24 +28,16 @@
       display: flex;
       gap: 1rem;
 
-      .like {
-        &:hover {
-          color: $pink;
-        }
-      }
-
       .comment {
-        &:hover {
-          color: $blue;
-        }
-      }
-
-      .like, .comment {
         display: flex;
         align-items: center;
         
         > :first-child {
           margin-right: 0.5rem;
+        }
+
+        &:hover {
+          color: $blue;
         }
       }
     }
