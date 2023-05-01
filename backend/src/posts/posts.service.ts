@@ -21,37 +21,51 @@ export class PostsService {
       where: {
         authorId: userId,
       },
-      attributes: [
-        'id',
-        'text',
-        'createdAt',
-        'authorId',
-        [Sequelize.fn('COUNT', Sequelize.col('likes')), 'likesCount'],
-        [Sequelize.fn('COUNT', Sequelize.col('comments')), 'commentsCount'],
-      ],
+      attributes: {
+        include: [
+          [
+            Sequelize.literal(`(
+              SELECT COUNT(*)::int
+                FROM "post-likes"
+                WHERE "postId" = "Post"."id"
+            )`),
+            'likes',
+          ],
+          [
+            Sequelize.literal(`(
+              SELECT COUNT(*)::int
+                FROM comments
+                WHERE "postId" = "Post"."id"
+            )`),
+            'comments',
+          ],
+          [
+            Sequelize.literal(`(
+              SELECT 
+                CASE 
+                WHEN EXISTS(
+                  SELECT 1 
+                  FROM "post-likes" 
+                  WHERE 
+                    "postId" = "Post"."id"
+                    AND
+                    "userId" = ${userId}
+                )
+                THEN TRUE
+                ELSE FALSE
+              END
+            )`),
+            'liked',
+          ],
+        ],
+        exclude: ['updatedAt'],
+      },
       include: [
-        {
-          model: User,
-          as: 'likes',
-          attributes: [],
-        },
         {
           model: User,
           as: 'author',
           attributes: ['firstName', 'lastName', 'avatar'],
         },
-        {
-          model: Comment,
-          as: 'comments',
-          attributes: [],
-        },
-      ],
-      group: [
-        'Post.id',
-        'likes.id',
-        'likes.PostLike.id',
-        'author.id',
-        'comments.id',
       ],
       order: [['createdAt', 'DESC']],
     });

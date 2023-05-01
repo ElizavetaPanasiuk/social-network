@@ -22,7 +22,7 @@ const ProfilePage = () => {
     setPosts(
       posts.map((post) =>
         post.id === id
-          ? { ...post, likesCount: +post.likesCount + 1, liked: true }
+          ? { ...post, likes: post.likes + 1, liked: true }
           : post
       )
     );
@@ -33,7 +33,7 @@ const ProfilePage = () => {
     setPosts(
       posts.map((post) =>
         post.id === id
-          ? { ...post, likesCount: post.likesCount - 1, liked: false }
+          ? { ...post, likes: post.likes - 1, liked: false }
           : post
       )
     );

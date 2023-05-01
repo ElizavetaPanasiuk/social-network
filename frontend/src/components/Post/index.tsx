@@ -9,8 +9,8 @@ import {
 type PostProps = {
   id: number;
   text: string;
-  likesCount: number;
-  commentsCount: number;
+  likes: number;
+  comments: number;
   liked: boolean;
   author: {
     firstName: string;
@@ -24,8 +24,8 @@ type PostProps = {
 const Post = ({
   id,
   text,
-  likesCount,
-  commentsCount,
+  likes,
+  comments,
   liked = false, // TODO: Add to request
   author: { firstName, lastName, avatar },
   like,
@@ -47,14 +47,14 @@ const Post = ({
               icon={liked ? faHeartSolid : faHeart}
               onClick={liked ? () => dislike(id) : () => like(id)}
             />
-            <span>{likesCount}</span>
+            <span>{likes}</span>
           </div>
           <div className={styles.comment}>
             <IconButton
               icon={liked ? faCommentAltSolid : faCommentAlt}
               onClick={() => console.log("comment")}
             />
-            <span>{commentsCount}</span>
+            <span>{comments}</span>
           </div>
         </div>
       </div>
