@@ -9,6 +9,8 @@ import {
   Put,
   Delete,
   UseGuards,
+  Query,
+  Request,
 } from '@nestjs/common';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
@@ -22,9 +24,9 @@ export class CommentsController {
 
   @ApiOperation({ summary: 'Get comments to the post by post ID' })
   @UseGuards(AuthGuard)
-  @Get(':postId')
-  getComments(@Param('postId') postId: number) {
-    return this.commentsService.getComments(postId);
+  @Get('')
+  getComments(@Query('postId') postId: number, @Request() req) {
+    return this.commentsService.getComments(postId, req.user.id);
   }
 
   @ApiOperation({ summary: 'Create comment to post' })
@@ -60,8 +62,8 @@ export class CommentsController {
 
   @ApiOperation({ summary: 'Dislike comment' })
   @UseGuards(AuthGuard)
-  @Delete('dislike/:id')
-  dislikeComment(@Param('id') id: number) {
-    return this.commentsService.dislikeCommnet(id);
+  @Delete('dislike')
+  dislikeComment(@Body('id') dto: CreateCommentLikeDto) {
+    return this.commentsService.dislikeComment(dto);
   }
 }

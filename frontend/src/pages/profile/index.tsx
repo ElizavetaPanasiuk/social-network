@@ -48,7 +48,7 @@ const ProfilePage = () => {
   return (
     <>
       {profileLoading ? <p>loading</p> : <ProfileInfo {...profile} />}
-      {profileId === userId && <NewPost publish={publish} />}
+      {+profileId === userId && <NewPost publish={publish} />}
       {loading ? (
         <p>loading</p>
       ) : (

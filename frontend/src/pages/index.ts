@@ -7,6 +7,8 @@ import ProfilePage from "./profile";
 import SettingsPage from "./settings";
 import SubscribersPage from "./subscribers";
 import SubscriptionsPage from "./subscriptions";
+import PostPage from "./post";
+import SearchPage from "./search";
 
 export {
   LoginPage,
@@ -18,4 +20,6 @@ export {
   SettingsPage,
   SubscribersPage,
   SubscriptionsPage,
+  PostPage,
+  SearchPage,
 };

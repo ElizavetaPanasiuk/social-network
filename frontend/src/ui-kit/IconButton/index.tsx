@@ -9,8 +9,16 @@ type IconButtonProps = {
 
 const IconButton = ({ icon, onClick }: IconButtonProps) => {
   return (
-    <button type="button" className={styles.iconButton} onClick={onClick}>
-      <FontAwesomeIcon icon={icon}/>
+    <button
+      type="button"
+      className={styles.iconButton}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        onClick();
+      }}
+    >
+      <FontAwesomeIcon icon={icon} />
     </button>
   );
 };

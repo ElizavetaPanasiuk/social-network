@@ -14,6 +14,7 @@ import {
   faBell as faBellSolid,
   faEnvelope as faEnvelopeSolid,
   faEdit as faEditSolid,
+  faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { RootState } from "@/store";
 import styles from "./styles.module.scss";
@@ -45,6 +46,12 @@ const Sidebar = () => {
       to: "/notifications",
       icon: faBell,
       activeIcon: faBellSolid,
+    },
+    {
+      title: t("Search"),
+      to: "/search",
+      icon: faSearch,
+      activeIcon: faSearch,
     },
     {
       title: t("Settings"),

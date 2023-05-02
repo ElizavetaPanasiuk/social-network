@@ -6,6 +6,7 @@ import { UpdateCommentDto } from './dto/update-comment.dto';
 import { CommentLike } from './comment-like';
 import { CreateCommentLikeDto } from './dto/create-like.dto';
 import { User } from '../users/user.model';
+import { Sequelize } from 'sequelize';
 
 @Injectable()
 export class CommentsService {
@@ -14,15 +15,46 @@ export class CommentsService {
     @InjectModel(CommentLike) private commentLikeRepository: typeof CommentLike,
   ) {}
 
-  async getComments(postId: number) {
+  async getComments(postId: number, currentUserId: number) {
     return await this.commentRepository.findAll({
       where: {
         postId,
       },
+      attributes: {
+        include: [
+          [
+            Sequelize.literal(
+              `(SELECT COUNT(*)::int 
+              FROM "comment-likes" 
+              WHERE "commentId" = "Comment"."id")`,
+            ),
+            'likes',
+          ],
+          [
+            Sequelize.literal(`(
+              SELECT
+                CASE
+                WHEN EXISTS(
+                  SELECT 1
+                  FROM "comment-likes"
+                  WHERE
+                    "commentId" = "Comment"."id"
+                    AND
+                    "userId" = ${currentUserId}
+                )
+                THEN TRUE
+                ELSE FALSE
+              END
+            )`),
+            'liked',
+          ],
+        ],
+        exclude: ['updatedAt', 'postId'],
+      },
       include: {
         model: User,
-        as: 'likes',
-        attributes: ['id', 'firstName', 'lastName', 'avatar'],
+        as: 'author',
+        attributes: ['firstName', 'lastName', 'avatar'],
       },
     });
   }
@@ -52,10 +84,11 @@ export class CommentsService {
     return await this.commentLikeRepository.create(dto);
   }
 
-  async dislikeCommnet(id: number) {
+  async dislikeComment(dto: CreateCommentLikeDto) {
     return await this.commentLikeRepository.destroy({
       where: {
-        id,
+        userId: dto.userId,
+        commentId: dto.commentId,
       },
     });
   }

@@ -2,7 +2,6 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styles from "./styles.module.scss";
 import { RootState } from "@/store";
-import Header from "../Header";
 import Sidebar from "../Sidebar";
 
 const Layout = () => {
@@ -10,7 +9,6 @@ const Layout = () => {
 
   return isAuth ? (
     <>
-      <Header />
       <div className={styles.layout}>
         <Sidebar />
         <main className={styles.main}>

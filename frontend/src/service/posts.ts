@@ -9,6 +9,10 @@ class PostsService extends Service {
     return await this.get({ userId });
   }
 
+  async getPost(postId: number) {
+    return await this.getById(postId);
+  }
+
   async createPost(authorId: number, text: string) {
     return await this.post({ authorId, text });
   }

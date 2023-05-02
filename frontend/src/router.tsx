@@ -4,8 +4,10 @@ import {
   LoginPage,
   MessagesPage,
   NotificationsPage,
+  PostPage,
   ProfilePage,
   RegistrationPage,
+  SearchPage,
   SettingsPage,
   SubscribersPage,
   SubscriptionsPage,
@@ -52,6 +54,14 @@ const router = createBrowserRouter([
       {
         path: "/subscriptions/:profileId",
         element: <SubscriptionsPage />,
+      },
+      {
+        path: "/post/:id",
+        element: <PostPage />,
+      },
+      {
+        path: "/search",
+        element: <SearchPage />,
       },
     ],
   },

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styles from "./styles.module.scss";
 import { Avatar, IconButton } from "@/ui-kit";
 import { faCommentAlt } from "@fortawesome/free-regular-svg-icons";
@@ -9,6 +10,7 @@ type PostProps = {
   likes: number;
   comments: number;
   liked: boolean;
+  authorId: number;
   author: {
     firstName: string;
     lastName: string;
@@ -24,18 +26,20 @@ const Post = ({
   likes,
   comments,
   liked,
+  authorId,
   author: { firstName, lastName, avatar },
   like,
   dislike,
 }: PostProps) => {
+  console.log("Post");
   return (
-    <article className={styles.post}>
+    <Link to={`/post/${id}`} className={styles.post}>
       <Avatar src={avatar} size="small" alt="post" />
       <div className={styles.postContent}>
         <p className={styles.postHeader}>
-          <span className={styles.name}>
+          <Link to={`/profile/${authorId}`} className={styles.name}>
             {firstName} {lastName}
-          </span>
+          </Link>
         </p>
         <p className={styles.postContent}>{text}</p>
         <div className={styles.postFooter}>
@@ -54,7 +58,7 @@ const Post = ({
           </div>
         </div>
       </div>
-    </article>
+    </Link>
   );
 };
 

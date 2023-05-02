@@ -6,7 +6,6 @@ import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { CreatePostLikeDto } from './dto/create-like.dto';
 import { PostLike } from './post-like.model';
-import { Comment } from 'src/comments/comment.model';
 import { Sequelize } from 'sequelize-typescript';
 
 @Injectable()

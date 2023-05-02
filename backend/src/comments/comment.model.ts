@@ -62,7 +62,7 @@ export class Comment extends Model<Comment, CommentCreationAttrs> {
   userId: number;
 
   @BelongsTo(() => User)
-  user: User;
+  author: User;
 
   @BelongsTo(() => Post)
   post: Post;
