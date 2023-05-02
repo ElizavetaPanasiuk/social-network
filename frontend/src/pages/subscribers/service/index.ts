@@ -1,8 +1,8 @@
-import { Service } from "@/service";
+import { Service } from '@/service';
 
 class SubscribersService extends Service {
   constructor() {
-    super("subscriptions/subscribers");
+    super('subscriptions/subscribers');
   }
 
   async getSubscribers(id: number) {

@@ -1,4 +1,4 @@
-import styles from "./styles.module.scss";
+import styles from './styles.module.scss';
 
 type TextareaProps = {
   value: string;
@@ -6,7 +6,7 @@ type TextareaProps = {
   placeholder?: string;
 };
 
-const Textarea = ({ value, onChange, placeholder = "" }: TextareaProps) => {
+const Textarea = ({ value, onChange, placeholder = '' }: TextareaProps) => {
   return (
     <textarea
       className={styles.textarea}

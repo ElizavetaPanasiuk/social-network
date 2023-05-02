@@ -1,5 +1,5 @@
-import { useState } from "react";
-import styles from "./styles.module.scss";
+import { useState } from 'react';
+import styles from './styles.module.scss';
 
 type SelectProps = {
   label: string;
@@ -23,7 +23,7 @@ const Select = ({ label, options, value, onChange }: SelectProps) => {
     <div className={styles.selectContainer}>
       <button
         type="button"
-        className={`${styles.select} ${visible ? styles.active : ""}`}
+        className={`${styles.select} ${visible ? styles.active : ''}`}
         onClick={() => setVisible(!visible)}
       >
         {value || label}

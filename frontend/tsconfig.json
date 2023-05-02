@@ -21,7 +21,7 @@
       "@/components/*": ["scr/component/*"],
       "@/pages/*": ["src/pages/*"],
       "@/styles/*": ["src/styles/*"],
-      "@/ui-kit/*": ["src/ui-kit/*"],
+      "@/ui-kit/*": ["src/ui-kit/*"]
     }
   },
   "include": ["src"],

@@ -1,8 +1,8 @@
-import { Service } from "@/service";
+import { Service } from '@/service';
 
 class ProfileService extends Service {
   constructor() {
-    super("users");
+    super('users');
   }
 
   getProfile(id: number) {

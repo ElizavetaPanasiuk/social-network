@@ -1,19 +1,17 @@
-import { Post } from "@/components";
-import { useQuery } from "@/hooks";
-import { CommentsService, PostsService } from "@/service";
-import { RootState } from "@/store";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { Comment } from "./components";
+import { Post } from '@/components';
+import { useQuery } from '@/hooks';
+import { CommentsService, PostsService } from '@/service';
+import { RootState } from '@/store';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { Comment } from './components';
 
 const PostPage = () => {
   const postsService = new PostsService();
   const commentsService = new CommentsService();
   const { id } = useParams();
   const [loading, post, setPost] = useQuery(() => postsService.getPost(id));
-  const [loadingComments, comments, setComments] = useQuery(() =>
-    commentsService.getCommentsByPostId(Number(id))
-  );
+  const [loadingComments, comments, setComments] = useQuery(() => commentsService.getCommentsByPostId(Number(id)));
   const userId = useSelector((state: RootState) => state.user.id as number);
 
   const likePost = async () => {
@@ -30,10 +28,8 @@ const PostPage = () => {
     await commentsService.like(userId, commentId);
     setComments(
       comments.map((comment) =>
-        comment.id === commentId
-          ? { ...comment, liked: true, likes: comment.likes + 1 }
-          : comment
-      )
+        comment.id === commentId ? { ...comment, liked: true, likes: comment.likes + 1 } : comment,
+      ),
     );
   };
 
@@ -41,10 +37,8 @@ const PostPage = () => {
     await commentsService.dislike(userId, commentId);
     setComments(
       comments.map((comment) =>
-        comment.id === commentId
-          ? { ...comment, liked: false, likes: comment.likes - 1 }
-          : comment
-      )
+        comment.id === commentId ? { ...comment, liked: false, likes: comment.likes - 1 } : comment,
+      ),
     );
   };
 
@@ -53,7 +47,11 @@ const PostPage = () => {
       {loading ? (
         <p>loading</p>
       ) : (
-        <Post {...post} like={likePost} dislike={dislikePost} />
+        <Post
+          {...post}
+          like={likePost}
+          dislike={dislikePost}
+        />
       )}
       {loadingComments ? (
         <p>loading</p>

@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from 'react-router-dom';
 import {
   ExplorePage,
   LoginPage,
@@ -11,56 +11,56 @@ import {
   SettingsPage,
   SubscribersPage,
   SubscriptionsPage,
-} from "@/pages";
-import { Layout } from "./components";
+} from '@/pages';
+import { Layout } from './components';
 
 const router = createBrowserRouter([
   {
-    path: "/registration",
+    path: '/registration',
     element: <RegistrationPage />,
   },
   {
-    path: "/login",
+    path: '/login',
     element: <LoginPage />,
   },
   {
-    path: "/",
+    path: '/',
     element: <Layout />,
     children: [
       {
-        path: "/profile/:profileId",
+        path: '/profile/:profileId',
         element: <ProfilePage />,
       },
       {
-        path: "/explore",
+        path: '/explore',
         element: <ExplorePage />,
       },
       {
-        path: "/messages",
+        path: '/messages',
         element: <MessagesPage />,
       },
       {
-        path: "/notifications",
+        path: '/notifications',
         element: <NotificationsPage />,
       },
       {
-        path: "/settings",
+        path: '/settings',
         element: <SettingsPage />,
       },
       {
-        path: "/subscribers/:profileId",
+        path: '/subscribers/:profileId',
         element: <SubscribersPage />,
       },
       {
-        path: "/subscriptions/:profileId",
+        path: '/subscriptions/:profileId',
         element: <SubscriptionsPage />,
       },
       {
-        path: "/post/:id",
+        path: '/post/:id',
         element: <PostPage />,
       },
       {
-        path: "/search",
+        path: '/search',
         element: <SearchPage />,
       },
     ],

@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import { Like } from "@/components";
-import { Avatar } from "@/ui-kit";
-import styles from "./styles.module.scss";
+import { Link } from 'react-router-dom';
+import { Like } from '@/components';
+import { Avatar } from '@/ui-kit';
+import styles from './styles.module.scss';
 
 type CommentProps = {
   id: number;
@@ -32,7 +32,10 @@ const Comment = ({
 }: CommentProps) => {
   return (
     <article className={styles.comment}>
-      <Avatar src={avatar} alt={`${firstName} ${lastName}`} />
+      <Avatar
+        src={avatar}
+        alt={`${firstName} ${lastName}`}
+      />
       <div className={styles.commentContent}>
         <Link to={`/profile/${userId}`}>
           {firstName} {lastName}

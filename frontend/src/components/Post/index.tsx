@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
-import styles from "./styles.module.scss";
-import { Avatar, IconButton } from "@/ui-kit";
-import { faCommentAlt } from "@fortawesome/free-regular-svg-icons";
-import Like from "./Like";
+import { Link } from 'react-router-dom';
+import styles from './styles.module.scss';
+import { Avatar, IconButton } from '@/ui-kit';
+import { faCommentAlt } from '@fortawesome/free-regular-svg-icons';
+import Like from './Like';
 
 type PostProps = {
   id: number;
@@ -31,13 +31,22 @@ const Post = ({
   like,
   dislike,
 }: PostProps) => {
-  console.log("Post");
   return (
-    <Link to={`/post/${id}`} className={styles.post}>
-      <Avatar src={avatar} size="small" alt="post" />
+    <Link
+      to={`/post/${id}`}
+      className={styles.post}
+    >
+      <Avatar
+        src={avatar}
+        size="small"
+        alt="post"
+      />
       <div className={styles.postContent}>
         <p className={styles.postHeader}>
-          <Link to={`/profile/${authorId}`} className={styles.name}>
+          <Link
+            to={`/profile/${authorId}`}
+            className={styles.name}
+          >
             {firstName} {lastName}
           </Link>
         </p>
@@ -52,7 +61,7 @@ const Post = ({
           <div className={styles.comment}>
             <IconButton
               icon={faCommentAlt}
-              onClick={() => console.log("comment")}
+              onClick={() => console.log('comment')}
             />
             <span>{comments}</span>
           </div>

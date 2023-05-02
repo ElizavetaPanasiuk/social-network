@@ -1,8 +1,8 @@
-import Service from "./service";
+import Service from './service';
 
 class CommentsService extends Service {
   constructor() {
-    super("comments");
+    super('comments');
   }
 
   async getCommentsByPostId(postId: number) {
@@ -10,11 +10,11 @@ class CommentsService extends Service {
   }
 
   async like(userId: number, commentId: number) {
-    return await this.post({ userId, commentId }, "/like");
+    return await this.post({ userId, commentId }, '/like');
   }
 
   async dislike(userId: number, commentId: number) {
-    return await this.remove({ userId, commentId }, "/dislike");
+    return await this.remove({ userId, commentId }, '/dislike');
   }
 }
 

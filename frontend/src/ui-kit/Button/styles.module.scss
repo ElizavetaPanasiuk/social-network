@@ -1,4 +1,4 @@
-@import "@/styles/colors.scss";
+@import '@/styles/colors.scss';
 
 .button {
   border-radius: 0.25rem;
@@ -25,7 +25,7 @@
     &:disabled {
       color: $gray-light;
       background-color: $gray-super-light;
-      border-color: $gray-super-light
+      border-color: $gray-super-light;
     }
   }
 

@@ -1,7 +1,7 @@
-import { Button } from "@/ui-kit";
-import { useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { RegistrationData } from "../types/registrationData";
+import { Button } from '@/ui-kit';
+import { useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { RegistrationData } from '../types/registrationData';
 
 type Step4Props = {
   onSubmit: () => void;
@@ -17,9 +17,12 @@ const Step4 = ({ onSubmit, onChange }: Step4Props) => {
       <input
         type="file"
         ref={ref}
-        onChange={(e) => onChange("avatar", e.target.files[0])}
+        onChange={(e) => onChange('avatar', e.target.files[0])}
       />
-      <Button title={t("Register")} onClick={onSubmit} />
+      <Button
+        title={t('Register')}
+        onClick={onSubmit}
+      />
     </>
   );
 };
