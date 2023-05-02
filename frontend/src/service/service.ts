@@ -8,12 +8,19 @@ class Service {
     this.url = `${this.BASE_URL}/${url}`;
   }
 
-  transformSearchQueryToString(query: { [key: string]: string | number }) {
+  private transformSearchQueryToString(query: { [key: string]: string | number }) {
     const params = Object.keys(query);
     if (params.length) {
       return `?${params.map((param) => `${param}=${query[param]}`).join('&')}`;
     }
     return '';
+  }
+
+  private async handleResponse(response: Response) {
+    if (response.ok) {
+      return await response.json();
+    }
+    throw new Error(response.statusText);
   }
 
   async post(data: { [key: string]: string | number | Date } | FormData, url: string = '') {
@@ -30,10 +37,7 @@ class Service {
     }
 
     const response = await fetch(`${this.url}${url}`, options);
-    if (response.ok) {
-      return await response.json();
-    }
-    return 'Error';
+    this.handleResponse(response);
   }
 
   async get(queryOptions: { [key: string]: string | number }) {
@@ -43,10 +47,7 @@ class Service {
         Authorization: `Bearer ${Cookies.get('token')}`,
       },
     });
-    if (response.ok) {
-      return await response.json();
-    }
-    return 'Error';
+    this.handleResponse(response);
   }
 
   async getById(id: number) {
@@ -56,10 +57,7 @@ class Service {
         Authorization: `Bearer ${Cookies.get('token')}`,
       },
     });
-    if (response.ok) {
-      return await response.json();
-    }
-    return 'Error';
+    this.handleResponse(response);
   }
 
   async removeById(id: number, url: string = '') {
@@ -70,10 +68,7 @@ class Service {
         Authorization: `Bearer ${Cookies.get('token')}`,
       },
     });
-    if (response.ok) {
-      return await response.json();
-    }
-    return 'Error';
+    this.handleResponse(response);
   }
 
   async remove(data: { [key: string]: string | number }, url = '') {
@@ -85,10 +80,7 @@ class Service {
         Authorization: `Bearer ${Cookies.get('token')}`,
       },
     });
-    if (response.ok) {
-      return await response.json();
-    }
-    return 'Error';
+    this.handleResponse(response);
   }
 
   async updateById(id: number, data: { [key: string]: string } = {}, url: string = '') {
@@ -100,10 +92,7 @@ class Service {
         Authorization: `Bearer ${Cookies.get('token')}`,
       },
     });
-    if (response.ok) {
-      return await response.json();
-    }
-    return 'Error';
+    this.handleResponse(response);
   }
 }
 

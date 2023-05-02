@@ -1,20 +1,26 @@
 import { useEffect, useState } from 'react';
 
-const useQuery = (query) => {
+const useQuery = (queryFn) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState();
+  const [error, setError] = useState({ value: false, message: '' });
 
   const sendQuery = async () => {
-    const result = await query();
-    setData(result);
-    setLoading(false);
+    try {
+      const result = await queryFn();
+      setData(result);
+    } catch (error) {
+      setError({ value: true, message: error.message });
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     sendQuery();
   }, []);
 
-  return [loading, data, setData];
+  return { loading, error, data, setData };
 };
 
 export default useQuery;

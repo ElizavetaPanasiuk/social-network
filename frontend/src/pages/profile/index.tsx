@@ -13,7 +13,7 @@ const ProfilePage = () => {
 
   const postsService = new PostsService();
   const profileService = new ProfileService();
-  const [loading, posts, setPosts] = useQuery(() => postsService.getUserPosts(Number(profileId)));
+  const { loading, posts, setPosts } = useQuery(() => postsService.getUserPosts(Number(profileId)));
 
   const like = async (id: number) => {
     await postsService.like(userId, id);
@@ -25,7 +25,7 @@ const ProfilePage = () => {
     setPosts(posts.map((post) => (post.id === id ? { ...post, likes: post.likes - 1, liked: false } : post)));
   };
 
-  const [profileLoading, profile] = useQuery(() => profileService.getProfile(Number(profileId)));
+  const { profileLoading, profile } = useQuery(() => profileService.getProfile(Number(profileId)));
 
   const publish = async (text: string) => {
     const newPost = await postsService.createPost(userId, text);

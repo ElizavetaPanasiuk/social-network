@@ -6,7 +6,7 @@ import SubscriptionsService from './service';
 const SubscriptionsPage = () => {
   const subcriptionsService = new SubscriptionsService();
   const { profileId } = useParams();
-  const [loading, subcriptions] = useQuery(() => subcriptionsService.getSubscriptions(Number(profileId)));
+  const { loading, subcriptions } = useQuery(() => subcriptionsService.getSubscriptions(Number(profileId)));
 
   return (
     <div>

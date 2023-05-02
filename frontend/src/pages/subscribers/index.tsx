@@ -6,7 +6,7 @@ import { ProfileRow } from '@/components';
 const SubscribersPage = () => {
   const subscribersService = new SubscribersService();
   const { profileId } = useParams();
-  const [loading, subscribers] = useQuery(() => subscribersService.getSubscribers(Number(profileId)));
+  const { loading, subscribers } = useQuery(() => subscribersService.getSubscribers(Number(profileId)));
 
   return (
     <div>

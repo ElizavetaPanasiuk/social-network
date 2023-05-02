@@ -10,8 +10,8 @@ const PostPage = () => {
   const postsService = new PostsService();
   const commentsService = new CommentsService();
   const { id } = useParams();
-  const [loading, post, setPost] = useQuery(() => postsService.getPost(id));
-  const [loadingComments, comments, setComments] = useQuery(() => commentsService.getCommentsByPostId(Number(id)));
+  const { loading, post, setPost } = useQuery(() => postsService.getPost(id));
+  const { loadingComments, comments, setComments } = useQuery(() => commentsService.getCommentsByPostId(Number(id)));
   const userId = useSelector((state: RootState) => state.user.id as number);
 
   const likePost = async () => {
