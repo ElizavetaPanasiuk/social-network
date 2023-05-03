@@ -1,6 +1,6 @@
 import { Post } from '@/components';
 import { useQuery } from '@/hooks';
-import { CommentsService, PostsService } from '@/service';
+import { CommentsService, PostsService } from '@/lib/service';
 import { RootState } from '@/store';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -10,8 +10,12 @@ const PostPage = () => {
   const postsService = new PostsService();
   const commentsService = new CommentsService();
   const { id } = useParams();
-  const { loading, post, setPost } = useQuery(() => postsService.getPost(id));
-  const { loadingComments, comments, setComments } = useQuery(() => commentsService.getCommentsByPostId(Number(id)));
+  const { loading, data: post, setData: setPost } = useQuery(() => postsService.getPost(id));
+  const {
+    loading: loadingComments,
+    data: comments,
+    setData: setComments,
+  } = useQuery(() => commentsService.getCommentsByPostId(Number(id)));
   const userId = useSelector((state: RootState) => state.user.id as number);
 
   const likePost = async () => {

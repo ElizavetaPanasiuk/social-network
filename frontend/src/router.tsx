@@ -11,8 +11,8 @@ import {
   SettingsPage,
   SubscribersPage,
   SubscriptionsPage,
-} from '@/pages';
-import { Layout } from './components';
+} from '@/modules';
+import { Layout } from '@/components';
 
 const router = createBrowserRouter([
   {

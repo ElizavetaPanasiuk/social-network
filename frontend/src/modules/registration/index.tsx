@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Finish, Step1, Step2, Step3, Step4 } from './components';
 import { Box } from '@/ui-kit';
 import styles from './styles.module.scss';
-import RegistrationService from './service';
+import { RegistrationService } from '@/lib/service';
 import { RegistrationData } from './types/registrationData';
 import Cookies from 'js-cookie';
 import jwtDecode from 'jwt-decode';

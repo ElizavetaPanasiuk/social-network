@@ -1,5 +1,5 @@
-import { Service } from '@/service';
-import { RegistrationData } from '../types/registrationData';
+import { Service } from '@/lib/service';
+import { RegistrationData } from '@modules/registration/types/registrationData';
 
 class RegistrationService extends Service {
   constructor() {

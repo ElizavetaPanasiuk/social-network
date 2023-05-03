@@ -1,4 +1,4 @@
-import { Service } from '@/service';
+import { Service } from '@/lib/service';
 
 class ProfileService extends Service {
   constructor() {

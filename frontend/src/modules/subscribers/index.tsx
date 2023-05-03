@@ -1,12 +1,12 @@
 import { useQuery } from '@/hooks';
-import SubscribersService from './service';
 import { useParams } from 'react-router-dom';
 import { ProfileRow } from '@/components';
+import { SubscriptionsService } from '@/lib/service';
 
 const SubscribersPage = () => {
-  const subscribersService = new SubscribersService();
+  const subscribersService = new SubscriptionsService();
   const { profileId } = useParams();
-  const { loading, subscribers } = useQuery(() => subscribersService.getSubscribers(Number(profileId)));
+  const { loading, data: subscribers } = useQuery(() => subscribersService.getSubscribers(Number(profileId)));
 
   return (
     <div>

@@ -37,7 +37,7 @@ class Service {
     }
 
     const response = await fetch(`${this.url}${url}`, options);
-    this.handleResponse(response);
+    return this.handleResponse(response);
   }
 
   async get(queryOptions: { [key: string]: string | number }) {
@@ -47,17 +47,17 @@ class Service {
         Authorization: `Bearer ${Cookies.get('token')}`,
       },
     });
-    this.handleResponse(response);
+    return this.handleResponse(response);
   }
 
-  async getById(id: number) {
-    const response = await fetch(`${this.url}/${id}`, {
+  async getById(id: number, url: string = '') {
+    const response = await fetch(`${this.url}${url}/${id}`, {
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
         Authorization: `Bearer ${Cookies.get('token')}`,
       },
     });
-    this.handleResponse(response);
+    return this.handleResponse(response);
   }
 
   async removeById(id: number, url: string = '') {
@@ -68,7 +68,7 @@ class Service {
         Authorization: `Bearer ${Cookies.get('token')}`,
       },
     });
-    this.handleResponse(response);
+    return this.handleResponse(response);
   }
 
   async remove(data: { [key: string]: string | number }, url = '') {
@@ -80,7 +80,7 @@ class Service {
         Authorization: `Bearer ${Cookies.get('token')}`,
       },
     });
-    this.handleResponse(response);
+    return this.handleResponse(response);
   }
 
   async updateById(id: number, data: { [key: string]: string } = {}, url: string = '') {
@@ -92,7 +92,7 @@ class Service {
         Authorization: `Bearer ${Cookies.get('token')}`,
       },
     });
-    this.handleResponse(response);
+    return this.handleResponse(response);
   }
 }
 

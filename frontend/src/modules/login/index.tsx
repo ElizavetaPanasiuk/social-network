@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, Input } from '@/ui-kit';
 import styles from './styles.module.scss';
-import LoginService from './service';
+import { LoginService } from '@/lib/service';
 import jwtDecode from 'jwt-decode';
 import { signIn } from '@/store/userSlice';
 
