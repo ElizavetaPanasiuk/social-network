@@ -45,10 +45,10 @@ export class Post extends Model<Post, PostCreationAttrs> {
     type: DataType.INTEGER,
     allowNull: false,
   })
-  authorId: number;
+  userId: number;
 
   @BelongsTo(() => User)
-  author: User;
+  user: User;
 
   @BelongsToMany(() => User, () => PostLike)
   likes: User[];

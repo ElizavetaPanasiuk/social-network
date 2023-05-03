@@ -4,7 +4,7 @@ import { Post } from './post.model';
 import { User } from '../users/user.model';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
-import { CreatePostLikeDto } from './dto/create-like.dto';
+import { PostLikeDto } from './dto/post-like.dto';
 import { PostLike } from './post-like.model';
 import { Sequelize } from 'sequelize-typescript';
 
@@ -18,7 +18,7 @@ export class PostsService {
   async getPostsByProfileId(profileId: number, userId: number) {
     const posts = await this.postRepository.findAll({
       where: {
-        authorId: profileId,
+        userId: profileId,
       },
       attributes: {
         include: [
@@ -127,7 +127,7 @@ export class PostsService {
 
   async createPost(dto: CreatePostDto) {
     const post = await this.postRepository.create(dto);
-    return await this.getPostById(post.id, dto.authorId);
+    return await this.getPostById(post.id, dto.userId);
   }
 
   async updatePost(id: number, dto: UpdatePostDto) {
@@ -147,11 +147,11 @@ export class PostsService {
     });
   }
 
-  async likePost(dto: CreatePostLikeDto) {
+  async likePost(dto: PostLikeDto) {
     return await this.postLikeRepository.create(dto);
   }
 
-  async dislikePost(dto: CreatePostLikeDto) {
+  async dislikePost(dto: PostLikeDto) {
     return await this.postLikeRepository.destroy({
       where: {
         userId: dto.userId,

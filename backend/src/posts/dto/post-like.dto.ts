@@ -1,11 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreatePostLikeDto {
+export class PostLikeDto {
   @ApiProperty({
     example: 1,
     description: 'User Id',
   })
-  readonly userId: number;
+  userId: number;
 
   @ApiProperty({
     example: 1,

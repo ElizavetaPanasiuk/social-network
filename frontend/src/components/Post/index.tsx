@@ -10,8 +10,8 @@ type PostProps = {
   likes: number;
   comments: number;
   liked: boolean;
-  authorId: number;
-  author: {
+  userId: number;
+  user: {
     firstName: string;
     lastName: string;
     avatar: string;
@@ -26,8 +26,8 @@ const Post = ({
   likes,
   comments,
   liked,
-  authorId,
-  author: { firstName, lastName, avatar },
+  userId,
+  user: { firstName, lastName, avatar },
   like,
   dislike,
 }: PostProps) => {
@@ -44,7 +44,7 @@ const Post = ({
       <div className={styles.postContent}>
         <p className={styles.postHeader}>
           <Link
-            to={`/profile/${authorId}`}
+            to={`/profile/${userId}`}
             className={styles.name}
           >
             {firstName} {lastName}

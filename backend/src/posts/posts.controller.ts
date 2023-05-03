@@ -15,7 +15,7 @@ import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { AuthGuard } from '../auth/auth.guard';
-import { CreatePostLikeDto } from './dto/create-like.dto';
+import { PostLikeDto } from './dto/post-like.dto';
 
 @ApiTags('Posts')
 @Controller('posts')
@@ -27,21 +27,24 @@ export class PostsController {
   @UseGuards(AuthGuard)
   @Get('')
   getPostsByProfileId(@Query('userId') profileId: number, @Request() req) {
-    return this.postsService.getPostsByProfileId(profileId, req.user.id);
+    const userId = req.user.id;
+    return this.postsService.getPostsByProfileId(profileId, userId);
   }
 
   @ApiOperation({ summary: 'Get post by id' })
   @UseGuards(AuthGuard)
   @Get(':id')
   getPostById(@Param('id') id: number, @Request() req) {
-    return this.postsService.getPostById(id, req.user.id);
+    const userId = req.user.id;
+    return this.postsService.getPostById(id, userId);
   }
 
   @ApiOperation({ summary: 'Create post' })
   //@ApiResponse
   @UseGuards(AuthGuard)
   @Post()
-  createPost(@Body() createPostDto: CreatePostDto) {
+  createPost(@Request() req, @Body() createPostDto: CreatePostDto) {
+    createPostDto.userId = req.user.id;
     return this.postsService.createPost(createPostDto);
   }
 
@@ -55,15 +58,17 @@ export class PostsController {
   @ApiOperation({ summary: 'Like post' })
   @UseGuards(AuthGuard)
   @Post('like')
-  likePost(@Body() createLikeDto: CreatePostLikeDto) {
-    return this.postsService.likePost(createLikeDto);
+  likePost(@Request() req, @Body() postLikeDto: PostLikeDto) {
+    postLikeDto.userId = req.user.id;
+    return this.postsService.likePost(postLikeDto);
   }
 
   @ApiOperation({ summary: 'Dislike post' })
   @UseGuards(AuthGuard)
-  @Delete('/dislike')
-  dislikePost(@Body() dto: CreatePostLikeDto) {
-    return this.postsService.dislikePost(dto);
+  @Delete('dislike')
+  dislikePost(@Request() req, @Body() postLikeDto: PostLikeDto) {
+    postLikeDto.userId = req.user.id;
+    return this.postsService.dislikePost(postLikeDto);
   }
 
   @ApiOperation({ summary: 'Delete post' })

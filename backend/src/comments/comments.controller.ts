@@ -14,7 +14,7 @@ import {
 } from '@nestjs/common';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
-import { CreateCommentLikeDto } from './dto/create-like.dto';
+import { CommentLikeDto } from './dto/comment-like.dto';
 import { AuthGuard } from '../auth/auth.guard';
 
 @ApiTags('Comments')
@@ -25,14 +25,16 @@ export class CommentsController {
   @ApiOperation({ summary: 'Get comments to the post by post ID' })
   @UseGuards(AuthGuard)
   @Get('')
-  getComments(@Query('postId') postId: number, @Request() req) {
-    return this.commentsService.getComments(postId, req.user.id);
+  getComments(@Request() req, @Query('postId') postId: number) {
+    const userId = req.user.id;
+    return this.commentsService.getComments(postId, userId);
   }
 
   @ApiOperation({ summary: 'Create comment to post' })
   @UseGuards(AuthGuard)
   @Post()
-  createComment(@Body() createCommentDto: CreateCommentDto) {
+  createComment(@Request() req, @Body() createCommentDto: CreateCommentDto) {
+    createCommentDto.userId = req.user.id;
     return this.commentsService.createComment(createCommentDto);
   }
 
@@ -56,14 +58,16 @@ export class CommentsController {
   @ApiOperation({ summary: 'Like comment' })
   @UseGuards(AuthGuard)
   @Post('like')
-  likeComment(@Body() createLikeDto: CreateCommentLikeDto) {
-    return this.commentsService.likeComment(createLikeDto);
+  likeComment(@Request() req, @Body() commentLikeDto: CommentLikeDto) {
+    commentLikeDto.userId = req.user.id;
+    return this.commentsService.likeComment(commentLikeDto);
   }
 
   @ApiOperation({ summary: 'Dislike comment' })
   @UseGuards(AuthGuard)
   @Delete('dislike')
-  dislikeComment(@Body('id') dto: CreateCommentLikeDto) {
-    return this.commentsService.dislikeComment(dto);
+  dislikeComment(@Request() req, @Body() commentLikeDto: CommentLikeDto) {
+    commentLikeDto.userId = req.user.id;
+    return this.commentsService.dislikeComment(commentLikeDto);
   }
 }

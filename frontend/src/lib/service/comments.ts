@@ -9,16 +9,16 @@ class CommentsService extends Service {
     return await this.get({ postId });
   }
 
-  async createComment(text: string, id: number, userId: number) {
-    return await this.post({ text, postId: id, userId });
+  async createComment(text: string, id: number) {
+    return await this.post({ text, postId: id });
   }
 
-  async like(userId: number, commentId: number) {
-    return await this.post({ userId, commentId }, '/like');
+  async like(commentId: number) {
+    return await this.post({ commentId }, '/like');
   }
 
-  async dislike(userId: number, commentId: number) {
-    return await this.remove({ userId, commentId }, '/dislike');
+  async dislike(commentId: number) {
+    return await this.remove({ commentId }, '/dislike');
   }
 }
 

@@ -4,7 +4,7 @@ import { Comment } from './comment.model';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { CommentLike } from './comment-like';
-import { CreateCommentLikeDto } from './dto/create-like.dto';
+import { CommentLikeDto } from './dto/comment-like.dto';
 import { User } from '../users/user.model';
 import { Sequelize } from 'sequelize';
 
@@ -56,11 +56,54 @@ export class CommentsService {
         as: 'author',
         attributes: ['firstName', 'lastName', 'avatar'],
       },
+      order: [['createdAt', 'DESC']],
+    });
+  }
+
+  async getCommentById(commentId: number, userId: number) {
+    return await this.commentRepository.findByPk(commentId, {
+      attributes: {
+        include: [
+          [
+            Sequelize.literal(
+              `(SELECT COUNT(*)::int 
+              FROM "comment-likes" 
+              WHERE "commentId" = ${commentId})`,
+            ),
+            'likes',
+          ],
+          [
+            Sequelize.literal(`(
+              SELECT
+                CASE
+                WHEN EXISTS(
+                  SELECT 1
+                  FROM "comment-likes"
+                  WHERE
+                    "commentId" =  ${commentId}
+                    AND
+                    "userId" = ${userId}
+                )
+                THEN TRUE
+                ELSE FALSE
+              END
+            )`),
+            'liked',
+          ],
+        ],
+        exclude: ['updatedAt', 'postId'],
+      },
+      include: {
+        model: User,
+        as: 'author',
+        attributes: ['firstName', 'lastName', 'avatar'],
+      },
     });
   }
 
   async createComment(dto: CreateCommentDto) {
-    return await this.commentRepository.create(dto);
+    const comment = await this.commentRepository.create(dto);
+    return await this.getCommentById(comment.id, dto.userId);
   }
 
   async updateComment(id: number, dto: UpdateCommentDto) {
@@ -80,11 +123,11 @@ export class CommentsService {
     });
   }
 
-  async likeComment(dto: CreateCommentLikeDto) {
+  async likeComment(dto: CommentLikeDto) {
     return await this.commentLikeRepository.create(dto);
   }
 
-  async dislikeComment(dto: CreateCommentLikeDto) {
+  async dislikeComment(dto: CommentLikeDto) {
     return await this.commentLikeRepository.destroy({
       where: {
         userId: dto.userId,

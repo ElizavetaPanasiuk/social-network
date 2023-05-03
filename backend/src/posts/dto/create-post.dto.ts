@@ -8,5 +8,5 @@ export class CreatePostDto {
     example: 1,
     description: 'Author ID (from users table)',
   })
-  readonly authorId: number;
+  userId: number;
 }

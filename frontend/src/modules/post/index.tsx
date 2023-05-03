@@ -20,17 +20,17 @@ const PostPage = () => {
   const userId = useSelector((state: RootState) => state.user.id as number);
 
   const likePost = async () => {
-    await postsService.like(userId, id);
+    await postsService.like(id);
     setPost({ ...post, liked: true, likes: post.likes + 1 });
   };
 
   const dislikePost = async () => {
-    await postsService.dislike(userId, id);
+    await postsService.dislike(id);
     setPost({ ...post, liked: false, likes: post.likes - 1 });
   };
 
   const likeComment = async (commentId: number) => {
-    await commentsService.like(userId, commentId);
+    await commentsService.like(commentId);
     setComments(
       comments.map((comment) =>
         comment.id === commentId ? { ...comment, liked: true, likes: comment.likes + 1 } : comment,
@@ -39,7 +39,7 @@ const PostPage = () => {
   };
 
   const dislikeComment = async (commentId: number) => {
-    await commentsService.dislike(userId, commentId);
+    await commentsService.dislike(commentId);
     setComments(
       comments.map((comment) =>
         comment.id === commentId ? { ...comment, liked: false, likes: comment.likes - 1 } : comment,
@@ -48,7 +48,7 @@ const PostPage = () => {
   };
 
   const publish = async (text: string) => {
-    const newComment = await commentsService.createComment(text, id, userId);
+    const newComment = await commentsService.createComment(text, id);
     setComments([newComment, ...comments]);
   };
 

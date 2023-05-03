@@ -15,19 +15,19 @@ const ProfilePage = () => {
   const { loading, data: posts, setData: setPosts } = useQuery(() => postsService.getUserPosts(Number(profileId)));
 
   const like = async (id: number) => {
-    await postsService.like(userId, id);
+    await postsService.like(id);
     setPosts(posts.map((post) => (post.id === id ? { ...post, likes: post.likes + 1, liked: true } : post)));
   };
 
   const dislike = async (id: number) => {
-    await postsService.dislike(userId, id);
+    await postsService.dislike(id);
     setPosts(posts.map((post) => (post.id === id ? { ...post, likes: post.likes - 1, liked: false } : post)));
   };
 
   const { loading: profileLoading, data: profile } = useQuery(() => profileService.getProfile(Number(profileId)));
 
   const publish = async (text: string) => {
-    const newPost = await postsService.createPost(userId, text);
+    const newPost = await postsService.createPost(text);
     setPosts([newPost, ...posts]);
   };
 

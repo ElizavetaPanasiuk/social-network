@@ -13,16 +13,16 @@ class PostsService extends Service {
     return await this.getById(postId);
   }
 
-  async createPost(authorId: number, text: string) {
-    return await this.post({ authorId, text });
+  async createPost(text: string) {
+    return await this.post({ text });
   }
 
-  async like(userId: number, postId: number) {
-    return await this.post({ userId, postId }, '/like');
+  async like(postId: number) {
+    return await this.post({ postId }, '/like');
   }
 
-  async dislike(userId: number, postId: number) {
-    return await this.remove({ userId, postId }, '/dislike');
+  async dislike(postId: number) {
+    return await this.remove({ postId }, '/dislike');
   }
 }
 
