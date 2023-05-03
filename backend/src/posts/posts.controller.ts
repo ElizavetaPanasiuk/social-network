@@ -9,6 +9,7 @@ import {
   UseGuards,
   Request,
   Query,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags, ApiResponse } from '@nestjs/swagger';
 import { PostsService } from './posts.service';
@@ -26,7 +27,10 @@ export class PostsController {
   @ApiResponse({ status: 200, type: Post })
   @UseGuards(AuthGuard)
   @Get('')
-  getPostsByProfileId(@Query('userId') profileId: number, @Request() req) {
+  getPostsByProfileId(
+    @Query('userId', ParseIntPipe) profileId: number,
+    @Request() req,
+  ) {
     const userId = req.user.id;
     return this.postsService.getPostsByProfileId(profileId, userId);
   }
@@ -34,7 +38,7 @@ export class PostsController {
   @ApiOperation({ summary: 'Get post by id' })
   @UseGuards(AuthGuard)
   @Get(':id')
-  getPostById(@Param('id') id: number, @Request() req) {
+  getPostById(@Param('id', ParseIntPipe) id: number, @Request() req) {
     const userId = req.user.id;
     return this.postsService.getPostById(id, userId);
   }
@@ -51,7 +55,10 @@ export class PostsController {
   @ApiOperation({ summary: 'Update post' })
   @UseGuards(AuthGuard)
   @Put(':id')
-  updatePost(@Param('id') id: number, @Body() updatePostDto: UpdatePostDto) {
+  updatePost(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updatePostDto: UpdatePostDto,
+  ) {
     return this.postsService.updatePost(id, updatePostDto);
   }
 
@@ -75,7 +82,7 @@ export class PostsController {
   //@ApiResponse({ status: 200, type: ok })
   @UseGuards(AuthGuard)
   @Delete(':id')
-  removePost(@Param('id') id: number) {
+  removePost(@Param('id', ParseIntPipe) id: number) {
     return this.postsService.removePost(id);
   }
 }

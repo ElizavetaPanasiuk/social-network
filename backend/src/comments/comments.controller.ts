@@ -11,6 +11,7 @@ import {
   UseGuards,
   Query,
   Request,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
@@ -25,7 +26,7 @@ export class CommentsController {
   @ApiOperation({ summary: 'Get comments to the post by post ID' })
   @UseGuards(AuthGuard)
   @Get('')
-  getComments(@Request() req, @Query('postId') postId: number) {
+  getComments(@Request() req, @Query('postId', ParseIntPipe) postId: number) {
     const userId = req.user.id;
     return this.commentsService.getComments(postId, userId);
   }
@@ -42,7 +43,7 @@ export class CommentsController {
   @UseGuards(AuthGuard)
   @Put(':id')
   updateComment(
-    @Param('id') id: number,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateCommentDto: UpdateCommentDto,
   ) {
     return this.commentsService.updateComment(id, updateCommentDto);
@@ -51,7 +52,7 @@ export class CommentsController {
   @ApiOperation({ summary: 'Delete comment by comment id' })
   @UseGuards(AuthGuard)
   @Delete(':id')
-  deleteComment(@Param('id') id: number) {
+  deleteComment(@Param('id', ParseIntPipe) id: number) {
     return this.commentsService.deleteComment(id);
   }
 

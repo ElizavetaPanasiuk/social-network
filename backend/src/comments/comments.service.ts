@@ -53,7 +53,7 @@ export class CommentsService {
       },
       include: {
         model: User,
-        as: 'author',
+        as: 'user',
         attributes: ['firstName', 'lastName', 'avatar'],
       },
       order: [['createdAt', 'DESC']],
@@ -95,7 +95,7 @@ export class CommentsService {
       },
       include: {
         model: User,
-        as: 'author',
+        as: 'user',
         attributes: ['firstName', 'lastName', 'avatar'],
       },
     });

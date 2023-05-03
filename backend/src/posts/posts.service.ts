@@ -62,7 +62,7 @@ export class PostsService {
       include: [
         {
           model: User,
-          as: 'author',
+          as: 'user',
           attributes: ['firstName', 'lastName', 'avatar'],
         },
       ],
@@ -117,7 +117,7 @@ export class PostsService {
       include: [
         {
           model: User,
-          as: 'author',
+          as: 'user',
           attributes: ['firstName', 'lastName', 'avatar'],
         },
       ],
@@ -140,6 +140,7 @@ export class PostsService {
   }
 
   async removePost(id: number) {
+    // TODO: cascade delete with post-likes
     return this.postRepository.destroy({
       where: {
         id,

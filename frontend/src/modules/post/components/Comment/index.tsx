@@ -10,7 +10,7 @@ type CommentProps = {
   liked: boolean;
   createdAt: string;
   userId: number;
-  author: {
+  user: {
     firstName: string;
     lastName: string;
     avatar: string;
@@ -26,7 +26,7 @@ const Comment = ({
   liked,
   createdAt,
   userId,
-  author: { firstName, lastName, avatar },
+  user: { firstName, lastName, avatar },
   like,
   dislike,
 }: CommentProps) => {

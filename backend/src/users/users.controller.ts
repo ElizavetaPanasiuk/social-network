@@ -9,6 +9,7 @@ import {
   UploadedFile,
   UseGuards,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { ApiResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { User } from './user.model';
@@ -34,10 +35,19 @@ export class UsersController {
     return this.usersService.createUser(file, createUserDto);
   }
 
+  @ApiOperation({ summary: 'Get user by ID' })
+  @ApiResponse({ status: 200, type: User })
+  @UseGuards(AuthGuard)
+  @Get(':id')
+  getById(@Param('id') id: number) {
+    console.log('BY ID');
+    return this.usersService.getUserById(id);
+  }
+
   @ApiOperation({ summary: 'Search users' })
   @ApiResponse({ status: 200, type: User })
   @UseGuards(AuthGuard)
-  @Get()
+  @Get('')
   search(
     @Query('search') search: string,
     @Query('country') country: string,
@@ -45,21 +55,15 @@ export class UsersController {
     @Query('size') size: number,
     @Query('page') page: number,
   ) {
+    console.log('SEARCH');
     return this.usersService.searchUsers(search, country, city, size, page);
-  }
-
-  @ApiOperation({ summary: 'Get user by ID' })
-  @ApiResponse({ status: 200, type: User })
-  @UseGuards(AuthGuard)
-  @Get(':id')
-  getById(@Param('id') id: number) {
-    return this.usersService.getUserById(id);
   }
 
   @ApiOperation({ summary: 'Delete user' })
   @UseGuards(AuthGuard)
   @Delete(':id')
-  deleteUser(@Param('id') id: number) {
+  deleteUser(@Param('id', ParseIntPipe) id: number) {
+    // TODO add cascade delete with other tables
     return this.usersService.deleteUser(id);
   }
 }
