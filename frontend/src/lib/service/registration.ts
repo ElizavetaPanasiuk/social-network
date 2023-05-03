@@ -1,4 +1,4 @@
-import { Service } from '@/lib/service';
+import Service from './service';
 import { RegistrationData } from '@modules/registration/types/registrationData';
 
 class RegistrationService extends Service {

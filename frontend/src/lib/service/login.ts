@@ -1,4 +1,4 @@
-import { Service } from '.';
+import Service from './service';
 
 class LoginService extends Service {
   constructor() {

@@ -1,4 +1,4 @@
-import { Service } from '@/lib/service';
+import Service from './service';
 
 class SubscriptionsService extends Service {
   constructor() {

@@ -5,6 +5,7 @@ import { RootState } from '@/store';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Comment } from './components';
+import NewComment from './components/NewComment';
 
 const PostPage = () => {
   const postsService = new PostsService();
@@ -46,6 +47,11 @@ const PostPage = () => {
     );
   };
 
+  const publish = async (text: string) => {
+    const newComment = await commentsService.createComment(text, id, userId);
+    setComments([newComment, ...comments]);
+  };
+
   return (
     <>
       {loading ? (
@@ -57,6 +63,7 @@ const PostPage = () => {
           dislike={dislikePost}
         />
       )}
+      <NewComment publish={publish} />
       {loadingComments ? (
         <p>loading</p>
       ) : (

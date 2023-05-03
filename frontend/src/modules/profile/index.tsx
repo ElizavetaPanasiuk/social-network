@@ -28,7 +28,6 @@ const ProfilePage = () => {
 
   const publish = async (text: string) => {
     const newPost = await postsService.createPost(userId, text);
-    console.log(newPost);
     setPosts([newPost, ...posts]);
   };
 

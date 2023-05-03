@@ -9,6 +9,10 @@ class CommentsService extends Service {
     return await this.get({ postId });
   }
 
+  async createComment(text: string, id: number, userId: number) {
+    return await this.post({ text, postId: id, userId });
+  }
+
   async like(userId: number, commentId: number) {
     return await this.post({ userId, commentId }, '/like');
   }
