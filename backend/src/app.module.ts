@@ -15,6 +15,7 @@ import { Subscription } from './subscriptions/subscription.model';
 import { Comment } from './comments/comment.model';
 import { CommentLike } from './comments/comment-like';
 import { PostLike } from './posts/post-like.model';
+import { MessagesModule } from './messages/messages.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { PostLike } from './posts/post-like.model';
     FilesModule,
     SubscriptionsModule,
     CommentsModule,
+    MessagesModule,
   ],
 })
 export class AppModule {}
