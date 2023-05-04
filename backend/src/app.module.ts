@@ -16,6 +16,7 @@ import { Comment } from './comments/comment.model';
 import { CommentLike } from './comments/comment-like';
 import { PostLike } from './posts/post-like.model';
 import { MessagesModule } from './messages/messages.module';
+import { NewsModule } from './news/news.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { MessagesModule } from './messages/messages.module';
     SubscriptionsModule,
     CommentsModule,
     MessagesModule,
+    NewsModule,
   ],
 })
 export class AppModule {}

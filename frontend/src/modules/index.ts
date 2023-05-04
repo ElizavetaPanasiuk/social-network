@@ -1,6 +1,6 @@
-import ExplorePage from './explore';
 import LoginPage from './login';
 import MessagesPage from './messages';
+import NewsPage from './news';
 import NotificationsPage from './notifications';
 import PostPage from './post';
 import ProfilePage from './profile';
@@ -11,9 +11,9 @@ import SubscribersPage from './subscribers';
 import SubscriptionsPage from './subscriptions';
 
 export {
-  ExplorePage,
   LoginPage,
   MessagesPage,
+  NewsPage,
   NotificationsPage,
   PostPage,
   ProfilePage,

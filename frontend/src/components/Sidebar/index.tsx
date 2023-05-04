@@ -25,8 +25,8 @@ const Sidebar = () => {
       activeIcon: faUserSolid,
     },
     {
-      title: t('Explore'),
-      to: '/explore',
+      title: t('News'),
+      to: '/news',
       icon: faHashtag,
       activeIcon: faHashtag,
     },

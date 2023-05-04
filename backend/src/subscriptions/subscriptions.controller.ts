@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -18,14 +19,14 @@ export class SubscriptionsController {
   @ApiOperation({ summary: 'Get subscriptions by user id' })
   @UseGuards(AuthGuard)
   @Get(':userId')
-  getSubscriptions(@Param('userId') userId: number) {
+  getSubscriptions(@Param('userId', ParseIntPipe) userId: number) {
     return this.subscriptionsService.getSubscriptions(userId);
   }
 
   @ApiOperation({ summary: 'Get subscribers by user id' })
   @UseGuards(AuthGuard)
   @Get('subscribers/:userId')
-  getSubscribers(@Param('userId') userId: number) {
+  getSubscribers(@Param('userId', ParseIntPipe) userId: number) {
     return this.subscriptionsService.getSubscribers(userId);
   }
 
@@ -39,7 +40,7 @@ export class SubscriptionsController {
   @ApiOperation({ summary: 'Delete subscribtion by subscription id' })
   @UseGuards(AuthGuard)
   @Delete(':id')
-  unsubscribe(@Param('id') id: number) {
+  unsubscribe(@Param('id', ParseIntPipe) id: number) {
     return this.subscriptionsService.unsubscribe(id);
   }
 }

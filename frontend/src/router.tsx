@@ -1,8 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 import {
-  ExplorePage,
   LoginPage,
   MessagesPage,
+  NewsPage,
   NotificationsPage,
   PostPage,
   ProfilePage,
@@ -32,8 +32,8 @@ const router = createBrowserRouter([
         element: <ProfilePage />,
       },
       {
-        path: '/explore',
-        element: <ExplorePage />,
+        path: '/news',
+        element: <NewsPage />,
       },
       {
         path: '/messages',

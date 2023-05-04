@@ -9,5 +9,6 @@ import { SequelizeModule } from '@nestjs/sequelize';
   controllers: [SubscriptionsController],
   providers: [SubscriptionsService],
   imports: [SequelizeModule.forFeature([Subscription, User])],
+  exports: [SubscriptionsService],
 })
 export class SubscriptionsModule {}

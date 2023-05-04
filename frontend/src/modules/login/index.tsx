@@ -26,7 +26,7 @@ const LoginPage = () => {
       lastName: string;
     };
     dispatch(signIn({ id, firstName, lastName }));
-    navigate(`/profile/${id}`);
+    navigate(`/news`);
   };
 
   return (

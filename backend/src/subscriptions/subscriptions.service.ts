@@ -23,6 +23,17 @@ export class SubscriptionsService {
     });
   }
 
+  async getSubscriptionsIds(userId: number) {
+    const subscriptions = await this.subsciptionRepository.findAll({
+      where: {
+        subscriberId: userId,
+      },
+      attributes: ['profileId'],
+    });
+
+    return subscriptions.map((subscription) => subscription.profileId);
+  }
+
   async getSubscribers(userId: number) {
     return await this.subsciptionRepository.findAll({
       where: {
