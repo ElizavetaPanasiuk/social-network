@@ -6,13 +6,14 @@ type IconButtonProps = {
   icon: IconDefinition;
   onClick: () => void;
   text?: string;
+  className?: string;
 };
 
-const IconButton = ({ icon, onClick, text = '' }: IconButtonProps) => {
+const IconButton = ({ icon, onClick, text = '', className = '' }: IconButtonProps) => {
   return (
     <button
       type="button"
-      className={styles.iconButton}
+      className={`${styles.iconButton} ${className}`}
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
