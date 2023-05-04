@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Like } from '@/components';
+import { Like, TimeLabel } from '@/components';
 import { Avatar } from '@/ui-kit';
 import styles from './styles.module.scss';
 
@@ -37,9 +37,12 @@ const Comment = ({
         alt={`${firstName} ${lastName}`}
       />
       <div className={styles.commentContent}>
-        <Link to={`/profile/${userId}`}>
-          {firstName} {lastName}
-        </Link>
+        <p>
+          <Link to={`/profile/${userId}`} className={styles.name}>
+            {firstName} {lastName}
+          </Link>
+          <TimeLabel date={createdAt} />
+        </p>
         <p>{text}</p>
         <Like
           likes={likes}

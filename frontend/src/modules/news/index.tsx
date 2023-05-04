@@ -1,6 +1,7 @@
 import { Post } from '@/components';
 import { useQuery } from '@/hooks';
 import { NewsService } from '@/lib/service';
+import { Loader } from '@/ui-kit';
 
 const NewsPage = () => {
   const newsService = new NewsService();
@@ -9,7 +10,7 @@ const NewsPage = () => {
   return (
     <div>
       {loading ? (
-        <p>loading</p>
+        <Loader />
       ) : (
         posts.map((post) => (
           <Post

@@ -5,6 +5,7 @@ import { PostsService, ProfileService } from '@/lib/service';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
+import { Loader } from '@/ui-kit';
 
 const ProfilePage = () => {
   const { profileId } = useParams();
@@ -12,7 +13,11 @@ const ProfilePage = () => {
 
   const postsService = new PostsService();
   const profileService = new ProfileService();
-  const { loading, data: posts, setData: setPosts } = useQuery(() => postsService.getUserPosts(Number(profileId)));
+  const {
+    loading: postsLoading,
+    data: posts,
+    setData: setPosts,
+  } = useQuery(() => postsService.getUserPosts(Number(profileId)));
 
   const like = async (id: number) => {
     await postsService.like(id);
@@ -31,22 +36,20 @@ const ProfilePage = () => {
     setPosts([newPost, ...posts]);
   };
 
-  return (
+  return postsLoading && profileLoading ? (
+    <Loader />
+  ) : (
     <>
-      {profileLoading ? <p>loading</p> : <ProfileInfo {...profile} />}
+      <ProfileInfo {...profile} />
       {+profileId === userId && <NewPost publish={publish} />}
-      {loading ? (
-        <p>loading</p>
-      ) : (
-        posts.map((post) => (
-          <Post
-            key={post.id}
-            {...post}
-            like={like}
-            dislike={dislike}
-          />
-        ))
-      )}
+      {posts.map((post) => (
+        <Post
+          key={post.id}
+          {...post}
+          like={like}
+          dislike={dislike}
+        />
+      ))}
     </>
   );
 };

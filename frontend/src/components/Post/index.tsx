@@ -3,6 +3,7 @@ import styles from './styles.module.scss';
 import { Avatar, IconButton } from '@/ui-kit';
 import { faCommentAlt } from '@fortawesome/free-regular-svg-icons';
 import Like from './Like';
+import TimeLabel from '../TimeLabel';
 
 type PostProps = {
   id: number;
@@ -11,6 +12,7 @@ type PostProps = {
   comments: number;
   liked: boolean;
   userId: number;
+  createdAt: string;
   user: {
     firstName: string;
     lastName: string;
@@ -27,6 +29,7 @@ const Post = ({
   comments,
   liked,
   userId,
+  createdAt,
   user: { firstName, lastName, avatar },
   like,
   dislike,
@@ -49,6 +52,7 @@ const Post = ({
           >
             {firstName} {lastName}
           </Link>
+          <TimeLabel date={createdAt} />
         </p>
         <p className={styles.postContent}>{text}</p>
         <div className={styles.postFooter}>

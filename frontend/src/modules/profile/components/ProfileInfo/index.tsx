@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar } from '@fortawesome/free-regular-svg-icons';
 import { faBirthdayCake, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { Link, useParams } from 'react-router-dom';
+import moment from 'moment';
 
 type ProfileInfoProps = {
   firstName: string;
@@ -50,7 +51,7 @@ const ProfileInfo = ({
         <div className={styles.details}>
           <p>
             <FontAwesomeIcon icon={faBirthdayCake} />
-            {t('Born')} {dateOfBirth}
+            {t('Born')} {moment(dateOfBirth).format('LL')}
           </p>
           <p>
             <FontAwesomeIcon icon={faMapMarkerAlt} />
@@ -58,7 +59,7 @@ const ProfileInfo = ({
           </p>
           <p>
             <FontAwesomeIcon icon={faCalendar} />
-            {t('Joined')} {joined}
+            {t('Joined')} {moment(joined).format('LL')}
           </p>
           <p>
             <Link to={`/subscribers/${profileId}`}>

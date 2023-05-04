@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Comment } from './components';
 import NewComment from './components/NewComment';
+import { Loader } from '@/ui-kit';
 
 const PostPage = () => {
   const postsService = new PostsService();
@@ -52,30 +53,24 @@ const PostPage = () => {
     setComments([newComment, ...comments]);
   };
 
-  return (
+  return loading && loadingComments ? (
+    <Loader />
+  ) : (
     <>
-      {loading ? (
-        <p>loading</p>
-      ) : (
-        <Post
-          {...post}
-          like={likePost}
-          dislike={dislikePost}
-        />
-      )}
+      <Post
+        {...post}
+        like={likePost}
+        dislike={dislikePost}
+      />
       <NewComment publish={publish} />
-      {loadingComments ? (
-        <p>loading</p>
-      ) : (
-        comments.map((comment) => (
-          <Comment
-            key={comment.id}
-            {...comment}
-            like={likeComment}
-            dislike={dislikeComment}
-          />
-        ))
-      )}
+      {comments.map((comment) => (
+        <Comment
+          key={comment.id}
+          {...comment}
+          like={likeComment}
+          dislike={dislikeComment}
+        />
+      ))}
     </>
   );
 };

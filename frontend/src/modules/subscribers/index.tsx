@@ -2,6 +2,7 @@ import { useQuery } from '@/hooks';
 import { useParams } from 'react-router-dom';
 import { ProfileRow } from '@/components';
 import { SubscriptionsService } from '@/lib/service';
+import { Loader } from '@/ui-kit';
 
 const SubscribersPage = () => {
   const subscribersService = new SubscriptionsService();
@@ -11,7 +12,7 @@ const SubscribersPage = () => {
   return (
     <div>
       {loading ? (
-        <p>loading</p>
+        <Loader />
       ) : (
         subscribers.map(({ subscriber }) => (
           <ProfileRow
