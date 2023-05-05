@@ -49,6 +49,14 @@ export class CommentsController {
     return this.commentsService.updateComment(id, updateCommentDto);
   }
 
+  @ApiOperation({ summary: 'Dislike comment' })
+  @UseGuards(AuthGuard)
+  @Delete('dislike')
+  dislikeComment(@Request() req, @Body() commentLikeDto: CommentLikeDto) {
+    commentLikeDto.userId = req.user.id;
+    return this.commentsService.dislikeComment(commentLikeDto);
+  }
+
   @ApiOperation({ summary: 'Delete comment by comment id' })
   @UseGuards(AuthGuard)
   @Delete(':id')
@@ -62,13 +70,5 @@ export class CommentsController {
   likeComment(@Request() req, @Body() commentLikeDto: CommentLikeDto) {
     commentLikeDto.userId = req.user.id;
     return this.commentsService.likeComment(commentLikeDto);
-  }
-
-  @ApiOperation({ summary: 'Dislike comment' })
-  @UseGuards(AuthGuard)
-  @Delete('dislike')
-  dislikeComment(@Request() req, @Body() commentLikeDto: CommentLikeDto) {
-    commentLikeDto.userId = req.user.id;
-    return this.commentsService.dislikeComment(commentLikeDto);
   }
 }
