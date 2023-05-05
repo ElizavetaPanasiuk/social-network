@@ -1,7 +1,6 @@
 import { Post } from '@/components';
 import { useQuery } from '@/hooks';
-import { PostsService } from '@/lib/service';
-import { NewsService } from '@/lib/service';
+import { NewsService, PostsService } from '@/lib/service';
 import { Loader } from '@/ui-kit';
 
 const NewsPage = () => {

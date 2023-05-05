@@ -26,7 +26,7 @@ const Select = ({ label, options, value, onChange }: SelectProps) => {
         className={`${styles.select} ${visible ? styles.active : ''}`}
         onClick={() => setVisible(!visible)}
       >
-        {value || label}
+        {options.find((el) => el.value === value)?.label || label}
       </button>
       {visible && (
         <div className={styles.options}>
