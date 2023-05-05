@@ -1,0 +1,19 @@
+@import '@/styles/colors.scss';
+
+.searchPage {
+  display: flex;
+
+  > :first-child {
+    flex: 1;
+  }
+
+  .filters {
+    border-left: 1px solid $gray-light;
+    padding: 1rem;
+    min-width: 10rem;
+
+    > :not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+}

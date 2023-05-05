@@ -73,8 +73,19 @@ export class UsersService {
     return password;
   }
 
-  async searchUsers(search = '', country = '', city = '', size = 10, page = 1) {
-    let searchParams: { [key: string]: any } = {};
+  async searchUsers(
+    currentUserId: number,
+    search: string | null = '',
+    country: string | null = '',
+    city: string | null = '',
+    size: number | null = 10,
+    page: number | null = 1,
+  ) {
+    let searchParams: { [key: string]: any } = {
+      id: {
+        [Op.ne]: currentUserId,
+      },
+    };
 
     if (country) {
       searchParams.country = country;
@@ -113,7 +124,7 @@ export class UsersService {
       };
     }
     const users = await this.userRepository.findAll({
-      where: searchParams, // TODO: exclude current user from the kust
+      where: searchParams,
       order: [
         ['firstName', 'ASC'],
         ['lastName', 'ASC'],

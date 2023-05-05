@@ -9,7 +9,7 @@ class Service {
   }
 
   private transformSearchQueryToString(query: { [key: string]: string | number }) {
-    const params = Object.keys(query);
+    const params = Object.keys(query).filter((param) => query[param] !== '');
     if (params.length) {
       return `?${params.map((param) => `${param}=${query[param]}`).join('&')}`;
     }
