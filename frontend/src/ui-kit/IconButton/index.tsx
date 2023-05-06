@@ -7,9 +7,10 @@ type IconButtonProps = {
   onClick: () => void;
   text?: string;
   className?: string;
+  disabled?: boolean;
 };
 
-const IconButton = ({ icon, onClick, text = '', className = '' }: IconButtonProps) => {
+const IconButton = ({ icon, onClick, text = '', className = '', disabled = false }: IconButtonProps) => {
   return (
     <button
       type="button"
@@ -19,6 +20,7 @@ const IconButton = ({ icon, onClick, text = '', className = '' }: IconButtonProp
         e.stopPropagation();
         onClick();
       }}
+      disabled={disabled}
     >
       <FontAwesomeIcon icon={icon} />
       {text ? <span>{text}</span> : null}

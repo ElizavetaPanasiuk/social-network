@@ -1,3 +1,4 @@
+import useChat from './useChat';
 import useQuery from './useQuery';
 
-export { useQuery };
+export { useChat, useQuery };

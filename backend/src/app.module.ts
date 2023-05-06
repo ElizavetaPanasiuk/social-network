@@ -17,6 +17,8 @@ import { CommentLike } from './comments/comment-like';
 import { PostLike } from './posts/post-like.model';
 import { MessagesModule } from './messages/messages.module';
 import { NewsModule } from './news/news.module';
+import { Message } from './messages/message.model';
+import { Room } from './messages/room.model';
 
 @Module({
   imports: [
@@ -30,7 +32,16 @@ import { NewsModule } from './news/news.module';
       username: process.env.PG_USERNAME,
       password: process.env.PG_PASSWORD,
       database: process.env.PG_DATABASE,
-      models: [Comment, User, Post, Subscription, CommentLike, PostLike],
+      models: [
+        Comment,
+        User,
+        Post,
+        Subscription,
+        CommentLike,
+        PostLike,
+        Message,
+        Room,
+      ],
       autoLoadModels: true,
     }),
     ServeStaticModule.forRoot({

@@ -4,21 +4,28 @@ import styles from './styles.module.scss';
 import { useTranslation } from 'react-i18next';
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
 
-const MessageInput = () => {
+type MessageInputProps = {
+  message: string;
+  onChange: (value: string) => void;
+  onSend: () => void;
+};
+
+const MessageInput = ({ message, onChange, onSend }: MessageInputProps) => {
   const { t } = useTranslation();
-  const [message, setMessage] = useState('');
 
   return (
     <div className={styles.messageInput}>
       <Textarea
         value={message}
-        onChange={setMessage}
+        onChange={onChange}
         placeholder={t('Write a message') as string}
+        onEnter={onSend}
       />
       <IconButton
         icon={faPaperPlane}
-        onClick={() => console.log('publish')}
+        onClick={onSend}
         className={styles.sendButton}
+        disabled={!message.trim()}
       />
     </div>
   );

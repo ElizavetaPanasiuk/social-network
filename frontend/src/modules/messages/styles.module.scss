@@ -1,4 +1,11 @@
 .messagesContainer {
-  height: 100vh;
+  max-height: 100vh;
   position: relative;
+  overflow-y: auto;
+
+  .messages {
+    height: calc(100vh - 12.5rem);
+    overflow-y: auto;
+    margin-bottom: 7rem;
+  }
 }
