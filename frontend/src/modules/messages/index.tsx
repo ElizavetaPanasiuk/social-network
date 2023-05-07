@@ -1,10 +1,11 @@
 import { Message, MessageInput, MessagesHeader } from './components';
 import styles from './styles.module.scss';
 import { useChat, useQuery } from '@/hooks';
-import { useRef, useState } from 'react';
+import { Fragment, useRef, useState } from 'react';
 import { Loader } from '@/ui-kit';
 import { MessagesService } from '@/lib/service';
 import { useParams } from 'react-router-dom';
+import moment from 'moment';
 
 const MessagesPage = () => {
   const messagesService = new MessagesService();
@@ -37,11 +38,15 @@ const MessagesPage = () => {
             className={styles.messages}
             ref={messagesContainerRef}
           >
-            {messages.map((message) => (
-              <Message
-                key={message.id}
-                {...message}
-              />
+            {messages.map((message, id) => (
+              <Fragment key={message.id}>
+                {(id === 0 ||
+                  moment(message.createdAt).format('DD.MM.YYYY') !==
+                    moment(messages[id - 1].createdAt).format('DD.MM.YYYY')) && (
+                  <div>{moment(message.createdAt).format('LL')}</div>
+                )}
+                <Message {...message} />
+              </Fragment>
             ))}
           </div>
           <MessageInput
