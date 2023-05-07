@@ -1,29 +1,31 @@
 import { RootState } from '@/store';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { io, Socket } from 'Socket.IO-client';
 
 let socket: Socket;
 
 const useChat = () => {
   const userId = useSelector((state: RootState) => state.user.id);
+  const [socket, setSocket] = useState<Socket>();
+  const { roomId } = useParams();
   const [loading, setLoading] = useState(true);
 
   if (!socket) {
-    socket = io('http://localhost:5000/messages', {
-      query: {
-        id: userId,
-      },
-    }).on('connection', (socket) => socket.join('1'));
+    setSocket(
+      io('http://localhost:5000/messages', {
+        query: {
+          userId,
+          roomId,
+        },
+      }).on('connection', (socket) => socket.join(roomId)),
+    );
   }
 
   const [messages, setMessages] = useState();
 
   useEffect(() => {
-    socket.on('log', (log: string) => {
-      console.log('log');
-    });
-
     socket.on('messages', (messages) => {
       setMessages(messages);
       setLoading(false);
@@ -33,7 +35,9 @@ const useChat = () => {
   }, []);
 
   const send = (payload) => {
-    socket.emit('message:post', payload);
+    payload.roomId = roomId;
+    payload.userId = userId;
+    socket.emit('messages:post', payload);
   };
 
   const chatActions = {

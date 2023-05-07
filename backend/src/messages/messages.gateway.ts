@@ -1,5 +1,4 @@
 import {
-  MessageBody,
   OnGatewayInit,
   OnGatewayConnection,
   OnGatewayDisconnect,
@@ -10,8 +9,15 @@ import {
 import { MessagesService } from './messages.service';
 import { Server, Socket } from 'Socket.IO';
 import { CreateMessageDto } from './dto/create-message.dto';
+import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from 'src/auth/auth.guard';
 
-const users: Record<string, string> = {};
+type UserSocket = {
+  userId: string;
+  roomId: string;
+};
+
+const users: Record<string, UserSocket> = {};
 
 @WebSocketGateway({
   namespace: 'messages',
@@ -30,38 +36,35 @@ export class MessagesGateway
     console.log('INIT SERVER');
   }
 
+  @UseGuards(AuthGuard)
   handleConnection(client: Socket) {
-    const userName = client.handshake.query.userName as string;
+    const userId = client.handshake.query.userId as string;
+    const roomId = client.handshake.query.roomId as string;
     const socketId = client.id;
-    users[socketId] = userName;
-
-    // TODO : roomId in to()
-    client.to('1').emit('log', `${userName} connected`);
+    users[socketId] = {
+      userId,
+      roomId,
+    };
+    this.server.to(socketId).socketsJoin(roomId);
   }
 
   handleDisconnect(client: Socket) {
     const socketId = client.id;
-    const userName = users[socketId];
     delete users[socketId];
-
-    // TODO : roomId in to()
-    client.to('1').emit('log', `${userName} disconnected`);
   }
 
   @SubscribeMessage('messages:get')
-  async handleMessagesGet() {
-    const roomId = 1; // TODO: roomId from request
+  async handleMessagesGet(client: Socket) {
+    const socketId = client.id;
+    const roomId = users[socketId].roomId;
     const messages = await this.messagesService.getMessages(roomId);
-    this.server.emit('messages', messages);
+    this.server.to(roomId).emit('messages', messages);
   }
 
-  @SubscribeMessage('message:post')
-  async handleMessagePost(
-    @MessageBody()
-    payload: CreateMessageDto,
-  ) {
+  @SubscribeMessage('messages:post')
+  async handleMessagePost(client: Socket, payload: CreateMessageDto) {
     const createdMessage = await this.messagesService.createMessage(payload);
-    this.server.emit('message:post', createdMessage);
-    this.handleMessagesGet();
+    this.server.to(payload.roomId).emit('message:post', createdMessage);
+    this.handleMessagesGet(client);
   }
 }

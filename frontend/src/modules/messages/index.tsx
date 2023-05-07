@@ -1,14 +1,10 @@
-import { useSelector } from 'react-redux';
 import { Message, MessageInput, MessagesHeader } from './components';
 import styles from './styles.module.scss';
-import { RootState } from '@/store';
 import { useChat } from '@/hooks';
 import { useState } from 'react';
 import { Loader } from '@/ui-kit';
 
 const MessagesPage = () => {
-  const userId = useSelector((state: RootState) => state.user.id);
-
   const user = {
     avatar: 'images/d0dfacfa-e1f8-4c5a-bc71-ea31488056f0.jpg',
     firstName: 'Liza',
@@ -20,9 +16,7 @@ const MessagesPage = () => {
   const [text, setText] = useState('');
   const sendMessage = () => {
     const message = {
-      userId,
       text,
-      roomId: 1,
     };
 
     if (text.trim()) {

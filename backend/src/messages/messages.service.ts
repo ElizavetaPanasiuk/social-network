@@ -60,7 +60,7 @@ export class MessagesService {
     return room;
   }
 
-  async getMessages(roomId: number) {
+  async getMessages(roomId: string) {
     return await this.messageRepository.findAll({
       where: {
         roomId,

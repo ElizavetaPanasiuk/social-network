@@ -65,7 +65,7 @@ const router = createBrowserRouter([
         element: <ConversationsPage />,
       },
       {
-        path: '/messages/:rommId',
+        path: '/messages/:roomId',
         element: <MessagesPage />,
       },
     ],
