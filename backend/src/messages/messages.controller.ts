@@ -5,6 +5,8 @@ import {
   Post,
   Request,
   UseGuards,
+  Query,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { MessagesService } from './messages.service';
 import { AuthGuard } from 'src/auth/auth.guard';
@@ -19,6 +21,16 @@ export class MessagesController {
   getConversations(@Request() req) {
     const userId = req.user.id;
     return this.messagesService.getRooms(userId);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('interlocutor')
+  getInterlocutor(
+    @Request() req,
+    @Query('roomId', ParseUUIDPipe) roomId: string,
+  ) {
+    const userId = req.user.id;
+    return this.messagesService.getInterlocutor(userId, roomId);
   }
 
   @UseGuards(AuthGuard)

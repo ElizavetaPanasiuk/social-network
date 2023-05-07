@@ -6,12 +6,14 @@ import { CreateMessageDto } from './dto/create-message.dto';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { User } from 'src/users/user.model';
 import { Op } from 'sequelize';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class MessagesService {
   constructor(
     @InjectModel(Room) private roomRepository: typeof Room,
     @InjectModel(Message) private messageRepository: typeof Message,
+    private usersService: UsersService,
   ) {}
 
   async createMessage(dto: CreateMessageDto) {
@@ -72,5 +74,16 @@ export class MessagesService {
         attributes: ['firstName', 'lastName', 'avatar'],
       },
     });
+  }
+
+  async getInterlocutor(currentUserId: number, roomId: string) {
+    const room = await this.roomRepository.findOne({
+      where: {
+        id: roomId,
+      },
+    });
+    const interlocutorId =
+      room.userId1 === currentUserId ? room.userId2 : room.userId1;
+    return await this.usersService.getUserById(interlocutorId);
   }
 }

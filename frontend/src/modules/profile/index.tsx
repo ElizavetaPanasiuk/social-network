@@ -36,7 +36,7 @@ const ProfilePage = () => {
     setPosts([newPost, ...posts]);
   };
 
-  return postsLoading && profileLoading ? (
+  return postsLoading || profileLoading ? (
     <Loader />
   ) : (
     <>

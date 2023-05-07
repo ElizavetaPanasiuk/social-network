@@ -1,19 +1,19 @@
 import { Message, MessageInput, MessagesHeader } from './components';
 import styles from './styles.module.scss';
-import { useChat } from '@/hooks';
-import { useState } from 'react';
+import { useChat, useQuery } from '@/hooks';
+import { useRef, useState } from 'react';
 import { Loader } from '@/ui-kit';
+import { MessagesService } from '@/lib/service';
+import { useParams } from 'react-router-dom';
 
 const MessagesPage = () => {
-  const user = {
-    avatar: 'images/d0dfacfa-e1f8-4c5a-bc71-ea31488056f0.jpg',
-    firstName: 'Liza',
-    lastName: 'Panasiuk',
-  };
-
+  const messagesService = new MessagesService();
+  const { roomId } = useParams();
   const { messages, loading, chatActions } = useChat();
+  const { data: user, loading: loadingUser } = useQuery(() => messagesService.getInterlocutor(roomId));
 
   const [text, setText] = useState('');
+  const messagesContainerRef = useRef(null);
   const sendMessage = () => {
     const message = {
       text,
@@ -22,17 +22,21 @@ const MessagesPage = () => {
     if (text.trim()) {
       chatActions.send(message);
       setText('');
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
     }
   };
 
   return (
     <div className={styles.messagesContainer}>
-      {loading ? (
+      {loading || loadingUser ? (
         <Loader />
       ) : (
         <>
           <MessagesHeader {...user} />
-          <div className={styles.messages}>
+          <div
+            className={styles.messages}
+            ref={messagesContainerRef}
+          >
             {messages.map((message) => (
               <Message
                 key={message.id}

@@ -1,4 +1,4 @@
-import Service from "./service";
+import Service from './service';
 
 class MessagesService extends Service {
   constructor() {
@@ -8,6 +8,10 @@ class MessagesService extends Service {
   getRooms() {
     return this.get();
   }
+
+  getInterlocutor(roomId: string) {
+    return this.get({ roomId }, '/interlocutor');
+  }
 }
 
-export default MessagesService
+export default MessagesService;

@@ -40,8 +40,8 @@ class Service {
     return this.handleResponse(response);
   }
 
-  async get(queryOptions: { [key: string]: string | number } = {}) {
-    const response = await fetch(`${this.url}${this.transformSearchQueryToString(queryOptions)}`, {
+  async get(queryOptions: { [key: string]: string | number } = {}, url: string = '') {
+    const response = await fetch(`${this.url}${url}${this.transformSearchQueryToString(queryOptions)}`, {
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
         Authorization: `Bearer ${Cookies.get('token')}`,
