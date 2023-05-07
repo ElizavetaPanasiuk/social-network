@@ -5,6 +5,7 @@ import { Message } from './message.model';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { User } from 'src/users/user.model';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class MessagesService {
@@ -18,7 +19,45 @@ export class MessagesService {
   }
 
   async createRoom(dto: CreateRoomDto) {
+    const room = await this.getRoom(dto.userId1, dto.userId2);
+    if (room) {
+      return room;
+    }
     return await this.roomRepository.create(dto);
+  }
+
+  async getRooms(userId: number) {
+    return await this.roomRepository.findAll({
+      where: {
+        [Op.or]: [{ userId1: userId }, { userId2: userId }],
+      },
+      include: [
+        {
+          model: User,
+          as: 'user1',
+          attributes: ['id', 'firstName', 'lastName', 'avatar'],
+        },
+        {
+          model: User,
+          as: 'user2',
+          attributes: ['id', 'firstName', 'lastName', 'avatar'],
+        },
+      ],
+    });
+  }
+
+  async getRoom(userId1: number, userId2: number) {
+    const room = await this.roomRepository.findOne({
+      where: {
+        userId1: {
+          [Op.or]: [userId1, userId2],
+        },
+        userId2: {
+          [Op.or]: [userId1, userId2],
+        },
+      },
+    });
+    return room;
   }
 
   async getMessages(roomId: number) {

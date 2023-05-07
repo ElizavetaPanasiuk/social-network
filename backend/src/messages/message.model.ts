@@ -12,7 +12,7 @@ import { Room } from './room.model';
 interface MessageCreationAttrs {
   readonly text: string;
   readonly userId: number;
-  readonly roomId: number;
+  readonly roomId: string;
 }
 
 @Table({ tableName: 'messages' })
@@ -33,10 +33,10 @@ export class Message extends Model<Message, MessageCreationAttrs> {
 
   @ForeignKey(() => Room)
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.UUID,
     allowNull: false,
   })
-  roomId: number;
+  roomId: string;
 
   @ForeignKey(() => User)
   @Column({

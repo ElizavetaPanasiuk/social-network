@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import {
+  ConversationsPage,
   LoginPage,
   MessagesPage,
   NewsPage,
@@ -36,10 +37,6 @@ const router = createBrowserRouter([
         element: <NewsPage />,
       },
       {
-        path: '/messages',
-        element: <MessagesPage />,
-      },
-      {
         path: '/notifications',
         element: <NotificationsPage />,
       },
@@ -62,6 +59,14 @@ const router = createBrowserRouter([
       {
         path: '/search',
         element: <SearchPage />,
+      },
+      {
+        path: '/messages',
+        element: <ConversationsPage />,
+      },
+      {
+        path: '/messages/:rommId',
+        element: <MessagesPage />,
       },
     ],
   },

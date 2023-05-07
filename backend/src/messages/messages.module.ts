@@ -5,9 +5,11 @@ import { Room } from './room.model';
 import { User } from 'src/users/user.model';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { MessagesGateway } from './messages.gateway';
+import { MessagesController } from './messages.controller';
 
 @Module({
   providers: [MessagesService, MessagesGateway],
   imports: [SequelizeModule.forFeature([Message, Room, User])],
+  controllers: [MessagesController],
 })
 export class MessagesModule {}

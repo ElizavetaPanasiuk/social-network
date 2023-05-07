@@ -3,5 +3,5 @@ export class CreateMessageDto {
 
   userId: number;
 
-  readonly roomId: number;
+  readonly roomId: string;
 }

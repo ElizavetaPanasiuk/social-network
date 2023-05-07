@@ -1,4 +1,3 @@
-import { RouteInfo } from '@nestjs/common/interfaces';
 import {
   Column,
   DataType,
@@ -12,20 +11,20 @@ import { User } from 'src/users/user.model';
 import { Message } from './message.model';
 
 interface RoomCreationAttrs {
-  id: number;
+  id: string;
   userId1: number;
   userId2: number;
 }
 
 @Table({ tableName: 'rooms' })
-export class Room extends Model<Room, RouteInfo> {
+export class Room extends Model<Room, RoomCreationAttrs> {
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
     primaryKey: true,
-    autoIncrement: true,
     unique: true,
   })
-  id: number;
+  id: string;
 
   @ForeignKey(() => User)
   @Column({
@@ -41,10 +40,10 @@ export class Room extends Model<Room, RouteInfo> {
   })
   userId2: number;
 
-  @BelongsTo(() => User)
+  @BelongsTo(() => User, 'userId1')
   user1: User;
 
-  @BelongsTo(() => User)
+  @BelongsTo(() => User, 'userId2')
   user2: User;
 
   @HasMany(() => Message)
