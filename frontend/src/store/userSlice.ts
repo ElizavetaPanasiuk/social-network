@@ -31,9 +31,12 @@ export const userSlice = createSlice({
       state.lastName = action.payload.lastName;
       state.isAuth = true;
     },
+    signOut: (state) => {
+      state = initialState;
+    },
   },
 });
 
-export const { signIn } = userSlice.actions;
+export const { signIn, signOut } = userSlice.actions;
 
 export default userSlice.reducer;
