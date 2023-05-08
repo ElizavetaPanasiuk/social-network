@@ -1,0 +1,22 @@
+@import '@/styles/colors.scss';
+
+.actionsMenu {
+  position: absolute;
+  right: 0;
+  top: 2.75rem;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $gray-light;
+  border-radius: 0.25rem;
+
+  .actionButton {
+    padding: 0.5rem 1rem;
+    background-color: $white;
+    cursor: pointer;
+    overflow: hidden;
+
+    &:hover {
+      background-color: $gray-light;
+    }
+  }
+}

@@ -4,6 +4,9 @@ import { Avatar, IconButton } from '@/ui-kit';
 import { faCommentAlt } from '@fortawesome/free-regular-svg-icons';
 import Like from './Like';
 import TimeLabel from '../TimeLabel';
+import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
+import ActionsMenu from './ActionsMenu';
+import { useState } from 'react';
 
 type PostProps = {
   id: number;
@@ -20,6 +23,7 @@ type PostProps = {
   };
   like: (id: number) => void;
   dislike: (id: number) => void;
+  onDelete: (id: number) => void;
 };
 
 const Post = ({
@@ -33,7 +37,10 @@ const Post = ({
   user: { firstName, lastName, avatar },
   like,
   dislike,
+  onDelete,
 }: PostProps) => {
+  const [actionsMenuVisible, setActionsMenuVisible] = useState(false);
+
   return (
     <Link
       to={`/post/${id}`}
@@ -53,6 +60,17 @@ const Post = ({
             {firstName} {lastName}
           </Link>
           <TimeLabel date={createdAt} />
+          <IconButton
+            icon={faEllipsisH}
+            onClick={() => setActionsMenuVisible(!actionsMenuVisible)}
+            className={styles.postActionsButton}
+          />
+          {actionsMenuVisible && (
+            <ActionsMenu
+              onDelete={onDelete}
+              setActionsMenuVisible={setActionsMenuVisible}
+            />
+          )}
         </p>
         <p className={styles.postContent}>{text}</p>
         <div className={styles.postFooter}>

@@ -3,7 +3,7 @@ import { useQuery } from '@/hooks';
 import { CommentsService, PostsService } from '@/lib/service';
 import { RootState } from '@/store';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Comment } from './components';
 import NewComment from './components/NewComment';
 import { Loader } from '@/ui-kit';
@@ -18,6 +18,7 @@ const PostPage = () => {
     data: comments,
     setData: setComments,
   } = useQuery(() => commentsService.getCommentsByPostId(Number(id)));
+  const navigate = useNavigate();
   const userId = useSelector((state: RootState) => state.user.id as number);
 
   const likePost = async () => {
@@ -53,7 +54,12 @@ const PostPage = () => {
     setComments([newComment, ...comments]);
   };
 
-  return loading && loadingComments ? (
+  const deletePost = async () => {
+    const res = await postsService.deletePost(id);
+    console.log(res);
+  };
+
+  return loading || loadingComments ? (
     <Loader />
   ) : (
     <>
@@ -61,6 +67,7 @@ const PostPage = () => {
         {...post}
         like={likePost}
         dislike={dislikePost}
+        onDelete={deletePost}
       />
       <NewComment publish={publish} />
       {comments.map((comment) => (

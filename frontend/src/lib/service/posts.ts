@@ -24,6 +24,12 @@ class PostsService extends Service {
   async dislike(postId: number) {
     return await this.remove({ postId }, '/dislike');
   }
+
+  async deletePost(postId: number) {
+    return await this.removeById(postId);
+  }
+
+  async updatePost(postId: number, newText: string) {}
 }
 
 export default PostsService;

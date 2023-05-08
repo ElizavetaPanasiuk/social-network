@@ -1,6 +1,7 @@
 @import '@/styles/colors.scss';
 
 .post {
+  position: relative;
   border-bottom: 1px solid $gray-light;
   padding: 1rem;
   display: flex;
@@ -11,16 +12,34 @@
   }
 
   .postContent {
+    width: 100%;
+
     > :not(:last-child) {
       margin-bottom: 0.5rem;
     }
 
     .postHeader {
       display: flex;
+      width: 100%;
 
       .name {
         font-weight: bold;
         margin-right: 0.5rem;
+      }
+
+      .postActionsButton {
+        position: relative;
+        top: -0.5rem;
+        margin-left: auto;
+        height: fit-content;
+        width: fit-content;
+        padding: 0.5rem;
+        color: $gray-dark;
+
+        &:hover {
+          background-color: $gray-light;
+          border-radius: 50%;
+        }
       }
     }
 

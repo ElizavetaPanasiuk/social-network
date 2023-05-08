@@ -1,4 +1,11 @@
+@import '@/styles/colors.scss';
+
 .conversationRow {
   display: flex;
   gap: 1rem;
+  padding: 1rem;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid $gray-light;
+  }
 }
