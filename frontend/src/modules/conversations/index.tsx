@@ -6,7 +6,7 @@ import { MessagesService } from '@/lib/service';
 const ConversationsPage = () => {
   const messagesService = new MessagesService();
   const { data: conversations, loading } = useQuery(() => messagesService.getRooms());
-  
+
   return (
     <div>
       {loading ? (

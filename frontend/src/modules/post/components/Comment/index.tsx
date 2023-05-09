@@ -38,7 +38,10 @@ const Comment = ({
       />
       <div className={styles.commentContent}>
         <p>
-          <Link to={`/profile/${userId}`} className={styles.name}>
+          <Link
+            to={`/profile/${userId}`}
+            className={styles.name}
+          >
             {firstName} {lastName}
           </Link>
           <TimeLabel date={createdAt} />

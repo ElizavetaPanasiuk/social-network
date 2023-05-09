@@ -7,7 +7,7 @@ const Loader = () => {
     <FontAwesomeIcon
       icon={faSpinner}
       className={styles.loader}
-      size='2x'
+      size="2x"
       spin
     />
   );

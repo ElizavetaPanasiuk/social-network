@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const useQuery = (queryFn) => {
+const useQuery = (queryFn, { dependencies = [] } = {}) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState();
   const [error, setError] = useState({ value: false, message: '' });
@@ -18,7 +18,7 @@ const useQuery = (queryFn) => {
 
   useEffect(() => {
     sendQuery();
-  }, []);
+  }, dependencies);
 
   return { loading, error, data, setData };
 };

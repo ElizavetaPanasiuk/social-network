@@ -5,10 +5,7 @@ type useMutationOptions = {
   onError?: () => void;
 };
 
-const useMutation = (
-  queryFn,
-  { onSuccess, onError }: useMutationOptions = { onSuccess: () => {}, onError: () => {} },
-) => {
+const useMutation = (queryFn, { onSuccess = () => {}, onError = () => {} }: useMutationOptions) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState();
   const [error, setError] = useState({ value: false, message: '' });
@@ -17,7 +14,7 @@ const useMutation = (
     try {
       const result = await queryFn();
       setData(result);
-      onSuccess();
+      onSuccess(result);
     } catch (error) {
       setError({ value: true, message: error.message });
       onError();

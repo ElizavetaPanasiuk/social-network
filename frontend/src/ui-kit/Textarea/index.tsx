@@ -5,9 +5,20 @@ type TextareaProps = {
   onChange: (value: string) => void;
   placeholder?: string;
   onEnter?: () => void;
+  disabled?: boolean;
+  minLength?: number;
+  maxLength?: number;
 };
 
-const Textarea = ({ value, onChange, placeholder = '', onEnter = () => {} }: TextareaProps) => {
+const Textarea = ({
+  value,
+  onChange,
+  placeholder = '',
+  onEnter = () => {},
+  disabled = false,
+  minLength = 0,
+  maxLength,
+}: TextareaProps) => {
   return (
     <textarea
       className={styles.textarea}
@@ -20,6 +31,9 @@ const Textarea = ({ value, onChange, placeholder = '', onEnter = () => {} }: Tex
           onEnter();
         }
       }}
+      disabled={disabled}
+      minLength={minLength}
+      maxLength={maxLength}
     />
   );
 };

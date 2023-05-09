@@ -12,8 +12,9 @@ const SearchPage = () => {
   const [searchString, setSearchString] = useState('');
   const [country, setCountry] = useState('');
   const [city, setCity] = useState('');
-  const { loading, error, data, setData } = useQuery(() =>
-    profileService.searchUsers({ search: searchString, city, country }),
+  const { loading, error, data, setData } = useQuery(
+    () => profileService.searchUsers({ search: searchString, city, country }),
+    { dependencies: [country, city, searchString] },
   );
 
   return (
