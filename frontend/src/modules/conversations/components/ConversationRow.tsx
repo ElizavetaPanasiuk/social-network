@@ -24,6 +24,7 @@ const ConversationRow = ({ id, user1, user2 }: ConversationRowProps) => {
   const userId = useSelector((state: RootState) => state.user.id);
   const user = user1.id === userId ? user2 : user1;
   const { avatar, firstName, lastName } = user;
+  
   return (
     <Link
       to={`./${id}`}
