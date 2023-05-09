@@ -1,6 +1,7 @@
 import { Button, Input } from '@/ui-kit';
 import { useTranslation } from 'react-i18next';
 import { RegistrationData } from '../types/registrationData';
+import { Link } from 'react-router-dom';
 
 type Step1Props = {
   onContinue: () => void;
@@ -24,6 +25,7 @@ const Step1 = ({ onContinue, registrationData, onChange }: Step1Props) => {
         title={t('Continue')}
         onClick={onContinue}
       />
+      <Link to="/login">{t('Or Sign In')}</Link>
     </>
   );
 };

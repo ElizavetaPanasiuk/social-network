@@ -26,6 +26,8 @@
     position: absolute;
     width: 100%;
     z-index: 2;
+    max-height: 10rem;
+    overflow-y: auto;
 
     .option {
       @extend %selectButton;

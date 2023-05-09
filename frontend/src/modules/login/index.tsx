@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Box, Button, Input } from '@/ui-kit';
 import styles from './styles.module.scss';
 import { LoginService } from '@/lib/service';
@@ -47,6 +47,7 @@ const LoginPage = () => {
         title={t('Sign In')}
         onClick={() => login(email, password)}
       />
+      <Link to="/registration">{t('Or register')}</Link>
     </Box>
   );
 };

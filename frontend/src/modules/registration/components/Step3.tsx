@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Button, Input, Select } from '@/ui-kit';
 import { RegistrationData } from '../types/registrationData';
+import { DateInput } from '@/components';
 
 type Step3Props = {
   onContinue: () => void;
@@ -24,10 +25,10 @@ const Step3 = ({ onContinue, registrationData, onChange }: Step3Props) => {
         onChange={(value) => onChange('lastName', value)}
         placeholder={t('Surname') as string}
       />
-      <Input
+      <p>{t('Birthday')}</p>
+      <DateInput
         value={registrationData.dateOfBirth}
         onChange={(value) => onChange('dateOfBirth', value)}
-        placeholder={t('Birthday') as string}
       />
       <Select
         value={registrationData.country}

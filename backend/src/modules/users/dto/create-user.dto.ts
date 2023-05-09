@@ -6,9 +6,7 @@ import {
   MaxLength,
   IsEmail,
   IsStrongPassword,
-  IsDate,
-  MinDate,
-  MaxDate,
+  IsDateString,
 } from 'class-validator';
 import { passwordValidationRules } from '../../../utils/validation-rules';
 import FIELDS_LENGTH from 'src/constants/fields-length';
@@ -42,9 +40,7 @@ export class CreateUserDto {
     example: '2002-03-12 00:00:00+02',
     description: 'Date of birth',
   })
-  @IsDate()
-  @MinDate(new Date(1920, 0, 1))
-  @MaxDate(new Date())
+  @IsDateString()
   readonly dateOfBirth: Date;
 
   @ApiProperty({ example: 'Belarus', description: ' Country' })

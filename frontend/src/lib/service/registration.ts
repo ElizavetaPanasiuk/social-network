@@ -14,7 +14,7 @@ class RegistrationService extends Service {
     formData.append('lastName', userData.lastName);
     formData.append('country', userData.country);
     formData.append('city', userData.city);
-    formData.append('dateOfBirth', userData.dateOfBirth.toString());
+    formData.append('dateOfBirth', userData.dateOfBirth.toISOString());
     formData.append('avatar', userData.avatar as File);
     return await this.post(formData);
   }

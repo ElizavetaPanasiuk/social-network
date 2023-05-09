@@ -23,7 +23,11 @@ const RegistrationPage = () => {
     passwordRepeat: '',
     firstName: '',
     lastName: '',
-    dateOfBirth: '',
+    dateOfBirth: {
+      year: null,
+      month: null,
+      date: null,
+    },
     country: '',
     city: '',
     avatar: null,
@@ -34,7 +38,14 @@ const RegistrationPage = () => {
   };
 
   const onSubmit = async () => {
-    const { access_token } = await registrationService.signUp(registrationData);
+    const { access_token } = await registrationService.signUp({
+      ...registrationData,
+      dateOfBirth: new Date(
+        registrationData.dateOfBirth.year,
+        registrationData.dateOfBirth.month,
+        registrationData.dateOfBirth.date,
+      ),
+    });
     Cookies.set('token', access_token);
     const { id, firstName, lastName } = jwtDecode(access_token) as {
       id: number;
@@ -47,7 +58,10 @@ const RegistrationPage = () => {
     //setStep(5); // return step 5 when add activation by email
   };
 
-  const onChange = (key: keyof typeof registrationData, value: string | File) => {
+  const onChange = (
+    key: keyof typeof registrationData,
+    value: string | File | keyof typeof registrationData.dateOfBirth,
+  ) => {
     setRegistrationData({
       ...registrationData,
       [key]: value,

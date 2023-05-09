@@ -4,7 +4,11 @@ export type RegistrationData = {
   passwordRepeat: string;
   firstName: string;
   lastName: string;
-  dateOfBirth: string;
+  dateOfBirth: {
+    year: number;
+    month: number;
+    date: number;
+  };
   country: string;
   city: string;
   avatar: File | null;

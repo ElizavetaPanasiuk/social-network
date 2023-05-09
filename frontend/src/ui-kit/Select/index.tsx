@@ -4,11 +4,11 @@ import styles from './styles.module.scss';
 type SelectProps = {
   label: string;
   options: {
-    label: string;
-    value: string;
+    label: string | number;
+    value: string | number;
   }[];
-  value: string;
-  onChange: (value: string) => void;
+  value: string | number;
+  onChange: (value: string | number) => void;
 };
 
 const Select = ({ label, options, value, onChange }: SelectProps) => {
