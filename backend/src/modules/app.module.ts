@@ -47,7 +47,7 @@ import { User } from './users/user.model';
       autoLoadModels: true,
     }),
     ServeStaticModule.forRoot({
-      rootPath: path.resolve(__dirname, '..', 'static'),
+      rootPath: path.resolve(__dirname, '../..', 'static'),
     }),
     UsersModule,
     AuthModule,
