@@ -49,24 +49,24 @@ const ProfileInfo = ({
           {firstName} {lastName}
         </h2>
         <div className={styles.details}>
-          <p>
+          <p className={styles.detailsLine}>
             <FontAwesomeIcon icon={faBirthdayCake} />
             {t('Born')} {moment(dateOfBirth).format('LL')}
           </p>
-          <p>
+          <p className={styles.detailsLine}>
             <FontAwesomeIcon icon={faMapMarkerAlt} />
             {country}, {city}
           </p>
-          <p>
+          <p className={styles.detailsLine}>
             <FontAwesomeIcon icon={faCalendar} />
             {t('Joined')} {moment(joined).format('LL')}
           </p>
-          <p>
+          <p className={styles.detailsLine}>
             <Link to={`/subscribers/${profileId}`}>
-              {subscribers} {t('Subscribers')}
+              <span className={styles.detailsIndicator}>{subscribers}</span> {t('Subscribers')}
             </Link>
             <Link to={`/subscriptions/${profileId}`}>
-              {subscriptions} {t('Subscriptions')}
+              <span className={styles.detailsIndicator}>{subscriptions}</span> {t('Subscriptions')}
             </Link>
           </p>
         </div>

@@ -3,6 +3,14 @@
 .searchPage {
   display: flex;
 
+  .mainPanel {
+    padding: 1rem;
+
+    .searchInput {
+      width: 100%;
+    }
+  }
+
   > :first-child {
     flex: 1;
   }
@@ -11,6 +19,10 @@
     border-left: 1px solid $gray-light;
     padding: 1rem;
     min-width: 10rem;
+
+    > * {
+      width: 100%;
+    }
 
     > :not(:last-child) {
       margin-bottom: 1rem;

@@ -6,12 +6,20 @@ type InputProps = {
   placeholder?: string;
   type?: 'text' | 'password';
   onEnter?: () => void;
+  className?: string;
 };
 
-const Input = ({ value, onChange, placeholder = '', type = 'text', onEnter = () => {} }: InputProps) => {
+const Input = ({
+  value,
+  onChange,
+  placeholder = '',
+  type = 'text',
+  onEnter = () => {},
+  className = '',
+}: InputProps) => {
   return (
     <input
-      className={styles.input}
+      className={`${styles.input} ${className}`}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}

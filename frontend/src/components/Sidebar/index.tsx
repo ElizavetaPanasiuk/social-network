@@ -36,12 +36,12 @@ const Sidebar = () => {
       icon: faEnvelope,
       activeIcon: faEnvelopeSolid,
     },
-    {
+    /* {
       title: t('Notifications'),
       to: '/notifications',
       icon: faBell,
       activeIcon: faBellSolid,
-    },
+    }, */
     {
       title: t('Search'),
       to: '/search',

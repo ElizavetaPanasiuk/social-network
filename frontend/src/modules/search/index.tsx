@@ -12,17 +12,18 @@ const SearchPage = () => {
   const [searchString, setSearchString] = useState('');
   const [country, setCountry] = useState('');
   const [city, setCity] = useState('');
-  const { loading, error, data, setData } = useQuery(
-    () => profileService.searchUsers({ search: searchString, city, country }),
-    { dependencies: [country, city, searchString] },
-  );
+  const { loading, data } = useQuery(() => profileService.searchUsers({ search: searchString, city, country }), {
+    dependencies: [country, city, searchString],
+  });
 
   return (
     <div className={styles.searchPage}>
-      <div>
+      <div className={styles.mainPanel}>
         <Input
           value={searchString}
           onChange={setSearchString}
+          placeholder={t('Search') as string}
+          className={styles.searchInput}
         />
         {loading ? (
           <Loader />

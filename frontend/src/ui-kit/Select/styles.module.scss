@@ -4,7 +4,7 @@
   cursor: pointer;
   display: block;
   width: 100%;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   border: 1px solid $primary;
   color: $primary;
   background-color: $white;
@@ -12,6 +12,7 @@
 
 .selectContainer {
   position: relative;
+  width: fit-content;
 
   .select {
     @extend %selectButton;

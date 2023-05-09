@@ -15,9 +15,22 @@
 
   .profileInfo {
     margin-top: 6rem;
+    padding: 1rem;
 
     .details {
       color: $gray-dark;
+
+      .detailsLine {
+        margin-top: 0.5rem;
+
+        .detailsIndicator {
+          font-weight: bold;
+        }
+
+        > :first-child {
+          margin-right: 0.5rem;
+        }
+      }
     }
   }
 }

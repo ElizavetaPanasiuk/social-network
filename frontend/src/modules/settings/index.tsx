@@ -2,6 +2,7 @@ import { Select } from '@/ui-kit';
 import { changeLanguage } from 'i18next';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import styles from './styles.module.scss';
 
 const SettingsPage = () => {
   const { t } = useTranslation();
@@ -13,7 +14,7 @@ const SettingsPage = () => {
   };
 
   return (
-    <div>
+    <div className={styles.settingsPage}>
       <h3>{t('Change language')}</h3>
       <Select
         label={t('Select language')}
