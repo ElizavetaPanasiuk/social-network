@@ -22,7 +22,7 @@
       "@/hooks/*": ["scr/hooks/*"],
       "@/lib/*": ["scr/lib/*"],
       "@/locales/*": ["scr/locales/*"],
-      "@/modules/*": ["src/modules/*"],
+      "@/modules/*": ["..//*"],
       "@/store/*": ["src/store/*"],
       "@/styles/*": ["src/styles/*"],
       "@/ui-kit/*": ["src/ui-kit/*"]
