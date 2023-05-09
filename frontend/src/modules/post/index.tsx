@@ -1,9 +1,7 @@
 import { Post } from '@/components';
-import { useQuery } from '@/hooks';
+import { useMutation, useQuery } from '@/hooks';
 import { CommentsService, PostsService } from '@/lib/service';
-import { RootState } from '@/store';
-import { useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Comment } from './components';
 import NewComment from './components/NewComment';
 import { Loader } from '@/ui-kit';
@@ -11,23 +9,21 @@ import { Loader } from '@/ui-kit';
 const PostPage = () => {
   const postsService = new PostsService();
   const commentsService = new CommentsService();
-  const { id } = useParams();
-  const { loading, data: post, setData: setPost } = useQuery(() => postsService.getPost(id));
+  const { postId } = useParams();
+  const { loading, data: post, setData: setPost } = useQuery(() => postsService.getPost(postId));
   const {
     loading: loadingComments,
     data: comments,
     setData: setComments,
-  } = useQuery(() => commentsService.getCommentsByPostId(Number(id)));
-  const navigate = useNavigate();
-  const userId = useSelector((state: RootState) => state.user.id as number);
+  } = useQuery(() => commentsService.getCommentsByPostId(Number(postId)));
 
   const likePost = async () => {
-    await postsService.like(id);
+    await postsService.like(postId);
     setPost({ ...post, liked: true, likes: post.likes + 1 });
   };
 
   const dislikePost = async () => {
-    await postsService.dislike(id);
+    await postsService.dislike(postId);
     setPost({ ...post, liked: false, likes: post.likes - 1 });
   };
 
@@ -49,10 +45,9 @@ const PostPage = () => {
     );
   };
 
-  const publish = async (text: string) => {
-    const newComment = await commentsService.createComment(text, id);
-    setComments([newComment, ...comments]);
-  };
+  const { mutate: publishComment } = useMutation((text: string) => commentsService.createComment(text, postId), {
+    onSuccess: (newComment) => setComments([newComment, ...comments]),
+  });
 
   const deletePost = async () => {
     const res = await postsService.deletePost(id);
@@ -69,7 +64,7 @@ const PostPage = () => {
         dislike={dislikePost}
         onDelete={deletePost}
       />
-      <NewComment publish={publish} />
+      <NewComment publish={publishComment} />
       {comments.map((comment) => (
         <Comment
           key={comment.id}

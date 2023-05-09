@@ -10,9 +10,9 @@ const useMutation = (queryFn, { onSuccess = () => {}, onError = () => {} }: useM
   const [data, setData] = useState();
   const [error, setError] = useState({ value: false, message: '' });
 
-  const mutate = async () => {
+  const mutate = async (...args) => {
     try {
-      const result = await queryFn();
+      const result = await queryFn(...args);
       setData(result);
       onSuccess(result);
     } catch (error) {

@@ -1,6 +1,6 @@
 import { Post } from '@/components';
 import { ProfileInfo, NewPost } from './components';
-import { useQuery } from '@/hooks';
+import { useMutation, useQuery } from '@/hooks';
 import { PostsService, ProfileService } from '@/lib/service';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -18,6 +18,7 @@ const ProfilePage = () => {
     data: posts,
     setData: setPosts,
   } = useQuery(() => postsService.getUserPosts(Number(profileId)));
+  const { loading: profileLoading, data: profile } = useQuery(() => profileService.getProfile(Number(profileId)));
 
   const like = async (id: number) => {
     await postsService.like(id);
@@ -29,12 +30,9 @@ const ProfilePage = () => {
     setPosts(posts.map((post) => (post.id === id ? { ...post, likes: post.likes - 1, liked: false } : post)));
   };
 
-  const { loading: profileLoading, data: profile } = useQuery(() => profileService.getProfile(Number(profileId)));
-
-  const publish = async (text: string) => {
-    const newPost = await postsService.createPost(text);
-    setPosts([newPost, ...posts]);
-  };
+  const { mutate: publish } = useMutation((text: string) => postsService.createPost(text), {
+    onSuccess: (newPost) => setPosts([newPost, ...posts]),
+  });
 
   return postsLoading || profileLoading ? (
     <Loader />

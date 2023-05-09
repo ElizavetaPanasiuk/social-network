@@ -53,7 +53,7 @@ const router = createBrowserRouter([
         element: <SubscriptionsPage />,
       },
       {
-        path: '/post/:id',
+        path: '/post/:postId',
         element: <PostPage />,
       },
       {
