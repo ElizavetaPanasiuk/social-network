@@ -11,6 +11,16 @@
       bottom: -5rem;
       left: 1rem;
     }
+
+    .profileActions {
+      position: absolute;
+      bottom: -4rem;
+      right: 1rem;
+
+      > :not(:last-child) {
+        margin-right: 1rem;
+      }
+    }
   }
 
   .profileInfo {

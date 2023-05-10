@@ -70,10 +70,11 @@ export class SubscriptionsService {
     return await this.subsciptionRepository.create(dto);
   }
 
-  async unsubscribe(id: number) {
+  async unsubscribe(dto: CreateSubscriptionDto) {
     return await this.subsciptionRepository.destroy({
       where: {
-        id,
+        profileId: dto.profileId,
+        subscriberId: dto.subscriberId,
       },
     });
   }

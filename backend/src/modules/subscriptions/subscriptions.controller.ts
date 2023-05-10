@@ -39,8 +39,8 @@ export class SubscriptionsController {
 
   @ApiOperation({ summary: 'Delete subscribtion by subscription id' })
   @UseGuards(AuthGuard)
-  @Delete(':id')
-  unsubscribe(@Param('id', ParseIntPipe) id: number) {
-    return this.subscriptionsService.unsubscribe(id);
+  @Delete('')
+  unsubscribe(@Body() dto: CreateSubscriptionDto) {
+    return this.subscriptionsService.unsubscribe(dto);
   }
 }

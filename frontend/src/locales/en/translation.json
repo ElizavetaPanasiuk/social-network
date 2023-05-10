@@ -37,6 +37,8 @@
   "Born": "Born",
   "Subscriptions": "Subscriptions",
   "Subscribers": "Subscribers",
+  "Subscribe": "Subscribe",
+  "Unsubscribe": "Unsubscribe",
   "Search": "Search",
   "Write a comment": "Write a comment",
   "Comment": "Comment",
@@ -58,5 +60,6 @@
   "November": "November",
   "December": "December",
   "Or register": "Or register",
-  "Or Sign In": "Or Sign In"
+  "Or Sign In": "Or Sign In",
+  "Message": "Message"
 }

@@ -1,12 +1,14 @@
 import { useTranslation } from 'react-i18next';
 import styles from './styles.module.scss';
 
-import { Avatar } from '@/ui-kit';
+import { Avatar, Button } from '@/ui-kit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar } from '@fortawesome/free-regular-svg-icons';
 import { faBirthdayCake, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { Link, useParams } from 'react-router-dom';
 import moment from 'moment';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
 
 type ProfileInfoProps = {
   firstName: string;
@@ -18,6 +20,9 @@ type ProfileInfoProps = {
   country: string;
   city: string;
   avatar: string;
+  isSubscribed: boolean;
+  subscribe: () => void;
+  unsubscribe: () => void;
 };
 
 const ProfileInfo = ({
@@ -30,9 +35,13 @@ const ProfileInfo = ({
   country,
   city,
   avatar,
+  isSubscribed,
+  subscribe,
+  unsubscribe,
 }: ProfileInfoProps) => {
   const { t } = useTranslation();
   const { profileId } = useParams();
+  const currentUserId = useSelector((state: RootState) => state.user.id);
 
   return (
     <div className={styles.profileHeader}>
@@ -43,6 +52,23 @@ const ProfileInfo = ({
           size="large"
           border
         />
+        {currentUserId !== +profileId && (
+          <div className={styles.profileActions}>
+            <Button title={t('Message')} />
+            {isSubscribed ? (
+              <Button
+                title={t('Unsubscribe')}
+                onClick={unsubscribe}
+                variant="outlined"
+              />
+            ) : (
+              <Button
+                title={t('Subscribe')}
+                onClick={subscribe}
+              />
+            )}
+          </div>
+        )}
       </div>
       <div className={styles.profileInfo}>
         <h2>

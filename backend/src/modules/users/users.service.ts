@@ -12,7 +12,7 @@ export class UsersService {
     private filesService: FilesService,
   ) {}
 
-  async getUserById(id: number) {
+  async getUserById(id: number, currentUserId: number) {
     const user = await this.userRepository.findByPk(id, {
       attributes: [
         'id',
@@ -38,6 +38,24 @@ export class UsersService {
               WHERE "profileId" = "User"."id"
           )`),
           'subscribers',
+        ],
+        [
+          Sequelize.literal(`(
+            SELECT
+              CASE
+              WHEN EXISTS(
+                SELECT 1
+                FROM "subscriptions"
+                WHERE
+                  "profileId" = ${id}
+                  AND
+                  "subscriberId" = ${currentUserId}
+              )
+              THEN TRUE
+              ELSE FALSE
+            END
+          )`),
+          'isSubscribed',
         ],
       ],
     });

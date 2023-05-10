@@ -7,6 +7,8 @@ import TimeLabel from '../TimeLabel';
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import ActionsMenu from './ActionsMenu';
 import { useState } from 'react';
+import { RootState } from '@/store';
+import { useSelector } from 'react-redux';
 
 type PostProps = {
   id: number;
@@ -40,6 +42,7 @@ const Post = ({
   onDelete,
 }: PostProps) => {
   const [actionsMenuVisible, setActionsMenuVisible] = useState(false);
+  const currentUserId = useSelector((state: RootState) => state.user.id);
 
   return (
     <Link
@@ -60,16 +63,20 @@ const Post = ({
             {firstName} {lastName}
           </Link>
           <TimeLabel date={createdAt} />
-          <IconButton
-            icon={faEllipsisH}
-            onClick={() => setActionsMenuVisible(!actionsMenuVisible)}
-            className={styles.postActionsButton}
-          />
-          {actionsMenuVisible && (
-            <ActionsMenu
-              onDelete={onDelete}
-              setActionsMenuVisible={setActionsMenuVisible}
-            />
+          {currentUserId === +userId && (
+            <>
+              <IconButton
+                icon={faEllipsisH}
+                onClick={() => setActionsMenuVisible(!actionsMenuVisible)}
+                className={styles.postActionsButton}
+              />
+              {actionsMenuVisible && (
+                <ActionsMenu
+                  onDelete={onDelete}
+                  setActionsMenuVisible={setActionsMenuVisible}
+                />
+              )}
+            </>
           )}
         </p>
         <p className={styles.postContent}>{text}</p>

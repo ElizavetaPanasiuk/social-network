@@ -84,6 +84,6 @@ export class MessagesService {
     });
     const interlocutorId =
       room.userId1 === currentUserId ? room.userId2 : room.userId1;
-    return await this.usersService.getUserById(interlocutorId);
+    return await this.usersService.getUserById(interlocutorId, currentUserId);
   }
 }

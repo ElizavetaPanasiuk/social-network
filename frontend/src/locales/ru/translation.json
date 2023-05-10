@@ -37,6 +37,8 @@
   "Born": "Родился",
   "Subscriptions": "Подписок",
   "Subscribers": "Подписчиков",
+  "Subscribe": "Подписаться",
+  "Unsubscribe": "Отписаться",
   "Search": "Поиск",
   "Write a comment": "Написать комментарий",
   "Comment": "Комментировать",
@@ -58,5 +60,6 @@
   "November": "Ноября",
   "December": "Декабря",
   "Or register": "Или зарегистрируйтесь",
-  "Or Sign In": "Или войдите"
+  "Or Sign In": "Или войдите",
+  "Message": "Сообщение"
 }
