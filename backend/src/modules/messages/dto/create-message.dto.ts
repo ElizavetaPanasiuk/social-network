@@ -5,7 +5,7 @@ export class CreateMessageDto {
   @IsString()
   @MinLength(FIELDS_LENGTH.MESSAGE_TEXT.MIN)
   @MaxLength(FIELDS_LENGTH.MESSAGE_TEXT.MAX)
-  readonly text: string;
+  text: string;
 
   @IsInt()
   userId: number;

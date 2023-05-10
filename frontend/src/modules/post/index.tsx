@@ -18,12 +18,12 @@ const PostPage = () => {
   } = useQuery(() => commentsService.getCommentsByPostId(Number(postId)));
 
   const likePost = async () => {
-    await postsService.like(postId);
+    await postsService.like(+postId);
     setPost({ ...post, liked: true, likes: post.likes + 1 });
   };
 
   const dislikePost = async () => {
-    await postsService.dislike(postId);
+    await postsService.dislike(+postId);
     setPost({ ...post, liked: false, likes: post.likes - 1 });
   };
 

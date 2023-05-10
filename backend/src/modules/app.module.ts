@@ -6,6 +6,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 
 import { AuthModule } from './auth/auth.module';
 import { CommentsModule } from './comments/comments.module';
+import { CryptoModule } from './crypto/crypto.module';
 import { FilesModule } from './files/files.module';
 import { MessagesModule } from './messages/messages.module';
 import { NewsModule } from './news/news.module';
@@ -49,6 +50,7 @@ import { User } from './users/user.model';
     ServeStaticModule.forRoot({
       rootPath: path.resolve(__dirname, '../..', 'static'),
     }),
+    CryptoModule,
     UsersModule,
     AuthModule,
     PostModule,
