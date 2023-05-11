@@ -51,7 +51,6 @@ const PostPage = () => {
 
   const deletePost = async () => {
     const res = await postsService.deletePost(id);
-    console.log(res);
   };
 
   return loading || loadingComments ? (
