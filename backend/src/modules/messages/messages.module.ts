@@ -7,10 +7,15 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { MessagesGateway } from './messages.gateway';
 import { MessagesController } from './messages.controller';
 import { UsersModule } from '../users/users.module';
+import { CryptoModule } from '../crypto/crypto.module';
 
 @Module({
   providers: [MessagesService, MessagesGateway],
-  imports: [SequelizeModule.forFeature([Message, Room, User]), UsersModule],
+  imports: [
+    SequelizeModule.forFeature([Message, Room, User]),
+    UsersModule,
+    CryptoModule,
+  ],
   controllers: [MessagesController],
 })
 export class MessagesModule {}
