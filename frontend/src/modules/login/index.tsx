@@ -8,6 +8,7 @@ import styles from './styles.module.scss';
 import { LoginService } from '@/lib/service';
 import jwtDecode from 'jwt-decode';
 import { signIn } from '@/store/userSlice';
+import { useMutation } from '@/hooks';
 
 const LoginPage = () => {
   const { t } = useTranslation();
@@ -17,17 +18,19 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const loginService = new LoginService();
 
-  const login = async (email: string, password: string) => {
-    const { access_token } = await loginService.signIn(email, password);
-    Cookies.set('token', access_token);
-    const { id, firstName, lastName } = jwtDecode(access_token) as {
-      id: number;
-      firstName: string;
-      lastName: string;
-    };
-    dispatch(signIn({ id, firstName, lastName }));
-    navigate(`/news`);
-  };
+  const { mutate: login } = useMutation((email: string, password: string) => loginService.signIn(email, password), {
+    onSuccess: (result) => {
+      const { access_token } = result;
+      Cookies.set('token', access_token);
+      const { id, firstName, lastName } = jwtDecode(access_token) as {
+        id: number;
+        firstName: string;
+        lastName: string;
+      };
+      dispatch(signIn({ id, firstName, lastName }));
+      navigate(`/news`);
+    },
+  });
 
   return (
     <Box className={styles.loginContainer}>

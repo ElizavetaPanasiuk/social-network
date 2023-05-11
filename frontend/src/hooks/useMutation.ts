@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 type useMutationOptions = {
-  onSuccess?: () => void;
+  onSuccess?: (mutationResult, args) => void;
   onError?: () => void;
 };
 
@@ -14,7 +14,7 @@ const useMutation = (queryFn, { onSuccess = () => {}, onError = () => {} }: useM
     try {
       const result = await queryFn(...args);
       setData(result);
-      onSuccess(result);
+      onSuccess(result, args);
     } catch (error) {
       setError({ value: true, message: error.message });
       onError();
