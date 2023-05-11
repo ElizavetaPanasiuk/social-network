@@ -7,6 +7,7 @@ import { CreateRoomDto } from './dto/create-room.dto';
 import { User } from '..//users/user.model';
 import { Op } from 'sequelize';
 import { UsersService } from '..//users/users.service';
+import { CryptoService } from '../crypto/crypto.service';
 
 @Injectable()
 export class MessagesService {
@@ -14,10 +15,20 @@ export class MessagesService {
     @InjectModel(Room) private roomRepository: typeof Room,
     @InjectModel(Message) private messageRepository: typeof Message,
     private usersService: UsersService,
+    private cryptoService: CryptoService,
   ) {}
 
   async createMessage(dto: CreateMessageDto) {
-    return await this.messageRepository.create(dto);
+    const { ciphertext: text, iv } = this.cryptoService.encrypt('password key');
+    console.log('ECRYPTED:', text);
+    const decrypted = this.cryptoService.decrypt(text, iv);
+    console.log('DECRYPTED:', decrypted);
+    return await this.messageRepository.create({
+      roomId: dto.roomId,
+      userId: dto.userId,
+      text,
+      iv,
+    });
   }
 
   async createRoom(dto: CreateRoomDto) {
@@ -63,6 +74,9 @@ export class MessagesService {
   }
 
   async getMessages(roomId: string) {
+    console.log(
+      '==============================================================get messages...',
+    );
     return await this.messageRepository.findAll({
       where: {
         roomId,
