@@ -20,7 +20,9 @@ const ActionsMenu = ({ onDelete, setActionsMenuVisible }: ActionsMenuProps) => {
       <button
         className={styles.actionButton}
         type="button"
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation();
+          e.preventDefault();
           onDelete();
           setActionsMenuVisible(false);
         }}
