@@ -64,7 +64,9 @@ export class Comment extends Model<Comment, CommentCreationAttrs> {
   @BelongsTo(() => User)
   user: User;
 
-  @BelongsTo(() => Post)
+  @BelongsTo(() => Post, {
+    onDelete: 'CASCADE',
+  })
   post: Post;
 
   @BelongsToMany(() => User, () => CommentLike)
