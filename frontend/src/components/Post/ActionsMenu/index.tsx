@@ -3,10 +3,11 @@ import styles from './styles.module.scss';
 
 type ActionsMenuProps = {
   onDelete: () => void;
+  onEdit: () => void;
   setActionsMenuVisible: (value: boolean) => void;
 };
 
-const ActionsMenu = ({ onDelete, setActionsMenuVisible }: ActionsMenuProps) => {
+const ActionsMenu = ({ onDelete, onEdit, setActionsMenuVisible }: ActionsMenuProps) => {
   const { t } = useTranslation();
 
   return (
@@ -14,6 +15,12 @@ const ActionsMenu = ({ onDelete, setActionsMenuVisible }: ActionsMenuProps) => {
       <button
         className={styles.actionButton}
         type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          onEdit();
+          setActionsMenuVisible(false);
+        }}
       >
         {t('Edit')}
       </button>

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styles from './styles.module.scss';
-import { Avatar, IconButton } from '@/ui-kit';
+import { Avatar, IconButton, Textarea } from '@/ui-kit';
 import { faCommentAlt } from '@fortawesome/free-regular-svg-icons';
 import Like from './Like';
 import TimeLabel from '../TimeLabel';
@@ -9,6 +9,7 @@ import ActionsMenu from './ActionsMenu';
 import { useState } from 'react';
 import { RootState } from '@/store';
 import { useSelector } from 'react-redux';
+import PostEdit from './PostEdit';
 
 type PostProps = {
   id: number;
@@ -26,6 +27,7 @@ type PostProps = {
   like: (id: number) => void;
   dislike: (id: number) => void;
   onDelete: (id: number) => void;
+  onEdit: () => void;
 };
 
 const Post = ({
@@ -40,9 +42,16 @@ const Post = ({
   like,
   dislike,
   onDelete,
+  onEdit,
 }: PostProps) => {
-  const [actionsMenuVisible, setActionsMenuVisible] = useState(false);
   const currentUserId = useSelector((state: RootState) => state.user.id);
+  const [actionsMenuVisible, setActionsMenuVisible] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+
+  const saveEditedPost = async (newPostContent: string) => {
+    await onEdit(newPostContent);
+    setEditMode(false);
+  };
 
   return (
     <Link
@@ -73,13 +82,21 @@ const Post = ({
               {actionsMenuVisible && (
                 <ActionsMenu
                   onDelete={onDelete}
+                  onEdit={() => setEditMode(true)}
                   setActionsMenuVisible={setActionsMenuVisible}
                 />
               )}
             </>
           )}
         </p>
-        <p className={styles.postContent}>{text}</p>
+        {editMode ? (
+          <PostEdit
+            postContent={text}
+            onSave={saveEditedPost}
+          />
+        ) : (
+          <p className={styles.postContent}>{text}</p>
+        )}
         <div className={styles.postFooter}>
           <Like
             likes={likes}
