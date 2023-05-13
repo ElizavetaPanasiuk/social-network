@@ -27,7 +27,7 @@ type PostProps = {
   like: (id: number) => void;
   dislike: (id: number) => void;
   onDelete: (id: number) => void;
-  onEdit: () => void;
+  onUpdate: (id: number, newContent: string) => void;
 };
 
 const Post = ({
@@ -42,22 +42,19 @@ const Post = ({
   like,
   dislike,
   onDelete,
-  onEdit,
+  onUpdate,
 }: PostProps) => {
   const currentUserId = useSelector((state: RootState) => state.user.id);
   const [actionsMenuVisible, setActionsMenuVisible] = useState(false);
   const [editMode, setEditMode] = useState(false);
 
   const saveEditedPost = async (newPostContent: string) => {
-    await onEdit(newPostContent);
+    await onUpdate(id, newPostContent);
     setEditMode(false);
   };
 
-  return (
-    <Link
-      to={`/post/${id}`}
-      className={styles.post}
-    >
+  const innerContent = (
+    <>
       <Avatar
         src={avatar}
         size="small"
@@ -81,7 +78,7 @@ const Post = ({
               />
               {actionsMenuVisible && (
                 <ActionsMenu
-                  onDelete={onDelete}
+                  onDelete={() => onDelete(id)}
                   onEdit={() => setEditMode(true)}
                   setActionsMenuVisible={setActionsMenuVisible}
                 />
@@ -113,6 +110,17 @@ const Post = ({
           </div>
         </div>
       </div>
+    </>
+  );
+
+  return editMode ? (
+    <div className={styles.post}>{innerContent}</div>
+  ) : (
+    <Link
+      to={`/post/${id}`}
+      className={`${styles.post} ${styles.link}`}
+    >
+      {innerContent}
     </Link>
   );
 };

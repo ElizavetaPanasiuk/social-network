@@ -46,6 +46,18 @@ const ProfilePage = () => {
       setPosts(posts.map((post) => (post.id === args[0] ? { ...post, likes: post.likes - 1, liked: false } : post))),
   });
 
+  const { mutate: deletePost } = useMutation((id: number) => postsService.deletePost(id), {
+    onSuccess: (_result, args) => setPosts(posts.filter((post) => post.id !== args[0])),
+  });
+
+  const { mutate: updatePost } = useMutation(
+    (id: number, newContent: string) => postsService.updatePost(id, newContent),
+    {
+      onSuccess: (_result, args) =>
+        setPosts(posts.map((post) => (post.id === args[0] ? { ...post, text: args[1] } : post))),
+    },
+  );
+
   return postsLoading || profileLoading ? (
     <Loader />
   ) : (
@@ -62,6 +74,8 @@ const ProfilePage = () => {
           {...post}
           like={like}
           dislike={dislike}
+          onDelete={deletePost}
+          onUpdate={updatePost}
         />
       ))}
     </>

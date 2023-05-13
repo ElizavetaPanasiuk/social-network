@@ -7,7 +7,7 @@
   display: flex;
   gap: 1rem;
 
-  &:hover {
+  &.link:hover {
     background-color: $gray-super-light;
   }
 

@@ -57,7 +57,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <nav>
+    <nav className={styles.sidebar}>
       {MENU_ITEMS.map(({ to, title, icon, activeIcon }) => (
         <NavLink
           className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}

@@ -29,7 +29,9 @@ class PostsService extends Service {
     return await this.removeById(postId);
   }
 
-  async updatePost(postId: number, newText: string) {}
+  async updatePost(postId: number, newText: string) {
+    return await this.updateById(postId, { text: newText });
+  }
 }
 
 export default PostsService;

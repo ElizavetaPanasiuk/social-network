@@ -13,7 +13,11 @@ const Button = ({ title, onClick, disabled = false, variant = 'contained', size 
     <button
       className={`${styles.button} ${styles[variant]} ${styles[size]}`}
       type="button"
-      onClick={onClick}
+      onClick={(e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        onClick();
+      }}
       disabled={disabled}
     >
       {title}

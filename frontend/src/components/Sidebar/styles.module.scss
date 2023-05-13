@@ -1,25 +1,27 @@
 @import '@/styles/colors.scss';
 
-.navLink {
-  display: block;
-  padding: 1rem;
-  border-radius: 1.5rem;
-  font-size: 1.25rem;
-  width: 14rem;
+.sidebar {
+  .navLink {
+    display: block;
+    padding: 1rem;
+    border-radius: 1.5rem;
+    font-size: 1.25rem;
+    width: 14rem;
 
-  &:hover {
-    background-color: $gray-light;
+    &:hover {
+      background-color: $gray-light;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 0.5rem;
+    }
+
+    .navIcon {
+      margin-right: 1rem;
+    }
   }
 
-  &:not(:last-child) {
-    margin-bottom: 0.5rem;
+  .active {
+    font-weight: bold;
   }
-
-  .navIcon {
-    margin-right: 1rem;
-  }
-}
-
-.active {
-  font-weight: bold;
 }

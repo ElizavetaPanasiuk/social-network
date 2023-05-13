@@ -11,7 +11,7 @@ const PostPage = () => {
   const commentsService = new CommentsService();
   const navigate = useNavigate();
   const { postId } = useParams();
-  
+
   const { loading, data: post, setData: setPost } = useQuery(() => postsService.getPost(postId));
 
   const {
@@ -28,23 +28,40 @@ const PostPage = () => {
     onSuccess: () => setPost({ ...post, liked: false, likes: post.likes - 1 }),
   });
 
-  const { mutate: likeComment } = useMutation((commentId: number) => commentsService.like(commentId), {onSuccess: (_result, args) => setComments(
-    comments.map((comment) =>
-      comment.id === args[0] ? { ...comment, liked: true, likes: comment.likes + 1 } : comment,
-    ),
-  )});
+  const { mutate: likeComment } = useMutation((commentId: number) => commentsService.like(commentId), {
+    onSuccess: (_result, args) =>
+      setComments(
+        comments.map((comment) =>
+          comment.id === args[0] ? { ...comment, liked: true, likes: comment.likes + 1 } : comment,
+        ),
+      ),
+  });
 
-  const { mutate: dislikeComment } = useMutation((commentId: number) => commentsService.dislike(commentId), {onSuccess: (_result, args) => setComments(
-    comments.map((comment) =>
-      comment.id === args[0] ? { ...comment, liked: false, likes: comment.likes - 1 } : comment,
-    ),
-  ) });
+  const { mutate: dislikeComment } = useMutation((commentId: number) => commentsService.dislike(commentId), {
+    onSuccess: (_result, args) =>
+      setComments(
+        comments.map((comment) =>
+          comment.id === args[0] ? { ...comment, liked: false, likes: comment.likes - 1 } : comment,
+        ),
+      ),
+  });
 
   const { mutate: publishComment } = useMutation((text: string) => commentsService.createComment(text, +postId), {
     onSuccess: (newComment) => setComments([newComment, ...comments]),
   });
 
-  const {mutate: deletePost} = useMutation(() => postsService.deletePost(+postId), {onSuccess: () => {navigate(-1)}});
+  const { mutate: deletePost } = useMutation(() => postsService.deletePost(+postId), {
+    onSuccess: () => {
+      navigate(-1);
+    },
+  });
+
+  const { mutate: updatePost } = useMutation((newContent: string) => postsService.updatePost(+postId, newContent), {
+    onSuccess: (_result, args) => {
+      console.log('UPDATE POST RESULT:', _result);
+      setPost({ ...post, text: args[0] });
+    },
+  });
 
   return loading || loadingComments ? (
     <Loader />
@@ -55,6 +72,7 @@ const PostPage = () => {
         like={likePost}
         dislike={dislikePost}
         onDelete={deletePost}
+        onUpdate={updatePost}
       />
       <NewComment publish={publishComment} />
       {comments.map((comment) => (
