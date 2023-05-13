@@ -10,6 +10,7 @@ import jwtDecode from 'jwt-decode';
 import { signIn } from '@/store/userSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useMutation } from '@/hooks';
 
 const RegistrationPage = () => {
   const { t } = useTranslation();
@@ -37,26 +38,32 @@ const RegistrationPage = () => {
     setStep(step + 1);
   };
 
-  const onSubmit = async () => {
-    const { access_token } = await registrationService.signUp({
-      ...registrationData,
-      dateOfBirth: new Date(
-        registrationData.dateOfBirth.year,
-        registrationData.dateOfBirth.month,
-        registrationData.dateOfBirth.date,
-      ),
-    });
-    Cookies.set('token', access_token);
-    const { id, firstName, lastName } = jwtDecode(access_token) as {
-      id: number;
-      firstName: string;
-      lastName: string;
-    };
-    dispatch(signIn({ id, firstName, lastName }));
-    navigate(`/profile/${id}`);
+  const { mutate: onSubmit } = useMutation(
+    () =>
+      registrationService.signUp({
+        ...registrationData,
+        dateOfBirth: new Date(
+          registrationData.dateOfBirth.year,
+          registrationData.dateOfBirth.month,
+          registrationData.dateOfBirth.date,
+        ),
+      }),
+    {
+      onSuccess: (result) => {
+        const { access_token } = result;
+        Cookies.set('token', access_token);
+        const { id, firstName, lastName } = jwtDecode(access_token) as {
+          id: number;
+          firstName: string;
+          lastName: string;
+        };
+        dispatch(signIn({ id, firstName, lastName }));
+        navigate(`/profile/${id}`);
 
-    //setStep(5); // return step 5 when add activation by email
-  };
+        //setStep(5); // return step 5 when add activation by email
+      },
+    },
+  );
 
   const onChange = (
     key: keyof typeof registrationData,
