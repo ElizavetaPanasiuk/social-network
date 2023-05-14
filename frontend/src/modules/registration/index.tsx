@@ -11,6 +11,7 @@ import { signIn } from '@/store/userSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@/hooks';
+import { LanguageSelector } from '@/components';
 
 const RegistrationPage = () => {
   const { t } = useTranslation();
@@ -111,10 +112,13 @@ const RegistrationPage = () => {
   ]);
 
   return (
-    <Box className={styles.registrationContainer}>
-      <h1>{t('Registration')}</h1>
-      {contentMap.get(step)}
-    </Box>
+    <>
+      <Box className={styles.registrationContainer}>
+        <h1>{t('Registration')}</h1>
+        {contentMap.get(step)}
+      </Box>
+      <LanguageSelector />
+    </>
   );
 };
 

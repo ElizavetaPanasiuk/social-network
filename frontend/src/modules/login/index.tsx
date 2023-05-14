@@ -9,6 +9,7 @@ import { LoginService } from '@/lib/service';
 import jwtDecode from 'jwt-decode';
 import { signIn } from '@/store/userSlice';
 import { useMutation } from '@/hooks';
+import { LanguageSelector } from '@/components';
 
 const LoginPage = () => {
   const { t } = useTranslation();
@@ -33,25 +34,28 @@ const LoginPage = () => {
   });
 
   return (
-    <Box className={styles.loginContainer}>
-      <h1>{t('Login')}</h1>
-      <Input
-        value={email}
-        placeholder={t('Email') as string}
-        onChange={setEmail}
-      />
-      <Input
-        value={password}
-        placeholder={t('Password') as string}
-        onChange={setPassword}
-        type="password"
-      />
-      <Button
-        title={t('Sign In')}
-        onClick={() => login(email, password)}
-      />
-      <Link to="/registration">{t('Or register')}</Link>
-    </Box>
+    <>
+      <Box className={styles.loginContainer}>
+        <h1>{t('Login')}</h1>
+        <Input
+          value={email}
+          placeholder={t('Email') as string}
+          onChange={setEmail}
+        />
+        <Input
+          value={password}
+          placeholder={t('Password') as string}
+          onChange={setPassword}
+          type="password"
+        />
+        <Button
+          title={t('Sign In')}
+          onClick={() => login(email, password)}
+        />
+        <Link to="/registration">{t('Or register')}</Link>
+      </Box>
+      <LanguageSelector />
+    </>
   );
 };
 
