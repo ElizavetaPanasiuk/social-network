@@ -9,9 +9,11 @@ type SelectProps = {
   }[];
   value: string | number;
   onChange: (value: string | number) => void;
+  disabled?: boolean;
+  className?: string;
 };
 
-const Select = ({ label, options, value, onChange }: SelectProps) => {
+const Select = ({ label, options, value, onChange, disabled = false, className = '' }: SelectProps) => {
   const [visible, setVisible] = useState(false);
 
   const onSelect = (value: string) => {
@@ -20,11 +22,12 @@ const Select = ({ label, options, value, onChange }: SelectProps) => {
   };
 
   return (
-    <div className={styles.selectContainer}>
+    <div className={`${styles.selectContainer} ${className}`}>
       <button
         type="button"
         className={`${styles.select} ${visible ? styles.active : ''}`}
         onClick={() => setVisible(!visible)}
+        disabled={disabled}
       >
         {options.find((el) => el.value === value)?.label || label}
       </button>

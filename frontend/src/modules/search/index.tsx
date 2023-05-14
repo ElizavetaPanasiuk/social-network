@@ -5,6 +5,7 @@ import { Loader, Input, Select } from '@/ui-kit';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './styles.module.scss';
+import { locations } from '@/lib/constants/country-city';
 
 const SearchPage = () => {
   const { t } = useTranslation();
@@ -39,14 +40,15 @@ const SearchPage = () => {
       <div className={styles.filters}>
         <Select
           label={t('Country')}
-          options={[{ value: 'Belarus', label: 'Belarus' }]}
+          options={Object.keys(locations).map((country) => ({ value: country, label: country }))}
           value={country}
           onChange={setCountry}
         />
         <Select
           label={t('City')}
-          options={[{ value: 'Minsk', label: 'Minsk' }]}
+          options={country ? locations[country].map((city) => ({ value: city, label: city })) : []}
           value={city}
+          disabled={!country}
           onChange={setCity}
         />
       </div>

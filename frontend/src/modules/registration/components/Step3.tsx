@@ -2,6 +2,8 @@ import { useTranslation } from 'react-i18next';
 import { Button, Input, Select } from '@/ui-kit';
 import { RegistrationData } from '../types/registrationData';
 import { DateInput } from '@/components';
+import { locations } from '@/lib/constants/country-city';
+import styles from './styles.module.scss';
 
 type Step3Props = {
   onContinue: () => void;
@@ -34,19 +36,20 @@ const Step3 = ({ onContinue, registrationData, onChange }: Step3Props) => {
         value={registrationData.country}
         onChange={(value) => onChange('country', value)}
         label={t('Country')}
-        options={[
-          { label: 'Belarus', value: 'Belarus' },
-          { label: 'Польша', value: 'Польша' },
-        ]}
+        options={Object.keys(locations).map((country) => ({ label: country, value: country }))}
+        className={styles.locationSelect}
       />
       <Select
         value={registrationData.city}
         onChange={(value) => onChange('city', value)}
         label={t('City')}
-        options={[
-          { label: 'Minsk', value: 'Minsk' },
-          { label: 'Brest', value: 'Brest' },
-        ]}
+        disabled={!registrationData.country}
+        options={
+          registrationData.country
+            ? locations[registrationData.country].map((city) => ({ label: city, value: city }))
+            : []
+        }
+        className={styles.locationSelect}
       />
       <Button
         title={t('Continue')}
