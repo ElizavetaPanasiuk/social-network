@@ -7,10 +7,12 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { Loader } from '@/ui-kit';
 import { SubscriptionsService } from '@/lib/service';
+import { useRef } from 'react';
 
 const ProfilePage = () => {
   const { profileId } = useParams();
   const userId = useSelector((state: RootState) => state.user.id as number);
+  const ref = useRef(null);
 
   const postsService = new PostsService();
   const profileService = new ProfileService();
@@ -19,7 +21,12 @@ const ProfilePage = () => {
     loading: postsLoading,
     data: posts,
     setData: setPosts,
-  } = useQuery(() => postsService.getUserPosts(Number(profileId)));
+  } = useQuery((...args) => postsService.getUserPosts(Number(profileId), ...args), {
+    pagination: {
+      enabled: true,
+      ref: ref,
+    },
+  });
   const {
     loading: profileLoading,
     data: profile,
@@ -58,27 +65,32 @@ const ProfilePage = () => {
     },
   );
 
-  return postsLoading || profileLoading ? (
-    <Loader />
-  ) : (
-    <>
-      <ProfileInfo
-        {...profile}
-        subscribe={subscribe}
-        unsubscribe={unsubscribe}
-      />
-      {+profileId === userId && <NewPost publish={publish} />}
-      {posts.map((post) => (
-        <Post
-          key={post.id}
-          {...post}
-          like={like}
-          dislike={dislike}
-          onDelete={deletePost}
-          onUpdate={updatePost}
-        />
-      ))}
-    </>
+  return (
+    <div ref={ref}>
+      {(postsLoading && !posts.length) || profileLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <ProfileInfo
+            {...profile}
+            subscribe={subscribe}
+            unsubscribe={unsubscribe}
+          />
+          {+profileId === userId && <NewPost publish={publish} />}
+          {posts.map((post) => (
+            <Post
+              key={post.id}
+              {...post}
+              like={like}
+              dislike={dislike}
+              onDelete={deletePost}
+              onUpdate={updatePost}
+            />
+          ))}
+          {postsLoading && posts.length && <Loader />}
+        </>
+      )}
+    </div>
   );
 };
 

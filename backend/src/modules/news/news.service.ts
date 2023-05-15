@@ -6,6 +6,8 @@ import { Op, Sequelize } from 'sequelize';
 import { Post } from '../posts/post.model';
 import { User } from '../users/user.model';
 
+const LIMIT = 10;
+
 @Injectable()
 export class NewsService {
   constructor(
@@ -13,7 +15,7 @@ export class NewsService {
     private subscriptionsService: SubscriptionsService,
   ) {}
 
-  async getNews(userId: number) {
+  async getNews(userId: number, page: number) {
     // TODO: make in one query
     const subscriptions = await this.subscriptionsService.getSubscriptionsIds(
       userId,
@@ -26,6 +28,8 @@ export class NewsService {
       where: {
         userId: { [Op.or]: subscriptions },
       },
+      limit: LIMIT,
+      offset: LIMIT * (page - 1),
       attributes: {
         include: [
           [
@@ -74,6 +78,6 @@ export class NewsService {
       ],
       order: [['createdAt', 'DESC']],
     });
-    return posts;
+    return { isLast: posts.length < LIMIT, data: posts };
   }
 }

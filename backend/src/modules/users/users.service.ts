@@ -5,6 +5,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { Op, Sequelize } from 'sequelize';
 import { FilesService } from '../files/files.service';
 
+const LIMIT = 10;
+
 @Injectable()
 export class UsersService {
   constructor(
@@ -96,7 +98,6 @@ export class UsersService {
     search: string | null = '',
     country: string | null = '',
     city: string | null = '',
-    size: number | null = 10,
     page: number | null = 1,
   ) {
     let searchParams: { [key: string]: any } = {
@@ -147,10 +148,10 @@ export class UsersService {
         ['firstName', 'ASC'],
         ['lastName', 'ASC'],
       ],
-      limit: size,
-      offset: size * (page - 1),
+      limit: LIMIT,
+      offset: LIMIT * (page - 1),
     });
-    return users;
+    return { isLast: users.length < LIMIT, data: users };
   }
 
   async deleteUser(id: number) {

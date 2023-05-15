@@ -1,5 +1,12 @@
 import { NewsService } from './news.service';
-import { Controller, Get, Request, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Query,
+  Request,
+  UseGuards,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 import { AuthGuard } from '..//auth/auth.guard';
 
@@ -10,8 +17,8 @@ export class NewsController {
   @ApiOperation({ summary: 'Get user news' })
   @UseGuards(AuthGuard)
   @Get()
-  getNews(@Request() req) {
+  getNews(@Request() req, @Query('page', ParseIntPipe) page: number) {
     const userId = req.user.id;
-    return this.newsService.getNews(userId);
+    return this.newsService.getNews(userId, page);
   }
 }

@@ -45,18 +45,10 @@ export class UsersController {
     @Query('search') search: string,
     @Query('country') country: string,
     @Query('city') city: string,
-    @Query('size') size: number,
     @Query('page') page: number,
   ) {
     const userId = req.user.id;
-    return this.usersService.searchUsers(
-      userId,
-      search,
-      country,
-      city,
-      size,
-      page,
-    );
+    return this.usersService.searchUsers(userId, search, country, city, page);
   }
 
   @ApiOperation({ summary: 'Get user by ID' })

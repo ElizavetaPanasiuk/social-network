@@ -5,8 +5,8 @@ class PostsService extends Service {
     super('posts');
   }
 
-  async getUserPosts(userId: number) {
-    return await this.get({ userId });
+  async getUserPosts(userId: number, page: number) {
+    return await this.get({ userId, page });
   }
 
   async getPost(postId: number) {

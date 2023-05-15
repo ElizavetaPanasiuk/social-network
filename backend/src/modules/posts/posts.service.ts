@@ -8,6 +8,8 @@ import { PostLikeDto } from './dto/post-like.dto';
 import { PostLike } from './post-like.model';
 import { Sequelize } from 'sequelize-typescript';
 
+const LIMIT = 10;
+
 @Injectable()
 export class PostsService {
   constructor(
@@ -15,11 +17,13 @@ export class PostsService {
     @InjectModel(PostLike) private postLikeRepository: typeof PostLike,
   ) {}
 
-  async getPostsByProfileId(profileId: number, userId: number) {
+  async getPostsByProfileId(profileId: number, userId: number, page: number) {
     const posts = await this.postRepository.findAll({
       where: {
         userId: profileId,
       },
+      limit: LIMIT,
+      offset: LIMIT * (page - 1),
       attributes: {
         include: [
           [
@@ -68,7 +72,7 @@ export class PostsService {
       ],
       order: [['createdAt', 'DESC']],
     });
-    return posts;
+    return { isLast: posts.length < LIMIT, data: posts };
   }
 
   async getPostById(id: number, userId: number) {

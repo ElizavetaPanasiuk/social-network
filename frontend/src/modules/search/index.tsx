@@ -2,7 +2,7 @@ import { ProfileRow } from '@/components';
 import { useQuery } from '@/hooks';
 import { ProfileService } from '@/lib/service';
 import { Loader, Input, Select } from '@/ui-kit';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './styles.module.scss';
 import { locations } from '@/lib/constants/country-city';
@@ -13,13 +13,21 @@ const SearchPage = () => {
   const [searchString, setSearchString] = useState('');
   const [country, setCountry] = useState('');
   const [city, setCity] = useState('');
+  const ref = useRef(null);
   const { loading, data } = useQuery(() => profileService.searchUsers({ search: searchString, city, country }), {
     dependencies: [country, city, searchString],
+    pagination: {
+      enabled: true,
+      ref: ref,
+    },
   });
 
   return (
     <div className={styles.searchPage}>
-      <div className={styles.mainPanel}>
+      <div
+        className={styles.mainPanel}
+        ref={ref}
+      >
         <Input
           value={searchString}
           onChange={setSearchString}

@@ -29,10 +29,11 @@ export class PostsController {
   @Get('')
   getPostsByProfileId(
     @Query('userId', ParseIntPipe) profileId: number,
+    @Query('page', ParseIntPipe) page: number,
     @Request() req,
   ) {
     const userId = req.user.id;
-    return this.postsService.getPostsByProfileId(profileId, userId);
+    return this.postsService.getPostsByProfileId(profileId, userId, page);
   }
 
   @ApiOperation({ summary: 'Get post by id' })
