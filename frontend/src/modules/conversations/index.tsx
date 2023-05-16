@@ -2,10 +2,13 @@ import { useQuery } from '@/hooks';
 import { Loader } from '@/ui-kit';
 import ConversationRow from './components/ConversationRow';
 import { MessagesService } from '@/lib/service';
+import { ConversationsResponse } from '@/lib/global/types';
 
 const ConversationsPage = () => {
   const messagesService = new MessagesService();
-  const { data: conversations, loading } = useQuery(() => messagesService.getRooms());
+  const { data: conversations, loading }: { data: ConversationsResponse; loading: boolean } = useQuery(() =>
+    messagesService.getRooms(),
+  );
 
   return (
     <div>

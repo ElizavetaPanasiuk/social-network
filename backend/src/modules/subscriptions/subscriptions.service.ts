@@ -15,6 +15,9 @@ export class SubscriptionsService {
       where: {
         subscriberId: userId,
       },
+      attributes: {
+        exclude: ['createdAt', 'updatedAt'],
+      },
       include: {
         model: User,
         as: 'profile',
@@ -38,6 +41,9 @@ export class SubscriptionsService {
     return await this.subsciptionRepository.findAll({
       where: {
         profileId: userId,
+      },
+      attributes: {
+        exclude: ['createdAt', 'updatedAt'],
       },
       include: {
         model: User,
