@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { SubmitButton, Textarea } from '@/ui-kit';
 import { useTranslation } from 'react-i18next';
 import styles from './styles.module.scss';
-import { Form } from '@/components';
+import { Form, SymbolCounter } from '@/components';
 
 type NewCommentProps = {
   publish: (text: string) => void;
 };
+
+const MAX_COMMENT_LENGTH = 256;
 
 const NewComment = ({ publish }: NewCommentProps) => {
   const { t } = useTranslation();
@@ -26,8 +28,18 @@ const NewComment = ({ publish }: NewCommentProps) => {
         value={commentText}
         onChange={setCommentText}
         placeholder={t('Write a comment') as string}
+        maxLength={MAX_COMMENT_LENGTH}
       />
-      <SubmitButton title={t('Comment')} />
+      <div className={styles.newCommentFooter}>
+        <SubmitButton
+          title={t('Comment')}
+          disabled={!commentText.trim()}
+        />
+        <SymbolCounter
+          value={commentText}
+          max={MAX_COMMENT_LENGTH}
+        />
+      </div>
     </Form>
   );
 };

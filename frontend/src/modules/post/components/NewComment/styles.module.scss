@@ -4,4 +4,10 @@
   border-top: 1px solid $gray-light;
   border-bottom: 1px solid $gray-light;
   padding: 1rem;
+
+  .newCommentFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }

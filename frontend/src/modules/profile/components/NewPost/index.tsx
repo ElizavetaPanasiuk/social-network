@@ -27,7 +27,10 @@ const NewPost = ({ publish }: NewPostProps) => {
         onChange={setPostText}
         placeholder={t("What's new?") as string}
       />
-      <SubmitButton title={t('Publish')} />
+      <SubmitButton
+        title={t('Publish')}
+        disabled={!postText.trim()}
+      />
     </Form>
   );
 };

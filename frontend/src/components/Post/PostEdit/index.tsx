@@ -18,7 +18,10 @@ const PostEdit = ({ postContent, onSave }: PostEditProps) => {
         value={text}
         onChange={setText}
       />
-      <SubmitButton title={t('Save')} />
+      <SubmitButton
+        title={t('Save')}
+        disabled={!text.trim()}
+      />
     </Form>
   );
 };
