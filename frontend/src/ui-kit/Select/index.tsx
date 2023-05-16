@@ -1,14 +1,16 @@
 import { useState } from 'react';
 import styles from './styles.module.scss';
 
+type SelectValue = string | number;
+
 type SelectProps = {
   label: string;
   options: {
     label: string | number;
-    value: string | number;
+    value: SelectValue;
   }[];
-  value: string | number;
-  onChange: (value: string | number) => void;
+  value: SelectValue;
+  onChange: (value: SelectValue) => void;
   disabled?: boolean;
   className?: string;
 };
@@ -16,7 +18,7 @@ type SelectProps = {
 const Select = ({ label, options, value, onChange, disabled = false, className = '' }: SelectProps) => {
   const [visible, setVisible] = useState(false);
 
-  const onSelect = (value: string) => {
+  const onSelect = (value: SelectValue) => {
     onChange(value);
     setVisible(false);
   };
