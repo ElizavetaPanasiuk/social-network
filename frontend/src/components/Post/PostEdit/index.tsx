@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Textarea, Button } from '@/ui-kit';
+import { Textarea, SubmitButton } from '@/ui-kit';
 import { useTranslation } from 'react-i18next';
+import Form from '@/components/Form';
 
 type PostEditProps = {
   postContent: string;
@@ -12,16 +13,13 @@ const PostEdit = ({ postContent, onSave }: PostEditProps) => {
   const [text, setText] = useState(postContent);
 
   return (
-    <>
+    <Form onSubmit={() => onSave(text)}>
       <Textarea
         value={text}
         onChange={setText}
       />
-      <Button
-        title={t('Save')}
-        onClick={() => onSave(text)}
-      />
-    </>
+      <SubmitButton title={t('Save')} />
+    </Form>
   );
 };
 

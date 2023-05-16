@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Button, Textarea } from '@/ui-kit';
+import { SubmitButton, Textarea } from '@/ui-kit';
 import { useTranslation } from 'react-i18next';
 import styles from './styles.module.scss';
+import { Form } from '@/components';
 
 type NewPostProps = {
   publish: (text: string) => void;
@@ -11,23 +12,23 @@ const NewPost = ({ publish }: NewPostProps) => {
   const { t } = useTranslation();
   const [postText, setPostText] = useState('');
 
-  const onPublish = async () => {
+  const onSubmit = async () => {
     await publish(postText);
     setPostText('');
   };
 
   return (
-    <div className={styles.newPost}>
+    <Form
+      className={styles.newPost}
+      onSubmit={onSubmit}
+    >
       <Textarea
         value={postText}
         onChange={setPostText}
         placeholder={t("What's new?") as string}
       />
-      <Button
-        title={t('Publish')}
-        onClick={onPublish}
-      />
-    </div>
+      <SubmitButton title={t('Publish')} />
+    </Form>
   );
 };
 

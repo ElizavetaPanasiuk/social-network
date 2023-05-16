@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { Finish, Step1, Step2, Step3, Step4 } from './components';
 import { Box } from '@/ui-kit';
 import styles from './styles.module.scss';
@@ -11,7 +11,7 @@ import { signIn } from '@/store/userSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@/hooks';
-import { LanguageSelector } from '@/components';
+import { Form, LanguageSelector } from '@/components';
 
 const RegistrationPage = () => {
   const { t } = useTranslation();
@@ -104,7 +104,6 @@ const RegistrationPage = () => {
     [
       4,
       <Step4
-        onSubmit={onSubmit}
         onChange={onChange}
       />,
     ],
@@ -113,10 +112,15 @@ const RegistrationPage = () => {
 
   return (
     <>
-      <Box className={styles.registrationContainer}>
-        <h1>{t('Registration')}</h1>
-        {contentMap.get(step)}
-      </Box>
+      <Form
+        className={styles.registrationFrom}
+        onSubmit={onSubmit}
+      >
+        <Box className={styles.registrationContainer}>
+          <h1>{t('Registration')}</h1>
+          {contentMap.get(step)}
+        </Box>
+      </Form>
       <LanguageSelector />
     </>
   );
