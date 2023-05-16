@@ -18,9 +18,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@/components/*": ["scr/component/*"],
-      "@/hooks/*": ["scr/hooks/*"],
-      "@/lib/*": ["scr/lib/*"],
+      "@/components/*": ["src/component/*"],
+      "@/hooks/*": ["src/hooks/*"],
+      "@/lib/*": ["src/lib/*"],
       "@/locales/*": ["scr/locales/*"],
       "@/modules/*": ["..//*"],
       "@/store/*": ["src/store/*"],
