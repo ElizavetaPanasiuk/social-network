@@ -19,13 +19,11 @@ export class MessagesService {
   ) {}
 
   createMessage(dto: CreateMessageDto) {
-    this.cryptoService.encrypt(dto.text, (text: string, iv: string) => {
-      return this.messageRepository.create({
-        roomId: dto.roomId,
-        userId: dto.userId,
-        text,
-        iv,
-      });
+    const text = this.cryptoService.encrypt(dto.text);
+    return this.messageRepository.create({
+      roomId: dto.roomId,
+      userId: dto.userId,
+      text,
     });
   }
 
@@ -71,9 +69,6 @@ export class MessagesService {
   }
 
   async getMessages(roomId: string) {
-    console.log(
-      '==============================================================get messages...',
-    );
     const messages = await this.messageRepository.findAll({
       where: {
         roomId,
@@ -85,21 +80,11 @@ export class MessagesService {
         attributes: ['firstName', 'lastName', 'avatar'],
       },
     });
-    const decryptedMessages = [];
+    messages.forEach(
+      (message) => (message.text = this.cryptoService.decrypt(message.text)),
+    );
 
-    messages.forEach((message) => {
-      console.log(message.dataValues);
-      const { text, iv } = message.dataValues;
-      console.log('TEXT IV:', text, iv);
-      this.cryptoService.decrypt(text, iv, (decrypted: string) => {
-        //console.log('decrypted:', decrypted);
-        decryptedMessages.push(decrypted);
-      });
-    });
-
-    while (decryptedMessages.length !== messages.length) {
-      //console.log('whait');
-    }
+    return messages;
   }
 
   async getInterlocutor(currentUserId: number, roomId: string) {
