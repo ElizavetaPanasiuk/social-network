@@ -10,8 +10,8 @@ export class SubscriptionsService {
     @InjectModel(Subscription)
     private subsciptionRepository: typeof Subscription,
   ) {}
-  async getSubscriptions(userId: number) {
-    return await this.subsciptionRepository.findAll({
+  getSubscriptions(userId: number) {
+    return this.subsciptionRepository.findAll({
       where: {
         subscriberId: userId,
       },
@@ -37,8 +37,8 @@ export class SubscriptionsService {
     return subscriptions.map((subscription) => subscription.profileId);
   }
 
-  async getSubscribers(userId: number) {
-    return await this.subsciptionRepository.findAll({
+  getSubscribers(userId: number) {
+    return this.subsciptionRepository.findAll({
       where: {
         profileId: userId,
       },
@@ -76,8 +76,8 @@ export class SubscriptionsService {
     return await this.subsciptionRepository.create(dto);
   }
 
-  async unsubscribe(dto: CreateSubscriptionDto) {
-    return await this.subsciptionRepository.destroy({
+  unsubscribe(dto: CreateSubscriptionDto) {
+    return this.subsciptionRepository.destroy({
       where: {
         profileId: dto.profileId,
         subscriberId: dto.subscriberId,

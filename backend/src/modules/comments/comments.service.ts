@@ -15,8 +15,8 @@ export class CommentsService {
     @InjectModel(CommentLike) private commentLikeRepository: typeof CommentLike,
   ) {}
 
-  async getComments(postId: number, currentUserId: number) {
-    return await this.commentRepository.findAll({
+  getComments(postId: number, currentUserId: number) {
+    return this.commentRepository.findAll({
       where: {
         postId,
       },
@@ -60,8 +60,8 @@ export class CommentsService {
     });
   }
 
-  async getCommentById(commentId: number, userId: number) {
-    return await this.commentRepository.findByPk(commentId, {
+  getCommentById(commentId: number, userId: number) {
+    return this.commentRepository.findByPk(commentId, {
       attributes: {
         include: [
           [
@@ -106,8 +106,8 @@ export class CommentsService {
     return await this.getCommentById(comment.id, dto.userId);
   }
 
-  async updateComment(id: number, dto: UpdateCommentDto) {
-    return await this.commentRepository.update(dto, {
+  updateComment(id: number, dto: UpdateCommentDto) {
+    return this.commentRepository.update(dto, {
       where: {
         id,
       },
@@ -115,20 +115,20 @@ export class CommentsService {
     });
   }
 
-  async deleteComment(id: number) {
-    return await this.commentRepository.destroy({
+  deleteComment(id: number) {
+    return this.commentRepository.destroy({
       where: {
         id,
       },
     });
   }
 
-  async likeComment(dto: CommentLikeDto) {
-    return await this.commentLikeRepository.create(dto);
+  likeComment(dto: CommentLikeDto) {
+    return this.commentLikeRepository.create(dto);
   }
 
-  async dislikeComment(dto: CommentLikeDto) {
-    return await this.commentLikeRepository.destroy({
+  dislikeComment(dto: CommentLikeDto) {
+    return this.commentLikeRepository.destroy({
       where: {
         userId: dto.userId,
         commentId: dto.commentId,

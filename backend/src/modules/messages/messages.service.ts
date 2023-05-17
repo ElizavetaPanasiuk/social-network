@@ -37,8 +37,8 @@ export class MessagesService {
     return await this.roomRepository.create(dto);
   }
 
-  async getRooms(userId: number) {
-    return await this.roomRepository.findAll({
+  getRooms(userId: number) {
+    return this.roomRepository.findAll({
       where: {
         [Op.or]: [{ userId1: userId }, { userId2: userId }],
       },
@@ -57,8 +57,8 @@ export class MessagesService {
     });
   }
 
-  async getRoom(userId1: number, userId2: number) {
-    const room = await this.roomRepository.findOne({
+  getRoom(userId1: number, userId2: number) {
+    return this.roomRepository.findOne({
       where: {
         userId1: {
           [Op.or]: [userId1, userId2],
@@ -68,7 +68,6 @@ export class MessagesService {
         },
       },
     });
-    return room;
   }
 
   async getMessages(roomId: string) {

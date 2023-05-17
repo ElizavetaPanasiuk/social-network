@@ -154,7 +154,7 @@ export class UsersService {
     return { isLast: users.length < LIMIT, data: users };
   }
 
-  async deleteUser(id: number) {
+  deleteUser(id: number) {
     return this.userRepository.destroy({
       where: { id },
     });

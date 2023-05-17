@@ -75,8 +75,8 @@ export class PostsService {
     return { isLast: posts.length < LIMIT, data: posts };
   }
 
-  async getPostById(id: number, userId: number) {
-    const post = await this.postRepository.findByPk(id, {
+  getPostById(id: number, userId: number) {
+    return this.postRepository.findByPk(id, {
       attributes: {
         include: [
           [
@@ -126,7 +126,6 @@ export class PostsService {
         },
       ],
     });
-    return post;
   }
 
   async createPost(dto: CreatePostDto) {
@@ -134,8 +133,8 @@ export class PostsService {
     return await this.getPostById(post.id, dto.userId);
   }
 
-  async updatePost(id: number, dto: UpdatePostDto) {
-    return await this.postRepository.update(dto, {
+  updatePost(id: number, dto: UpdatePostDto) {
+    return this.postRepository.update(dto, {
       where: {
         id,
       },
@@ -143,7 +142,7 @@ export class PostsService {
     });
   }
 
-  async removePost(id: number) {
+  removePost(id: number) {
     // TODO: cascade delete with post-likes
     return this.postRepository.destroy({
       where: {
@@ -152,12 +151,12 @@ export class PostsService {
     });
   }
 
-  async likePost(dto: PostLikeDto) {
-    return await this.postLikeRepository.create(dto);
+  likePost(dto: PostLikeDto) {
+    return this.postLikeRepository.create(dto);
   }
 
-  async dislikePost(dto: PostLikeDto) {
-    return await this.postLikeRepository.destroy({
+  dislikePost(dto: PostLikeDto) {
+    return this.postLikeRepository.destroy({
       where: {
         userId: dto.userId,
         postId: dto.postId,
