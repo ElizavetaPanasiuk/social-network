@@ -18,12 +18,14 @@ const Step3 = ({ onContinue, registrationData, onChange }: Step3Props) => {
     <>
       <h2>{t('Personal information')}</h2>
       <Input
-        value={registrationData.firstName}
+        value={registrationData.firstName.value as string}
+        valid={registrationData.firstName.valid}
         onChange={(value) => onChange('firstName', value)}
         placeholder={t('Name') as string}
       />
       <Input
-        value={registrationData.lastName}
+        value={registrationData.lastName.value as string}
+        valid={registrationData.lastName.valid}
         onChange={(value) => onChange('lastName', value)}
         placeholder={t('Surname') as string}
       />
@@ -33,20 +35,20 @@ const Step3 = ({ onContinue, registrationData, onChange }: Step3Props) => {
         onChange={(value) => onChange('dateOfBirth', value)}
       />
       <Select
-        value={registrationData.country}
-        onChange={(value) => onChange('country', value)}
+        value={registrationData.country.value as string}
+        onChange={(value) => onChange('country', value as string)}
         label={t('Country')}
         options={Object.keys(locations).map((country) => ({ label: country, value: country }))}
         className={styles.locationSelect}
       />
       <Select
-        value={registrationData.city}
-        onChange={(value) => onChange('city', value)}
+        value={registrationData.city.value as string}
+        onChange={(value) => onChange('city', value as string)}
         label={t('City')}
         disabled={!registrationData.country}
         options={
-          registrationData.country
-            ? locations[registrationData.country].map((city) => ({ label: city, value: city }))
+          (registrationData.country.value as string)
+            ? locations[registrationData.country.value].map((city) => ({ label: city, value: city }))
             : []
         }
         className={styles.locationSelect}

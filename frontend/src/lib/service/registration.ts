@@ -6,7 +6,7 @@ class RegistrationService extends Service {
     super('auth/signUp');
   }
 
-  async signUp(userData: RegistrationData) {
+  signUp(userData: RegistrationData) {
     const formData = new FormData();
     formData.append('password', userData.password);
     formData.append('email', userData.email);
@@ -16,7 +16,7 @@ class RegistrationService extends Service {
     formData.append('city', userData.city);
     formData.append('dateOfBirth', userData.dateOfBirth.toISOString());
     formData.append('avatar', userData.avatar as File);
-    return await this.post(formData);
+    return this.post(formData);
   }
 }
 

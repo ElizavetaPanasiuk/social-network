@@ -5,8 +5,8 @@ class NewsService extends Service {
     super('news');
   }
 
-  async getNews(page: number = 1) {
-    return await this.get({ page });
+  getNews(page: number = 1) {
+    return this.get({ page });
   }
 }
 

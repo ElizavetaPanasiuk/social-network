@@ -130,7 +130,7 @@ export class PostsService {
 
   async createPost(dto: CreatePostDto) {
     const post = await this.postRepository.create(dto);
-    return await this.getPostById(post.id, dto.userId);
+    return this.getPostById(post.id, dto.userId);
   }
 
   updatePost(id: number, dto: UpdatePostDto) {

@@ -16,13 +16,15 @@ const Step2 = ({ onContinue, registrationData, onChange }: Step2Props) => {
       <h2>{t('Create a password')}</h2>
       <p>{t('To protect your account, create a strong password')}</p>
       <Input
-        value={registrationData.password}
+        value={registrationData.password.value as string}
+        valid={registrationData.password.valid}
         onChange={(value) => onChange('password', value)}
         placeholder={t('Enter password') as string}
         type="password"
       />
       <Input
-        value={registrationData.passwordRepeat}
+        value={registrationData.passwordRepeat.value as string}
+        valid={registrationData.passwordRepeat.valid}
         onChange={(value) => onChange('passwordRepeat', value)}
         placeholder={t('Confirm password') as string}
         type="password"

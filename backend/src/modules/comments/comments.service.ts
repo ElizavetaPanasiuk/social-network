@@ -103,7 +103,7 @@ export class CommentsService {
 
   async createComment(dto: CreateCommentDto) {
     const comment = await this.commentRepository.create(dto);
-    return await this.getCommentById(comment.id, dto.userId);
+    return this.getCommentById(comment.id, dto.userId);
   }
 
   updateComment(id: number, dto: UpdateCommentDto) {

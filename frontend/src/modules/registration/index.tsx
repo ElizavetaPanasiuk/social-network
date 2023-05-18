@@ -1,17 +1,18 @@
 import { useTranslation } from 'react-i18next';
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { Finish, Step1, Step2, Step3, Step4 } from './components';
 import { Box } from '@/ui-kit';
 import styles from './styles.module.scss';
 import { RegistrationService } from '@/lib/service';
-import { RegistrationData } from './types/registrationData';
 import Cookies from 'js-cookie';
 import jwtDecode from 'jwt-decode';
 import { signIn } from '@/store/userSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useMutation } from '@/hooks';
+import { useForm, useMutation } from '@/hooks';
 import { Form, LanguageSelector } from '@/components';
+import FIELDS_LENGTH from '@/lib/constants/fields-length';
+import { RegistrationData } from './types/registrationData';
 
 const RegistrationPage = () => {
   const { t } = useTranslation();
@@ -19,20 +20,54 @@ const RegistrationPage = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const registrationService = new RegistrationService();
-  const [registrationData, setRegistrationData] = useState<RegistrationData>({
-    email: '',
-    password: '',
-    passwordRepeat: '',
-    firstName: '',
-    lastName: '',
-    dateOfBirth: {
-      year: null,
-      month: null,
-      date: null,
+  const { formData, onChange, isValid } = useForm({
+    email: {
+      value: '',
+      minLength: FIELDS_LENGTH.EMAIL.MIN,
+      maxLength: FIELDS_LENGTH.EMAIL.MAX,
     },
-    country: '',
-    city: '',
-    avatar: null,
+    password: {
+      value: '',
+      minLength: FIELDS_LENGTH.PASSWORD.MIN,
+      maxLength: FIELDS_LENGTH.PASSWORD.MAX,
+    },
+    passwordRepeat: {
+      value: '',
+      minLength: FIELDS_LENGTH.PASSWORD.MIN,
+      maxLength: FIELDS_LENGTH.PASSWORD.MAX,
+    },
+    firstName: {
+      value: '',
+      minLength: FIELDS_LENGTH.FIRST_NAME.MIN,
+      maxLength: FIELDS_LENGTH.FIRST_NAME.MAX,
+    },
+    lastName: {
+      value: '',
+      minLength: FIELDS_LENGTH.LAST_NAME.MIN,
+      maxLength: FIELDS_LENGTH.LAST_NAME.MAX,
+    },
+    birthYear: {
+      value: null,
+    },
+    birthMonth: {
+      value: null,
+    },
+    birthDate: {
+      value: null,
+    },
+    country: {
+      value: '',
+      minLength: FIELDS_LENGTH.COUNTRY.MIN,
+      maxLength: FIELDS_LENGTH.COUNTRY.MAX,
+    },
+    city: {
+      value: '',
+      minLength: FIELDS_LENGTH.CITY.MIN,
+      maxLength: FIELDS_LENGTH.CITY.MAX,
+    },
+    avatar: {
+      value: null,
+    },
   });
 
   const onContinue = () => {
@@ -42,11 +77,17 @@ const RegistrationPage = () => {
   const { mutate: onSubmit } = useMutation(
     () =>
       registrationService.signUp({
-        ...registrationData,
+        email: formData.email.value,
+        password: formData.password.value,
+        firstName: formData.firstName.value,
+        lastName: formData.lastName.value,
+        country: formData.country.value,
+        city: formData.city.value,
+        avatar: formData.avatar.value,
         dateOfBirth: new Date(
-          registrationData.dateOfBirth.year,
-          registrationData.dateOfBirth.month,
-          registrationData.dateOfBirth.date,
+          formData.birthYear.value as number,
+          formData.birthMonth.value as number,
+          formData.birthDate.value as number,
         ),
       }),
     {
@@ -66,22 +107,12 @@ const RegistrationPage = () => {
     },
   );
 
-  const onChange = (
-    key: keyof typeof registrationData,
-    value: string | File | keyof typeof registrationData.dateOfBirth,
-  ) => {
-    setRegistrationData({
-      ...registrationData,
-      [key]: value,
-    });
-  };
-
   const contentMap = new Map([
     [
       1,
       <Step1
         onContinue={onContinue}
-        registrationData={registrationData}
+        registrationData={formData as RegistrationData}
         onChange={onChange}
       />,
     ],
@@ -89,7 +120,7 @@ const RegistrationPage = () => {
       2,
       <Step2
         onContinue={onContinue}
-        registrationData={registrationData}
+        registrationData={formData as RegistrationData}
         onChange={onChange}
       />,
     ],
@@ -97,16 +128,11 @@ const RegistrationPage = () => {
       3,
       <Step3
         onContinue={onContinue}
-        registrationData={registrationData}
+        registrationData={formData as RegistrationData}
         onChange={onChange}
       />,
     ],
-    [
-      4,
-      <Step4
-        onChange={onChange}
-      />,
-    ],
+    [4, <Step4 onChange={onChange} />],
     [5, <Finish />],
   ]);
 

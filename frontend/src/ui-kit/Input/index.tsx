@@ -7,6 +7,7 @@ type InputProps = {
   type?: 'text' | 'password';
   onEnter?: () => void;
   className?: string;
+  valid?: boolean;
 };
 
 const Input = ({
@@ -16,6 +17,7 @@ const Input = ({
   type = 'text',
   onEnter = () => {},
   className = '',
+  valid = true,
 }: InputProps) => {
   return (
     <input
@@ -29,6 +31,7 @@ const Input = ({
           onEnter();
         }
       }}
+      data-valid={valid}
     />
   );
 };

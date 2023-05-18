@@ -32,7 +32,7 @@ export class MessagesService {
     if (room) {
       return room;
     }
-    return await this.roomRepository.create(dto);
+    return this.roomRepository.create(dto);
   }
 
   getRooms(userId: number) {
@@ -95,6 +95,6 @@ export class MessagesService {
     });
     const interlocutorId =
       room.userId1 === currentUserId ? room.userId2 : room.userId1;
-    return await this.usersService.getUserById(interlocutorId, currentUserId);
+    return this.usersService.getUserById(interlocutorId, currentUserId);
   }
 }

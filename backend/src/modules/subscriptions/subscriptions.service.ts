@@ -73,7 +73,7 @@ export class SubscriptionsService {
         HttpStatus.CONFLICT,
       );
     }
-    return await this.subsciptionRepository.create(dto);
+    return this.subsciptionRepository.create(dto);
   }
 
   unsubscribe(dto: CreateSubscriptionDto) {

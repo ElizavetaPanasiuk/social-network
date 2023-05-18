@@ -16,9 +16,9 @@ class Service {
     return '';
   }
 
-  private async handleResponse(response: Response) {
+  private handleResponse(response: Response) {
     if (response.ok) {
-      return await response.json();
+      return response.json();
     }
     throw new Error(response.statusText);
   }

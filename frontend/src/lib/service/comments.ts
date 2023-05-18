@@ -5,20 +5,20 @@ class CommentsService extends Service {
     super('comments');
   }
 
-  async getCommentsByPostId(postId: number) {
-    return await this.get({ postId });
+  getCommentsByPostId(postId: number) {
+    return this.get({ postId });
   }
 
-  async createComment(text: string, id: number) {
-    return await this.post({ text, postId: id });
+  createComment(text: string, id: number) {
+    return this.post({ text, postId: id });
   }
 
-  async like(commentId: number) {
-    return await this.post({ commentId }, '/like');
+  like(commentId: number) {
+    return this.post({ commentId }, '/like');
   }
 
-  async dislike(commentId: number) {
-    return await this.remove({ commentId }, '/dislike');
+  dislike(commentId: number) {
+    return this.remove({ commentId }, '/dislike');
   }
 }
 

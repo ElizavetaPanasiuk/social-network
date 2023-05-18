@@ -5,8 +5,8 @@ class LoginService extends Service {
     super('auth/signIn');
   }
 
-  async signIn(email: string, password: string): Promise<{ access_token: string }> {
-    return await this.post({ email, password });
+  signIn(email: string, password: string): Promise<{ access_token: string }> {
+    return this.post({ email, password });
   }
 }
 

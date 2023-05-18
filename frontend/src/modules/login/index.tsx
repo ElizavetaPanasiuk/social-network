@@ -3,13 +3,15 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Cookies from 'js-cookie';
 import { Link, useNavigate } from 'react-router-dom';
-import { Box, Button, Input } from '@/ui-kit';
+import { Box, Input, SubmitButton } from '@/ui-kit';
 import styles from './styles.module.scss';
 import { LoginService } from '@/lib/service';
 import jwtDecode from 'jwt-decode';
 import { signIn } from '@/store/userSlice';
 import { useMutation } from '@/hooks';
-import { LanguageSelector } from '@/components';
+import { Form, LanguageSelector } from '@/components';
+import FIELDS_LENGTH from '@/lib/constants/fields-length';
+import { useForm } from '@/hooks';
 
 const LoginPage = () => {
   const { t } = useTranslation();
@@ -19,7 +21,20 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const loginService = new LoginService();
 
-  const { mutate: login } = useMutation((email: string, password: string) => loginService.signIn(email, password), {
+  const { formData, onChange, isValid } = useForm({
+    email: {
+      value: '',
+      minLength: FIELDS_LENGTH.EMAIL.MIN,
+      maxLength: FIELDS_LENGTH.EMAIL.MAX,
+    },
+    password: {
+      value: '',
+      minLength: FIELDS_LENGTH.PASSWORD.MIN,
+      maxLength: FIELDS_LENGTH.PASSWORD.MAX,
+    },
+  });
+
+  const { mutate: login } = useMutation(() => loginService.signIn(email, password), {
     onSuccess: (result) => {
       const { access_token } = result;
       Cookies.set('token', access_token);
@@ -36,23 +51,27 @@ const LoginPage = () => {
   return (
     <>
       <Box className={styles.loginContainer}>
-        <h1>{t('Login')}</h1>
-        <Input
-          value={email}
-          placeholder={t('Email') as string}
-          onChange={setEmail}
-        />
-        <Input
-          value={password}
-          placeholder={t('Password') as string}
-          onChange={setPassword}
-          type="password"
-        />
-        <Button
-          title={t('Sign In')}
-          onClick={() => login(email, password)}
-        />
-        <Link to="/registration">{t('Or register')}</Link>
+        <Form onSubmit={login}>
+          <h1>{t('Login')}</h1>
+          <Input
+            value={formData.email.value as string}
+            valid={formData.email.valid}
+            placeholder={t('Email') as string}
+            onChange={(value) => onChange('email', value)}
+          />
+          <Input
+            value={formData.password.value as string}
+            valid={formData.password.valid}
+            placeholder={t('Password') as string}
+            onChange={(value) => onChange('password', value)}
+            type="password"
+          />
+          <SubmitButton
+            title={t('Sign In')}
+            disabled={!isValid}
+          />
+          <Link to="/registration">{t('Or register')}</Link>
+        </Form>
       </Box>
       <LanguageSelector />
     </>

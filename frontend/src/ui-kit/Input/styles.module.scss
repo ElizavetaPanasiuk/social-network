@@ -4,4 +4,8 @@
   padding: 0.75rem 1rem;
   border-radius: 0.25rem;
   border: 1px solid $gray-light;
+
+  &[data-valid='false'] {
+    border-color: $red;
+  }
 }

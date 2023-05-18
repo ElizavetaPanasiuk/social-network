@@ -17,7 +17,8 @@ const Step1 = ({ onContinue, registrationData, onChange }: Step1Props) => {
       <h2>{t('Enter email')}</h2>
       <p>{t('Your email will be used to login')}</p>
       <Input
-        value={registrationData.email}
+        value={registrationData.email.value as string}
+        valid={registrationData.email.valid}
         onChange={(value) => onChange('email', value)}
         placeholder={t('Email') as string}
       />

@@ -5,20 +5,20 @@ class SubscriptionsService extends Service {
     super('subscriptions');
   }
 
-  async getSubscribers(id: number) {
-    return await this.getById(id, '/subscribers');
+  getSubscribers(id: number) {
+    return this.getById(id, '/subscribers');
   }
 
-  async getSubscriptions(id: number) {
-    return await this.getById(id);
+  getSubscriptions(id: number) {
+    return this.getById(id);
   }
 
-  async subscribe(subscriberId: number, profileId: number) {
-    return await this.post({ subscriberId, profileId });
+  subscribe(subscriberId: number, profileId: number) {
+    return this.post({ subscriberId, profileId });
   }
 
-  async unsubsribe(subscriberId: number, profileId: number) {
-    return await this.remove({ subscriberId, profileId });
+  unsubsribe(subscriberId: number, profileId: number) {
+    return this.remove({ subscriberId, profileId });
   }
 }
 

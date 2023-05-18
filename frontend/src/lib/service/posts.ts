@@ -5,32 +5,32 @@ class PostsService extends Service {
     super('posts');
   }
 
-  async getUserPosts(userId: number, page: number) {
-    return await this.get({ userId, page });
+  getUserPosts(userId: number, page: number) {
+    return this.get({ userId, page });
   }
 
-  async getPost(postId: number) {
-    return await this.getById(postId);
+  getPost(postId: number) {
+    return this.getById(postId);
   }
 
-  async createPost(text: string) {
-    return await this.post({ text });
+  createPost(text: string) {
+    return this.post({ text });
   }
 
-  async like(postId: number) {
-    return await this.post({ postId }, '/like');
+  like(postId: number) {
+    return this.post({ postId }, '/like');
   }
 
-  async dislike(postId: number) {
-    return await this.remove({ postId }, '/dislike');
+  dislike(postId: number) {
+    return this.remove({ postId }, '/dislike');
   }
 
-  async deletePost(postId: number) {
-    return await this.removeById(postId);
+  deletePost(postId: number) {
+    return this.removeById(postId);
   }
 
-  async updatePost(postId: number, newText: string) {
-    return await this.updateById(postId, { text: newText });
+  updatePost(postId: number, newText: string) {
+    return this.updateById(postId, { text: newText });
   }
 }
 
