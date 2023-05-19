@@ -1,18 +1,5 @@
 import { useState, useEffect } from 'react';
-
-type Field = {
-  value: string | number | null | File;
-  maxLength?: number;
-  minLength?: number;
-};
-
-type Fields = {
-  [fieldName: string]: Field;
-};
-
-type FormData = {
-  [fieldName: string]: Field & { valid: boolean };
-};
+import { Fields, FormData } from '@/lib/global/types';
 
 const useForm = (fields: Fields) => {
   const initFormData = () => {

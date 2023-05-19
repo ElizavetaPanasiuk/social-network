@@ -50,8 +50,8 @@ const LoginPage = () => {
 
   return (
     <>
-      <Box className={styles.loginContainer}>
-        <Form onSubmit={login}>
+      <Form onSubmit={login} className={styles.formContainer}>
+        <Box className={styles.loginContainer}>
           <h1>{t('Login')}</h1>
           <Input
             value={formData.email.value as string}
@@ -71,8 +71,8 @@ const LoginPage = () => {
             disabled={!isValid}
           />
           <Link to="/registration">{t('Or register')}</Link>
-        </Form>
-      </Box>
+        </Box>
+      </Form>
       <LanguageSelector />
     </>
   );

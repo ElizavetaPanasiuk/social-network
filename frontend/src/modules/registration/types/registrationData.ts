@@ -1,15 +1,13 @@
-import { Field } from '@/lib/global/types';
+import { FormField } from '@/lib/global/types';
 
 export type RegistrationData = {
-  email: Field;
-  password: Field;
-  passwordRepeat: Field;
-  firstName: Field;
-  lastName: Field;
-  birthYear: Field;
-  birthMonth: Field;
-  birthDate: Field;
-  country: Field;
-  city: Field;
-  avatar: Field;
+  email: FormField;
+  password: FormField;
+  passwordRepeat: FormField;
+  firstName: FormField;
+  lastName: FormField;
+  dateOfBirth: FormData;
+  country: FormField;
+  city: FormField;
+  avatar: FormField;
 };

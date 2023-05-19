@@ -1,4 +1,5 @@
 import styles from './styles.module.scss';
+import { useState } from 'react';
 
 type InputProps = {
   value: string;
@@ -19,6 +20,8 @@ const Input = ({
   className = '',
   valid = true,
 }: InputProps) => {
+  const [validationActive, setValidationActive] = useState(false);
+
   return (
     <input
       className={`${styles.input} ${className}`}
@@ -31,7 +34,8 @@ const Input = ({
           onEnter();
         }
       }}
-      data-valid={valid}
+      data-invalid={validationActive && !valid}
+      onBlur={() => setValidationActive(true)}
     />
   );
 };

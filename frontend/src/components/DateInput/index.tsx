@@ -3,9 +3,9 @@ import { Select } from '@/ui-kit';
 import styles from './styles.module.scss';
 
 type DateObj = {
-  year: number;
-  month: number;
-  date: number;
+  year: number | null;
+  month: number | null;
+  date: number | null;
 };
 
 type DateInputProps = {
@@ -43,7 +43,7 @@ const DateInput = ({ value: { year, month, date }, onChange }: DateInputProps) =
     t('December'),
   ];
 
-  const getMonthDaysCount = (year, monthId: number): number => {
+  const getMonthDaysCount = (year: number, monthId: number): number => {
     return new Date(year, monthId + 1, 0).getDate();
   };
 
@@ -71,10 +71,12 @@ const DateInput = ({ value: { year, month, date }, onChange }: DateInputProps) =
         value={date}
         label={t('Date')}
         onChange={onChangeDate}
-        options={Array.from({ length: getMonthDaysCount(year, month) }, (_, i) => i + 1).map((date) => ({
-          label: date,
-          value: date,
-        }))}
+        options={Array.from({ length: getMonthDaysCount(year as number, month as number) }, (_, i) => i + 1).map(
+          (date) => ({
+            label: date,
+            value: date,
+          }),
+        )}
       />
     </div>
   );
