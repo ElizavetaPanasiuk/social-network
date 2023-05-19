@@ -5,5 +5,5 @@ export class CreateRoomDto {
   userId1: number;
 
   @IsInt()
-  readonly userId2: number;
+  userId2: number;
 }

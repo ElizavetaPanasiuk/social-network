@@ -23,6 +23,7 @@ type ProfileInfoProps = {
   isSubscribed: boolean;
   subscribe: () => void;
   unsubscribe: () => void;
+  startMessaging: () => void;
 };
 
 const ProfileInfo = ({
@@ -38,6 +39,7 @@ const ProfileInfo = ({
   isSubscribed,
   subscribe,
   unsubscribe,
+  startMessaging,
 }: ProfileInfoProps) => {
   const { t } = useTranslation();
   const { profileId } = useParams();
@@ -52,9 +54,12 @@ const ProfileInfo = ({
           size="large"
           border
         />
-        {currentUserId !== +profileId && (
+        {profileId && currentUserId !== +profileId && (
           <div className={styles.profileActions}>
-            <Button title={t('Message')} />
+            <Button
+              title={t('Message')}
+              onClick={startMessaging}
+            />
             {isSubscribed ? (
               <Button
                 title={t('Unsubscribe')}

@@ -10,7 +10,6 @@ import {
 } from '@nestjs/common';
 import { MessagesService } from './messages.service';
 import { AuthGuard } from '../auth/auth.guard';
-import { CreateRoomDto } from './dto/create-room.dto';
 
 @Controller('messages')
 export class MessagesController {
@@ -35,8 +34,11 @@ export class MessagesController {
 
   @UseGuards(AuthGuard)
   @Post('')
-  createRoom(@Request() req, @Body() createRoomDto: CreateRoomDto) {
-    createRoomDto.userId1 = req.user.id;
+  createRoom(@Request() req, @Body() body: { interlocutorId: number }) {
+    const createRoomDto = {
+      userId1: req.user.id,
+      userId2: body.interlocutorId,
+    };
     return this.messagesService.createRoom(createRoomDto);
   }
 }
