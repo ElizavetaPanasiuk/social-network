@@ -56,6 +56,17 @@ const Step3 = ({ onContinue, registrationData, onChange }: Step3Props) => {
       <Button
         title={t('Continue')}
         onClick={onContinue}
+        disabled={
+          !(
+            registrationData.firstName.valid &&
+            registrationData.lastName.valid &&
+            registrationData.country &&
+            registrationData.city &&
+            registrationData.dateOfBirth.value.year &&
+            registrationData.dateOfBirth.value.month &&
+            registrationData.dateOfBirth.value.date
+          )
+        }
       />
     </>
   );

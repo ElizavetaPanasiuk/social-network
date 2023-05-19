@@ -25,6 +25,7 @@ const Step1 = ({ onContinue, registrationData, onChange }: Step1Props) => {
       <Button
         title={t('Continue')}
         onClick={onContinue}
+        disabled={!registrationData.email.valid}
       />
       <Link to="/login">{t('Or Sign In')}</Link>
     </>

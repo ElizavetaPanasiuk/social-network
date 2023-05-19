@@ -4,7 +4,7 @@ import { Fields, FormData } from '@/lib/global/types';
 const useForm = (fields: Fields) => {
   const initFormData = () => {
     const initialFormData: FormData = {};
-    Object.keys(fields).forEach((field: string) => (initialFormData[field] = { ...fields[field], valid: true }));
+    Object.keys(fields).forEach((field: string) => (initialFormData[field] = { ...fields[field], valid: false }));
     return initialFormData;
   };
 
