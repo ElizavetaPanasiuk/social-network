@@ -46,14 +46,12 @@ const RegistrationPage = () => {
       minLength: FIELDS_LENGTH.LAST_NAME.MIN,
       maxLength: FIELDS_LENGTH.LAST_NAME.MAX,
     },
-    birthYear: {
-      value: null,
-    },
-    birthMonth: {
-      value: null,
-    },
-    birthDate: {
-      value: null,
+    dateOfBirth: {
+      value: {
+        year: null,
+        month: null,
+        date: null,
+      },
     },
     country: {
       value: '',
@@ -85,9 +83,9 @@ const RegistrationPage = () => {
         city: formData.city.value,
         avatar: formData.avatar.value,
         dateOfBirth: new Date(
-          formData.birthYear.value as number,
-          formData.birthMonth.value as number,
-          formData.birthDate.value as number,
+          formData.dateOfBirth.value.year,
+          formData.dateOfBirth.value.month,
+          formData.dateOfBirth.value.date,
         ),
       }),
     {
@@ -112,7 +110,7 @@ const RegistrationPage = () => {
       1,
       <Step1
         onContinue={onContinue}
-        registrationData={formData as RegistrationData}
+        registrationData={formData}
         onChange={onChange}
       />,
     ],
@@ -120,7 +118,7 @@ const RegistrationPage = () => {
       2,
       <Step2
         onContinue={onContinue}
-        registrationData={formData as RegistrationData}
+        registrationData={formData}
         onChange={onChange}
       />,
     ],
@@ -128,11 +126,17 @@ const RegistrationPage = () => {
       3,
       <Step3
         onContinue={onContinue}
-        registrationData={formData as RegistrationData}
+        registrationData={formData}
         onChange={onChange}
       />,
     ],
-    [4, <Step4 onChange={onChange} />],
+    [
+      4,
+      <Step4
+        onChange={onChange}
+        isFormDataValid={isValid}
+      />,
+    ],
     [5, <Finish />],
   ]);
 

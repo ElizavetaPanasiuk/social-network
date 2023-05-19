@@ -5,7 +5,7 @@
   border-radius: 0.25rem;
   border: 1px solid $gray-light;
 
-  &[data-valid='false'] {
+  &[data-invalid='true'] {
     border-color: $red;
   }
 }

@@ -7,7 +7,7 @@ import styles from './styles.module.scss';
 
 type Step3Props = {
   onContinue: () => void;
-  registrationData: RegistrationData;
+  registrationData: FormData;
   onChange: (key: keyof RegistrationData, value: string) => void;
 };
 
@@ -31,12 +31,12 @@ const Step3 = ({ onContinue, registrationData, onChange }: Step3Props) => {
       />
       <p>{t('Birthday')}</p>
       <DateInput
-        value={registrationData.dateOfBirth}
+        value={registrationData.dateOfBirth.value}
         onChange={(value) => onChange('dateOfBirth', value)}
       />
       <Select
         value={registrationData.country.value as string}
-        onChange={(value) => onChange('country', value as string)}
+        onChange={(value) => onChange('country', value as keyof typeof locations)}
         label={t('Country')}
         options={Object.keys(locations).map((country) => ({ label: country, value: country }))}
         className={styles.locationSelect}
@@ -47,8 +47,8 @@ const Step3 = ({ onContinue, registrationData, onChange }: Step3Props) => {
         label={t('City')}
         disabled={!registrationData.country}
         options={
-          (registrationData.country.value as string)
-            ? locations[registrationData.country.value].map((city) => ({ label: city, value: city }))
+          registrationData.country.value
+            ? locations[registrationData.country.value].map((city: string) => ({ label: city, value: city }))
             : []
         }
         className={styles.locationSelect}
