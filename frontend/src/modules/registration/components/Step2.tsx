@@ -24,7 +24,10 @@ const Step2 = ({ onContinue, registrationData, onChange }: Step2Props) => {
       />
       <Input
         value={registrationData.passwordRepeat.value as string}
-        valid={registrationData.passwordRepeat.valid}
+        valid={
+          registrationData.passwordRepeat.valid &&
+          registrationData.passwordRepeat.value === registrationData.password.value
+        }
         onChange={(value) => onChange('passwordRepeat', value)}
         placeholder={t('Confirm password') as string}
         type="password"
@@ -32,6 +35,13 @@ const Step2 = ({ onContinue, registrationData, onChange }: Step2Props) => {
       <Button
         title={t('Continue')}
         onClick={onContinue}
+        disabled={
+          !(
+            registrationData.password.valid &&
+            registrationData.passwordRepeat.valid &&
+            registrationData.password.value === registrationData.passwordRepeat.value
+          )
+        }
       />
     </>
   );

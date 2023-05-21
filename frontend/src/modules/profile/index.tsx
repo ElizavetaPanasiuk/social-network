@@ -1,8 +1,8 @@
 import { Post } from '@/components';
 import { ProfileInfo, NewPost } from './components';
 import { useMutation, useQuery } from '@/hooks';
-import { PostsService, ProfileService } from '@/lib/service';
-import { useParams } from 'react-router-dom';
+import { MessagesService, PostsService, ProfileService } from '@/lib/service';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { Loader } from '@/ui-kit';
@@ -11,12 +11,14 @@ import { useRef } from 'react';
 
 const ProfilePage = () => {
   const { profileId } = useParams();
+  const navigate = useNavigate();
   const userId = useSelector((state: RootState) => state.user.id as number);
   const ref = useRef(null);
 
   const postsService = new PostsService();
   const profileService = new ProfileService();
   const subscriptionsService = new SubscriptionsService();
+  const messagesService = new MessagesService();
   const {
     loading: postsLoading,
     data: posts,
@@ -65,6 +67,13 @@ const ProfilePage = () => {
     },
   );
 
+  const { mutate: startMessaging } = useMutation(() => messagesService.createRoom(+profileId), {
+    onSuccess: (result) => {
+      const id = result.id;
+      navigate(`/messages/${id}`);
+    },
+  });
+
   return (
     <div ref={ref}>
       {(postsLoading && !posts.length) || profileLoading ? (
@@ -75,6 +84,7 @@ const ProfilePage = () => {
             {...profile}
             subscribe={subscribe}
             unsubscribe={unsubscribe}
+            startMessaging={startMessaging}
           />
           {+profileId === userId && <NewPost publish={publish} />}
           {posts.map((post) => (

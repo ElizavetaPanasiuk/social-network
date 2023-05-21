@@ -12,6 +12,10 @@ class MessagesService extends Service {
   getInterlocutor(roomId: string) {
     return this.get({ roomId }, '/interlocutor');
   }
+
+  createRoom(interlocutorId: number) {
+    return this.post({ interlocutorId });
+  }
 }
 
 export default MessagesService;
