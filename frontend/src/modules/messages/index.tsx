@@ -6,24 +6,35 @@ import { Loader } from '@/ui-kit';
 import { MessagesService } from '@/lib/service';
 import { useParams } from 'react-router-dom';
 import moment from 'moment';
+import { BasicProfileInfo, MessageType } from '@/lib/global/types';
 
 const MessagesPage = () => {
   const messagesService = new MessagesService();
   const { roomId } = useParams();
-  const { messages, loading, chatActions } = useChat();
-  const { data: user, loading: loadingUser } = useQuery(() => messagesService.getInterlocutor(roomId));
+  const {
+    messages,
+    loading,
+    chatActions,
+  }: {
+    messages: MessageType[];
+    loading: boolean;
+    chatActions: {
+      send: (text: string) => void;
+    };
+  } = useChat();
+  const { data: user, loading: loadingUser }: { data: BasicProfileInfo; loading: boolean } = useQuery(() =>
+    messagesService.getInterlocutor(roomId as string),
+  );
 
   const [text, setText] = useState('');
-  const messagesContainerRef = useRef(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
   const sendMessage = () => {
-    const message = {
-      text,
-    };
-
     if (text.trim()) {
-      chatActions.send(message);
+      chatActions.send(text);
       setText('');
-      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+      if (messagesContainerRef.current) {
+        messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+      }
     }
   };
 
@@ -43,7 +54,7 @@ const MessagesPage = () => {
                 {(id === 0 ||
                   moment(message.createdAt).format('DD.MM.YYYY') !==
                     moment(messages[id - 1].createdAt).format('DD.MM.YYYY')) && (
-                  <div>{moment(message.createdAt).format('LL')}</div>
+                  <div className={styles.dateHeader}>{moment(message.createdAt).format('LL')}</div>
                 )}
                 <Message {...message} />
               </Fragment>

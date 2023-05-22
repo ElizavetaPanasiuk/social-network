@@ -17,6 +17,18 @@
   .select {
     @extend %selectButton;
     border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .selectTitle {
+      display: inline-block;
+      margin-right: 0.5rem;
+    }
+
+    .selectAngleOpened {
+      transform: rotate(180deg);
+    }
   }
 
   .active {

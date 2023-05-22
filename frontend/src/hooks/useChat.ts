@@ -4,8 +4,6 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { io, Socket } from 'Socket.IO-client';
 
-let socket: Socket;
-
 const useChat = () => {
   const userId = useSelector((state: RootState) => state.user.id);
   const [socket, setSocket] = useState<Socket>();
@@ -23,21 +21,24 @@ const useChat = () => {
     );
   }
 
-  const [messages, setMessages] = useState();
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    socket.on('messages', (messages) => {
+    socket?.on('messages', (messages) => {
       setMessages(messages);
       setLoading(false);
     });
 
-    socket.emit('messages:get');
+    socket?.emit('messages:get');
   }, []);
 
-  const send = (payload) => {
-    payload.roomId = roomId;
-    payload.userId = userId;
-    socket.emit('messages:post', payload);
+  const send = (text: string) => {
+    const payload = {
+      roomId,
+      userId,
+      text,
+    };
+    socket?.emit('messages:post', payload);
   };
 
   const chatActions = {

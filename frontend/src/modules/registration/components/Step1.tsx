@@ -1,15 +1,15 @@
 import { Button, Input } from '@/ui-kit';
 import { useTranslation } from 'react-i18next';
-import { RegistrationData } from '../types/registrationData';
 import { Link } from 'react-router-dom';
+import { FormData } from '@/lib/global/types';
 
-type Step1Props = {
+type Step1Props<T> = {
   onContinue: () => void;
-  registrationData: RegistrationData;
-  onChange: (key: keyof RegistrationData, value: string) => void;
+  registrationData: FormData<T>;
+  onChange: (key: keyof FormData<T>, value: string) => void;
 };
 
-const Step1 = ({ onContinue, registrationData, onChange }: Step1Props) => {
+function Step1<T>({ onContinue, registrationData, onChange }: Step1Props<T>) {
   const { t } = useTranslation();
 
   return (
@@ -30,6 +30,6 @@ const Step1 = ({ onContinue, registrationData, onChange }: Step1Props) => {
       <Link to="/login">{t('Or Sign In')}</Link>
     </>
   );
-};
+}
 
 export default Step1;

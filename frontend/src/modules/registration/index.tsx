@@ -12,7 +12,6 @@ import { useNavigate } from 'react-router-dom';
 import { useForm, useMutation } from '@/hooks';
 import { Form, LanguageSelector } from '@/components';
 import FIELDS_LENGTH from '@/lib/constants/fields-length';
-import { RegistrationData } from './types/registrationData';
 
 const RegistrationPage = () => {
   const { t } = useTranslation();
@@ -83,9 +82,9 @@ const RegistrationPage = () => {
         city: formData.city.value,
         avatar: formData.avatar.value,
         dateOfBirth: new Date(
-          formData.dateOfBirth.value.year,
-          formData.dateOfBirth.value.month,
-          formData.dateOfBirth.value.date,
+          formData.dateOfBirth.value?.year,
+          formData.dateOfBirth.value?.month,
+          formData.dateOfBirth.value?.date,
         ),
       }),
     {

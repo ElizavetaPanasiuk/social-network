@@ -1,23 +1,34 @@
 import { useEffect, useState } from 'react';
 
-const useQuery = (queryFn, { dependencies = [], pagination = { enabled: false, ref: null } } = {}) => {
+type UseQueryOptions = {
+  dependencies?: string[];
+  pagination?: {
+    enabled: boolean;
+    ref: HTMLElement | null;
+  };
+};
+
+function useQuery<T>(
+  queryFn: (page?: number) => Promise<T> | Promise<{ data: T; isLast: boolean }>,
+  { dependencies = [], pagination = { enabled: false, ref: null } }: UseQueryOptions = {},
+) {
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<T | Array<T>>([]);
   const [error, setError] = useState({ value: false, message: '' });
   const [page, setPage] = useState(1);
   const [isLast, setLast] = useState(false);
 
-  const sendQuery = async (...args) => {
+  const sendQuery = async (page?: number) => {
     setLoading(true);
     try {
-      const result = await queryFn(...args);
+      const result = await queryFn(page);
       if (pagination.enabled) {
         setData([...data, ...result.data]);
         setLast(result.isLast);
       } else {
         setData(result);
       }
-    } catch (error) {
+    } catch (error: any) {
       setError({ value: true, message: error.message });
     } finally {
       setLoading(false);
@@ -26,7 +37,7 @@ const useQuery = (queryFn, { dependencies = [], pagination = { enabled: false, r
 
   const scrollHandler = () => {
     const elementRef = pagination.ref;
-    if (window.scrollY + window.innerHeight + 1 >= elementRef.current.clientHeight && !loading && !isLast) {
+    if (window.scrollY + window.innerHeight + 1 >= elementRef?.current.clientHeight && !loading && !isLast) {
       sendQuery(page + 1);
       setPage(page + 1);
     }
@@ -51,6 +62,6 @@ const useQuery = (queryFn, { dependencies = [], pagination = { enabled: false, r
   }, [page, loading, isLast]);
 
   return { loading, error, data, setData, get: sendQuery };
-};
+}
 
 export default useQuery;

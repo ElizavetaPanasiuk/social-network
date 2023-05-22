@@ -14,7 +14,7 @@ export class UsersService {
     private filesService: FilesService,
   ) {}
 
-  async getUserById(id: number, currentUserId: number) {
+  async getProfileById(id: number, currentUserId: number) {
     const user = await this.userRepository.findByPk(id, {
       attributes: [
         'id',
@@ -62,6 +62,13 @@ export class UsersService {
       ],
     });
     return user;
+  }
+
+  getUserById(
+    id: number,
+    attributes = ['id', 'firstName', 'lastName', 'avatar'],
+  ) {
+    return this.userRepository.findByPk(id, { attributes });
   }
 
   async createUser(file: Express.Multer.File, dto: CreateUserDto) {

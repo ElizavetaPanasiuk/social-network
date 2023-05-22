@@ -8,6 +8,10 @@
     font-size: 1.25rem;
     width: 14rem;
 
+    @media (max-width: 768px) {
+      width: fit-content;
+    }
+
     &:hover {
       background-color: $gray-light;
     }
@@ -18,6 +22,12 @@
 
     .navIcon {
       margin-right: 1rem;
+    }
+
+    .navItemTitle {
+      @media (max-width: 768px) {
+        display: none;
+      }
     }
   }
 

@@ -1,17 +1,17 @@
 import { useTranslation } from 'react-i18next';
 import { Button, Input, Select } from '@/ui-kit';
-import { RegistrationData } from '../types/registrationData';
 import { DateInput } from '@/components';
 import { locations } from '@/lib/constants/country-city';
 import styles from './styles.module.scss';
+import { FormData } from '@/lib/global/types';
 
-type Step3Props = {
+type Step3Props<T> = {
   onContinue: () => void;
-  registrationData: FormData;
-  onChange: (key: keyof RegistrationData, value: string) => void;
+  registrationData: FormData<T>;
+  onChange: (key: keyof FormData<T>, value: string) => void;
 };
 
-const Step3 = ({ onContinue, registrationData, onChange }: Step3Props) => {
+function Step3<T>({ onContinue, registrationData, onChange }: Step3Props<T>) {
   const { t } = useTranslation();
 
   return (
@@ -48,7 +48,7 @@ const Step3 = ({ onContinue, registrationData, onChange }: Step3Props) => {
         disabled={!registrationData.country}
         options={
           registrationData.country.value
-            ? locations[registrationData.country.value].map((city: string) => ({ label: city, value: city }))
+            ? locations?.[registrationData.country.value].map((city: string) => ({ label: city, value: city }))
             : []
         }
         className={styles.locationSelect}
@@ -70,6 +70,6 @@ const Step3 = ({ onContinue, registrationData, onChange }: Step3Props) => {
       />
     </>
   );
-};
+}
 
 export default Step3;

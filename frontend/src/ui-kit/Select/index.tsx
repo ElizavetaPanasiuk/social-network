@@ -1,25 +1,24 @@
-import { useState } from 'react';
+import { Key, useState } from 'react';
 import styles from './styles.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
-type SelectOption = string | number;
-type SelectValue = SelectOption & null;
-
-type SelectProps = {
+type SelectProps<T> = {
   label: string;
   options: {
-    label: string | number;
-    value: SelectOption;
+    label: T;
+    value: T;
   }[];
-  value: SelectValue;
-  onChange: (value: SelectOption) => void;
+  value: T;
+  onChange: (value: T) => void;
   disabled?: boolean;
   className?: string;
 };
 
-const Select = ({ label, options, value, onChange, disabled = false, className = '' }: SelectProps) => {
+function Select<T>({ label, options, value, onChange, disabled = false, className = '' }: SelectProps<T>) {
   const [visible, setVisible] = useState(false);
 
-  const onSelect = (value: SelectOption) => {
+  const onSelect = (value: T) => {
     onChange(value);
     setVisible(false);
   };
@@ -32,24 +31,30 @@ const Select = ({ label, options, value, onChange, disabled = false, className =
         onClick={() => setVisible(!visible)}
         disabled={disabled}
       >
-        {options.find((el) => el.value === value)?.label || label}
+        <span className={styles.selectTitle}>
+          {(options.find((el) => el.value === value)?.label as string) || (label as string)}
+        </span>
+        <FontAwesomeIcon
+          icon={faAngleDown}
+          className={visible ? styles.selectAngleOpened : ''}
+        />
       </button>
       {visible && (
         <div className={styles.options}>
           {options.map((el) => (
             <button
               type="button"
-              key={el.value}
+              key={el.value as Key}
               onClick={() => onSelect(el.value)}
               className={styles.option}
             >
-              {el.label}
+              {el.label as string}
             </button>
           ))}
         </div>
       )}
     </div>
   );
-};
+}
 
 export default Select;

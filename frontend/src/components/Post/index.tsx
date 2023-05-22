@@ -26,8 +26,8 @@ type PostProps = {
   };
   like: (id: number) => void;
   dislike: (id: number) => void;
-  onDelete: (id: number) => void;
-  onUpdate: (id: number, newContent: string) => void;
+  onDelete?: (id: number) => void;
+  onUpdate?: (id: number, newContent: string) => void;
 };
 
 const Post = ({
@@ -41,8 +41,8 @@ const Post = ({
   user: { firstName, lastName, avatar },
   like,
   dislike,
-  onDelete,
-  onUpdate,
+  onDelete = () => {},
+  onUpdate = () => {},
 }: PostProps) => {
   const currentUserId = useSelector((state: RootState) => state.user.id);
   const [actionsMenuVisible, setActionsMenuVisible] = useState(false);

@@ -10,7 +10,10 @@ class ProfileService extends Service {
   }
 
   // TODO: add default values
-  searchUsers(searchParams: { search: string; country: string; city: string; page: number }) {
+  searchUsers(searchParams: { search: string; country: string; city: string; page?: number }) {
+    if (!searchParams.page) {
+      searchParams.page = 1;
+    }
     return this.get(searchParams);
   }
 }

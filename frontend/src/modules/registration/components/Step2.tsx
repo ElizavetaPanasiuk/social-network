@@ -1,14 +1,14 @@
 import { Button, Input } from '@/ui-kit';
 import { useTranslation } from 'react-i18next';
-import { RegistrationData } from '../types/registrationData';
+import { FormData } from '@/lib/global/types';
 
-type Step2Props = {
+type Step2Props<T> = {
   onContinue: () => void;
-  registrationData: RegistrationData;
-  onChange: (key: keyof RegistrationData, value: string) => void;
+  registrationData: FormData<T>;
+  onChange: (key: keyof FormData<T>, value: string) => void;
 };
 
-const Step2 = ({ onContinue, registrationData, onChange }: Step2Props) => {
+function Step2<T>({ onContinue, registrationData, onChange }: Step2Props<T>) {
   const { t } = useTranslation();
 
   return (
@@ -45,6 +45,6 @@ const Step2 = ({ onContinue, registrationData, onChange }: Step2Props) => {
       />
     </>
   );
-};
+}
 
 export default Step2;

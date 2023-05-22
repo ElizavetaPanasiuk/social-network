@@ -1,15 +1,12 @@
 import { Avatar } from '@/ui-kit';
 import styles from './styles.module.scss';
 import { TimeLabel } from '@/components';
+import { BasicProfileInfo } from '@/lib/global/types';
 
 type MessageProps = {
   text: string;
   createdAt: string;
-  user: {
-    firstName: string;
-    lastName: string;
-    avatar: string;
-  };
+  user: BasicProfileInfo;
 };
 
 const Message = ({ text, createdAt, user: { firstName, lastName, avatar } }: MessageProps) => {

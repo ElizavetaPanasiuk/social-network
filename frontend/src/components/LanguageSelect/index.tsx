@@ -6,7 +6,7 @@ import styles from './styles.module.scss';
 const LanguageSelector = () => {
   const [language, setLanguage] = useState(i18next.language);
 
-  const selectLanguage = (lang: 'ru' | 'en') => {
+  const selectLanguage = (lang: string) => {
     setLanguage(lang);
     i18next.changeLanguage(lang);
   };

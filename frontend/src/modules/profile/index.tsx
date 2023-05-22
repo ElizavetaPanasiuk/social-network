@@ -8,12 +8,14 @@ import { RootState } from '@/store';
 import { Loader } from '@/ui-kit';
 import { SubscriptionsService } from '@/lib/service';
 import { useRef } from 'react';
+import { PostInfo } from '@/lib/global/types';
 
 const ProfilePage = () => {
-  const { profileId } = useParams();
+  const params = useParams();
+  const profileId = Number(params.profileId);
   const navigate = useNavigate();
   const userId = useSelector((state: RootState) => state.user.id as number);
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   const postsService = new PostsService();
   const profileService = new ProfileService();
@@ -23,7 +25,11 @@ const ProfilePage = () => {
     loading: postsLoading,
     data: posts,
     setData: setPosts,
-  } = useQuery((...args) => postsService.getUserPosts(Number(profileId), ...args), {
+  }: {
+    loading: boolean;
+    data: PostInfo[];
+    setData: (updatedPosts: PostInfo[]) => void;
+  } = useQuery((page?: number) => postsService.getUserPosts(Number(profileId), page), {
     pagination: {
       enabled: true,
       ref: ref,

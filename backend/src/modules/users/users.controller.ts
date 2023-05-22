@@ -57,7 +57,7 @@ export class UsersController {
   @Get(':id')
   getById(@Param('id', ParseIntPipe) id: number, @Request() req) {
     const currentUserId = req.user.id;
-    return this.usersService.getUserById(id, currentUserId);
+    return this.usersService.getProfileById(id, currentUserId);
   }
 
   @ApiOperation({ summary: 'Delete user' })

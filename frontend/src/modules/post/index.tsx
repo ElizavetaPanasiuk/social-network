@@ -5,19 +5,33 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Comment } from './components';
 import NewComment from './components/NewComment';
 import { Loader } from '@/ui-kit';
+import { CommentInfo, PostInfo } from '@/lib/global/types';
 
 const PostPage = () => {
   const postsService = new PostsService();
   const commentsService = new CommentsService();
   const navigate = useNavigate();
-  const { postId } = useParams();
+  const params = useParams();
+  const postId = Number(params.postId);
 
-  const { loading, data: post, setData: setPost } = useQuery(() => postsService.getPost(postId));
+  const {
+    loading,
+    data: post,
+    setData: setPost,
+  }: {
+    loading: boolean;
+    data: PostInfo;
+    setData: (newPost: PostInfo) => void;
+  } = useQuery(() => postsService.getPost(postId));
 
   const {
     loading: loadingComments,
     data: comments,
     setData: setComments,
+  }: {
+    loading: boolean;
+    data: CommentInfo[];
+    setData: (updatedCommentsList: CommentInfo[]) => void;
   } = useQuery(() => commentsService.getCommentsByPostId(Number(postId)));
 
   const { mutate: likePost } = useMutation(() => postsService.like(+postId), {

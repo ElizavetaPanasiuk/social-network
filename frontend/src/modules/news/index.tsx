@@ -1,5 +1,6 @@
 import { Post } from '@/components';
 import { useMutation, useQuery } from '@/hooks';
+import { PostInfo } from '@/lib/global/types';
 import { NewsService, PostsService } from '@/lib/service';
 import { Loader } from '@/ui-kit';
 import { useRef } from 'react';
@@ -7,12 +8,16 @@ import { useRef } from 'react';
 const NewsPage = () => {
   const newsService = new NewsService();
   const postsService = new PostsService();
-  const postsContainerRef = useRef(null);
+  const postsContainerRef = useRef<HTMLDivElement>(null);
   const {
     data: posts,
     loading,
     setData: setPosts,
-  } = useQuery((...args) => newsService.getNews(...args), { pagination: { enabled: true, ref: postsContainerRef } });
+  }: {
+    data: PostInfo[];
+    loading: boolean;
+    setData: (updatedPosts: PostInfo[]) => void;
+  } = useQuery((page?: number) => newsService.getNews(page), { pagination: { enabled: true, ref: postsContainerRef } });
   const { mutate: like } = useMutation((id: number) => postsService.like(id), {
     onSuccess: (result) =>
       setPosts(

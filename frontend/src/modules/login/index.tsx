@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Cookies from 'js-cookie';
 import { Link, useNavigate } from 'react-router-dom';
@@ -17,8 +16,6 @@ const LoginPage = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const loginService = new LoginService();
 
   const { formData, onChange, isValid } = useForm({
@@ -34,7 +31,7 @@ const LoginPage = () => {
     },
   });
 
-  const { mutate: login } = useMutation(() => loginService.signIn(email, password), {
+  const { mutate: login } = useMutation(() => loginService.signIn(formData.email.value, formData.password.value), {
     onSuccess: (result) => {
       const { access_token } = result;
       Cookies.set('token', access_token);
@@ -50,7 +47,10 @@ const LoginPage = () => {
 
   return (
     <>
-      <Form onSubmit={login} className={styles.formContainer}>
+      <Form
+        onSubmit={login}
+        className={styles.formContainer}
+      >
         <Box className={styles.loginContainer}>
           <h1>{t('Login')}</h1>
           <Input

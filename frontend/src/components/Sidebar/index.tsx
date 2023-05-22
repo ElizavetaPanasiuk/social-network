@@ -70,7 +70,7 @@ const Sidebar = () => {
                 icon={isActive ? activeIcon : icon}
                 className={styles.navIcon}
               />
-              {title}
+              <span className={styles.navItemTitle}>{title}</span>
             </>
           )}
         </NavLink>

@@ -12,7 +12,6 @@ type DateInputProps = {
   value: DateObj;
   onChange: (value: DateObj) => void;
 };
-
 const DateInput = ({ value: { year, month, date }, onChange }: DateInputProps) => {
   const { t } = useTranslation();
 
@@ -50,7 +49,7 @@ const DateInput = ({ value: { year, month, date }, onChange }: DateInputProps) =
   return (
     <div className={styles.dateInput}>
       <Select
-        value={year}
+        value={year as number}
         label={t('Year')}
         onChange={onChangeYear}
         options={Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i).map((year) => ({
@@ -59,7 +58,7 @@ const DateInput = ({ value: { year, month, date }, onChange }: DateInputProps) =
         }))}
       />
       <Select
-        value={month}
+        value={month as number}
         label={t('Month')}
         onChange={onChangeMonth}
         options={months.map((month, id) => ({
@@ -68,7 +67,7 @@ const DateInput = ({ value: { year, month, date }, onChange }: DateInputProps) =
         }))}
       />
       <Select
-        value={date}
+        value={date as number}
         label={t('Date')}
         onChange={onChangeDate}
         options={Array.from({ length: getMonthDaysCount(year as number, month as number) }, (_, i) => i + 1).map(

@@ -6,6 +6,7 @@ import { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './styles.module.scss';
 import { locations } from '@/lib/constants/country-city';
+import { BasicProfileInfo } from '@/lib/global/types';
 
 const SearchPage = () => {
   const { t } = useTranslation();
@@ -13,8 +14,14 @@ const SearchPage = () => {
   const [searchString, setSearchString] = useState('');
   const [country, setCountry] = useState('');
   const [city, setCity] = useState('');
-  const ref = useRef(null);
-  const { loading, data } = useQuery(() => profileService.searchUsers({ search: searchString, city, country }), {
+  const ref = useRef<HTMLDivElement>(null);
+  const {
+    loading,
+    data,
+  }: {
+    loading: boolean;
+    data: BasicProfileInfo[];
+  } = useQuery((page?: number) => profileService.searchUsers({ search: searchString, city, country, page }), {
     dependencies: [country, city, searchString],
     pagination: {
       enabled: true,
@@ -54,7 +61,11 @@ const SearchPage = () => {
         />
         <Select
           label={t('City')}
-          options={country ? locations[country].map((city) => ({ value: city, label: city })) : []}
+          options={
+            country
+              ? locations[country as keyof typeof locations].map((city: string) => ({ value: city, label: city }))
+              : []
+          }
           value={city}
           disabled={!country}
           onChange={setCity}

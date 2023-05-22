@@ -1,9 +1,8 @@
 import { SubmitButton } from '@/ui-kit';
 import { useTranslation } from 'react-i18next';
-import { RegistrationData } from '../types/registrationData';
 
 type Step4Props = {
-  onChange: (key: keyof RegistrationData, value: string | File) => void;
+  onChange: (key: 'avatar', value: string | File) => void;
   isFormDataValid: boolean;
 };
 
@@ -26,6 +25,6 @@ const Step4 = ({ onChange, isFormDataValid }: Step4Props) => {
       />
     </>
   );
-};
+}
 
 export default Step4;
