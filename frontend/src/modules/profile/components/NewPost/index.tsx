@@ -6,9 +6,10 @@ import { Form } from '@/components';
 
 type NewPostProps = {
   publish: (text: string) => void;
+  loading: boolean;
 };
 
-const NewPost = ({ publish }: NewPostProps) => {
+const NewPost = ({ publish, loading }: NewPostProps) => {
   const { t } = useTranslation();
   const [postText, setPostText] = useState('');
 
@@ -29,7 +30,7 @@ const NewPost = ({ publish }: NewPostProps) => {
       />
       <SubmitButton
         title={t('Publish')}
-        disabled={!postText.trim()}
+        disabled={!postText.trim() || loading}
       />
     </Form>
   );

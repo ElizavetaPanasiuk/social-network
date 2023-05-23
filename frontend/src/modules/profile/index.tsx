@@ -41,7 +41,7 @@ const ProfilePage = () => {
     setData: setProfileData,
   } = useQuery(() => profileService.getProfile(Number(profileId)));
 
-  const { mutate: publish } = useMutation((text: string) => postsService.createPost(text), {
+  const { mutate: publish, loading: createPostLoading } = useMutation((text: string) => postsService.createPost(text), {
     onSuccess: (newPost) => setPosts([newPost, ...posts]),
   });
   const { mutate: subscribe } = useMutation(() => subscriptionsService.subscribe(userId, +profileId), {
@@ -65,7 +65,7 @@ const ProfilePage = () => {
     onSuccess: (_result, args) => setPosts(posts.filter((post) => post.id !== args[0])),
   });
 
-  const { mutate: updatePost } = useMutation(
+  const { mutate: updatePost, loading: updatePostLoading } = useMutation(
     (id: number, newContent: string) => postsService.updatePost(id, newContent),
     {
       onSuccess: (_result, args) =>
@@ -92,7 +92,12 @@ const ProfilePage = () => {
             unsubscribe={unsubscribe}
             startMessaging={startMessaging}
           />
-          {+profileId === userId && <NewPost publish={publish} />}
+          {+profileId === userId && (
+            <NewPost
+              publish={publish}
+              loading={createPostLoading}
+            />
+          )}
           {posts.map((post) => (
             <Post
               key={post.id}
@@ -101,6 +106,7 @@ const ProfilePage = () => {
               dislike={dislike}
               onDelete={deletePost}
               onUpdate={updatePost}
+              loading={updatePostLoading}
             />
           ))}
           {postsLoading && posts.length && <Loader />}

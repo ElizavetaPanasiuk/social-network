@@ -25,6 +25,7 @@ type PostProps = {
     avatar: string;
   };
   like: (id: number) => void;
+  loading?: boolean;
   dislike: (id: number) => void;
   onDelete?: (id: number) => void;
   onUpdate?: (id: number, newContent: string) => void;
@@ -41,6 +42,7 @@ const Post = ({
   user: { firstName, lastName, avatar },
   like,
   dislike,
+  loading = false,
   onDelete = () => {},
   onUpdate = () => {},
 }: PostProps) => {
@@ -90,6 +92,7 @@ const Post = ({
           <PostEdit
             postContent={text}
             onSave={saveEditedPost}
+            loading={loading}
           />
         ) : (
           <p className={styles.postContent}>{text}</p>

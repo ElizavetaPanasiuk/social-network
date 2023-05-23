@@ -71,7 +71,7 @@ const RegistrationPage = () => {
     setStep(step + 1);
   };
 
-  const { mutate: onSubmit } = useMutation(
+  const { mutate: onSubmit, loading } = useMutation(
     () =>
       registrationService.signUp({
         email: formData.email.value,
@@ -134,6 +134,7 @@ const RegistrationPage = () => {
       <Step4
         onChange={onChange}
         isFormDataValid={isValid}
+        loading={loading}
       />,
     ],
     [5, <Finish />],

@@ -22,7 +22,10 @@ function useQuery<T>(
     setLoading(true);
     try {
       const result = await queryFn(page);
-      if (pagination.enabled) {
+      if (pagination.enabled && page === 1) {
+        setData(result.data);
+        setLast(result.isLast);
+      } else if (pagination.enabled && page > 1) {
         setData([...data, ...result.data]);
         setLast(result.isLast);
       } else {

@@ -26,7 +26,7 @@ import { User } from './users/user.model';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '.development.env',
+      envFilePath: '.production.env',
     }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
@@ -35,6 +35,7 @@ import { User } from './users/user.model';
       username: process.env.PG_USERNAME,
       password: process.env.PG_PASSWORD,
       database: process.env.PG_DATABASE,
+      uri: process.env.PG_URL,
       models: [
         Comment,
         User,

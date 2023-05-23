@@ -4,9 +4,10 @@ import { useTranslation } from 'react-i18next';
 type Step4Props = {
   onChange: (key: 'avatar', value: string | File) => void;
   isFormDataValid: boolean;
+  loading: boolean;
 };
 
-const Step4 = ({ onChange, isFormDataValid }: Step4Props) => {
+const Step4 = ({ onChange, isFormDataValid, loading }: Step4Props) => {
   const { t } = useTranslation();
 
   return (
@@ -21,10 +22,10 @@ const Step4 = ({ onChange, isFormDataValid }: Step4Props) => {
       />
       <SubmitButton
         title={t('Register')}
-        disabled={!isFormDataValid}
+        disabled={!isFormDataValid || loading}
       />
     </>
   );
-}
+};
 
 export default Step4;

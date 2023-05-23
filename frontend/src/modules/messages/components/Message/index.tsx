@@ -19,7 +19,7 @@ const Message = ({ text, createdAt, user: { firstName, lastName, avatar } }: Mes
       />
       <div>
         <p>
-          {firstName}
+          <span className={styles.messageAuthor}>{firstName}</span>
           <TimeLabel
             date={createdAt}
             format="timeOnly"

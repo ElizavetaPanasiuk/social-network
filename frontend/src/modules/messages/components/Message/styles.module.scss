@@ -2,4 +2,9 @@
   display: flex;
   gap: 1rem;
   padding: 1rem;
+
+  .messageAuthor {
+    display: inline-block;
+    margin-right: 0.5rem;
+  }
 }

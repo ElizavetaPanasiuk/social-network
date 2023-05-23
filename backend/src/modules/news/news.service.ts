@@ -22,7 +22,7 @@ export class NewsService {
     );
 
     if (!subscriptions.length) {
-      return [];
+      return { isLast: true, data: [] };
     }
     const posts = await this.postRepository.findAll({
       where: {

@@ -6,9 +6,10 @@ import Form from '@/components/Form';
 type PostEditProps = {
   postContent: string;
   onSave: (value: string) => void;
+  loading: boolean;
 };
 
-const PostEdit = ({ postContent, onSave }: PostEditProps) => {
+const PostEdit = ({ postContent, onSave, loading }: PostEditProps) => {
   const { t } = useTranslation();
   const [text, setText] = useState(postContent);
 
@@ -20,7 +21,7 @@ const PostEdit = ({ postContent, onSave }: PostEditProps) => {
       />
       <SubmitButton
         title={t('Save')}
-        disabled={!text.trim()}
+        disabled={!text.trim() || loading}
       />
     </Form>
   );

@@ -60,9 +60,12 @@ const PostPage = () => {
       ),
   });
 
-  const { mutate: publishComment } = useMutation((text: string) => commentsService.createComment(text, +postId), {
-    onSuccess: (newComment) => setComments([newComment, ...comments]),
-  });
+  const { mutate: publishComment, loading: loadingPublishComment } = useMutation(
+    (text: string) => commentsService.createComment(text, +postId),
+    {
+      onSuccess: (newComment) => setComments([newComment, ...comments]),
+    },
+  );
 
   const { mutate: deletePost } = useMutation(() => postsService.deletePost(+postId), {
     onSuccess: () => {
@@ -88,7 +91,10 @@ const PostPage = () => {
         onDelete={deletePost}
         onUpdate={updatePost}
       />
-      <NewComment publish={publishComment} />
+      <NewComment
+        publish={publishComment}
+        loading={loadingPublishComment}
+      />
       {comments.map((comment) => (
         <Comment
           key={comment.id}

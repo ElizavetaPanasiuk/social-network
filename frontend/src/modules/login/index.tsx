@@ -31,19 +31,22 @@ const LoginPage = () => {
     },
   });
 
-  const { mutate: login } = useMutation(() => loginService.signIn(formData.email.value, formData.password.value), {
-    onSuccess: (result) => {
-      const { access_token } = result;
-      Cookies.set('token', access_token);
-      const { id, firstName, lastName } = jwtDecode(access_token) as {
-        id: number;
-        firstName: string;
-        lastName: string;
-      };
-      dispatch(signIn({ id, firstName, lastName }));
-      navigate(`/news`);
+  const { mutate: login, loading } = useMutation(
+    () => loginService.signIn(formData.email.value, formData.password.value),
+    {
+      onSuccess: (result) => {
+        const { access_token } = result;
+        Cookies.set('token', access_token);
+        const { id, firstName, lastName } = jwtDecode(access_token) as {
+          id: number;
+          firstName: string;
+          lastName: string;
+        };
+        dispatch(signIn({ id, firstName, lastName }));
+        navigate(`/news`);
+      },
     },
-  });
+  );
 
   return (
     <>
@@ -68,7 +71,7 @@ const LoginPage = () => {
           />
           <SubmitButton
             title={t('Sign In')}
-            disabled={!isValid}
+            disabled={!isValid || loading}
           />
           <Link to="/registration">{t('Or register')}</Link>
         </Box>

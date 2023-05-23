@@ -6,11 +6,12 @@ import { Form, SymbolCounter } from '@/components';
 
 type NewCommentProps = {
   publish: (text: string) => void;
+  loading: boolean;
 };
 
 const MAX_COMMENT_LENGTH = 256;
 
-const NewComment = ({ publish }: NewCommentProps) => {
+const NewComment = ({ publish, loading }: NewCommentProps) => {
   const { t } = useTranslation();
   const [commentText, setCommentText] = useState('');
 
@@ -33,7 +34,7 @@ const NewComment = ({ publish }: NewCommentProps) => {
       <div className={styles.newCommentFooter}>
         <SubmitButton
           title={t('Comment')}
-          disabled={!commentText.trim()}
+          disabled={!commentText.trim() || loading}
         />
         <SymbolCounter
           value={commentText}
