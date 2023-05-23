@@ -32,7 +32,7 @@ export class MessagesGateway
 
   @WebSocketServer() server: Server;
 
-  afterInit(server: Server) {
+  afterInit() {
     console.log('INIT SERVER');
   }
 
