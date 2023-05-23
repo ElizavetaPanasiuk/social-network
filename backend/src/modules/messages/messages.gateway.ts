@@ -22,7 +22,7 @@ const users: Record<string, UserSocket> = {};
 @WebSocketGateway({
   namespace: 'messages',
   cors: {
-    origin: 'http://localhost:5173',
+    origin: process.env.CLIENT_URL,
   },
 })
 export class MessagesGateway
