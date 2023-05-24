@@ -5,7 +5,7 @@ import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { CommentLike } from './comment-like.model';
 import { CommentLikeDto } from './dto/comment-like.dto';
-import { User } from '../users/user.model';
+import { User } from '../users/models/user.model';
 import { Sequelize } from 'sequelize';
 
 @Injectable()

@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateSubscriptionDto } from './dto/create-subscription.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { Subscription } from './subscription.model';
-import { User } from '../users/user.model';
+import { User } from '../users/models/user.model';
 
 @Injectable()
 export class SubscriptionsService {

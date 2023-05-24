@@ -9,7 +9,7 @@ import {
   BelongsToMany,
   HasMany,
 } from 'sequelize-typescript';
-import { User } from '../users/user.model';
+import { User } from '../users/models/user.model';
 import { PostLike } from './post-like.model';
 import { Comment } from '../comments/comment.model';
 

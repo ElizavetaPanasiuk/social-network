@@ -20,13 +20,13 @@ import { Message } from './messages/message.model';
 import { Post } from './posts/post.model';
 import { PostLike } from './posts/post-like.model';
 import { Room } from './messages/room.model';
-import { Subscription } from './subscriptions/subscription.model';
-import { User } from './users/user.model';
+import { Subscription } from './subscriptions/models/subscription.model';
+import { User } from './users/models/user.model';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '.production.env',
+      envFilePath: '.development.env',
     }),
     SequelizeModule.forRoot({
       dialect: 'postgres',

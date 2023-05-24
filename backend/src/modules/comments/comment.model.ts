@@ -9,7 +9,7 @@ import {
   BelongsToMany,
 } from 'sequelize-typescript';
 import { Post } from '../posts/post.model';
-import { User } from '../users/user.model';
+import { User } from '../users/models/user.model';
 import { CommentLike } from './comment-like.model';
 
 interface CommentCreationAttrs {

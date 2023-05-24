@@ -1,103 +1,42 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/sequelize';
-import { User } from './user.model';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { Op, Sequelize } from 'sequelize';
+import { Op } from 'sequelize';
 import { FilesService } from '../files/files.service';
+import { User } from './entities/user.entity';
+import { UsersRepository } from './repositories/users.repository.interface';
 
 const LIMIT = 10;
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectModel(User) private userRepository: typeof User,
+    @Inject('users-repository') private usersRepository: UsersRepository,
     private filesService: FilesService,
   ) {}
 
   async getProfileById(id: number, currentUserId: number) {
-    const user = await this.userRepository.findByPk(id, {
-      attributes: [
-        'id',
-        'firstName',
-        'lastName',
-        'country',
-        'city',
-        'dateOfBirth',
-        'avatar',
-        ['createdAt', 'joined'],
-        [
-          Sequelize.literal(`(
-            SELECT COUNT(*)::int
-              FROM "subscriptions"
-              WHERE "subscriberId" = "User"."id"
-          )`),
-          'subscriptions',
-        ],
-        [
-          Sequelize.literal(`(
-            SELECT COUNT(*)::int
-              FROM "subscriptions"
-              WHERE "profileId" = "User"."id"
-          )`),
-          'subscribers',
-        ],
-        [
-          Sequelize.literal(`(
-            SELECT
-              CASE
-              WHEN EXISTS(
-                SELECT 1
-                FROM "subscriptions"
-                WHERE
-                  "profileId" = ${id}
-                  AND
-                  "subscriberId" = ${currentUserId}
-              )
-              THEN TRUE
-              ELSE FALSE
-            END
-          )`),
-          'isSubscribed',
-        ],
-      ],
-    });
-    return user;
+    return this.usersRepository.getProfileDataById(id, currentUserId);
   }
 
   getUserById(
     id: number,
-    attributes = ['id', 'firstName', 'lastName', 'avatar'],
+    attributes: Array<keyof User> = ['id', 'firstName', 'lastName', 'avatar'],
   ) {
-    return this.userRepository.findByPk(id, { attributes });
+    return this.usersRepository.getById(id, attributes);
   }
 
   async createUser(file: Express.Multer.File, dto: CreateUserDto) {
-    const avatar = await this.filesService.createFile(file);
-    const user = await this.userRepository.create({ avatar, ...dto });
+    dto.avatar = await this.filesService.createFile(file);
+    const user = await this.usersRepository.create(dto);
     return user;
   }
 
   async getLoginData(email: string) {
-    const user = await this.userRepository.findOne({
-      where: {
-        email,
-      },
-      attributes: ['id', 'firstName', 'lastName'],
-    });
-    return user?.dataValues;
+    return this.usersRepository.getLoginData(email);
   }
 
   async getUserPasswordByEmail(email: string) {
-    const { password } = await this.userRepository.findOne({
-      where: {
-        email,
-      },
-      attributes: {
-        include: ['password'],
-      },
-    });
-
-    return password;
+    return this.usersRepository.getUserPasswordByEmail(email);
   }
 
   async searchUsers(
@@ -149,21 +88,10 @@ export class UsersService {
         ],
       };
     }
-    const users = await this.userRepository.findAll({
-      where: searchParams,
-      order: [
-        ['firstName', 'ASC'],
-        ['lastName', 'ASC'],
-      ],
-      limit: LIMIT,
-      offset: LIMIT * (page - 1),
-    });
-    return { isLast: users.length < LIMIT, data: users };
+    return this.usersRepository.getSearchResult(searchParams, page, LIMIT);
   }
 
   deleteUser(id: number) {
-    return this.userRepository.destroy({
-      where: { id },
-    });
+    return this.usersRepository.deleteOne(id);
   }
 }

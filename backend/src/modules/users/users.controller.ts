@@ -13,7 +13,7 @@ import {
   Request,
 } from '@nestjs/common';
 import { ApiResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { User } from './user.model';
+import { User } from './models/user.model';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 import { FileInterceptor } from '@nestjs/platform-express';

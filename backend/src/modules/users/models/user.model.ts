@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Column, DataType, Table, Model, HasMany } from 'sequelize-typescript';
-import { Post } from '../posts/post.model';
-import { Subscription } from '../subscriptions/subscription.model';
+import { Post } from '../../posts/post.model';
+import { Subscription } from '../../subscriptions/models/subscription.model';
 
 interface UserCreationAttrs {
   readonly firstName: string;

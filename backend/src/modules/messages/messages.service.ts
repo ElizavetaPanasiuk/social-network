@@ -4,7 +4,7 @@ import { Room } from './room.model';
 import { Message } from './message.model';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { CreateRoomDto } from './dto/create-room.dto';
-import { User } from '..//users/user.model';
+import { User } from '../users/models/user.model';
 import { Op } from 'sequelize';
 import { UsersService } from '..//users/users.service';
 import { CryptoService } from '../crypto/crypto.service';

@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Op, Sequelize } from 'sequelize';
 
 import { Post } from '../posts/post.model';
-import { User } from '../users/user.model';
+import { User } from '../users/models/user.model';
 
 const LIMIT = 10;
 

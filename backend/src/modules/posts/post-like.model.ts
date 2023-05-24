@@ -6,7 +6,7 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { Post } from './post.model';
-import { User } from '../users/user.model';
+import { User } from '../users/models/user.model';
 
 interface PostLikeCreationAttrs {
   userId: number;

@@ -6,7 +6,7 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { User } from '../users/user.model';
+import { User } from '../users/models/user.model';
 import { Room } from './room.model';
 
 interface MessageCreationAttrs {
