@@ -1,56 +1,23 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Inject } from '@nestjs/common';
 import { CreateSubscriptionDto } from './dto/create-subscription.dto';
-import { InjectModel } from '@nestjs/sequelize';
-import { Subscription } from './subscription.model';
-import { User } from '../users/models/user.model';
+import { SubscriptionsRepository } from './repositories/subscriptions.repository.interface';
 
 @Injectable()
 export class SubscriptionsService {
   constructor(
-    @InjectModel(Subscription)
-    private subsciptionRepository: typeof Subscription,
+    @Inject('subscriptions-repository')
+    private subscriptionsRepository: SubscriptionsRepository,
   ) {}
   getSubscriptions(userId: number) {
-    return this.subsciptionRepository.findAll({
-      where: {
-        subscriberId: userId,
-      },
-      attributes: {
-        exclude: ['createdAt', 'updatedAt'],
-      },
-      include: {
-        model: User,
-        as: 'profile',
-        attributes: ['id', 'firstName', 'lastName', 'avatar'],
-      },
-    });
+    return this.subscriptionsRepository.getUserSubscriptions(userId);
   }
 
   async getSubscriptionsIds(userId: number) {
-    const subscriptions = await this.subsciptionRepository.findAll({
-      where: {
-        subscriberId: userId,
-      },
-      attributes: ['profileId'],
-    });
-
-    return subscriptions.map((subscription) => subscription.profileId);
+    return this.subscriptionsRepository.getUserSubscriptionsIds(userId);
   }
 
   getSubscribers(userId: number) {
-    return this.subsciptionRepository.findAll({
-      where: {
-        profileId: userId,
-      },
-      attributes: {
-        exclude: ['createdAt', 'updatedAt'],
-      },
-      include: {
-        model: User,
-        as: 'subscriber',
-        attributes: ['id', 'firstName', 'lastName', 'avatar'],
-      },
-    });
+    return this.getSubscribers(userId);
   }
 
   async subscribe(dto: CreateSubscriptionDto) {
@@ -61,27 +28,21 @@ export class SubscriptionsService {
         HttpStatus.NOT_ACCEPTABLE,
       );
     }
-    const existingSubscription = await this.subsciptionRepository.findOne({
-      where: {
+    const existingSubscription =
+      await this.subscriptionsRepository.getSubscription(
         subscriberId,
         profileId,
-      },
-    });
+      );
     if (existingSubscription) {
       throw new HttpException(
         'Subscription already exists',
         HttpStatus.CONFLICT,
       );
     }
-    return this.subsciptionRepository.create(dto);
+    return this.subscriptionsRepository.create(dto);
   }
 
   unsubscribe(dto: CreateSubscriptionDto) {
-    return this.subsciptionRepository.destroy({
-      where: {
-        profileId: dto.profileId,
-        subscriberId: dto.subscriberId,
-      },
-    });
+    return this.subscriptionsRepository.deleteOne(dto);
   }
 }
