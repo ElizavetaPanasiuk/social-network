@@ -11,7 +11,7 @@ import {
 } from 'sequelize-typescript';
 import { User } from '../../users/models/user.model';
 import { PostLike } from './post-like.model';
-import { Comment } from '../../comments/comment.model';
+import { Comment } from '../../comments/models/comment.model';
 
 interface PostCreationAttrs {
   readonly text: string;

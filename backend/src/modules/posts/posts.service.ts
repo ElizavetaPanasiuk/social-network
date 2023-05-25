@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PostLikeDto } from './dto/post-like.dto';
-import { PostsRepopository } from './repositories/post/posts.repository.interface';
+import { PostsRepository } from './repositories/post/posts.repository.interface';
 import { PostLikesRepository } from './repositories/post-likes/post-likes.repository.interface';
 
 const LIMIT = 10;
@@ -10,7 +10,7 @@ const LIMIT = 10;
 @Injectable()
 export class PostsService {
   constructor(
-    @Inject('posts-repository') private postsRepository: PostsRepopository,
+    @Inject('posts-repository') private postsRepository: PostsRepository,
     @Inject('post-likes-repository')
     private postLikesRepository: PostLikesRepository,
   ) {}

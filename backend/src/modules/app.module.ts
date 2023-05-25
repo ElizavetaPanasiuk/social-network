@@ -14,8 +14,8 @@ import { PostModule } from './posts/posts.module';
 import { SubscriptionsModule } from './subscriptions/subscriptions.module';
 import { UsersModule } from './users/users.module';
 
-import { Comment } from './comments/comment.model';
-import { CommentLike } from './comments/comment-like.model';
+import { Comment } from './comments/models/comment.model';
+import { CommentLike } from './comments/models/comment-like.model';
 import { Message } from './messages/models/message.model';
 import { Post } from './posts/models/post.model';
 import { PostLike } from './posts/models/post-like.model';

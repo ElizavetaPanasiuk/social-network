@@ -2,7 +2,7 @@ import { CreatePostDto } from '../../dto/create-post.dto';
 import { UpdatePostDto } from '../../dto/update-post.dto';
 import { Post } from '../../entities/post.entity';
 
-export interface PostsRepopository {
+export interface PostsRepository {
   getManyByProfileId(
     profileId: number,
     userId: number,

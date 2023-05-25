@@ -1,11 +1,11 @@
 import { Repository, Sequelize } from 'sequelize-typescript';
-import { PostsRepopository } from '../posts.repository.interface';
+import { PostsRepository } from '../posts.repository.interface';
 import { Post } from '../../../models/post.model';
 import { UpdatePostDto } from '../../../dto/update-post.dto';
 import { CreatePostDto } from '../../../dto/create-post.dto';
 import { User } from 'src/modules/users/models/user.model';
 
-export class PostsPgRepository implements PostsRepopository {
+export class PostsPgRepository implements PostsRepository {
   constructor(private postsRepository: Repository<Post>) {}
 
   getManyByProfileId(

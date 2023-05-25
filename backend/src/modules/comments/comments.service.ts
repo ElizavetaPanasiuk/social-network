@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { Comment } from './comment.model';
+import { Comment } from './models/comment.model';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
-import { CommentLike } from './comment-like.model';
+import { CommentLike } from './models/comment-like.model';
 import { CommentLikeDto } from './dto/comment-like.dto';
 import { User } from '../users/models/user.model';
 import { Sequelize } from 'sequelize';
