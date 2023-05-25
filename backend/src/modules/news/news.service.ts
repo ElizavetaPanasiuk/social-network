@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Op, Sequelize } from 'sequelize';
 
-import { Post } from '../posts/post.model';
+import { Post } from '../posts/models/post.model';
 import { User } from '../users/models/user.model';
 
 const LIMIT = 10;

@@ -1,166 +1,53 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/sequelize';
-import { Post } from './post.model';
-import { User } from '../users/models/user.model';
+import { Injectable, Inject } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PostLikeDto } from './dto/post-like.dto';
-import { PostLike } from './post-like.model';
-import { Sequelize } from 'sequelize-typescript';
+import { PostsRepopository } from './repositories/post/posts.repository.interface';
+import { PostLikesRepository } from './repositories/post-likes/post-likes.repository.interface';
 
 const LIMIT = 10;
 
 @Injectable()
 export class PostsService {
   constructor(
-    @InjectModel(Post) private postRepository: typeof Post,
-    @InjectModel(PostLike) private postLikeRepository: typeof PostLike,
+    @Inject('posts-repository') private postsRepository: PostsRepopository,
+    @Inject('post-likes-repository')
+    private postLikesRepository: PostLikesRepository,
   ) {}
 
   async getPostsByProfileId(profileId: number, userId: number, page: number) {
-    const posts = await this.postRepository.findAll({
-      where: {
-        userId: profileId,
-      },
-      limit: LIMIT,
-      offset: LIMIT * (page - 1),
-      attributes: {
-        include: [
-          [
-            Sequelize.literal(`(
-              SELECT COUNT(*)::int
-                FROM "post-likes"
-                WHERE "postId" = "Post"."id"
-            )`),
-            'likes',
-          ],
-          [
-            Sequelize.literal(`(
-              SELECT COUNT(*)::int
-                FROM comments
-                WHERE "postId" = "Post"."id"
-            )`),
-            'comments',
-          ],
-          [
-            Sequelize.literal(`(
-              SELECT 
-                CASE 
-                WHEN EXISTS(
-                  SELECT 1 
-                  FROM "post-likes" 
-                  WHERE 
-                    "postId" = "Post"."id"
-                    AND
-                    "userId" = ${userId}
-                )
-                THEN TRUE
-                ELSE FALSE
-              END
-            )`),
-            'liked',
-          ],
-        ],
-        exclude: ['updatedAt'],
-      },
-      include: [
-        {
-          model: User,
-          as: 'user',
-          attributes: ['firstName', 'lastName', 'avatar'],
-        },
-      ],
-      order: [['createdAt', 'DESC']],
-    });
+    const posts = await this.postsRepository.getManyByProfileId(
+      profileId,
+      userId,
+      page,
+      LIMIT,
+    );
     return { isLast: posts.length < LIMIT, data: posts };
   }
 
   getPostById(id: number, userId: number) {
-    return this.postRepository.findByPk(id, {
-      attributes: {
-        include: [
-          [
-            Sequelize.literal(`(
-              SELECT COUNT(*)::int
-                FROM "post-likes"
-                WHERE
-                  "postId" = ${id}
-            )`),
-            'likes',
-          ],
-          [
-            Sequelize.literal(`(
-              SELECT COUNT(*)::int
-                FROM comments
-                WHERE
-                  "postId" = ${id}
-            )`),
-            'comments',
-          ],
-          [
-            Sequelize.literal(`(
-              SELECT 
-                CASE 
-                WHEN EXISTS(
-                  SELECT 1 
-                  FROM "post-likes" 
-                  WHERE 
-                    "postId" = ${id}
-                    AND
-                    "userId" = ${userId}
-                )
-                THEN TRUE
-                ELSE FALSE
-              END
-            )`),
-            'liked',
-          ],
-        ],
-        exclude: ['updatedAt'],
-      },
-      include: [
-        {
-          model: User,
-          as: 'user',
-          attributes: ['firstName', 'lastName', 'avatar'],
-        },
-      ],
-    });
+    return this.postsRepository.getById(id, userId);
   }
 
   async createPost(dto: CreatePostDto) {
-    const post = await this.postRepository.create(dto);
+    const post = await this.postsRepository.create(dto);
     return this.getPostById(post.id, dto.userId);
   }
 
   updatePost(id: number, dto: UpdatePostDto) {
-    return this.postRepository.update(dto, {
-      where: {
-        id,
-      },
-      returning: true,
-    });
+    return this.postsRepository.updateOne(id, dto);
   }
 
   removePost(id: number) {
     // TODO: cascade delete with post-likes
-    return this.postRepository.destroy({
-      where: {
-        id,
-      },
-    });
+    return this.postsRepository.deleteOne(id);
   }
 
   likePost(dto: PostLikeDto) {
-    return this.postLikeRepository.create(dto);
+    return this.postLikesRepository.create(dto);
   }
 
   dislikePost(dto: PostLikeDto) {
-    return this.postLikeRepository.destroy({
-      where: {
-        userId: dto.userId,
-        postId: dto.postId,
-      },
-    });
+    return this.postLikesRepository.deleteOne(dto);
   }
 }
