@@ -16,10 +16,10 @@ import { UsersModule } from './users/users.module';
 
 import { Comment } from './comments/comment.model';
 import { CommentLike } from './comments/comment-like.model';
-import { Message } from './messages/message.model';
+import { Message } from './messages/models/message.model';
 import { Post } from './posts/models/post.model';
 import { PostLike } from './posts/models/post-like.model';
-import { Room } from './messages/room.model';
+import { Room } from './messages/models/room.model';
 import { Subscription } from './subscriptions/models/subscription.model';
 import { User } from './users/models/user.model';
 

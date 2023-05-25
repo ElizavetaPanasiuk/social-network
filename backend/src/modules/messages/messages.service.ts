@@ -1,85 +1,44 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/sequelize';
-import { Room } from './room.model';
-import { Message } from './message.model';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { CreateRoomDto } from './dto/create-room.dto';
-import { User } from '../users/models/user.model';
-import { Op } from 'sequelize';
 import { UsersService } from '..//users/users.service';
 import { CryptoService } from '../crypto/crypto.service';
+import { RoomsRepository } from './repositories/rooms/rooms.repository.interface';
+import { MessagesRepository } from './repositories/messages/messages.repository.interface';
 
 @Injectable()
 export class MessagesService {
   constructor(
-    @InjectModel(Room) private roomRepository: typeof Room,
-    @InjectModel(Message) private messageRepository: typeof Message,
+    @Inject('rooms-repository') private roomsRepository: RoomsRepository,
+    @Inject('messages-repository')
+    private messagesRepository: MessagesRepository,
     private usersService: UsersService,
     private cryptoService: CryptoService,
   ) {}
 
   createMessage(dto: CreateMessageDto) {
     const text = this.cryptoService.encrypt(dto.text);
-    return this.messageRepository.create({
-      roomId: dto.roomId,
-      userId: dto.userId,
-      text,
-    });
+    dto.text = text;
+    return this.messagesRepository.create(dto);
   }
 
   async createRoom(dto: CreateRoomDto) {
-    const room = await this.getRoom(dto.userId1, dto.userId2);
+    const room = await this.roomsRepository.getOneByUsersIds(
+      dto.userId1,
+      dto.userId2,
+    );
     if (room) {
       return room;
     }
-    return this.roomRepository.create(dto);
+    return this.roomsRepository.create(dto);
   }
 
   getRooms(userId: number) {
-    return this.roomRepository.findAll({
-      where: {
-        [Op.or]: [{ userId1: userId }, { userId2: userId }],
-      },
-      include: [
-        {
-          model: User,
-          as: 'user1',
-          attributes: ['id', 'firstName', 'lastName', 'avatar'],
-        },
-        {
-          model: User,
-          as: 'user2',
-          attributes: ['id', 'firstName', 'lastName', 'avatar'],
-        },
-      ],
-    });
-  }
-
-  getRoom(userId1: number, userId2: number) {
-    return this.roomRepository.findOne({
-      where: {
-        userId1: {
-          [Op.or]: [userId1, userId2],
-        },
-        userId2: {
-          [Op.or]: [userId1, userId2],
-        },
-      },
-    });
+    return this.roomsRepository.getManyByUserId(userId);
   }
 
   async getMessages(roomId: string) {
-    const messages = await this.messageRepository.findAll({
-      where: {
-        roomId,
-      },
-      order: [['createdAt', 'ASC']],
-      include: {
-        model: User,
-        as: 'user',
-        attributes: ['firstName', 'lastName', 'avatar'],
-      },
-    });
+    const messages = await this.messagesRepository.getAllByRoomId(roomId);
     messages.forEach(
       (message) => (message.text = this.cryptoService.decrypt(message.text)),
     );
@@ -88,11 +47,7 @@ export class MessagesService {
   }
 
   async getInterlocutor(currentUserId: number, roomId: string) {
-    const room = await this.roomRepository.findOne({
-      where: {
-        id: roomId,
-      },
-    });
+    const room = await this.roomsRepository.getById(roomId);
     const interlocutorId =
       room.userId1 === currentUserId ? room.userId2 : room.userId1;
     return this.usersService.getUserById(interlocutorId);
