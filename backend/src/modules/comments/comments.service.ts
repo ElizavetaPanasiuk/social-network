@@ -1,138 +1,45 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/sequelize';
-import { Comment } from './models/comment.model';
+import { Injectable, Inject } from '@nestjs/common';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
-import { CommentLike } from './models/comment-like.model';
 import { CommentLikeDto } from './dto/comment-like.dto';
-import { User } from '../users/models/user.model';
-import { Sequelize } from 'sequelize';
+import { CommentLikesRepository } from './repositories/comment-likes/comment-likes.repository.interface';
+import { CommentsRepository } from './repositories/comments/comments.repository.interface';
 
 @Injectable()
 export class CommentsService {
   constructor(
-    @InjectModel(Comment) private commentRepository: typeof Comment,
-    @InjectModel(CommentLike) private commentLikeRepository: typeof CommentLike,
+    @Inject('comments-repository')
+    private commentsRepository: CommentsRepository,
+    @Inject('comment-likes-repository')
+    private commentLikesRepository: CommentLikesRepository,
   ) {}
 
-  getComments(postId: number, currentUserId: number) {
-    return this.commentRepository.findAll({
-      where: {
-        postId,
-      },
-      attributes: {
-        include: [
-          [
-            Sequelize.literal(
-              `(SELECT COUNT(*)::int 
-              FROM "comment-likes" 
-              WHERE "commentId" = "Comment"."id")`,
-            ),
-            'likes',
-          ],
-          [
-            Sequelize.literal(`(
-              SELECT
-                CASE
-                WHEN EXISTS(
-                  SELECT 1
-                  FROM "comment-likes"
-                  WHERE
-                    "commentId" = "Comment"."id"
-                    AND
-                    "userId" = ${currentUserId}
-                )
-                THEN TRUE
-                ELSE FALSE
-              END
-            )`),
-            'liked',
-          ],
-        ],
-        exclude: ['updatedAt', 'postId'],
-      },
-      include: {
-        model: User,
-        as: 'user',
-        attributes: ['firstName', 'lastName', 'avatar'],
-      },
-      order: [['createdAt', 'DESC']],
-    });
+  getComments(postId: number, userId: number) {
+    return this.commentsRepository.getPostComments(postId, userId);
   }
 
   getCommentById(commentId: number, userId: number) {
-    return this.commentRepository.findByPk(commentId, {
-      attributes: {
-        include: [
-          [
-            Sequelize.literal(
-              `(SELECT COUNT(*)::int 
-              FROM "comment-likes" 
-              WHERE "commentId" = ${commentId})`,
-            ),
-            'likes',
-          ],
-          [
-            Sequelize.literal(`(
-              SELECT
-                CASE
-                WHEN EXISTS(
-                  SELECT 1
-                  FROM "comment-likes"
-                  WHERE
-                    "commentId" =  ${commentId}
-                    AND
-                    "userId" = ${userId}
-                )
-                THEN TRUE
-                ELSE FALSE
-              END
-            )`),
-            'liked',
-          ],
-        ],
-        exclude: ['updatedAt', 'postId'],
-      },
-      include: {
-        model: User,
-        as: 'user',
-        attributes: ['firstName', 'lastName', 'avatar'],
-      },
-    });
+    return this.commentsRepository.getById(commentId, userId);
   }
 
   async createComment(dto: CreateCommentDto) {
-    const comment = await this.commentRepository.create(dto);
+    const comment = await this.commentsRepository.create(dto);
     return this.getCommentById(comment.id, dto.userId);
   }
 
   updateComment(id: number, dto: UpdateCommentDto) {
-    return this.commentRepository.update(dto, {
-      where: {
-        id,
-      },
-      returning: true,
-    });
+    return this.commentsRepository.updateOne(id, dto);
   }
 
   deleteComment(id: number) {
-    return this.commentRepository.destroy({
-      where: {
-        id,
-      },
-    });
+    return this.commentsRepository.deleteOne(id);
   }
 
   likeComment(dto: CommentLikeDto) {
-    return this.commentLikeRepository.create(dto);
+    return this.commentLikesRepository.create(dto);
   }
 
   dislikeComment(dto: CommentLikeDto) {
-    return this.commentLikeRepository.destroy({
-      where: {
-        userId: dto.userId,
-        commentId: dto.commentId,
-      },
-    });
+    return this.commentLikesRepository.deleteOne(dto);
   }
 }

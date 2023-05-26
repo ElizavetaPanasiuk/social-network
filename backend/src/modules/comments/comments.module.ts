@@ -6,9 +6,15 @@ import { User } from '../users/models/user.model';
 import { Comment } from './models/comment.model';
 import { CommentLike } from './models/comment-like.model';
 import { Post } from '../posts/models/post.model';
+import { provideCommentsRepository } from './repositories/comments/comments.repository.provider';
+import { provideCommentLikesRepository } from './repositories/comment-likes/comment-likes.repository.provider';
 
 @Module({
-  providers: [CommentsService],
+  providers: [
+    CommentsService,
+    ...provideCommentsRepository(),
+    ...provideCommentLikesRepository(),
+  ],
   controllers: [CommentsController],
   imports: [SequelizeModule.forFeature([Comment, User, CommentLike, Post])],
 })
