@@ -10,6 +10,9 @@ import {
   RegistrationPage,
   SearchPage,
   SettingsPage,
+  CommonSettingsPage,
+  ProfileSettingsPage,
+  PasswordSettingsPage,
   SubscribersPage,
   SubscriptionsPage,
 } from '@/modules';
@@ -43,6 +46,20 @@ const router = createBrowserRouter([
       {
         path: '/settings',
         element: <SettingsPage />,
+        children: [
+          {
+            path: 'common',
+            element: <CommonSettingsPage />,
+          },
+          {
+            path: 'profile',
+            element: <ProfileSettingsPage />,
+          },
+          {
+            path: 'password',
+            element: <PasswordSettingsPage />,
+          },
+        ],
       },
       {
         path: '/subscribers/:profileId',

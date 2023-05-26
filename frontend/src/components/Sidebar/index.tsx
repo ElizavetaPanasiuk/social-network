@@ -50,7 +50,7 @@ const Sidebar = () => {
     },
     {
       title: t('Settings'),
-      to: '/settings',
+      to: '/settings/common',
       icon: faEdit,
       activeIcon: faEditSolid,
     },

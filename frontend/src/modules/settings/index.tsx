@@ -1,46 +1,31 @@
-import { Button, Select } from '@/ui-kit';
-import i18next, { changeLanguage } from 'i18next';
+import { Tabs } from '@/ui-kit';
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import styles from './styles.module.scss';
-import Cookies from 'js-cookie';
-import { useDispatch } from 'react-redux';
-import { signOut } from '@/store/userSlice';
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const SettingsPage = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [language, setLanguage] = useState(i18next.language);
+  const TABS = [
+    { label: t('Common'), value: './common' },
+    { label: t('Profile'), value: './profile' },
+    { label: t('Password'), value: './password' },
+  ];
 
-  const selectLanguage = (lang: string) => {
-    setLanguage(lang);
-    changeLanguage(lang);
-  };
-
-  const onSignOut = () => {
-    dispatch(signOut());
-    Cookies.remove('token');
-    navigate('/login');
-  };
+  const [tab, setTab] = useState(TABS[0].value);
 
   return (
     <div className={styles.settingsPage}>
-      <h3>{t('Change language')}</h3>
-      <Select
-        label={t('Select language')}
-        value={language}
-        options={[
-          { label: 'English', value: 'en' },
-          { label: 'Русский', value: 'ru' },
-        ]}
-        onChange={selectLanguage}
+      <Tabs
+        tabs={TABS}
+        value={tab}
+        onChange={(tab) => {
+          setTab(tab.value);
+          navigate(tab.value);
+        }}
       />
-      <Button
-        title={t('Sign Out')}
-        onClick={onSignOut}
-      />
+      <Outlet />
     </div>
   );
 };

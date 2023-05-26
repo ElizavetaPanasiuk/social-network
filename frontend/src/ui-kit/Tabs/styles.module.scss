@@ -1,0 +1,18 @@
+@import '@/styles/colors.scss';
+
+.tabs {
+  border-bottom: 1px solid $gray-light;
+
+  .tab {
+    background: none;
+    padding: 1rem;
+    font-size: 1.25rem;
+    cursor: pointer;
+
+    &[data-active='true'] {
+      border-bottom: 2px solid $primary;
+      color: $primary;
+      font-weight: bolder;
+    }
+  }
+}
