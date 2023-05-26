@@ -16,6 +16,17 @@ class ProfileService extends Service {
     }
     return this.get(searchParams);
   }
+
+  updateProfile(
+    id: number,
+    data: { firstName: string; lastName: string; country: string; city: string; dateOfBirth: Date },
+  ) {
+    return this.updateById(id, { ...data, dateOfBirth: data.dateOfBirth.toISOString() }, '/common');
+  }
+
+  updatePassword(id: number, data: { password: string }) {
+    return this.updateById(id, data, '/password');
+  }
 }
 
 export default ProfileService;

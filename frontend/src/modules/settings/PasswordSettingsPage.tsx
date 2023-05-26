@@ -1,11 +1,18 @@
 import { Form } from '@/components';
-import { useForm } from '@/hooks';
+import { useForm, useMutation } from '@/hooks';
 import { Input, SubmitButton } from '@/ui-kit';
 import { useTranslation } from 'react-i18next';
 import FIELDS_LENGTH from '@/lib/constants/fields-length';
+import { ProfileService } from '@/lib/service';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/store';
+import { signOut } from '@/store/userSlice';
 
 const PasswordSettingsPage = () => {
   const { t } = useTranslation();
+  const profileService = new ProfileService();
+  const dispatch = useDispatch();
+  const userId = useSelector((state: RootState) => state.user.id);
   const { formData, onChange, isValid } = useForm({
     password: {
       value: '',
@@ -18,7 +25,18 @@ const PasswordSettingsPage = () => {
       maxLength: FIELDS_LENGTH.PASSWORD.MAX,
     },
   });
-  const onSubmit = () => console.log('submit');
+
+  const { mutate: onSubmit, loading } = useMutation(
+    () =>
+      profileService.updatePassword(userId as number, {
+        password: formData.password.value,
+      }),
+    {
+      onSuccess: () => {
+        dispatch(signOut);
+      },
+    },
+  );
 
   return (
     <Form onSubmit={onSubmit}>
@@ -38,7 +56,7 @@ const PasswordSettingsPage = () => {
       />
       <SubmitButton
         title={t('Save')}
-        disabled={!isValid}
+        disabled={!isValid || loading}
       />
     </Form>
   );

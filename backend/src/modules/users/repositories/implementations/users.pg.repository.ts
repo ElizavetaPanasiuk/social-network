@@ -4,6 +4,8 @@ import { User as UserModel } from '../../models/user.model';
 import { UsersRepository } from '../users.repository.interface';
 import { CreateUserDto } from '../../dto/create-user.dto';
 import { User } from '../../entities/user.entity';
+import { UpdateCommonProfileData } from '../../dto/update-common-profile-data.dto';
+import { UpdatePasswordDto } from '../../dto/update-password.dto';
 
 export class UsersPgRepository implements UsersRepository {
   constructor(private usersRepository: Repository<UserModel>) {}
@@ -113,7 +115,7 @@ export class UsersPgRepository implements UsersRepository {
     });
   }
 
-  updateOne(id: number, dto: CreateUserDto) {
+  updateOne(id: number, dto: UpdateCommonProfileData | UpdatePasswordDto) {
     return this.usersRepository.update(dto, {
       where: {
         id,

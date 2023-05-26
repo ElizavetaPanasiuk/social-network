@@ -1,9 +1,13 @@
+import { HashService } from './../auth/hash.service';
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { Op } from 'sequelize';
 import { FilesService } from '../files/files.service';
 import { User } from './entities/user.entity';
 import { UsersRepository } from './repositories/users.repository.interface';
+import { UpdatePasswordDto } from './dto/update-password.dto';
+import { UpdateCommonProfileData } from './dto/update-common-profile-data.dto';
+import { HttpException, HttpStatus } from '@nestjs/common';
 
 const LIMIT = 10;
 
@@ -12,6 +16,7 @@ export class UsersService {
   constructor(
     @Inject('users-repository') private usersRepository: UsersRepository,
     private filesService: FilesService,
+    private hashService: HashService,
   ) {}
 
   async getProfileById(id: number, currentUserId: number) {
@@ -95,7 +100,24 @@ export class UsersService {
     return this.usersRepository.deleteOne(id);
   }
 
-  updateUser(id: number, dto: CreateUserDto) {
+  updateCommonProfileData(id: number, dto: UpdateCommonProfileData) {
+    return this.usersRepository.updateOne(id, dto);
+  }
+
+  async updatePassword(id: number, dto: UpdatePasswordDto) {
+    const { email, password } = await this.usersRepository.getById(id, [
+      'email',
+      'password',
+    ]);
+    const isMatch = await this.hashService.matchPassword(password, email);
+
+    if (isMatch) {
+      throw new HttpException(
+        'New password is the same as previous. Create a new password.',
+        HttpStatus.NOT_ACCEPTABLE,
+      );
+    }
+
     return this.usersRepository.updateOne(id, dto);
   }
 }

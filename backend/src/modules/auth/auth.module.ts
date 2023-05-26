@@ -16,5 +16,6 @@ import { UsersModule } from '../users/users.module';
   ],
   providers: [AuthService, HashService],
   controllers: [AuthController],
+  exports: [HashService],
 })
 export class AuthModule {}

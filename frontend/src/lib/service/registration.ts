@@ -1,12 +1,11 @@
 import Service from './service';
-import { RegistrationData } from '@modules/registration/types/registrationData';
 
 class RegistrationService extends Service {
   constructor() {
     super('auth/signUp');
   }
 
-  signUp(userData: RegistrationData) {
+  signUp(userData) {
     const formData = new FormData();
     formData.append('password', userData.password);
     formData.append('email', userData.email);

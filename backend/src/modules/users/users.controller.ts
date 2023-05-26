@@ -19,6 +19,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthGuard } from '../auth/auth.guard';
+import { UpdateCommonProfileData } from './dto/update-common-profile-data.dto';
+import { UpdatePasswordDto } from './dto/update-password.dto';
 
 @ApiTags('Users')
 @Controller('users')
@@ -69,13 +71,23 @@ export class UsersController {
     return this.usersService.deleteUser(id);
   }
 
-  @ApiOperation({ summary: 'Update user' })
+  @ApiOperation({ summary: 'Update profile data' })
   @UseGuards(AuthGuard)
-  @Put(':id')
-  updateUser(
+  @Put('common/:id')
+  updateCommonProfileData(
     @Param('id', ParseIntPipe) id: number,
-    @Body() dto: CreateUserDto,
+    @Body() dto: UpdateCommonProfileData,
   ) {
-    return this.usersService.updateUser(id, dto);
+    return this.usersService.updateCommonProfileData(id, dto);
+  }
+
+  @ApiOperation({ summary: 'Update user password' })
+  @UseGuards(AuthGuard)
+  @Put('password/:id')
+  updatePassword(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: UpdatePasswordDto,
+  ) {
+    return this.usersService.updatePassword(id, dto);
   }
 }

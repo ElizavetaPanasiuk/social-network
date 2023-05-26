@@ -1,6 +1,8 @@
 import { WhereOptions } from 'sequelize';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { User } from '../entities/user.entity';
+import { UpdateCommonProfileData } from '../dto/update-common-profile-data.dto';
+import { UpdatePasswordDto } from '../dto/update-password.dto';
 
 export interface UsersRepository {
   getProfileDataById(id: number, currentUserId: number): Promise<User>;
@@ -16,6 +18,6 @@ export interface UsersRepository {
   deleteOne(id: number): Promise<number>;
   updateOne(
     id: number,
-    dto: CreateUserDto,
+    dto: UpdateCommonProfileData | UpdatePasswordDto,
   ): Promise<[affectedCount: number, affectedRows: Array<User>]>;
 }
