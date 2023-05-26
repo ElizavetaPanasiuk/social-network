@@ -4,7 +4,7 @@ import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class HashService {
-  constructor(private userService: UsersService) {}
+  constructor(private usersService: UsersService) {}
 
   async hashPassword(password: string) {
     const salt = await bcrypt.genSalt(Number(process.env.SALT_ROUNDS));
@@ -13,7 +13,7 @@ export class HashService {
   }
 
   async matchPassword(password: string, email: string) {
-    const userPasswordHash = await this.userService.getUserPasswordByEmail(
+    const userPasswordHash = await this.usersService.getUserPasswordByEmail(
       email,
     );
     const isMatch = await bcrypt.compare(password, userPasswordHash);

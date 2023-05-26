@@ -6,7 +6,7 @@ import { CommentLike } from '../../models/comment-like.model';
 export function provideCommentLikesRepository(): Provider[] {
   return [
     {
-      provide: 'comments-repository',
+      provide: 'comment-likes-repository',
       useFactory: async (
         dependenciesProvider: CommentLikesRepoDependenciesProvider,
       ) => provideCommentLikesRepositoryFactory(dependenciesProvider),

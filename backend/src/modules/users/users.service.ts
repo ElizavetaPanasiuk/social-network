@@ -94,4 +94,8 @@ export class UsersService {
   deleteUser(id: number) {
     return this.usersRepository.deleteOne(id);
   }
+
+  updateUser(id: number, dto: CreateUserDto) {
+    return this.usersRepository.updateOne(id, dto);
+  }
 }

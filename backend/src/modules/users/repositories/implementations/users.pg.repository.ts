@@ -112,4 +112,13 @@ export class UsersPgRepository implements UsersRepository {
       where: { id },
     });
   }
+
+  updateOne(id: number, dto: CreateUserDto) {
+    return this.usersRepository.update(dto, {
+      where: {
+        id,
+      },
+      returning: true,
+    });
+  }
 }

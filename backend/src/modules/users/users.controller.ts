@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Put,
   Param,
   Post,
   Query,
@@ -66,5 +67,15 @@ export class UsersController {
   deleteUser(@Param('id', ParseIntPipe) id: number) {
     // TODO add cascade delete with other tables
     return this.usersService.deleteUser(id);
+  }
+
+  @ApiOperation({ summary: 'Update user' })
+  @UseGuards(AuthGuard)
+  @Put(':id')
+  updateUser(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: CreateUserDto,
+  ) {
+    return this.usersService.updateUser(id, dto);
   }
 }

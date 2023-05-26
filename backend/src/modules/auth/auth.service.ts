@@ -11,13 +11,13 @@ import { HashService } from './hash.service';
 @Injectable()
 export class AuthService {
   constructor(
-    private userService: UsersService,
+    private usersService: UsersService,
     private jwtService: JwtService,
     private hashService: HashService,
   ) {}
 
   async signIn(email: string, password: string) {
-    const user = await this.userService.getLoginData(email);
+    const user = await this.usersService.getLoginData(email);
     if (!user) {
       throw new NotFoundException("User with this email doesn't exist");
     }
@@ -34,7 +34,7 @@ export class AuthService {
     const passwordHash = await this.hashService.hashPassword(
       signUpDto.password,
     );
-    const { id, firstName, lastName } = await this.userService.createUser(
+    const { id, firstName, lastName } = await this.usersService.createUser(
       file,
       {
         ...signUpDto,

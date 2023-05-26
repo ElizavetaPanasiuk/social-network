@@ -14,4 +14,8 @@ export interface UsersRepository {
     limit: number,
   ): Promise<{ isLast: boolean; data: User[] }>;
   deleteOne(id: number): Promise<number>;
+  updateOne(
+    id: number,
+    dto: CreateUserDto,
+  ): Promise<[affectedCount: number, affectedRows: Array<User>]>;
 }

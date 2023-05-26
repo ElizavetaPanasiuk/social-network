@@ -99,7 +99,7 @@ export class CommentsPgRepository implements CommentsRepository {
   }
 
   updateOne(id: number, dto: UpdateCommentDto) {
-    this.commentsRepository.update(dto, {
+    return this.commentsRepository.update(dto, {
       where: {
         id,
       },
