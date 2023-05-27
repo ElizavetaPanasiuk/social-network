@@ -1,4 +1,4 @@
-import { HashService } from './../auth/hash.service';
+import { HashService } from '../hash/hash.service';
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { Op } from 'sequelize';
@@ -105,11 +105,14 @@ export class UsersService {
   }
 
   async updatePassword(id: number, dto: UpdatePasswordDto) {
-    const { email, password } = await this.usersRepository.getById(id, [
-      'email',
+    const { password: passwordHash } = await this.usersRepository.getById(id, [
       'password',
     ]);
-    const isMatch = await this.hashService.matchPassword(password, email);
+    const isMatch = await this.hashService.matchPassword(
+      dto.password,
+      passwordHash,
+    );
+    dto.password = await this.hashService.hashPassword(dto.password);
 
     if (isMatch) {
       throw new HttpException(

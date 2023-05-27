@@ -38,12 +38,16 @@ function useForm<T>(fields: Fields<T>) {
     });
   };
 
+  const resetForm = () => {
+    setFormData(initFormData());
+  };
+
   useEffect(() => {
     const isFormValid = Object.values(formData).every((field) => field.valid);
     setFormValid(isFormValid);
   }, [formData]);
 
-  return { formData, onChange, isValid: formValid };
+  return { formData, onChange, isValid: formValid, resetForm };
 }
 
 export default useForm;

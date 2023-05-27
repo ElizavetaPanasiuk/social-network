@@ -7,13 +7,16 @@ import { ProfileService } from '@/lib/service';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { signOut } from '@/store/userSlice';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const PasswordSettingsPage = () => {
   const { t } = useTranslation();
   const profileService = new ProfileService();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const userId = useSelector((state: RootState) => state.user.id);
-  const { formData, onChange, isValid } = useForm({
+  const { formData, onChange, isValid, resetForm } = useForm({
     password: {
       value: '',
       minLength: FIELDS_LENGTH.PASSWORD.MIN,
@@ -33,7 +36,10 @@ const PasswordSettingsPage = () => {
       }),
     {
       onSuccess: () => {
-        dispatch(signOut);
+        resetForm();
+        dispatch(signOut());
+        Cookies.remove('token');
+        navigate('/login');
       },
     },
   );

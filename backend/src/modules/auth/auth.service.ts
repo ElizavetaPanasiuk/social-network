@@ -6,7 +6,7 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import { CreateUserDto } from '../users/dto/create-user.dto';
-import { HashService } from './hash.service';
+import { HashService } from '../hash/hash.service';
 
 @Injectable()
 export class AuthService {
@@ -21,7 +21,11 @@ export class AuthService {
     if (!user) {
       throw new NotFoundException("User with this email doesn't exist");
     }
-    const isMatch = await this.hashService.matchPassword(password, email);
+    const passwordHash = await this.usersService.getUserPasswordByEmail(email);
+    const isMatch = await this.hashService.matchPassword(
+      password,
+      passwordHash,
+    );
     if (!isMatch) {
       throw new UnauthorizedException('Invalid password');
     }

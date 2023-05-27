@@ -22,6 +22,7 @@ import { PostLike } from './posts/models/post-like.model';
 import { Room } from './messages/models/room.model';
 import { Subscription } from './subscriptions/models/subscription.model';
 import { User } from './users/models/user.model';
+import { HashModule } from './hash/hash.module';
 
 @Module({
   imports: [
@@ -60,6 +61,7 @@ import { User } from './users/models/user.model';
     CommentsModule,
     MessagesModule,
     NewsModule,
+    HashModule,
   ],
 })
 export class AppModule {}

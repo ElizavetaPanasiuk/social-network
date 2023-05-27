@@ -63,7 +63,7 @@ export class UsersPgRepository implements UsersRepository {
     id: number,
     attributes: Array<keyof User> = ['id', 'firstName', 'lastName', 'avatar'],
   ) {
-    return this.usersRepository.findByPk(id, { attributes });
+    return this.usersRepository.findByPk(id, { attributes, raw: true });
   }
 
   create(dto: CreateUserDto) {
@@ -76,6 +76,7 @@ export class UsersPgRepository implements UsersRepository {
         email,
       },
       attributes: ['id', 'firstName', 'lastName'],
+      raw: true,
     });
   }
 
