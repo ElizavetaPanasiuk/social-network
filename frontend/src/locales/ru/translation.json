@@ -64,5 +64,10 @@
   "Or register": "Или зарегистрируйтесь",
   "Or Sign In": "Или войдите",
   "Message": "Сообщение",
-  "Upload": "Загрузить"
+  "Upload": "Загрузить",
+  "No conversations": "У вас нет переписок",
+  "No subscribers": "У вас нет подписчиков",
+  "No subscriptions": "У вас нет подписок",
+  "No news": "Нет новостей",
+  "No users matching the parameters": "Нет пользователей, удовлетворяющих параметрам"
 }

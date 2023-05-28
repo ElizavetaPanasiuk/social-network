@@ -67,10 +67,9 @@ const ProfileSettingsPage = () => {
     },
   );
 
-  const { mutate: onUpdateAvatar, loading: loadingAvatar } = useMutation(
-    (file) => profileService.updateAvatar(Number(userId), file),
-    { onSuccess: () => {} },
-  );
+  const { mutate: onUpdateAvatar } = useMutation((file) => profileService.updateAvatar(Number(userId), file as File), {
+    onSuccess: () => {},
+  });
 
   return profileLoading ? (
     <Loader />

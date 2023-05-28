@@ -1,0 +1,15 @@
+@import '@/styles/colors.scss';
+
+.emptyListMessage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+
+  > :only-child {
+    text-align: center;
+    font-weight: bold;
+    color: $gray-dark;
+    font-size: 2rem;
+  }
+}

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './styles.module.scss';
 import { Avatar, IconButton, Textarea } from '@/ui-kit';
 import { faCommentAlt } from '@fortawesome/free-regular-svg-icons';
@@ -47,6 +47,7 @@ const Post = ({
   onUpdate = () => {},
 }: PostProps) => {
   const currentUserId = useSelector((state: RootState) => state.user.id);
+  const navigate = useNavigate();
   const [actionsMenuVisible, setActionsMenuVisible] = useState(false);
   const [editMode, setEditMode] = useState(false);
 
@@ -107,7 +108,7 @@ const Post = ({
           <div className={styles.comment}>
             <IconButton
               icon={faCommentAlt}
-              onClick={() => console.log('comment')}
+              onClick={() => navigate(`/post/${id}`)}
             />
             <span>{comments}</span>
           </div>

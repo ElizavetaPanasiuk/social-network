@@ -75,7 +75,6 @@ const PostPage = () => {
 
   const { mutate: updatePost } = useMutation((newContent: string) => postsService.updatePost(+postId, newContent), {
     onSuccess: (_result, args) => {
-      console.log('UPDATE POST RESULT:', _result);
       setPost({ ...post, text: args[0] });
     },
   });

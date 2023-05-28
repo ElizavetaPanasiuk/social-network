@@ -1,4 +1,4 @@
-import { ProfileRow } from '@/components';
+import { EmptyListMessage, ProfileRow } from '@/components';
 import { useQuery } from '@/hooks';
 import { ProfileService } from '@/lib/service';
 import { Loader, Input, Select } from '@/ui-kit';
@@ -43,6 +43,8 @@ const SearchPage = () => {
         />
         {loading ? (
           <Loader />
+        ) : !data.length ? (
+          <EmptyListMessage text="No users matching the parameters" />
         ) : (
           data.map((profile) => (
             <ProfileRow
