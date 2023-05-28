@@ -21,6 +21,7 @@ function Step2<T>({ onContinue, registrationData, onChange }: Step2Props<T>) {
         onChange={(value) => onChange('password', value)}
         placeholder={t('Enter password') as string}
         type="password"
+        prompt={t('Password must contain at least 1 uppercase and 1 number. Minimum 8 symbols.') as string}
       />
       <Input
         value={registrationData.passwordRepeat.value as string}
@@ -31,6 +32,7 @@ function Step2<T>({ onContinue, registrationData, onChange }: Step2Props<T>) {
         onChange={(value) => onChange('passwordRepeat', value)}
         placeholder={t('Confirm password') as string}
         type="password"
+        prompt={t('Password must contain at least 1 uppercase and 1 number. Minimum 8 symbols.') as string}
       />
       <Button
         title={t('Continue')}

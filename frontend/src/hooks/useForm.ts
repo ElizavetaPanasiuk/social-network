@@ -3,23 +3,25 @@ import { Fields, FormData } from '@/lib/global/types';
 
 function useForm<T>(fields: Fields<T>, outerDataLoader?: boolean) {
   const validateField = (fieldName: keyof typeof fields, newValue: T) => {
+    let isValid = true;
+
     if (typeof newValue === 'string') {
-      const { minLength, maxLength } = fields[fieldName];
+      const { minLength, maxLength, regexp } = fields[fieldName];
       const newValueLength = newValue.length;
-      if (minLength && maxLength) {
-        return newValueLength <= maxLength && newValueLength >= minLength;
+      if (regexp) {
+        isValid = regexp.test(newValue);
       }
       if (minLength) {
-        return newValueLength >= minLength;
+        isValid = isValid && newValueLength >= minLength;
       }
       if (maxLength) {
-        return newValueLength <= maxLength;
+        isValid = isValid && newValueLength <= maxLength;
       }
     } else if (newValue instanceof File || fieldName === 'dateOfBirth') {
-      return true;
+      isValid = true;
     }
 
-    return true;
+    return isValid;
   };
 
   const initFormData = () => {

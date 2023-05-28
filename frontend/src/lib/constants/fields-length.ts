@@ -18,8 +18,9 @@ const FIELDS_LENGTH = {
   EMAIL: {
     MIN: 2,
     MAX: 50,
+    REGEXP: /\S+@\S+\.\S+/,
   },
-  PASSWORD: { MIN: 8, MAX: 24 },
+  PASSWORD: { MIN: 8, MAX: 24, REGEXP: /(?=.*[A-ZА-Я])(?=.*\d)/ },
   COMMENT_TEXT: {
     MIN: 1,
     MAX: 256,

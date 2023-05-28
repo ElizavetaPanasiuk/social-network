@@ -21,6 +21,7 @@ function Step1<T>({ onContinue, registrationData, onChange }: Step1Props<T>) {
         valid={registrationData.email.valid}
         onChange={(value) => onChange('email', value)}
         placeholder={t('Email') as string}
+        type="email"
       />
       <Button
         title={t('Continue')}

@@ -23,11 +23,13 @@ const LoginPage = () => {
       value: '',
       minLength: FIELDS_LENGTH.EMAIL.MIN,
       maxLength: FIELDS_LENGTH.EMAIL.MAX,
+      regexp: FIELDS_LENGTH.EMAIL.REGEXP,
     },
     password: {
       value: '',
       minLength: FIELDS_LENGTH.PASSWORD.MIN,
       maxLength: FIELDS_LENGTH.PASSWORD.MAX,
+      regexp: FIELDS_LENGTH.EMAIL.REGEXP,
     },
   });
 
@@ -61,6 +63,7 @@ const LoginPage = () => {
             valid={formData.email.valid}
             placeholder={t('Email') as string}
             onChange={(value) => onChange('email', value)}
+            type="email"
           />
           <Input
             value={formData.password.value as string}

@@ -69,5 +69,6 @@
   "No subscribers": "No subscribers",
   "No subscriptions": "No subscriptions",
   "No news": "No news",
-  "No users matching the parameters": "No users matching the parameters"
+  "No users matching the parameters": "No users matching the parameters",
+  "Password must contain at least 1 uppercase and 1 number. Minimum 8 symbols.": "Password must contain at least 1 uppercase and 1 number. Minimum 8 symbols."
 }

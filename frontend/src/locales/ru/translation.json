@@ -69,5 +69,6 @@
   "No subscribers": "У вас нет подписчиков",
   "No subscriptions": "У вас нет подписок",
   "No news": "Нет новостей",
-  "No users matching the parameters": "Нет пользователей, удовлетворяющих параметрам"
+  "No users matching the parameters": "Нет пользователей, удовлетворяющих параметрам",
+  "Password must contain at least 1 uppercase and 1 number. Minimum 8 symbols.": "Пароль должен содержать минимум 1 большую букву и 1 цифру. Минимум 8 символов."
 }

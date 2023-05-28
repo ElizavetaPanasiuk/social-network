@@ -24,16 +24,19 @@ const RegistrationPage = () => {
       value: '',
       minLength: FIELDS_LENGTH.EMAIL.MIN,
       maxLength: FIELDS_LENGTH.EMAIL.MAX,
+      regexp: FIELDS_LENGTH.EMAIL.REGEXP,
     },
     password: {
       value: '',
       minLength: FIELDS_LENGTH.PASSWORD.MIN,
       maxLength: FIELDS_LENGTH.PASSWORD.MAX,
+      regexp: FIELDS_LENGTH.PASSWORD.REGEXP,
     },
     passwordRepeat: {
       value: '',
       minLength: FIELDS_LENGTH.PASSWORD.MIN,
       maxLength: FIELDS_LENGTH.PASSWORD.MAX,
+      regexp: FIELDS_LENGTH.PASSWORD.REGEXP,
     },
     firstName: {
       value: '',

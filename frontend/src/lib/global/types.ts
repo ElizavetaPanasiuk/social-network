@@ -31,6 +31,7 @@ export type Field<T> = {
   value: T;
   maxLength?: number;
   minLength?: number;
+  regexp?: RegExp;
 };
 
 export type Fields<T> = {

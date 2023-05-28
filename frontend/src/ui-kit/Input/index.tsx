@@ -5,10 +5,11 @@ type InputProps = {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
-  type?: 'text' | 'password';
+  type?: 'text' | 'password' | 'email';
   onEnter?: () => void;
   className?: string;
   valid?: boolean;
+  prompt?: string;
 };
 
 const Input = ({
@@ -19,24 +20,29 @@ const Input = ({
   onEnter = () => {},
   className = '',
   valid = true,
+  prompt,
 }: InputProps) => {
   const [validationActive, setValidationActive] = useState(false);
 
   return (
-    <input
-      className={`${styles.input} ${className}`}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      placeholder={placeholder}
-      type={type}
-      onKeyUp={(e) => {
-        if (e.key === 'Enter') {
-          onEnter();
-        }
-      }}
-      data-invalid={validationActive && !valid}
-      onBlur={() => setValidationActive(true)}
-    />
+    <div className={styles.inputContainer}>
+      <input
+        className={`${styles.input} ${className}`}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        type={type}
+        onKeyUp={(e) => {
+          if (e.key === 'Enter') {
+            onEnter();
+          }
+        }}
+        data-invalid={validationActive && !valid}
+        data-prompt={prompt && validationActive && !valid}
+        onBlur={() => setValidationActive(true)}
+      />
+      {prompt && validationActive && !valid && <span className={styles.prompt}>{prompt}</span>}
+    </div>
   );
 };
 

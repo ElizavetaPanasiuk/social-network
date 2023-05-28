@@ -21,6 +21,7 @@
     .postHeader {
       display: flex;
       width: 100%;
+      position: relative;
 
       .name {
         font-weight: bold;
@@ -28,9 +29,8 @@
       }
 
       .postActionsButton {
-        position: relative;
-        top: -0.5rem;
-        margin-left: auto;
+        position: absolute;
+        right: 0;
         height: fit-content;
         width: fit-content;
         padding: 0.5rem;

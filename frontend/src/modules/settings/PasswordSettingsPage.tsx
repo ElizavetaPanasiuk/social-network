@@ -9,6 +9,7 @@ import { RootState } from '@/store';
 import { signOut } from '@/store/userSlice';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import styles from './styles.module.scss';
 
 const PasswordSettingsPage = () => {
   const { t } = useTranslation();
@@ -21,11 +22,13 @@ const PasswordSettingsPage = () => {
       value: '',
       minLength: FIELDS_LENGTH.PASSWORD.MIN,
       maxLength: FIELDS_LENGTH.PASSWORD.MAX,
+      regexp: FIELDS_LENGTH.PASSWORD.REGEXP,
     },
     passwordRepeat: {
       value: '',
       minLength: FIELDS_LENGTH.PASSWORD.MIN,
       maxLength: FIELDS_LENGTH.PASSWORD.MAX,
+      regexp: FIELDS_LENGTH.PASSWORD.REGEXP,
     },
   });
 
@@ -45,13 +48,17 @@ const PasswordSettingsPage = () => {
   );
 
   return (
-    <Form onSubmit={onSubmit}>
+    <Form
+      onSubmit={onSubmit}
+      className={styles.passwordForm}
+    >
       <Input
         value={formData.password.value as string}
         valid={formData.password.valid}
         onChange={(value) => onChange('password', value)}
         placeholder={t('Enter password') as string}
         type="password"
+        prompt={t('Password must contain at least 1 uppercase and 1 number. Minimum 8 symbols.') as string}
       />
       <Input
         value={formData.passwordRepeat.value as string}
@@ -59,6 +66,7 @@ const PasswordSettingsPage = () => {
         onChange={(value) => onChange('passwordRepeat', value)}
         placeholder={t('Confirm password') as string}
         type="password"
+        prompt={t('Password must contain at least 1 uppercase and 1 number. Minimum 8 symbols.') as string}
       />
       <SubmitButton
         title={t('Save')}
