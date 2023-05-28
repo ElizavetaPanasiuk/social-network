@@ -2,7 +2,7 @@ import { useForm, useMutation, useQuery } from '@/hooks';
 import FIELDS_LENGTH from '@/lib/constants/fields-length';
 import { useTranslation } from 'react-i18next';
 import { DateInput, Form } from '@/components';
-import { Input, Loader, Select, SubmitButton } from '@/ui-kit';
+import { Avatar, Input, Loader, Select, SubmitButton } from '@/ui-kit';
 import { locations } from '@/lib/constants/country-city';
 import styles from './styles.module.scss';
 import { ProfileService } from '@/lib/service';
@@ -42,6 +42,9 @@ const ProfileSettingsPage = () => {
         minLength: FIELDS_LENGTH.CITY.MIN,
         maxLength: FIELDS_LENGTH.CITY.MAX,
       },
+      avatar: {
+        value: `http://localhost:5000/${profile.avatar}`,
+      },
     },
     profileLoading,
   );
@@ -64,6 +67,11 @@ const ProfileSettingsPage = () => {
     },
   );
 
+  const { mutate: onUpdateAvatar, loading: loadingAvatar } = useMutation(
+    (file) => profileService.updateAvatar(Number(userId), file),
+    { onSuccess: () => {} },
+  );
+
   return profileLoading ? (
     <Loader />
   ) : (
@@ -71,48 +79,60 @@ const ProfileSettingsPage = () => {
       onSubmit={onSubmit}
       className={styles.profileSettings}
     >
-      <div className={styles.row}>
-        <Input
-          value={formData.firstName.value as string}
-          valid={formData.firstName.valid}
-          onChange={(value) => onChange('firstName', value)}
-          placeholder={t('Name') as string}
+      <Avatar
+        src={formData.avatar.value}
+        alt={`${formData.firstName.value} ${formData.lastName.value}`}
+        edit
+        onChange={(field, value) => {
+          onChange(field, value);
+          onUpdateAvatar(value);
+        }}
+        size="large"
+      />
+      <div className={styles.profileData}>
+        <div className={styles.row}>
+          <Input
+            value={formData.firstName.value as string}
+            valid={formData.firstName.valid}
+            onChange={(value) => onChange('firstName', value)}
+            placeholder={t('Name') as string}
+          />
+          <Input
+            value={formData.lastName.value as string}
+            valid={formData.lastName.valid}
+            onChange={(value) => onChange('lastName', value)}
+            placeholder={t('Surname') as string}
+          />
+        </div>
+        <p>{t('Birthday')}</p>
+        <DateInput
+          value={formData.dateOfBirth.value}
+          onChange={(value) => onChange('dateOfBirth', value)}
         />
-        <Input
-          value={formData.lastName.value as string}
-          valid={formData.lastName.valid}
-          onChange={(value) => onChange('lastName', value)}
-          placeholder={t('Surname') as string}
+        <div className={styles.row}>
+          <Select
+            value={formData.country.value as string}
+            onChange={(value) => onChange('country', value as keyof typeof locations)}
+            label={t('Country')}
+            options={Object.keys(locations).map((country) => ({ label: country, value: country }))}
+          />
+          <Select
+            value={formData.city.value as string}
+            onChange={(value) => onChange('city', value as string)}
+            label={t('City')}
+            disabled={!formData.country}
+            options={
+              formData.country.value
+                ? locations?.[formData.country.value].map((city: string) => ({ label: city, value: city }))
+                : []
+            }
+          />
+        </div>
+        <SubmitButton
+          title={t('Save')}
+          disabled={loading || !isValid}
         />
       </div>
-      <p>{t('Birthday')}</p>
-      <DateInput
-        value={formData.dateOfBirth.value}
-        onChange={(value) => onChange('dateOfBirth', value)}
-      />
-      <div className={styles.row}>
-        <Select
-          value={formData.country.value as string}
-          onChange={(value) => onChange('country', value as keyof typeof locations)}
-          label={t('Country')}
-          options={Object.keys(locations).map((country) => ({ label: country, value: country }))}
-        />
-        <Select
-          value={formData.city.value as string}
-          onChange={(value) => onChange('city', value as string)}
-          label={t('City')}
-          disabled={!formData.country}
-          options={
-            formData.country.value
-              ? locations?.[formData.country.value].map((city: string) => ({ label: city, value: city }))
-              : []
-          }
-        />
-      </div>
-      <SubmitButton
-        title={t('Save')}
-        disabled={loading || !isValid}
-      />
     </Form>
   );
 };

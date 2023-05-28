@@ -83,15 +83,18 @@ class Service {
     return this.handleResponse(response);
   }
 
-  async updateById(id: number, data: { [key: string]: string } = {}, url: string = '') {
-    const response = await fetch(`${this.url}${url}/${id}`, {
+  async updateById(id: number, data: { [key: string]: string } | FormData = {}, url: string = '') {
+    const options = {
       method: 'PUT',
-      body: JSON.stringify(data),
+      body: data instanceof FormData ? data : JSON.stringify(data),
       headers: {
-        'Content-Type': 'application/json;charset=utf-8',
         Authorization: `Bearer ${Cookies.get('token')}`,
       },
-    });
+    };
+    if (!(data instanceof FormData)) {
+      options.headers['Content-Type'] = 'application/json;charset=utf-8';
+    }
+    const response = await fetch(`${this.url}${url}/${id}`, options);
     return this.handleResponse(response);
   }
 }

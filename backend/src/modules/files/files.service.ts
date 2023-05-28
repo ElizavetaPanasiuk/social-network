@@ -19,8 +19,24 @@ export class FilesService {
       await fsAsync.writeFile(path.resolve(filePath, fileName), file.buffer);
 
       return `images/${fileName}`;
-    } catch (e) {
-      throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async removeFile(fileName: string) {
+    try {
+      const pathToFile = path.resolve(
+        __dirname,
+        '../../..',
+        'static',
+        fileName,
+      );
+      if (fs.existsSync(pathToFile)) {
+        await fsAsync.unlink(pathToFile);
+      }
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

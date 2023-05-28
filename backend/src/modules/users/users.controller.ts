@@ -73,7 +73,7 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Update profile data' })
   @UseGuards(AuthGuard)
-  @Put('common/:id')
+  @Put('profile/:id')
   updateCommonProfileData(
     @Param('id', ParseIntPipe) id: number,
     @Body() dto: UpdateCommonProfileData,
@@ -89,5 +89,16 @@ export class UsersController {
     @Body() dto: UpdatePasswordDto,
   ) {
     return this.usersService.updatePassword(id, dto);
+  }
+
+  @ApiOperation({ summary: 'Update user avatar' })
+  @UseGuards(AuthGuard)
+  @Put('avatar/:id')
+  @UseInterceptors(FileInterceptor('avatar'))
+  updateAvatar(
+    @UploadedFile() file: Express.Multer.File,
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    return this.usersService.updateAvatar(id, file);
   }
 }

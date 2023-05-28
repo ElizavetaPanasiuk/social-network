@@ -27,6 +27,12 @@ class ProfileService extends Service {
   updatePassword(id: number, data: { password: string }) {
     return this.updateById(id, data, '/password');
   }
+
+  updateAvatar(id: number, avatar: File) {
+    const formData = new FormData();
+    formData.append('avatar', avatar);
+    return this.updateById(id, formData, '/avatar');
+  }
 }
 
 export default ProfileService;

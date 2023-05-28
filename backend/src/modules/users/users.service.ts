@@ -123,4 +123,13 @@ export class UsersService {
 
     return this.usersRepository.updateOne(id, dto);
   }
+
+  async updateAvatar(id: number, file: Express.Multer.File) {
+    const avatar = await this.filesService.createFile(file);
+    const { avatar: userPreviousAvatar } = await this.getUserById(id, [
+      'avatar',
+    ]);
+    await this.filesService.removeFile(userPreviousAvatar);
+    return this.usersRepository.updateOne(id, { avatar });
+  }
 }

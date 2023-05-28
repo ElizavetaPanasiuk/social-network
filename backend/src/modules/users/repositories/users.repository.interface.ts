@@ -18,6 +18,6 @@ export interface UsersRepository {
   deleteOne(id: number): Promise<number>;
   updateOne(
     id: number,
-    dto: UpdateCommonProfileData | UpdatePasswordDto,
+    dto: UpdateCommonProfileData | UpdatePasswordDto | { avatar: string },
   ): Promise<[affectedCount: number, affectedRows: Array<User>]>;
 }
