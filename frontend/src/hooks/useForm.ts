@@ -1,19 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Fields, FormData } from '@/lib/global/types';
 
-function useForm<T>(fields: Fields<T>) {
-  const initFormData = () => {
-    const initialFormData: FormData<T> = {};
-    Object.keys(fields).forEach((field: string) => (initialFormData[field] = { ...fields[field], valid: false }));
-    return initialFormData;
-  };
-
-  const [formData, setFormData] = useState<FormData<T>>(initFormData());
-  const [formValid, setFormValid] = useState(true);
-
-  const validateField = (fieldName: keyof typeof formData, newValue: T) => {
+function useForm<T>(fields: Fields<T>, outerDataLoader?: boolean) {
+  const validateField = (fieldName: keyof typeof fields, newValue: T) => {
     if (typeof newValue === 'string') {
-      const { minLength, maxLength } = formData[fieldName];
+      const { minLength, maxLength } = fields[fieldName];
       const newValueLength = newValue.length;
       if (minLength && maxLength) {
         return newValueLength <= maxLength && newValueLength >= minLength;
@@ -28,8 +19,20 @@ function useForm<T>(fields: Fields<T>) {
       return true;
     }
 
-    return formData[fieldName].valid;
+    return true;
   };
+
+  const initFormData = () => {
+    const initialFormData: FormData<T> = {};
+    Object.keys(fields).forEach(
+      (field: string) =>
+        (initialFormData[field] = { ...fields[field], valid: validateField(field, fields[field].value) }),
+    );
+    return initialFormData;
+  };
+
+  const [formData, setFormData] = useState<FormData<T>>(initFormData());
+  const [formValid, setFormValid] = useState(true);
 
   const onChange = (fieldName: keyof typeof formData, newValue: T) => {
     setFormData({
@@ -46,6 +49,10 @@ function useForm<T>(fields: Fields<T>) {
     const isFormValid = Object.values(formData).every((field) => field.valid);
     setFormValid(isFormValid);
   }, [formData]);
+
+  useEffect(() => {
+    setFormData(initFormData());
+  }, [outerDataLoader]);
 
   return { formData, onChange, isValid: formValid, resetForm };
 }

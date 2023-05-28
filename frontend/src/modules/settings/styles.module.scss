@@ -4,4 +4,15 @@
   > :not(:last-child) {
     margin-bottom: 1rem;
   }
+
+  .profileSettings {
+    .row {
+      display: flex;
+      gap: 1rem;
+    }
+
+    > :not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
 }
