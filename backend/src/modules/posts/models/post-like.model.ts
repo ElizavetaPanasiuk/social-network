@@ -5,8 +5,10 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
+
+import { User } from '@/users/models/user.model';
+
 import { Post } from './post.model';
-import { User } from '../../users/models/user.model';
 
 interface PostLikeCreationAttrs {
   userId: number;

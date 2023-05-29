@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, MinLength, MaxLength } from 'class-validator';
-import FIELDS_LENGTH from 'src/constants/fields-length';
+import FIELDS_LENGTH from '@/constants/fields-length';
 
 export class UpdatePostDto {
   @ApiProperty({ example: 'My first post', description: 'Post text content' })

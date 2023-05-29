@@ -1,5 +1,6 @@
 import { IsInt, IsString, MinLength, MaxLength, IsUUID } from 'class-validator';
-import FIELDS_LENGTH from 'src/constants/fields-length';
+
+import FIELDS_LENGTH from '@/constants/fields-length';
 
 export class CreateMessageDto {
   @IsString()

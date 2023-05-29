@@ -9,9 +9,11 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
+
+import { AuthGuard } from '@/auth/auth.guard';
+
 import { SubscriptionsService } from './subscriptions.service';
 import { CreateSubscriptionDto } from './dto/create-subscription.dto';
-import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('subscriptions')
 export class SubscriptionsController {

@@ -7,8 +7,10 @@ import {
   BelongsTo,
   HasMany,
 } from 'sequelize-typescript';
-import { User } from '../../users/models/user.model';
-import { Message } from './message.model';
+
+import { User } from '@/users/models/user.model';
+
+import { Message } from '.';
 
 interface RoomCreationAttrs {
   id: string;

@@ -1,7 +1,8 @@
 import { Repository } from 'sequelize-typescript';
+
 import { CommentLikesRepository } from '../comment-likes.repository.interface';
-import { CommentLike } from 'src/modules/comments/models/comment-like.model';
-import { CommentLikeDto } from 'src/modules/comments/dto/comment-like.dto';
+import { CommentLike } from '@/comments/models';
+import { CommentLikeDto } from '@/comments/dto';
 
 export class CommentLikesPgRepository implements CommentLikesRepository {
   constructor(private commentLikesRepository: Repository<CommentLike>) {}

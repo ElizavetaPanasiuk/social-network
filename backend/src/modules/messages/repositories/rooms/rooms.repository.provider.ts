@@ -1,12 +1,15 @@
 import { Injectable, Provider } from '@nestjs/common';
-import { Room } from '../../models/room.model';
 import { InjectModel } from '@nestjs/sequelize';
+
+import { Repository } from '@/constants/repositories';
+
+import { Room } from '@/messages/models';
 import { RoomsPgRepository } from './implementations/rooms.pg.repository';
 
 export function provideRoomsRepository(): Provider[] {
   return [
     {
-      provide: 'rooms-repository',
+      provide: Repository.Rooms,
       useFactory: async (dependenciesProvider: RoomsRepoDependenciesProvider) =>
         provideRoomsRepositoryFactory(dependenciesProvider),
       inject: [RoomsRepoDependenciesProvider],

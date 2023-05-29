@@ -5,8 +5,9 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { passwordValidationRules } from '../../../utils/validation-rules';
-import FIELDS_LENGTH from 'src/constants/fields-length';
+
+import { passwordValidationRules } from '@/utils/validation-rules';
+import FIELDS_LENGTH from '@/constants/fields-length';
 
 export class SignInDto {
   @IsEmail()

@@ -1,11 +1,14 @@
 import { HttpException, HttpStatus, Injectable, Inject } from '@nestjs/common';
+
+import { Repository } from '@/constants/repositories';
+
 import { CreateSubscriptionDto } from './dto/create-subscription.dto';
 import { SubscriptionsRepository } from './repositories/subscriptions.repository.interface';
 
 @Injectable()
 export class SubscriptionsService {
   constructor(
-    @Inject('subscriptions-repository')
+    @Inject(Repository.Subscriptions)
     private subscriptionsRepository: SubscriptionsRepository,
   ) {}
   getSubscriptions(userId: number) {

@@ -1,12 +1,15 @@
 import { Injectable, Provider } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+
+import { Repository } from '@/constants/repositories';
+
 import { CommentLikesPgRepository } from './implementations/comment-likes.pg.repository';
-import { CommentLike } from '../../models/comment-like.model';
+import { CommentLike } from '@/comments/models';
 
 export function provideCommentLikesRepository(): Provider[] {
   return [
     {
-      provide: 'comment-likes-repository',
+      provide: Repository.CommentLikes,
       useFactory: async (
         dependenciesProvider: CommentLikesRepoDependenciesProvider,
       ) => provideCommentLikesRepositoryFactory(dependenciesProvider),

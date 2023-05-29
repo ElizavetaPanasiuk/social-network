@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
+import { SequelizeModule } from '@nestjs/sequelize';
+
+import { Post } from '@/posts/models';
+import { SubscriptionsModule } from '@/subscriptions/subscriptions.module';
+
 import { NewsService } from './news.service';
 import { NewsController } from './news.controller';
-import { SequelizeModule } from '@nestjs/sequelize';
-import { Post } from '../posts/models/post.model';
-import { SubscriptionsModule } from '..//subscriptions/subscriptions.module';
 
 @Module({
   providers: [NewsService],

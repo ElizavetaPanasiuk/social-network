@@ -1,5 +1,5 @@
-import { PostLikeDto } from '../../dto/post-like.dto';
-import { PostLike } from '../../entities/postLike.enity';
+import { PostLikeDto } from '@/posts/dto';
+import { PostLike } from '@/posts/entities';
 
 export interface PostLikesRepository {
   create(dto: PostLikeDto): Promise<PostLike>;

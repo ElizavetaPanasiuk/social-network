@@ -8,8 +8,10 @@ import {
   Query,
   ParseUUIDPipe,
 } from '@nestjs/common';
+
+import { AuthGuard } from '@/auth/auth.guard';
+
 import { MessagesService } from './messages.service';
-import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('messages')
 export class MessagesController {

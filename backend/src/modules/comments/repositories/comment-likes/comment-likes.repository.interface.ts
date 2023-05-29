@@ -1,5 +1,5 @@
-import { CommentLikeDto } from '../../dto/comment-like.dto';
-import { CommentLike } from '../../entities/comment-like.entity';
+import { CommentLikeDto } from '@/comments/dto';
+import { CommentLike } from '@/comments/entities';
 
 export interface CommentLikesRepository {
   create(dto: CommentLikeDto): Promise<CommentLike>;

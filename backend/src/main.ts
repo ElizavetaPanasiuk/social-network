@@ -1,7 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { AppModule } from './modules/app.module';
 import { ValidationPipe } from '@nestjs/common';
+
+import { AppModule } from './modules/app.module';
 
 const start = async () => {
   const port = process.env.POST || 5000;

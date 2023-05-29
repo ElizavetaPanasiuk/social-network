@@ -1,5 +1,3 @@
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CommentsService } from './comments.service';
 import {
   Controller,
   Get,
@@ -13,10 +11,12 @@ import {
   Request,
   ParseIntPipe,
 } from '@nestjs/common';
-import { CreateCommentDto } from './dto/create-comment.dto';
-import { UpdateCommentDto } from './dto/update-comment.dto';
-import { CommentLikeDto } from './dto/comment-like.dto';
-import { AuthGuard } from '../auth/auth.guard';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
+
+import { AuthGuard } from '@/auth/auth.guard';
+
+import { CommentsService } from './comments.service';
+import { CreateCommentDto, UpdateCommentDto, CommentLikeDto } from './dto';
 
 @ApiTags('Comments')
 @Controller('comments')

@@ -1,16 +1,18 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CreateMessageDto } from './dto/create-message.dto';
-import { CreateRoomDto } from './dto/create-room.dto';
-import { UsersService } from '..//users/users.service';
-import { CryptoService } from '../crypto/crypto.service';
+
+import { CryptoService } from '@/crypto/crypto.service';
+import { UsersService } from '@/users/users.service';
+import { Repository } from '@/constants/repositories';
+
+import { CreateMessageDto, CreateRoomDto } from './dto';
 import { RoomsRepository } from './repositories/rooms/rooms.repository.interface';
 import { MessagesRepository } from './repositories/messages/messages.repository.interface';
 
 @Injectable()
 export class MessagesService {
   constructor(
-    @Inject('rooms-repository') private roomsRepository: RoomsRepository,
-    @Inject('messages-repository')
+    @Inject(Repository.Rooms) private roomsRepository: RoomsRepository,
+    @Inject(Repository.Messages)
     private messagesRepository: MessagesRepository,
     private usersService: UsersService,
     private cryptoService: CryptoService,

@@ -8,21 +8,18 @@ import { AuthModule } from './auth/auth.module';
 import { CommentsModule } from './comments/comments.module';
 import { CryptoModule } from './crypto/crypto.module';
 import { FilesModule } from './files/files.module';
+import { HashModule } from './hash/hash.module';
 import { MessagesModule } from './messages/messages.module';
 import { NewsModule } from './news/news.module';
 import { PostModule } from './posts/posts.module';
 import { SubscriptionsModule } from './subscriptions/subscriptions.module';
 import { UsersModule } from './users/users.module';
 
-import { Comment } from './comments/models/comment.model';
-import { CommentLike } from './comments/models/comment-like.model';
-import { Message } from './messages/models/message.model';
-import { Post } from './posts/models/post.model';
-import { PostLike } from './posts/models/post-like.model';
-import { Room } from './messages/models/room.model';
+import { Comment, CommentLike } from './comments/models';
+import { Message, Room } from './messages/models';
+import { PostLike, Post } from './posts/models';
 import { Subscription } from './subscriptions/models/subscription.model';
 import { User } from './users/models/user.model';
-import { HashModule } from './hash/hash.module';
 
 @Module({
   imports: [

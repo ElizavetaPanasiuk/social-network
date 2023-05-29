@@ -1,5 +1,5 @@
-import { CreateMessageDto } from '../../dto/create-message.dto';
-import { Message } from '../../entities/message.entity';
+import { CreateMessageDto } from '@/messages/dto';
+import { Message } from '@/messages/entities';
 
 export interface MessagesRepository {
   create(dto: CreateMessageDto): Promise<Message>;

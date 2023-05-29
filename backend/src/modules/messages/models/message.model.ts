@@ -6,8 +6,10 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { User } from '../../users/models/user.model';
-import { Room } from './room.model';
+
+import { User } from '@/users/models/user.model';
+
+import { Room } from '.';
 
 interface MessageCreationAttrs {
   readonly userId: number;

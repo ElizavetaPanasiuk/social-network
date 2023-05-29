@@ -1,16 +1,17 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { CreateCommentDto } from './dto/create-comment.dto';
-import { UpdateCommentDto } from './dto/update-comment.dto';
-import { CommentLikeDto } from './dto/comment-like.dto';
+
+import { Repository } from '@/constants/repositories';
+
+import { CreateCommentDto, UpdateCommentDto, CommentLikeDto } from './dto';
 import { CommentLikesRepository } from './repositories/comment-likes/comment-likes.repository.interface';
 import { CommentsRepository } from './repositories/comments/comments.repository.interface';
 
 @Injectable()
 export class CommentsService {
   constructor(
-    @Inject('comments-repository')
+    @Inject(Repository.Comments)
     private commentsRepository: CommentsRepository,
-    @Inject('comment-likes-repository')
+    @Inject(Repository.CommentLikes)
     private commentLikesRepository: CommentLikesRepository,
   ) {}
 

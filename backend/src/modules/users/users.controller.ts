@@ -14,13 +14,17 @@ import {
   Request,
 } from '@nestjs/common';
 import { ApiResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { User } from './models/user.model';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UsersService } from './users.service';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { AuthGuard } from '../auth/auth.guard';
-import { UpdateCommonProfileData } from './dto/update-common-profile-data.dto';
-import { UpdatePasswordDto } from './dto/update-password.dto';
+
+import { AuthGuard } from '@/auth/auth.guard';
+
+import { User } from './models/user.model';
+import { UsersService } from './users.service';
+import {
+  CreateUserDto,
+  UpdateCommonProfileData,
+  UpdatePasswordDto,
+} from './dto';
 
 @ApiTags('Users')
 @Controller('users')

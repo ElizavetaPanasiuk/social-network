@@ -5,11 +5,13 @@ import {
   UseInterceptors,
   UploadedFile,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+
+import { CreateUserDto } from '@/users/dto';
+
 import { AuthService } from './auth.service';
 import { SignInDto } from './dto/sign-in.dto';
-import { CreateUserDto } from '../users/dto/create-user.dto';
-import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('auth')
 export class AuthController {

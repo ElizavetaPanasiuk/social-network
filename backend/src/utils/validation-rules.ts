@@ -1,4 +1,4 @@
-import FIELDS_LENGTH from 'src/constants/fields-length';
+import FIELDS_LENGTH from '@/constants/fields-length';
 
 const passwordValidationRules = {
   minLength: FIELDS_LENGTH.PASSWORD.MIN,

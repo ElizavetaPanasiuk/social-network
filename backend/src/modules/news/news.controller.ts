@@ -1,4 +1,3 @@
-import { NewsService } from './news.service';
 import {
   Controller,
   Get,
@@ -8,7 +7,10 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
-import { AuthGuard } from '..//auth/auth.guard';
+
+import { AuthGuard } from '@/auth/auth.guard';
+
+import { NewsService } from './news.service';
 
 @Controller('news')
 export class NewsController {

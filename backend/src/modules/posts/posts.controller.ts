@@ -12,11 +12,11 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags, ApiResponse } from '@nestjs/swagger';
+
+import { AuthGuard } from '@/auth/auth.guard';
+
 import { PostsService } from './posts.service';
-import { CreatePostDto } from './dto/create-post.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
-import { AuthGuard } from '../auth/auth.guard';
-import { PostLikeDto } from './dto/post-like.dto';
+import { CreatePostDto, UpdatePostDto, PostLikeDto } from './dto';
 
 @ApiTags('Posts')
 @Controller('posts')

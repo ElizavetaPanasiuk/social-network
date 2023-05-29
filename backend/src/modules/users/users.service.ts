@@ -1,20 +1,24 @@
-import { HashService } from '../hash/hash.service';
-import { Inject, Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
+import { Inject, Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { Op } from 'sequelize';
-import { FilesService } from '../files/files.service';
+
+import { HashService } from '@/hash/hash.service';
+import { FilesService } from '@/files/files.service';
+import { Repository } from '@/constants/repositories';
+
+import {
+  CreateUserDto,
+  UpdatePasswordDto,
+  UpdateCommonProfileData,
+} from './dto';
 import { User } from './entities/user.entity';
 import { UsersRepository } from './repositories/users.repository.interface';
-import { UpdatePasswordDto } from './dto/update-password.dto';
-import { UpdateCommonProfileData } from './dto/update-common-profile-data.dto';
-import { HttpException, HttpStatus } from '@nestjs/common';
 
 const LIMIT = 10;
 
 @Injectable()
 export class UsersService {
   constructor(
-    @Inject('users-repository') private usersRepository: UsersRepository,
+    @Inject(Repository.Users) private usersRepository: UsersRepository,
     private filesService: FilesService,
     private hashService: HashService,
   ) {}

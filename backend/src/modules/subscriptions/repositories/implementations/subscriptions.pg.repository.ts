@@ -1,8 +1,10 @@
 import { Repository } from 'sequelize-typescript';
+
+import { User } from '@/users/models/user.model';
+
+import { Subscription } from '@/subscriptions/models/subscription.model';
+import { CreateSubscriptionDto } from '@/subscriptions/dto/create-subscription.dto';
 import { SubscriptionsRepository } from '../subscriptions.repository.interface';
-import { Subscription } from '../../models/subscription.model';
-import { CreateSubscriptionDto } from '../../dto/create-subscription.dto';
-import { User } from 'src/modules/users/models/user.model';
 
 export class SubscriptionsPgRepository implements SubscriptionsRepository {
   constructor(private subscriptionsRepository: Repository<Subscription>) {}

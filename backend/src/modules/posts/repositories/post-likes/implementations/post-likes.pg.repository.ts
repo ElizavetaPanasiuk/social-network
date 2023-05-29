@@ -1,7 +1,8 @@
 import { Repository } from 'sequelize-typescript';
+
+import { PostLike } from '@/posts/models';
+import { PostLikeDto } from '@/posts/dto';
 import { PostLikesRepository } from '../post-likes.repository.interface';
-import { PostLike } from 'src/modules/posts/models/post-like.model';
-import { PostLikeDto } from 'src/modules/posts/dto/post-like.dto';
 
 export class PostLikesPgRepository implements PostLikesRepository {
   constructor(private postLikesRepository: Repository<PostLike>) {}

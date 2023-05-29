@@ -1,10 +1,11 @@
 import { Repository } from 'sequelize-typescript';
-import { CommentsRepository } from '../comments.repository.interface';
-import { Comment } from 'src/modules/comments/models/comment.model';
 import { Sequelize } from 'sequelize';
-import { User } from 'src/modules/users/models/user.model';
-import { CreateCommentDto } from 'src/modules/comments/dto/create-comment.dto';
-import { UpdateCommentDto } from 'src/modules/comments/dto/update-comment.dto';
+
+import { User } from '@/users/models/user.model';
+
+import { CreateCommentDto, UpdateCommentDto } from '@/comments/dto';
+import { Comment } from '@/comments/models';
+import { CommentsRepository } from '../comments.repository.interface';
 
 export class CommentsPgRepository implements CommentsRepository {
   constructor(private commentsRepository: Repository<Comment>) {}

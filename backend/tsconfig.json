@@ -16,6 +16,21 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@/*": ["src/*"],
+      "@/auth/*": ["src/modules/auth/*"],
+      "@/comments/*": ["src/modules/comments/*"],
+      "@/crypto/*": ["src/modules/crypto/*"],
+      "@/files/*": ["src/modules/files/*"],
+      "@/hash/*": ["src/modules/hash/*"],
+      "@/messages/*": ["src/modules/messages/*"],
+      "@/news/*": ["src/modules/news/*"],
+      "@/posts/*": ["src/modules/posts/*"],
+      "@/subscriptions/*": ["src/modules/subscriptions/*"],
+      "@/users/*": ["src/modules/users/*"],
+      "@/constants/*": ["src/constants/*"],
+      "@/utils/*": ["src/utils/*"]
+    }
   }
 }

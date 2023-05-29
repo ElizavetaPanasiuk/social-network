@@ -1,6 +1,5 @@
-import { Comment } from '../../entities/comment.entity';
-import { CreateCommentDto } from '../../dto/create-comment.dto';
-import { UpdateCommentDto } from '../../dto/update-comment.dto';
+import { Comment } from '@/comments/entities';
+import { CreateCommentDto, UpdateCommentDto } from '@/comments/dto';
 
 export interface CommentsRepository {
   getPostComments(postId: number, userId: number): Promise<Array<Comment>>;

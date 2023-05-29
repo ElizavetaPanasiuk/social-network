@@ -1,12 +1,15 @@
 import { Injectable, Provider } from '@nestjs/common';
-import { Message } from '../../models/message.model';
 import { InjectModel } from '@nestjs/sequelize';
+
+import { Repository } from '@/constants/repositories';
+
+import { Message } from '@/messages/models';
 import { MessagesPgRepository } from './implementations/messages.pg.repository';
 
 export function provideMessagesRepository(): Provider[] {
   return [
     {
-      provide: 'messages-repository',
+      provide: Repository.Messages,
       useFactory: async (
         dependenciesProvider: MessagesRepoDependenciesProvider,
       ) => provideMessagesRepositoryFactory(dependenciesProvider),

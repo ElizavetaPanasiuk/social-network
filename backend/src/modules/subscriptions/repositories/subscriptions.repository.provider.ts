@@ -1,12 +1,15 @@
 import { Injectable, Provider } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+
+import { Repository } from '@/constants/repositories';
+
 import { Subscription } from '../models/subscription.model';
 import { SubscriptionsPgRepository } from './implementations/subscriptions.pg.repository';
 
 export function provideSubscriptionsRepository(): Provider[] {
   return [
     {
-      provide: 'subscriptions-repository',
+      provide: Repository.Subscriptions,
       useFactory: async (
         dependenciesProvider: SubscriptionsRepoDependenciesProvider,
       ) => provideSubscriptionsRepositoryFactory(dependenciesProvider),

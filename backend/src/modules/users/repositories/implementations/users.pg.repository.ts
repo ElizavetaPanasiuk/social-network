@@ -1,11 +1,14 @@
 import { Repository } from 'sequelize-typescript';
 import { Sequelize, WhereOptions } from 'sequelize';
-import { User as UserModel } from '../../models/user.model';
+
+import { User as UserModel } from '@/users/models/user.model';
 import { UsersRepository } from '../users.repository.interface';
-import { CreateUserDto } from '../../dto/create-user.dto';
-import { User } from '../../entities/user.entity';
-import { UpdateCommonProfileData } from '../../dto/update-common-profile-data.dto';
-import { UpdatePasswordDto } from '../../dto/update-password.dto';
+import { User } from '@/users/entities/user.entity';
+import {
+  CreateUserDto,
+  UpdateCommonProfileData,
+  UpdatePasswordDto,
+} from '@/users/dto';
 
 export class UsersPgRepository implements UsersRepository {
   constructor(private usersRepository: Repository<UserModel>) {}

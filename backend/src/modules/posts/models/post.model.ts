@@ -9,9 +9,11 @@ import {
   BelongsToMany,
   HasMany,
 } from 'sequelize-typescript';
-import { User } from '../../users/models/user.model';
+
+import { Comment } from '@/comments/models';
+import { User } from '@/users/models/user.model';
+
 import { PostLike } from './post-like.model';
-import { Comment } from '../../comments/models/comment.model';
 
 interface PostCreationAttrs {
   readonly text: string;

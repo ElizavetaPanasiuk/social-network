@@ -6,11 +6,13 @@ import {
   WebSocketServer,
   SubscribeMessage,
 } from '@nestjs/websockets';
-import { MessagesService } from './messages.service';
-import { Server, Socket } from 'Socket.IO';
-import { CreateMessageDto } from './dto/create-message.dto';
 import { UseGuards } from '@nestjs/common';
-import { AuthGuard } from '..//auth/auth.guard';
+import { Server, Socket } from 'Socket.IO';
+
+import { AuthGuard } from '@/auth/auth.guard';
+
+import { MessagesService } from './messages.service';
+import { CreateMessageDto } from './dto';
 
 type UserSocket = {
   userId: string;

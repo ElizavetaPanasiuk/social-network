@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, MinLength, MaxLength, IsDateString } from 'class-validator';
-import FIELDS_LENGTH from 'src/constants/fields-length';
+
+import FIELDS_LENGTH from '@/constants/fields-length';
 
 export class UpdateCommonProfileData {
   @IsString()

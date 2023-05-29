@@ -1,9 +1,11 @@
 import { Repository } from 'sequelize-typescript';
 import { Op } from 'sequelize';
-import { Room } from 'src/modules/messages/models/room.model';
+
+import { User } from '@/users/models/user.model';
+
+import { Room } from '@/messages/models';
+import { CreateRoomDto } from '@/messages/dto';
 import { RoomsRepository } from '../rooms.repository.interface';
-import { CreateRoomDto } from 'src/modules/messages/dto/create-room.dto';
-import { User } from 'src/modules/users/models/user.model';
 
 export class RoomsPgRepository implements RoomsRepository {
   constructor(private roomsRepository: Repository<Room>) {}

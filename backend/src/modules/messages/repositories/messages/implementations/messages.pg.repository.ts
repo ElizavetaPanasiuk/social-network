@@ -1,7 +1,9 @@
 import { Repository } from 'sequelize-typescript';
-import { CreateMessageDto } from 'src/modules/messages/dto/create-message.dto';
-import { Message } from 'src/modules/messages/models/message.model';
-import { User } from 'src/modules/users/models/user.model';
+
+import { User } from '@/users/models/user.model';
+
+import { CreateMessageDto } from '@/messages/dto';
+import { Message } from '@/messages/models';
 import { MessagesRepository } from '../messages.repository.interface';
 
 export class MessagesPgRepository implements MessagesRepository {

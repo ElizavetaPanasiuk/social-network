@@ -1,8 +1,11 @@
 import { WhereOptions } from 'sequelize';
-import { CreateUserDto } from '../dto/create-user.dto';
+
 import { User } from '../entities/user.entity';
-import { UpdateCommonProfileData } from '../dto/update-common-profile-data.dto';
-import { UpdatePasswordDto } from '../dto/update-password.dto';
+import {
+  CreateUserDto,
+  UpdateCommonProfileData,
+  UpdatePasswordDto,
+} from '../dto';
 
 export interface UsersRepository {
   getProfileDataById(id: number, currentUserId: number): Promise<User>;
