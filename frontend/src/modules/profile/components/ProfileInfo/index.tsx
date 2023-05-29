@@ -1,14 +1,15 @@
+import { useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import styles from './styles.module.scss';
-
-import { Avatar, Button } from '@/ui-kit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar } from '@fortawesome/free-regular-svg-icons';
 import { faBirthdayCake, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
-import { Link, useParams } from 'react-router-dom';
 import moment from 'moment';
-import { useSelector } from 'react-redux';
+
 import { RootState } from '@/store';
+import { Avatar, Button } from '@/ui-kit';
+
+import styles from './styles.module.scss';
 
 type ProfileInfoProps = {
   firstName: string;

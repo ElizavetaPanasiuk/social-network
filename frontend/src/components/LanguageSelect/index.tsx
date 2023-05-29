@@ -1,6 +1,8 @@
-import i18next from 'i18next';
 import { useState } from 'react';
+import i18next from 'i18next';
+
 import { Select } from '@/ui-kit';
+
 import styles from './styles.module.scss';
 
 const LanguageSelector = () => {

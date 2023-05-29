@@ -1,8 +1,10 @@
-import { IconButton, Textarea } from '@/ui-kit';
-import styles from './styles.module.scss';
 import { useTranslation } from 'react-i18next';
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
+
 import FIELDS_LENGTH from '@/lib/constants/fields-length';
+import { IconButton, Textarea } from '@/ui-kit';
+
+import styles from './styles.module.scss';
 
 type MessageInputProps = {
   message: string;

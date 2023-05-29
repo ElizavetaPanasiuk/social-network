@@ -1,5 +1,6 @@
-import { SubmitButton } from '@/ui-kit';
 import { useTranslation } from 'react-i18next';
+
+import { SubmitButton } from '@/ui-kit';
 
 type Step4Props = {
   onChange: (key: 'avatar', value: string | File) => void;

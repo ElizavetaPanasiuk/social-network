@@ -1,11 +1,13 @@
+import { useNavigate, useParams } from 'react-router-dom';
+
 import { Post } from '@/components';
 import { useMutation, useQuery } from '@/hooks';
 import { CommentsService, PostsService } from '@/lib/service';
-import { useNavigate, useParams } from 'react-router-dom';
+import { CommentInfo, PostInfo } from '@/lib/global/types';
+import { Loader } from '@/ui-kit';
+
 import { Comment } from './components';
 import NewComment from './components/NewComment';
-import { Loader } from '@/ui-kit';
-import { CommentInfo, PostInfo } from '@/lib/global/types';
 
 const PostPage = () => {
   const postsService = new PostsService();

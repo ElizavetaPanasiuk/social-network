@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { SubmitButton, Textarea } from '@/ui-kit';
 import { useTranslation } from 'react-i18next';
-import styles from './styles.module.scss';
+
 import { Form } from '@/components';
+import { SubmitButton, Textarea } from '@/ui-kit';
+
+import styles from './styles.module.scss';
 
 type NewPostProps = {
   publish: (text: string) => void;

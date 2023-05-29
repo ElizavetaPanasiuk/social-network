@@ -1,12 +1,14 @@
-import { Message, MessageInput, MessagesHeader } from './components';
-import styles from './styles.module.scss';
-import { useChat, useQuery } from '@/hooks';
 import { Fragment, useRef, useState } from 'react';
-import { Loader } from '@/ui-kit';
-import { MessagesService } from '@/lib/service';
 import { useParams } from 'react-router-dom';
 import moment from 'moment';
+
+import { useChat, useQuery } from '@/hooks';
+import { MessagesService } from '@/lib/service';
 import { BasicProfileInfo, MessageType } from '@/lib/global/types';
+import { Loader } from '@/ui-kit';
+
+import { Message, MessageInput, MessagesHeader } from './components';
+import styles from './styles.module.scss';
 
 const MessagesPage = () => {
   const messagesService = new MessagesService();

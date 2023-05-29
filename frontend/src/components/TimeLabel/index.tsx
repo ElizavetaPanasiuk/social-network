@@ -1,4 +1,5 @@
 import moment from 'moment';
+
 import styles from './styles.module.scss';
 
 type TimeLabelProps = {

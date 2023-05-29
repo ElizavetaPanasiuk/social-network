@@ -1,9 +1,11 @@
 import { useTranslation } from 'react-i18next';
-import { Button, Input, Select } from '@/ui-kit';
+
 import { DateInput } from '@/components';
 import { locations } from '@/lib/constants/country-city';
-import styles from './styles.module.scss';
 import { FormData } from '@/lib/global/types';
+import { Button, Input, Select } from '@/ui-kit';
+
+import styles from './styles.module.scss';
 
 type Step3Props<T> = {
   onContinue: () => void;

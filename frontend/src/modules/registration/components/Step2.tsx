@@ -1,6 +1,7 @@
-import { Button, Input } from '@/ui-kit';
 import { useTranslation } from 'react-i18next';
+
 import { FormData } from '@/lib/global/types';
+import { Button, Input } from '@/ui-kit';
 
 type Step2Props<T> = {
   onContinue: () => void;

@@ -1,12 +1,14 @@
+import { useState, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { EmptyListMessage, ProfileRow } from '@/components';
 import { useQuery } from '@/hooks';
 import { ProfileService } from '@/lib/service';
-import { Loader, Input, Select } from '@/ui-kit';
-import { useState, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
-import styles from './styles.module.scss';
 import { locations } from '@/lib/constants/country-city';
 import { BasicProfileInfo } from '@/lib/global/types';
+import { Loader, Input, Select } from '@/ui-kit';
+
+import styles from './styles.module.scss';
 
 const SearchPage = () => {
   const { t } = useTranslation();

@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { SubmitButton, Textarea } from '@/ui-kit';
 import { useTranslation } from 'react-i18next';
-import styles from './styles.module.scss';
+
 import { Form, SymbolCounter } from '@/components';
+import { SubmitButton, Textarea } from '@/ui-kit';
+
+import styles from './styles.module.scss';
 
 type NewCommentProps = {
   publish: (text: string) => void;

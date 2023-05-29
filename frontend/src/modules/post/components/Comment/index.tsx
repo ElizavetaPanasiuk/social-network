@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
+
 import { Like, TimeLabel } from '@/components';
 import { Avatar } from '@/ui-kit';
+
 import styles from './styles.module.scss';
 
 type CommentProps = {

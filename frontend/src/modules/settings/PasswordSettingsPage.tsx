@@ -1,14 +1,16 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import Cookies from 'js-cookie';
+
 import { Form } from '@/components';
 import { useForm, useMutation } from '@/hooks';
-import { Input, SubmitButton } from '@/ui-kit';
-import { useTranslation } from 'react-i18next';
 import FIELDS_LENGTH from '@/lib/constants/fields-length';
 import { ProfileService } from '@/lib/service';
-import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { signOut } from '@/store/userSlice';
-import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
+import { Input, SubmitButton } from '@/ui-kit';
+
 import styles from './styles.module.scss';
 
 const PasswordSettingsPage = () => {

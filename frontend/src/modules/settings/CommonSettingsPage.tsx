@@ -1,11 +1,12 @@
-import { Button, Select } from '@/ui-kit';
-import i18next, { changeLanguage } from 'i18next';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import i18next, { changeLanguage } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import Cookies from 'js-cookie';
-import { useDispatch } from 'react-redux';
+
 import { signOut } from '@/store/userSlice';
-import { useNavigate } from 'react-router-dom';
+import { Button, Select } from '@/ui-kit';
 
 const CommonSettingsPage = () => {
   const dispatch = useDispatch();

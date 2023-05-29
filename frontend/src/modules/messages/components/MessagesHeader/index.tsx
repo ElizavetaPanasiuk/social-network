@@ -1,4 +1,5 @@
 import { Avatar } from '@/ui-kit';
+
 import styles from './styles.module.scss';
 
 type MessagesHeaderProps = {

@@ -1,10 +1,12 @@
-import { useQuery } from '@/hooks';
 import { useParams } from 'react-router-dom';
-import { EmptyListMessage, ProfileRow } from '@/components';
-import { SubscriptionsService } from '@/lib/service';
-import { Loader } from '@/ui-kit';
-import { SubscribersResponse } from '@/lib/global/types';
 import { useTranslation } from 'react-i18next';
+
+import { EmptyListMessage, ProfileRow } from '@/components';
+import { useQuery } from '@/hooks';
+import { SubscriptionsService } from '@/lib/service';
+import { SubscribersResponse } from '@/lib/global/types';
+
+import { Loader } from '@/ui-kit';
 
 const SubscribersPage = () => {
   const { t } = useTranslation();

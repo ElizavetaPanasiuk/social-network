@@ -1,14 +1,15 @@
-import { Post } from '@/components';
-import { ProfileInfo, NewPost } from './components';
-import { useMutation, useQuery } from '@/hooks';
-import { MessagesService, PostsService, ProfileService } from '@/lib/service';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useRef } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+
+import { Post } from '@/components';
+import { useMutation, useQuery } from '@/hooks';
+import { MessagesService, PostsService, ProfileService, SubscriptionsService } from '@/lib/service';
+import { PostInfo } from '@/lib/global/types';
 import { RootState } from '@/store';
 import { Loader } from '@/ui-kit';
-import { SubscriptionsService } from '@/lib/service';
-import { useRef } from 'react';
-import { PostInfo } from '@/lib/global/types';
+
+import { ProfileInfo, NewPost } from './components';
 
 const ProfilePage = () => {
   const params = useParams();

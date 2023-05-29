@@ -1,15 +1,17 @@
-import { Link, useNavigate } from 'react-router-dom';
-import styles from './styles.module.scss';
-import { Avatar, IconButton, Textarea } from '@/ui-kit';
-import { faCommentAlt } from '@fortawesome/free-regular-svg-icons';
-import Like from './Like';
-import TimeLabel from '../TimeLabel';
-import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
-import ActionsMenu from './ActionsMenu';
 import { useState } from 'react';
-import { RootState } from '@/store';
 import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { faCommentAlt } from '@fortawesome/free-regular-svg-icons';
+import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
+
+import { RootState } from '@/store';
+import { Avatar, IconButton } from '@/ui-kit';
+import { TimeLabel } from '@/components';
+
+import Like from './Like';
+import ActionsMenu from './ActionsMenu';
 import PostEdit from './PostEdit';
+import styles from './styles.module.scss';
 
 type PostProps = {
   id: number;

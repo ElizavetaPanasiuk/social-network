@@ -1,17 +1,19 @@
-import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
-import { Finish, Step1, Step2, Step3, Step4 } from './components';
-import { Box } from '@/ui-kit';
-import styles from './styles.module.scss';
-import { RegistrationService } from '@/lib/service';
-import Cookies from 'js-cookie';
-import jwtDecode from 'jwt-decode';
-import { signIn } from '@/store/userSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useForm, useMutation } from '@/hooks';
+import { useTranslation } from 'react-i18next';
+import Cookies from 'js-cookie';
+import jwtDecode from 'jwt-decode';
+
 import { Form, LanguageSelector } from '@/components';
+import { useForm, useMutation } from '@/hooks';
 import FIELDS_LENGTH from '@/lib/constants/fields-length';
+import { RegistrationService } from '@/lib/service';
+import { signIn } from '@/store/userSlice';
+import { Box } from '@/ui-kit';
+
+import { Finish, Step1, Step2, Step3, Step4 } from './components';
+import styles from './styles.module.scss';
 
 const RegistrationPage = () => {
   const { t } = useTranslation();

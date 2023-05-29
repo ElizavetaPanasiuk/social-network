@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+
 import { Fields, FormData } from '@/lib/global/types';
 
 function useForm<T>(fields: Fields<T>, outerDataLoader?: boolean) {

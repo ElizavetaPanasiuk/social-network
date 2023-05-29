@@ -1,16 +1,17 @@
-import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import Cookies from 'js-cookie';
 import { Link, useNavigate } from 'react-router-dom';
-import { Box, Input, SubmitButton } from '@/ui-kit';
-import styles from './styles.module.scss';
-import { LoginService } from '@/lib/service';
+import { useTranslation } from 'react-i18next';
+import Cookies from 'js-cookie';
 import jwtDecode from 'jwt-decode';
-import { signIn } from '@/store/userSlice';
-import { useMutation } from '@/hooks';
+
 import { Form, LanguageSelector } from '@/components';
+import { useForm, useMutation } from '@/hooks';
+import { Box, Input, SubmitButton } from '@/ui-kit';
+import { LoginService } from '@/lib/service';
 import FIELDS_LENGTH from '@/lib/constants/fields-length';
-import { useForm } from '@/hooks';
+import { signIn } from '@/store/userSlice';
+
+import styles from './styles.module.scss';
 
 const LoginPage = () => {
   const { t } = useTranslation();

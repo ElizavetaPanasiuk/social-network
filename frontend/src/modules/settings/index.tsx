@@ -1,8 +1,10 @@
-import { Tabs } from '@/ui-kit';
 import { useState } from 'react';
-import styles from './styles.module.scss';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+
+import { Tabs } from '@/ui-kit';
+
+import styles from './styles.module.scss';
 
 const SettingsPage = () => {
   const navigate = useNavigate();

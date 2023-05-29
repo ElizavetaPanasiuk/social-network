@@ -1,8 +1,10 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import styles from './styles.module.scss';
+
 import { RootState } from '@/store';
-import Sidebar from '../Sidebar';
+import { Sidebar } from '@/components';
+
+import styles from './styles.module.scss';
 
 const Layout = () => {
   const isAuth = useSelector((state: RootState) => state.user.isAuth);

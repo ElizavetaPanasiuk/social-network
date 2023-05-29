@@ -1,8 +1,9 @@
-import { RootState } from '@/store';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { io, Socket } from 'Socket.IO-client';
+
+import { RootState } from '@/store';
 
 const useChat = () => {
   const userId = useSelector((state: RootState) => state.user.id);

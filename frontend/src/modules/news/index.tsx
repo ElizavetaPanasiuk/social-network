@@ -1,10 +1,11 @@
+import { useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { EmptyListMessage, Post } from '@/components';
 import { useMutation, useQuery } from '@/hooks';
 import { PostInfo } from '@/lib/global/types';
 import { NewsService, PostsService } from '@/lib/service';
 import { Loader } from '@/ui-kit';
-import { useRef } from 'react';
-import { useTranslation } from 'react-i18next';
 
 const NewsPage = () => {
   const { t } = useTranslation();

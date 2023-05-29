@@ -1,10 +1,13 @@
+import { useTranslation } from 'react-i18next';
+
 import { useQuery } from '@/hooks';
-import { Loader } from '@/ui-kit';
-import ConversationRow from './components/ConversationRow';
 import { MessagesService } from '@/lib/service';
 import { ConversationsResponse } from '@/lib/global/types';
+
+import { Loader } from '@/ui-kit';
 import { EmptyListMessage } from '@/components';
-import { useTranslation } from 'react-i18next';
+
+import ConversationRow from './components/ConversationRow';
 
 const ConversationsPage = () => {
   const { t } = useTranslation();

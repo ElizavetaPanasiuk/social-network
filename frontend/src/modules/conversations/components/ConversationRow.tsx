@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
-import { Avatar } from '@/ui-kit';
-import styles from './styles.module.scss';
 import { useSelector } from 'react-redux';
+
 import { RootState } from '@/store';
+import { Avatar } from '@/ui-kit';
+
+import styles from './styles.module.scss';
 
 type ConversationRowProps = {
   id: string;

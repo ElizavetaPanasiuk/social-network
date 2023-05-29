@@ -6,6 +6,7 @@ import Layout from './Layout';
 import Like from './Post/Like';
 import Post from './Post';
 import ProfileRow from './ProfileRow';
+import Sidebar from './Sidebar';
 import SymbolCounter from './SymbolCounter';
 import TimeLabel from './TimeLabel';
 
@@ -18,6 +19,7 @@ export {
   Like,
   Post,
   ProfileRow,
+  Sidebar,
   SymbolCounter,
   TimeLabel,
 };

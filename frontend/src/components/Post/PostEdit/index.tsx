@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Textarea, SubmitButton } from '@/ui-kit';
 import { useTranslation } from 'react-i18next';
-import Form from '@/components/Form';
+
+import { Textarea, SubmitButton } from '@/ui-kit';
+import { Form } from '@/components';
 
 type PostEditProps = {
   postContent: string;

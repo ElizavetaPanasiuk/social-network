@@ -2,16 +2,17 @@ import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell, faEnvelope, faUser, faEdit } from '@fortawesome/free-regular-svg-icons';
+import { faEnvelope, faUser, faEdit } from '@fortawesome/free-regular-svg-icons';
 import {
   faHashtag,
   faUser as faUserSolid,
-  faBell as faBellSolid,
   faEnvelope as faEnvelopeSolid,
   faEdit as faEditSolid,
   faSearch,
 } from '@fortawesome/free-solid-svg-icons';
+
 import { RootState } from '@/store';
+
 import styles from './styles.module.scss';
 
 const Sidebar = () => {

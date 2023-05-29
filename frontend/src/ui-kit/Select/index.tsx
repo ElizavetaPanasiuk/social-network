@@ -1,7 +1,8 @@
 import { Key, useState } from 'react';
-import styles from './styles.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+
+import styles from './styles.module.scss';
 
 type SelectProps<T> = {
   label: string;

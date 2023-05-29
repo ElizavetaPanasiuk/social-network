@@ -1,13 +1,15 @@
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+
+import { DateInput, Form } from '@/components';
 import { useForm, useMutation, useQuery } from '@/hooks';
 import FIELDS_LENGTH from '@/lib/constants/fields-length';
-import { useTranslation } from 'react-i18next';
-import { DateInput, Form } from '@/components';
-import { Avatar, Input, Loader, Select, SubmitButton } from '@/ui-kit';
 import { locations } from '@/lib/constants/country-city';
-import styles from './styles.module.scss';
 import { ProfileService } from '@/lib/service';
-import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
+import { Avatar, Input, Loader, Select, SubmitButton } from '@/ui-kit';
+
+import styles from './styles.module.scss';
 
 const ProfileSettingsPage = () => {
   const profileService = new ProfileService();

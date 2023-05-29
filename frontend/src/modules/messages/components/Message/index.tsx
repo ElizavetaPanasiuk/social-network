@@ -1,7 +1,8 @@
-import { Avatar } from '@/ui-kit';
-import styles from './styles.module.scss';
 import { TimeLabel } from '@/components';
 import { BasicProfileInfo } from '@/lib/global/types';
+import { Avatar } from '@/ui-kit';
+
+import styles from './styles.module.scss';
 
 type MessageProps = {
   text: string;
