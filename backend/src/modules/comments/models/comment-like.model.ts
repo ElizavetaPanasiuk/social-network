@@ -5,6 +5,7 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
+import { ApiProperty } from '@nestjs/swagger';
 
 import { User } from '@/users/models/user.model';
 
@@ -17,6 +18,7 @@ interface CommentLikeCreationAttrs {
 
 @Table({ tableName: 'comment-likes', updatedAt: false })
 export class CommentLike extends Model<CommentLike, CommentLikeCreationAttrs> {
+  @ApiProperty({ example: 1, description: 'Like ID' })
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -25,6 +27,7 @@ export class CommentLike extends Model<CommentLike, CommentLikeCreationAttrs> {
   })
   id: number;
 
+  @ApiProperty({ example: 1, description: 'Comment ID' })
   @ForeignKey(() => Comment)
   @Column({
     type: DataType.INTEGER,
@@ -32,6 +35,7 @@ export class CommentLike extends Model<CommentLike, CommentLikeCreationAttrs> {
   })
   commentId: number;
 
+  @ApiProperty({ example: 1, description: 'User ID' })
   @ForeignKey(() => User)
   @Column({
     type: DataType.INTEGER,

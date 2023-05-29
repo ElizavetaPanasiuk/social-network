@@ -30,7 +30,7 @@ export class CreateUserDto {
   @ApiProperty({ example: 'lizaveta.panasiuk@gmail.com', description: 'Email' })
   readonly email: string;
 
-  @ApiProperty({ example: 'Password1111', description: 'Password' })
+  @ApiProperty({ example: 'Admin123', description: 'Password' })
   @IsStrongPassword(passwordValidationRules)
   readonly password: string;
 

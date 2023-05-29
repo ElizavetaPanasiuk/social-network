@@ -17,6 +17,7 @@ import { AuthGuard } from '@/auth/auth.guard';
 
 import { PostsService } from './posts.service';
 import { CreatePostDto, UpdatePostDto, PostLikeDto } from './dto';
+import { PostLike, Post as PostEntity } from './entities';
 
 @ApiTags('Posts')
 @Controller('posts')
@@ -24,7 +25,7 @@ export class PostsController {
   constructor(private postsService: PostsService) {}
 
   @ApiOperation({ summary: 'Get posts by user id' })
-  @ApiResponse({ status: 200, type: Post })
+  @ApiResponse({ status: 200, type: Array<PostEntity> })
   @UseGuards(AuthGuard)
   @Get('')
   getPostsByProfileId(
@@ -37,6 +38,7 @@ export class PostsController {
   }
 
   @ApiOperation({ summary: 'Get post by id' })
+  @ApiResponse({ status: 200, type: PostEntity })
   @UseGuards(AuthGuard)
   @Get(':id')
   getPostById(@Param('id', ParseIntPipe) id: number, @Request() req) {
@@ -45,7 +47,7 @@ export class PostsController {
   }
 
   @ApiOperation({ summary: 'Create post' })
-  //@ApiResponse
+  @ApiResponse({ status: 201, type: PostEntity })
   @UseGuards(AuthGuard)
   @Post()
   createPost(@Request() req, @Body() createPostDto: CreatePostDto) {
@@ -54,6 +56,7 @@ export class PostsController {
   }
 
   @ApiOperation({ summary: 'Update post' })
+  @ApiResponse({ status: 200 }) // add type
   @UseGuards(AuthGuard)
   @Put(':id')
   updatePost(
@@ -64,6 +67,7 @@ export class PostsController {
   }
 
   @ApiOperation({ summary: 'Like post' })
+  @ApiResponse({ status: 201, type: PostLike })
   @UseGuards(AuthGuard)
   @Post('like')
   likePost(@Request() req, @Body() postLikeDto: PostLikeDto) {
@@ -72,6 +76,7 @@ export class PostsController {
   }
 
   @ApiOperation({ summary: 'Dislike post' })
+  @ApiResponse({ status: 200, type: Number })
   @UseGuards(AuthGuard)
   @Delete('dislike')
   dislikePost(@Request() req, @Body() postLikeDto: PostLikeDto) {
@@ -80,7 +85,7 @@ export class PostsController {
   }
 
   @ApiOperation({ summary: 'Delete post' })
-  //@ApiResponse({ status: 200, type: ok })
+  @ApiResponse({ status: 200, type: Number })
   @UseGuards(AuthGuard)
   @Delete(':id')
   removePost(@Param('id', ParseIntPipe) id: number) {

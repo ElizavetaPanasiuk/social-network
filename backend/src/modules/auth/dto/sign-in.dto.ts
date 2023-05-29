@@ -10,14 +10,14 @@ import { passwordValidationRules } from '@/utils/validation-rules';
 import FIELDS_LENGTH from '@/constants/fields-length';
 
 export class SignInDto {
+  @ApiProperty({ example: 'lizaveta.panasiuk@gmail.com', description: 'Email' })
   @IsEmail()
   @MinLength(FIELDS_LENGTH.EMAIL.MIN)
   @MaxLength(FIELDS_LENGTH.EMAIL.MAX)
-  @ApiProperty({ example: 'lizaveta.panasiuk@gmail.com', description: 'Email' })
   readonly email: string;
 
+  @ApiProperty({ example: 'Admin123', description: 'Password' })
   @IsStrongPassword(passwordValidationRules)
   @MaxLength(FIELDS_LENGTH.PASSWORD.MAX)
-  @ApiProperty({ example: 'password1111', description: 'Password' })
   readonly password: string;
 }

@@ -118,6 +118,7 @@ const RegistrationPage = () => {
         onContinue={onContinue}
         registrationData={formData}
         onChange={onChange}
+        key={1}
       />,
     ],
     [
@@ -126,6 +127,7 @@ const RegistrationPage = () => {
         onContinue={onContinue}
         registrationData={formData}
         onChange={onChange}
+        key={2}
       />,
     ],
     [
@@ -134,6 +136,7 @@ const RegistrationPage = () => {
         onContinue={onContinue}
         registrationData={formData}
         onChange={onChange}
+        key={3}
       />,
     ],
     [
@@ -142,9 +145,10 @@ const RegistrationPage = () => {
         onChange={onChange}
         isFormDataValid={isValid}
         loading={loading}
+        key={4}
       />,
     ],
-    [5, <Finish />],
+    [5, <Finish key={5} />],
   ]);
 
   return (

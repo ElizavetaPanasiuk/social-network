@@ -5,7 +5,7 @@ import FIELDS_LENGTH from '@/constants/fields-length';
 
 export class UpdateCommentDto {
   @ApiProperty({
-    example: 'Great thoughts!',
+    example: 'Updated comment content',
     description: 'Content of comment',
   })
   @IsString()

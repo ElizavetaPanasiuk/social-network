@@ -8,15 +8,21 @@ import {
   Query,
   ParseUUIDPipe,
 } from '@nestjs/common';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { AuthGuard } from '@/auth/auth.guard';
+import { User } from '@/users/entities/user.entity';
 
 import { MessagesService } from './messages.service';
+import { Room } from './entities';
 
+@ApiTags('Messages')
 @Controller('messages')
 export class MessagesController {
   constructor(private messagesService: MessagesService) {}
 
+  @ApiOperation({ summary: 'Get conversations' })
+  @ApiResponse({ status: 200, type: Array<Room> })
   @UseGuards(AuthGuard)
   @Get('')
   getConversations(@Request() req) {
@@ -24,6 +30,8 @@ export class MessagesController {
     return this.messagesService.getRooms(userId);
   }
 
+  @ApiOperation({ summary: 'Get interlocutor' })
+  @ApiResponse({ status: 200, type: User })
   @UseGuards(AuthGuard)
   @Get('interlocutor')
   getInterlocutor(
@@ -34,6 +42,8 @@ export class MessagesController {
     return this.messagesService.getInterlocutor(userId, roomId);
   }
 
+  @ApiOperation({ summary: 'Create room / conversation' })
+  @ApiResponse({ status: 201, type: Room })
   @UseGuards(AuthGuard)
   @Post('')
   createRoom(@Request() req, @Body() body: { interlocutorId: number }) {

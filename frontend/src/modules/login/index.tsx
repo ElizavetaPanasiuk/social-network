@@ -31,7 +31,7 @@ const LoginPage = () => {
       value: '',
       minLength: FIELDS_LENGTH.PASSWORD.MIN,
       maxLength: FIELDS_LENGTH.PASSWORD.MAX,
-      regexp: FIELDS_LENGTH.EMAIL.REGEXP,
+      regexp: FIELDS_LENGTH.PASSWORD.REGEXP,
     },
   });
 

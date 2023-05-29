@@ -7,6 +7,7 @@ import {
   BelongsTo,
   HasMany,
 } from 'sequelize-typescript';
+import { ApiProperty } from '@nestjs/swagger';
 
 import { User } from '@/users/models/user.model';
 
@@ -20,6 +21,10 @@ interface RoomCreationAttrs {
 
 @Table({ tableName: 'rooms' })
 export class Room extends Model<Room, RoomCreationAttrs> {
+  @ApiProperty({
+    example: 'c7863489-b378-4e9c-b4e8-3e5407630eda',
+    description: 'Room id',
+  })
   @Column({
     type: DataType.UUID,
     defaultValue: DataType.UUIDV4,
@@ -28,6 +33,7 @@ export class Room extends Model<Room, RoomCreationAttrs> {
   })
   id: string;
 
+  @ApiProperty({ example: 1, description: 'User 1 id' })
   @ForeignKey(() => User)
   @Column({
     type: DataType.INTEGER,
@@ -35,6 +41,7 @@ export class Room extends Model<Room, RoomCreationAttrs> {
   })
   userId1: number;
 
+  @ApiProperty({ example: 2, description: 'User 2 id' })
   @ForeignKey(() => User)
   @Column({
     type: DataType.INTEGER,

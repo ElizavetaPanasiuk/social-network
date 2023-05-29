@@ -44,7 +44,7 @@ export class UsersController {
   }
 
   @ApiOperation({ summary: 'Search users' })
-  @ApiResponse({ status: 200, type: User })
+  @ApiResponse({ status: 200, type: Array<User> })
   @UseGuards(AuthGuard)
   @Get()
   search(
@@ -68,6 +68,7 @@ export class UsersController {
   }
 
   @ApiOperation({ summary: 'Delete user' })
+  @ApiResponse({ status: 200, type: Number })
   @UseGuards(AuthGuard)
   @Delete(':id')
   deleteUser(@Param('id', ParseIntPipe) id: number) {
@@ -76,6 +77,7 @@ export class UsersController {
   }
 
   @ApiOperation({ summary: 'Update profile data' })
+  @ApiResponse({ status: 200 }) // add type
   @UseGuards(AuthGuard)
   @Put('profile/:id')
   updateCommonProfileData(
@@ -86,6 +88,7 @@ export class UsersController {
   }
 
   @ApiOperation({ summary: 'Update user password' })
+  @ApiResponse({ status: 200 }) // add type
   @UseGuards(AuthGuard)
   @Put('password/:id')
   updatePassword(
@@ -96,6 +99,7 @@ export class UsersController {
   }
 
   @ApiOperation({ summary: 'Update user avatar' })
+  @ApiResponse({ status: 200 }) // add type
   @UseGuards(AuthGuard)
   @Put('avatar/:id')
   @UseInterceptors(FileInterceptor('avatar'))

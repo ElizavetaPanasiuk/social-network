@@ -48,7 +48,7 @@ export class User extends Model<User, UserCreationAttrs> {
   })
   email: string;
 
-  @ApiProperty({ example: 'password1111', description: 'Password' })
+  @ApiProperty({ example: 'Admin123', description: 'Password' })
   @Column({
     type: DataType.STRING,
     allowNull: false,
@@ -79,7 +79,7 @@ export class User extends Model<User, UserCreationAttrs> {
   })
   city: string;
 
-  @ApiProperty({ example: 'TODO:ADD', description: 'Avatar' })
+  @ApiProperty({ example: 'images/image.jpg', description: 'Avatar' })
   @Column({
     type: DataType.STRING,
     allowNull: true,

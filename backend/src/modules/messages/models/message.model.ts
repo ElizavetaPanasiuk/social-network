@@ -6,6 +6,7 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
+import { ApiProperty } from '@nestjs/swagger';
 
 import { User } from '@/users/models/user.model';
 
@@ -19,6 +20,7 @@ interface MessageCreationAttrs {
 
 @Table({ tableName: 'messages' })
 export class Message extends Model<Message, MessageCreationAttrs> {
+  @ApiProperty({ example: 1, description: 'Message ID' })
   @Column({
     type: DataType.INTEGER,
     primaryKey: true,
@@ -27,12 +29,17 @@ export class Message extends Model<Message, MessageCreationAttrs> {
   })
   id: number;
 
+  @ApiProperty({ example: 'Hi!', description: 'Message text' })
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
   text: string;
 
+  @ApiProperty({
+    example: 'c7863489-b378-4e9c-b4e8-3e5407630eda',
+    description: 'Room id',
+  })
   @ForeignKey(() => Room)
   @Column({
     type: DataType.UUID,
@@ -40,6 +47,7 @@ export class Message extends Model<Message, MessageCreationAttrs> {
   })
   roomId: string;
 
+  @ApiProperty({ example: 1, description: 'Message author id' })
   @ForeignKey(() => User)
   @Column({
     type: DataType.INTEGER,

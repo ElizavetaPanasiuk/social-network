@@ -6,17 +6,20 @@ import {
   UseGuards,
   ParseIntPipe,
 } from '@nestjs/common';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { AuthGuard } from '@/auth/auth.guard';
+import { Post } from '@/posts/entities';
 
 import { NewsService } from './news.service';
 
+@ApiTags('News')
 @Controller('news')
 export class NewsController {
   constructor(private newsService: NewsService) {}
 
   @ApiOperation({ summary: 'Get user news' })
+  @ApiResponse({ status: 200, type: Array<Post> })
   @UseGuards(AuthGuard)
   @Get()
   getNews(@Request() req, @Query('page', ParseIntPipe) page: number) {
