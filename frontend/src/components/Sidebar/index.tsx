@@ -18,6 +18,7 @@ import styles from './styles.module.scss';
 const Sidebar = () => {
   const { t } = useTranslation();
   const id = useSelector((state: RootState) => state.user.id);
+
   const MENU_ITEMS = [
     {
       title: t('Profile'),

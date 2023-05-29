@@ -20,7 +20,9 @@ const RegistrationPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
+
   const registrationService = new RegistrationService();
+
   const { formData, onChange, isValid } = useForm({
     email: {
       value: '',
@@ -72,10 +74,6 @@ const RegistrationPage = () => {
     },
   });
 
-  const onContinue = () => {
-    setStep(step + 1);
-  };
-
   const { mutate: onSubmit, loading } = useMutation(
     () =>
       registrationService.signUp({
@@ -108,6 +106,10 @@ const RegistrationPage = () => {
       },
     },
   );
+
+  const onContinue = () => {
+    setStep(step + 1);
+  };
 
   const contentMap = new Map([
     [

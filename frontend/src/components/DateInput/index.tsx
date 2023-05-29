@@ -14,6 +14,7 @@ type DateInputProps = {
   value: DateObj;
   onChange: (value: DateObj) => void;
 };
+
 const DateInput = ({ value: { year, month, date }, onChange }: DateInputProps) => {
   const { t } = useTranslation();
 

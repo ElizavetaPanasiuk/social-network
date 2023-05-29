@@ -9,22 +9,20 @@ type ProfileRowProps = {
   avatar: string;
 };
 
-const ProfileRow = ({ id, firstName, lastName, avatar }: ProfileRowProps) => {
-  return (
-    <Link
-      to={`/profile/${id}`}
-      className={styles.profileRow}
-    >
-      <Avatar
-        size="medium"
-        src={avatar}
-        alt={`${firstName} ${lastName}`}
-      />
-      <h4>
-        {firstName} {lastName}
-      </h4>
-    </Link>
-  );
-};
+const ProfileRow = ({ id, firstName, lastName, avatar }: ProfileRowProps) => (
+  <Link
+    to={`/profile/${id}`}
+    className={styles.profileRow}
+  >
+    <Avatar
+      size="medium"
+      src={avatar}
+      alt={`${firstName} ${lastName}`}
+    />
+    <h4>
+      {firstName} {lastName}
+    </h4>
+  </Link>
+);
 
 export default ProfileRow;

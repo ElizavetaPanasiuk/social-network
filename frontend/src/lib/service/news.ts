@@ -5,7 +5,7 @@ class NewsService extends Service {
     super('news');
   }
 
-  getNews(page: number = 1) {
+  getNews(page = 1) {
     return this.get({ page });
   }
 }

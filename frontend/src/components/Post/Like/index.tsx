@@ -12,16 +12,14 @@ type LikeProps = {
   dislike: () => void;
 };
 
-const Like = ({ likes, liked, like, dislike }: LikeProps) => {
-  return (
-    <div className={`${styles.like} ${liked ? styles.liked : ''}`}>
-      <IconButton
-        icon={liked ? faHeartSolid : faHeart}
-        onClick={liked ? dislike : like}
-      />
-      <span>{likes}</span>
-    </div>
-  );
-};
+const Like = ({ likes, liked, like, dislike }: LikeProps) => (
+  <div className={`${styles.like} ${liked ? styles.liked : ''}`}>
+    <IconButton
+      icon={liked ? faHeartSolid : faHeart}
+      onClick={liked ? dislike : like}
+    />
+    <span>{likes}</span>
+  </div>
+);
 
 export default Like;

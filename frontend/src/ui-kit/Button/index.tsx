@@ -8,17 +8,15 @@ type ButtonProps = {
   size?: 'small' | 'large';
 };
 
-const Button = ({ title, onClick, disabled = false, variant = 'contained', size = 'large' }: ButtonProps) => {
-  return (
-    <button
-      className={`${styles.button} ${styles[variant]} ${styles[size]}`}
-      type="button"
-      onClick={onClick}
-      disabled={disabled}
-    >
-      {title}
-    </button>
-  );
-};
+const Button = ({ title, onClick, disabled = false, variant = 'contained', size = 'large' }: ButtonProps) => (
+  <button
+    className={`${styles.button} ${styles[variant]} ${styles[size]}`}
+    type="button"
+    onClick={onClick}
+    disabled={disabled}
+  >
+    {title}
+  </button>
+);
 
 export default Button;

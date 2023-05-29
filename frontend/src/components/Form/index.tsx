@@ -6,18 +6,16 @@ type FormProps = {
   className?: string;
 };
 
-const Form = ({ children, onSubmit, className = '' }: FormProps) => {
-  return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        onSubmit();
-      }}
-      className={className}
-    >
-      {children}
-    </form>
-  );
-};
+const Form = ({ children, onSubmit, className = '' }: FormProps) => (
+  <form
+    onSubmit={(e) => {
+      e.preventDefault();
+      onSubmit();
+    }}
+    className={className}
+  >
+    {children}
+  </form>
+);
 
 export default Form;

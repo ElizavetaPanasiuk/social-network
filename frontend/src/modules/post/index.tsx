@@ -10,11 +10,12 @@ import { Comment } from './components';
 import NewComment from './components/NewComment';
 
 const PostPage = () => {
-  const postsService = new PostsService();
-  const commentsService = new CommentsService();
   const navigate = useNavigate();
   const params = useParams();
   const postId = Number(params.postId);
+
+  const postsService = new PostsService();
+  const commentsService = new CommentsService();
 
   const {
     loading,

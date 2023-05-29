@@ -12,11 +12,13 @@ import styles from './styles.module.scss';
 
 const SearchPage = () => {
   const { t } = useTranslation();
-  const profileService = new ProfileService();
   const [searchString, setSearchString] = useState('');
   const [country, setCountry] = useState('');
   const [city, setCity] = useState('');
   const ref = useRef<HTMLDivElement>(null);
+
+  const profileService = new ProfileService();
+
   const {
     loading,
     data,

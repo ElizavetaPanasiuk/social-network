@@ -48,8 +48,8 @@ const Post = ({
   onDelete = () => {},
   onUpdate = () => {},
 }: PostProps) => {
-  const currentUserId = useSelector((state: RootState) => state.user.id);
   const navigate = useNavigate();
+  const currentUserId = useSelector((state: RootState) => state.user.id);
   const [actionsMenuVisible, setActionsMenuVisible] = useState(false);
   const [editMode, setEditMode] = useState(false);
 

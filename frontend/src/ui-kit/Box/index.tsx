@@ -7,8 +7,6 @@ type BoxProps = {
   className?: string;
 };
 
-const Box = ({ children, className = '' }: BoxProps) => {
-  return <div className={`${styles.box} ${className}`}>{children}</div>;
-};
+const Box = ({ children, className = '' }: BoxProps) => <div className={`${styles.box} ${className}`}>{children}</div>;
 
 export default Box;

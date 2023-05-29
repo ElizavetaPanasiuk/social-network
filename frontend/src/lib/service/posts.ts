@@ -5,7 +5,7 @@ class PostsService extends Service {
     super('posts');
   }
 
-  getUserPosts(userId: number, page: number = 1) {
+  getUserPosts(userId: number, page = 1) {
     return this.get({ userId, page });
   }
 

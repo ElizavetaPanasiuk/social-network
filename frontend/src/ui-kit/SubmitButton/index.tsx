@@ -7,16 +7,14 @@ type SubmitButtonProps = {
   size?: 'small' | 'large';
 };
 
-const SubmitButton = ({ title, disabled = false, variant = 'contained', size = 'large' }: SubmitButtonProps) => {
-  return (
-    <button
-      className={`${styles.button} ${styles[variant]} ${styles[size]}`}
-      type="submit"
-      disabled={disabled}
-    >
-      {title}
-    </button>
-  );
-};
+const SubmitButton = ({ title, disabled = false, variant = 'contained', size = 'large' }: SubmitButtonProps) => (
+  <button
+    className={`${styles.button} ${styles[variant]} ${styles[size]}`}
+    type="submit"
+    disabled={disabled}
+  >
+    {title}
+  </button>
+);
 
 export default SubmitButton;

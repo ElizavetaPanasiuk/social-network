@@ -10,26 +10,24 @@ type MessageProps = {
   user: BasicProfileInfo;
 };
 
-const Message = ({ text, createdAt, user: { firstName, lastName, avatar } }: MessageProps) => {
-  return (
-    <article className={styles.message}>
-      <Avatar
-        src={avatar}
-        alt={`${firstName} ${lastName}`}
-        size="small"
-      />
-      <div>
-        <p>
-          <span className={styles.messageAuthor}>{firstName}</span>
-          <TimeLabel
-            date={createdAt}
-            format="timeOnly"
-          />
-        </p>
-        <p>{text}</p>
-      </div>
-    </article>
-  );
-};
+const Message = ({ text, createdAt, user: { firstName, lastName, avatar } }: MessageProps) => (
+  <article className={styles.message}>
+    <Avatar
+      src={avatar}
+      alt={`${firstName} ${lastName}`}
+      size="small"
+    />
+    <div>
+      <p>
+        <span className={styles.messageAuthor}>{firstName}</span>
+        <TimeLabel
+          date={createdAt}
+          format="timeOnly"
+        />
+      </p>
+      <p>{text}</p>
+    </div>
+  </article>
+);
 
 export default Message;

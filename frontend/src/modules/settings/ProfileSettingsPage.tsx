@@ -12,9 +12,13 @@ import { Avatar, Input, Loader, Select, SubmitButton } from '@/ui-kit';
 import styles from './styles.module.scss';
 
 const ProfileSettingsPage = () => {
-  const profileService = new ProfileService();
+  const { t } = useTranslation();
   const userId = useSelector((state: RootState) => state.user.id);
+
+  const profileService = new ProfileService();
+
   const { loading: profileLoading, data: profile } = useQuery(() => profileService.getProfile(Number(userId)));
+
   const { formData, onChange, isValid } = useForm(
     {
       firstName: {
@@ -50,7 +54,7 @@ const ProfileSettingsPage = () => {
     },
     profileLoading,
   );
-  const { t } = useTranslation();
+
   const { mutate: onSubmit, loading } = useMutation(
     () =>
       profileService.updateProfile(userId as number, {

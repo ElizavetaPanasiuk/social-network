@@ -14,9 +14,10 @@ import { signIn } from '@/store/userSlice';
 import styles from './styles.module.scss';
 
 const LoginPage = () => {
-  const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
   const loginService = new LoginService();
 
   const { formData, onChange, isValid } = useForm({

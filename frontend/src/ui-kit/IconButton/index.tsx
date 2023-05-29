@@ -11,22 +11,20 @@ type IconButtonProps = {
   disabled?: boolean;
 };
 
-const IconButton = ({ icon, onClick, text = '', className = '', disabled = false }: IconButtonProps) => {
-  return (
-    <button
-      type="button"
-      className={`${styles.iconButton} ${className}`}
-      onClick={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        onClick();
-      }}
-      disabled={disabled}
-    >
-      <FontAwesomeIcon icon={icon} />
-      {text ? <span>{text}</span> : null}
-    </button>
-  );
-};
+const IconButton = ({ icon, onClick, text = '', className = '', disabled = false }: IconButtonProps) => (
+  <button
+    type="button"
+    className={`${styles.iconButton} ${className}`}
+    onClick={(e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      onClick();
+    }}
+    disabled={disabled}
+  >
+    <FontAwesomeIcon icon={icon} />
+    {text ? <span>{text}</span> : null}
+  </button>
+);
 
 export default IconButton;

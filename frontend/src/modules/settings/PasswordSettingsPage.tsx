@@ -15,10 +15,12 @@ import styles from './styles.module.scss';
 
 const PasswordSettingsPage = () => {
   const { t } = useTranslation();
-  const profileService = new ProfileService();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userId = useSelector((state: RootState) => state.user.id);
+
+  const profileService = new ProfileService();
+
   const { formData, onChange, isValid, resetForm } = useForm({
     password: {
       value: '',

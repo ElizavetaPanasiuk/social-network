@@ -10,8 +10,10 @@ import { Loader } from '@/ui-kit';
 
 const SubscribersPage = () => {
   const { t } = useTranslation();
-  const subscribersService = new SubscriptionsService();
   const { profileId } = useParams();
+
+  const subscribersService = new SubscriptionsService();
+
   const { loading, data: subscribers }: { loading: boolean; data: SubscribersResponse } = useQuery(() =>
     subscribersService.getSubscribers(Number(profileId)),
   );

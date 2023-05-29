@@ -23,7 +23,7 @@ class Service {
     throw new Error(response.statusText);
   }
 
-  async post(data: { [key: string]: string | number | Date } | FormData, url: string = '') {
+  async post(data: { [key: string]: string | number | Date } | FormData, url = '') {
     const options: RequestInit = {
       method: 'POST',
       body: data instanceof FormData ? data : JSON.stringify(data),
@@ -40,7 +40,7 @@ class Service {
     return this.handleResponse(response);
   }
 
-  async get(queryOptions: { [key: string]: string | number } = {}, url: string = '') {
+  async get(queryOptions: { [key: string]: string | number } = {}, url = '') {
     const response = await fetch(`${this.url}${url}${this.transformSearchQueryToString(queryOptions)}`, {
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -50,7 +50,7 @@ class Service {
     return this.handleResponse(response);
   }
 
-  async getById(id: number, url: string = '') {
+  async getById(id: number, url = '') {
     const response = await fetch(`${this.url}${url}/${id}`, {
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -60,7 +60,7 @@ class Service {
     return this.handleResponse(response);
   }
 
-  async removeById(id: number, url: string = '') {
+  async removeById(id: number, url = '') {
     const response = await fetch(`${this.url}${url}/${id}`, {
       method: 'DELETE',
       headers: {
@@ -83,7 +83,7 @@ class Service {
     return this.handleResponse(response);
   }
 
-  async updateById(id: number, data: { [key: string]: string } | FormData = {}, url: string = '') {
+  async updateById(id: number, data: { [key: string]: string } | FormData = {}, url = '') {
     const options = {
       method: 'PUT',
       body: data instanceof FormData ? data : JSON.stringify(data),

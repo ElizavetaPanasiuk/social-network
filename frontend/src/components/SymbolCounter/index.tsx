@@ -5,12 +5,10 @@ type SymbolCounterProps = {
   max: number;
 };
 
-const SymbolCounter = ({ value, max }: SymbolCounterProps) => {
-  return (
-    <span className={styles.symbolCounter}>
-      {value.length} / {max}
-    </span>
-  );
-};
+const SymbolCounter = ({ value, max }: SymbolCounterProps) => (
+  <span className={styles.symbolCounter}>
+    {value.length} / {max}
+  </span>
+);
 
 export default SymbolCounter;

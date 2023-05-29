@@ -31,33 +31,31 @@ const Comment = ({
   user: { firstName, lastName, avatar },
   like,
   dislike,
-}: CommentProps) => {
-  return (
-    <article className={styles.comment}>
-      <Avatar
-        src={avatar}
-        alt={`${firstName} ${lastName}`}
+}: CommentProps) => (
+  <article className={styles.comment}>
+    <Avatar
+      src={avatar}
+      alt={`${firstName} ${lastName}`}
+    />
+    <div className={styles.commentContent}>
+      <p>
+        <Link
+          to={`/profile/${userId}`}
+          className={styles.name}
+        >
+          {firstName} {lastName}
+        </Link>
+        <TimeLabel date={createdAt} />
+      </p>
+      <p>{text}</p>
+      <Like
+        likes={likes}
+        liked={liked}
+        like={() => like(id)}
+        dislike={() => dislike(id)}
       />
-      <div className={styles.commentContent}>
-        <p>
-          <Link
-            to={`/profile/${userId}`}
-            className={styles.name}
-          >
-            {firstName} {lastName}
-          </Link>
-          <TimeLabel date={createdAt} />
-        </p>
-        <p>{text}</p>
-        <Like
-          likes={likes}
-          liked={liked}
-          like={() => like(id)}
-          dislike={() => dislike(id)}
-        />
-      </div>
-    </article>
-  );
-};
+    </div>
+  </article>
+);
 
 export default Comment;

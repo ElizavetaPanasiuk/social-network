@@ -11,22 +11,20 @@ type TabsProps = {
   onChange: (tab: Tab) => void;
 };
 
-const Tabs = ({ tabs, value, onChange }: TabsProps) => {
-  return (
-    <div className={styles.tabs}>
-      {tabs.map((tab) => (
-        <button
-          type="button"
-          key={tab.value}
-          className={styles.tab}
-          data-active={tab.value === value}
-          onClick={() => onChange(tab)}
-        >
-          {tab.label}
-        </button>
-      ))}
-    </div>
-  );
-};
+const Tabs = ({ tabs, value, onChange }: TabsProps) => (
+  <div className={styles.tabs}>
+    {tabs.map((tab) => (
+      <button
+        type="button"
+        key={tab.value}
+        className={styles.tab}
+        data-active={tab.value === value}
+        onClick={() => onChange(tab)}
+      >
+        {tab.label}
+      </button>
+    ))}
+  </div>
+);
 
 export default Tabs;

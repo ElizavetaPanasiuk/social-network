@@ -22,6 +22,7 @@ const ProfilePage = () => {
   const profileService = new ProfileService();
   const subscriptionsService = new SubscriptionsService();
   const messagesService = new MessagesService();
+
   const {
     loading: postsLoading,
     data: posts,
@@ -36,6 +37,7 @@ const ProfilePage = () => {
       ref: ref,
     },
   });
+
   const {
     loading: profileLoading,
     data: profile,
@@ -45,18 +47,22 @@ const ProfilePage = () => {
   const { mutate: publish, loading: createPostLoading } = useMutation((text: string) => postsService.createPost(text), {
     onSuccess: (newPost) => setPosts([newPost, ...posts]),
   });
+
   const { mutate: subscribe } = useMutation(() => subscriptionsService.subscribe(userId, +profileId), {
     onSuccess: () => setProfileData({ ...profile, isSubscribed: true, subscribers: profile.subscribers + 1 }),
   });
+
   const { mutate: unsubscribe } = useMutation(() => subscriptionsService.unsubsribe(userId, +profileId), {
     onSuccess: () => setProfileData({ ...profile, isSubscribed: false, subscribers: profile.subscribers - 1 }),
   });
+
   const { mutate: like } = useMutation((id: number) => postsService.like(id), {
     onSuccess: (updatedPost) =>
       setPosts(
         posts.map((post) => (post.id === updatedPost.postId ? { ...post, likes: post.likes + 1, liked: true } : post)),
       ),
   });
+
   const { mutate: dislike } = useMutation((id: number) => postsService.dislike(id), {
     onSuccess: (_updatedPost, args) =>
       setPosts(posts.map((post) => (post.id === args[0] ? { ...post, likes: post.likes - 1, liked: false } : post))),
@@ -76,7 +82,7 @@ const ProfilePage = () => {
 
   const { mutate: startMessaging } = useMutation(() => messagesService.createRoom(+profileId), {
     onSuccess: (result) => {
-      const id = result.id;
+      const { id } = result;
       navigate(`/messages/${id}`);
     },
   });

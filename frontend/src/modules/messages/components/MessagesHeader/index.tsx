@@ -8,18 +8,16 @@ type MessagesHeaderProps = {
   lastName: string;
 };
 
-const MessagesHeader = ({ avatar, firstName, lastName }: MessagesHeaderProps) => {
-  return (
-    <div className={styles.messagesHeader}>
-      <Avatar
-        src={avatar}
-        alt={`${firstName} ${lastName}`}
-      />
-      <h4>
-        {firstName} {lastName}
-      </h4>
-    </div>
-  );
-};
+const MessagesHeader = ({ avatar, firstName, lastName }: MessagesHeaderProps) => (
+  <div className={styles.messagesHeader}>
+    <Avatar
+      src={avatar}
+      alt={`${firstName} ${lastName}`}
+    />
+    <h4>
+      {firstName} {lastName}
+    </h4>
+  </div>
+);
 
 export default MessagesHeader;

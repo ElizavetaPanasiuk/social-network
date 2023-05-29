@@ -6,32 +6,11 @@ import { io, Socket } from 'Socket.IO-client';
 import { RootState } from '@/store';
 
 const useChat = () => {
+  const { roomId } = useParams();
   const userId = useSelector((state: RootState) => state.user.id);
   const [socket, setSocket] = useState<Socket>();
-  const { roomId } = useParams();
   const [loading, setLoading] = useState(true);
-
-  if (!socket) {
-    setSocket(
-      io('http://localhost:5000/messages', {
-        query: {
-          userId,
-          roomId,
-        },
-      }).on('connection', (socket) => socket.join(roomId)),
-    );
-  }
-
   const [messages, setMessages] = useState([]);
-
-  useEffect(() => {
-    socket?.on('messages', (messages) => {
-      setMessages(messages);
-      setLoading(false);
-    });
-
-    socket?.emit('messages:get');
-  }, []);
 
   const send = (text: string) => {
     const payload = {
@@ -45,6 +24,26 @@ const useChat = () => {
   const chatActions = {
     send,
   };
+
+  useEffect(() => {
+    if (!socket) {
+      setSocket(
+        io('http://localhost:5000/messages', {
+          query: {
+            userId,
+            roomId,
+          },
+        }).on('connection', (socket) => socket.join(roomId)),
+      );
+    }
+
+    socket?.on('messages', (messages) => {
+      setMessages(messages);
+      setLoading(false);
+    });
+
+    socket?.emit('messages:get');
+  }, []);
 
   return { messages, loading, chatActions };
 };

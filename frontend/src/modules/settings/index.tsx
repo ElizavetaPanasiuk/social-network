@@ -9,6 +9,7 @@ import styles from './styles.module.scss';
 const SettingsPage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+
   const TABS = [
     { label: t('Common'), value: './common' },
     { label: t('Profile'), value: './profile' },

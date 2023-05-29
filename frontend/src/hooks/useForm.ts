@@ -9,6 +9,7 @@ function useForm<T>(fields: Fields<T>, outerDataLoader?: boolean) {
     if (typeof newValue === 'string') {
       const { minLength, maxLength, regexp } = fields[fieldName];
       const newValueLength = newValue.length;
+
       if (regexp) {
         isValid = regexp.test(newValue);
       }
@@ -31,6 +32,7 @@ function useForm<T>(fields: Fields<T>, outerDataLoader?: boolean) {
       (field: string) =>
         (initialFormData[field] = { ...fields[field], valid: validateField(field, fields[field].value) }),
     );
+
     return initialFormData;
   };
 

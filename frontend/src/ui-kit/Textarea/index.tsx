@@ -18,24 +18,22 @@ const Textarea = ({
   disabled = false,
   minLength = 0,
   maxLength,
-}: TextareaProps) => {
-  return (
-    <textarea
-      className={styles.textarea}
-      placeholder={placeholder}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      rows={5}
-      onKeyUp={(e) => {
-        if (e.key === 'Enter') {
-          onEnter();
-        }
-      }}
-      disabled={disabled}
-      minLength={minLength}
-      maxLength={maxLength}
-    />
-  );
-};
+}: TextareaProps) => (
+  <textarea
+    className={styles.textarea}
+    placeholder={placeholder}
+    value={value}
+    onChange={(e) => onChange(e.target.value)}
+    rows={5}
+    onKeyUp={(e) => {
+      if (e.key === 'Enter') {
+        onEnter();
+      }
+    }}
+    disabled={disabled}
+    minLength={minLength}
+    maxLength={maxLength}
+  />
+);
 
 export default Textarea;

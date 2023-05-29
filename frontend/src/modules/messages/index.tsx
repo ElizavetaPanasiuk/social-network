@@ -11,8 +11,12 @@ import { Message, MessageInput, MessagesHeader } from './components';
 import styles from './styles.module.scss';
 
 const MessagesPage = () => {
-  const messagesService = new MessagesService();
   const { roomId } = useParams();
+  const [text, setText] = useState('');
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
+
+  const messagesService = new MessagesService();
+
   const {
     messages,
     loading,
@@ -24,12 +28,11 @@ const MessagesPage = () => {
       send: (text: string) => void;
     };
   } = useChat();
+
   const { data: user, loading: loadingUser }: { data: BasicProfileInfo; loading: boolean } = useQuery(() =>
     messagesService.getInterlocutor(roomId as string),
   );
 
-  const [text, setText] = useState('');
-  const messagesContainerRef = useRef<HTMLDivElement>(null);
   const sendMessage = () => {
     if (text.trim()) {
       chatActions.send(text);

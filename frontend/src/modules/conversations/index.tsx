@@ -11,7 +11,9 @@ import ConversationRow from './components/ConversationRow';
 
 const ConversationsPage = () => {
   const { t } = useTranslation();
+
   const messagesService = new MessagesService();
+
   const { data: conversations, loading }: { data: ConversationsResponse; loading: boolean } = useQuery(() =>
     messagesService.getRooms(),
   );
