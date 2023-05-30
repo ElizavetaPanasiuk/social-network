@@ -3,8 +3,10 @@ import EmptyListMessage from './EmptyListMessage';
 import Form from './Form';
 import LanguageSelector from './LanguageSelect';
 import Layout from './Layout';
+import Notification from './Notification';
 import Like from './Post/Like';
 import Post from './Post';
+import Portal from './Portal';
 import ProfileRow from './ProfileRow';
 import Sidebar from './Sidebar';
 import SymbolCounter from './SymbolCounter';
@@ -16,8 +18,10 @@ export {
   Form,
   LanguageSelector,
   Layout,
+  Notification,
   Like,
   Post,
+  Portal,
   ProfileRow,
   Sidebar,
   SymbolCounter,

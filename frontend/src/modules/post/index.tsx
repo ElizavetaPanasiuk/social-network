@@ -1,15 +1,18 @@
 import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import { Post } from '@/components';
 import { useMutation, useQuery } from '@/hooks';
 import { CommentsService, PostsService } from '@/lib/service';
 import { CommentInfo, PostInfo } from '@/lib/global/types';
 import { Loader } from '@/ui-kit';
+import { addNotification } from '@/store/notificationsSlice';
 
 import { Comment } from './components';
 import NewComment from './components/NewComment';
 
 const PostPage = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
   const postId = Number(params.postId);
@@ -76,11 +79,15 @@ const PostPage = () => {
     },
   });
 
-  const { mutate: updatePost } = useMutation((newContent: string) => postsService.updatePost(+postId, newContent), {
-    onSuccess: (_result, args) => {
-      setPost({ ...post, text: args[0] });
+  const { mutate: updatePost } = useMutation(
+    (id: number, newContent: string) => postsService.updatePost(id, newContent),
+    {
+      onSuccess: (_result, args) => {
+        dispatch(addNotification({ id: Date.now(), message: 'Success', type: 'success' }));
+        setPost({ ...post, text: args[1] });
+      },
     },
-  });
+  );
 
   return loading || loadingComments ? (
     <Loader />

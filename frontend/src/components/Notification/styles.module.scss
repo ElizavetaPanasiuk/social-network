@@ -1,0 +1,62 @@
+@import '@/styles/colors.scss';
+
+.notification {
+  padding: 1rem;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 10rem;
+  border-radius: 0.5rem;
+  display: flex;
+
+  .icon {
+    display: inline-block;
+    margin-right: 0.5rem;
+  }
+
+  .closeButton {
+    height: fit-content;
+    position: absolute;
+    right: 0.5rem;
+  }
+
+  .heading {
+    margin-right: 2rem;
+  }
+
+  &[data-type='success'] {
+    background-color: $success-light;
+
+    .icon,
+    .closeButton {
+      color: $success;
+    }
+  }
+
+  &[data-type='warning'] {
+    background-color: $warning-light;
+
+    .icon,
+    .closeButton {
+      color: $warning;
+    }
+  }
+
+  &[data-type='error'] {
+    background-color: $error-light;
+
+    .icon,
+    .closeButton {
+      color: $error;
+    }
+  }
+
+  &[data-type='info'] {
+    background-color: $info-light;
+
+    .icon,
+    .closeButton {
+      color: $info;
+    }
+  }
+}
