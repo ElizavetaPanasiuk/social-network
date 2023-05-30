@@ -4,6 +4,7 @@ import Form from './Form';
 import LanguageSelector from './LanguageSelect';
 import Layout from './Layout';
 import Notification from './Notification';
+import Notifications from './Notifications';
 import Like from './Post/Like';
 import Post from './Post';
 import Portal from './Portal';
@@ -19,6 +20,7 @@ export {
   LanguageSelector,
   Layout,
   Notification,
+  Notifications,
   Like,
   Post,
   Portal,

@@ -20,7 +20,9 @@ class Service {
     if (response.ok) {
       return response.json();
     }
-    throw new Error(response.statusText);
+    return response.json().then((error) => {
+      throw new Error(error.message);
+    });
   }
 
   async post(data: { [key: string]: string | number | Date } | FormData, url = '') {

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import jwtDecode from 'jwt-decode';
@@ -7,12 +7,10 @@ import jwtDecode from 'jwt-decode';
 import router from './router';
 import { signIn, signOut } from './store/userSlice';
 import { Loader } from './ui-kit';
-import { Notification, Portal } from './components';
-import { RootState } from './store';
+import { Notifications } from './components';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
-  const { notifications } = useSelector((state: RootState) => state.notifications);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,16 +34,7 @@ const App = () => {
   return (
     <div className="App">
       {loading ? <Loader /> : <RouterProvider router={router} />}
-      {notifications.length > 0 && (
-        <Portal>
-          {notifications.map((notification) => (
-            <Notification
-              key={notification.id}
-              {...notification}
-            />
-          ))}
-        </Portal>
-      )}
+      <Notifications />
     </div>
   );
 };

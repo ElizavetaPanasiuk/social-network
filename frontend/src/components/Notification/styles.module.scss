@@ -2,10 +2,7 @@
 
 .notification {
   padding: 1rem;
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  width: 10rem;
+  width: 15rem;
   border-radius: 0.5rem;
   display: flex;
 
@@ -22,6 +19,7 @@
 
   .heading {
     margin-right: 2rem;
+    margin-bottom: 0.5rem;
   }
 
   &[data-type='success'] {
