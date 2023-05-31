@@ -77,6 +77,20 @@
       "ts"
     ],
     "rootDir": "src",
+    "moduleNameMapper": {
+      "^@/auth(.*)$": "<rootDir>/modules/auth/$1",
+      "^@/comments(.*)$": "<rootDir>/modules/comments/$1",
+      "^@/crypto(.*)$": "<rootDir>/modules/crypto/$1",
+      "^@/files(.*)$": "<rootDir>/modules/files/$1",
+      "^@/hash(.*)$": "<rootDir>/modules/hash/$1",
+      "^@/messages(.*)$": "<rootDir>/modules/messages/$1",
+      "^@/news(.*)$": "<rootDir>/modules/news/$1",
+      "^@/posts(.*)$": "<rootDir>/modules/posts/$1",
+      "^@/subscriptions(.*)$": "<rootDir>/modules/subscriptions/$1",
+      "^@/users(.*)$": "<rootDir>/modules/users/$1",
+      "^@/constants(.*)$": "<rootDir>/constants/$1",
+      "^@/utils(.*)$": "<rootDir>/utils/$1"
+    },
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
