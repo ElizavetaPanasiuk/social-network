@@ -10,10 +10,11 @@ type ButtonProps = {
 
 const Button = ({ title, onClick, disabled = false, variant = 'contained', size = 'large' }: ButtonProps) => (
   <button
-    className={`${styles.button} ${styles[variant]} ${styles[size]}`}
-    type="button"
+    className={styles.button}
     onClick={onClick}
     disabled={disabled}
+    data-size={size}
+    data-variant={variant}
   >
     {title}
   </button>

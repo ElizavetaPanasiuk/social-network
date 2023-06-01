@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 
 import { Form } from '@/components';
 import { useForm, useMutation } from '@/hooks';
-import FIELDS_LENGTH from '@/lib/constants/fields-length';
+import FIELDS_VALIDATION_RULES from '@/lib/constants/fields-validation-rules';
 import { ProfileService } from '@/lib/service';
 import { RootState } from '@/store';
 import { signOut } from '@/store/userSlice';
@@ -24,15 +24,15 @@ const PasswordSettingsPage = () => {
   const { formData, onChange, isValid, resetForm } = useForm({
     password: {
       value: '',
-      minLength: FIELDS_LENGTH.PASSWORD.MIN,
-      maxLength: FIELDS_LENGTH.PASSWORD.MAX,
-      regexp: FIELDS_LENGTH.PASSWORD.REGEXP,
+      minLength: FIELDS_VALIDATION_RULES.PASSWORD.MIN,
+      maxLength: FIELDS_VALIDATION_RULES.PASSWORD.MAX,
+      regexp: FIELDS_VALIDATION_RULES.PASSWORD.REGEXP,
     },
     passwordRepeat: {
       value: '',
-      minLength: FIELDS_LENGTH.PASSWORD.MIN,
-      maxLength: FIELDS_LENGTH.PASSWORD.MAX,
-      regexp: FIELDS_LENGTH.PASSWORD.REGEXP,
+      minLength: FIELDS_VALIDATION_RULES.PASSWORD.MIN,
+      maxLength: FIELDS_VALIDATION_RULES.PASSWORD.MAX,
+      regexp: FIELDS_VALIDATION_RULES.PASSWORD.REGEXP,
     },
   });
 

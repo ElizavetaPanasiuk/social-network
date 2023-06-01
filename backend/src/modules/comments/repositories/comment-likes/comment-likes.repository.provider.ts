@@ -1,7 +1,7 @@
 import { Injectable, Provider } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 
-import { Repository } from '@/constants/repositories';
+import { Repository } from '@/lib/enums/repositories';
 
 import { CommentLikesPgRepository } from './implementations/comment-likes.pg.repository';
 import { CommentLike } from '@/comments/models';

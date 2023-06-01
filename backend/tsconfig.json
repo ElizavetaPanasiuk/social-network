@@ -29,8 +29,7 @@
       "@/posts/*": ["src/modules/posts/*"],
       "@/subscriptions/*": ["src/modules/subscriptions/*"],
       "@/users/*": ["src/modules/users/*"],
-      "@/constants/*": ["src/constants/*"],
-      "@/utils/*": ["src/utils/*"]
+      "@/lib/*": ["src/lib/*"]
     }
   }
 }

@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, MaxLength, MinLength } from 'class-validator';
 
-import FIELDS_LENGTH from '@/constants/fields-length';
+import { FIELDS_VALIDATION_RULES } from '@/lib/constants/fields-validation-rules';
 
 export class UpdateCommentDto {
   @ApiProperty({
@@ -9,7 +9,7 @@ export class UpdateCommentDto {
     description: 'Content of comment',
   })
   @IsString()
-  @MinLength(FIELDS_LENGTH.COMMENT_TEXT.MIN)
-  @MaxLength(FIELDS_LENGTH.COMMENT_TEXT.MAX)
+  @MinLength(FIELDS_VALIDATION_RULES.COMMENT_TEXT.MIN)
+  @MaxLength(FIELDS_VALIDATION_RULES.COMMENT_TEXT.MAX)
   readonly text: string;
 }

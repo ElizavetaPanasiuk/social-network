@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { DateInput, Form } from '@/components';
 import { useForm, useMutation, useQuery } from '@/hooks';
-import FIELDS_LENGTH from '@/lib/constants/fields-length';
+import FIELDS_VALIDATION_RULES from '@/lib/constants/fields-validation-rules';
 import { locations } from '@/lib/constants/country-city';
 import { ProfileService } from '@/lib/service';
 import { RootState } from '@/store';
@@ -23,13 +23,13 @@ const ProfileSettingsPage = () => {
     {
       firstName: {
         value: profile.firstName,
-        minLength: FIELDS_LENGTH.FIRST_NAME.MIN,
-        maxLength: FIELDS_LENGTH.FIRST_NAME.MAX,
+        minLength: FIELDS_VALIDATION_RULES.FIRST_NAME.MIN,
+        maxLength: FIELDS_VALIDATION_RULES.FIRST_NAME.MAX,
       },
       lastName: {
         value: profile.lastName,
-        minLength: FIELDS_LENGTH.LAST_NAME.MIN,
-        maxLength: FIELDS_LENGTH.LAST_NAME.MAX,
+        minLength: FIELDS_VALIDATION_RULES.LAST_NAME.MIN,
+        maxLength: FIELDS_VALIDATION_RULES.LAST_NAME.MAX,
       },
       dateOfBirth: {
         value: {
@@ -40,13 +40,13 @@ const ProfileSettingsPage = () => {
       },
       country: {
         value: profile.country,
-        minLength: FIELDS_LENGTH.COUNTRY.MIN,
-        maxLength: FIELDS_LENGTH.COUNTRY.MAX,
+        minLength: FIELDS_VALIDATION_RULES.COUNTRY.MIN,
+        maxLength: FIELDS_VALIDATION_RULES.COUNTRY.MAX,
       },
       city: {
         value: profile.city,
-        minLength: FIELDS_LENGTH.CITY.MIN,
-        maxLength: FIELDS_LENGTH.CITY.MAX,
+        minLength: FIELDS_VALIDATION_RULES.CITY.MIN,
+        maxLength: FIELDS_VALIDATION_RULES.CITY.MAX,
       },
       avatar: {
         value: `http://localhost:5000/${profile.avatar}`,

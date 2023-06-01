@@ -4,22 +4,22 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
 import { ServeStaticModule } from '@nestjs/serve-static';
 
-import { AuthModule } from './auth/auth.module';
-import { CommentsModule } from './comments/comments.module';
-import { CryptoModule } from './crypto/crypto.module';
-import { FilesModule } from './files/files.module';
-import { HashModule } from './hash/hash.module';
-import { MessagesModule } from './messages/messages.module';
-import { NewsModule } from './news/news.module';
-import { PostModule } from './posts/posts.module';
-import { SubscriptionsModule } from './subscriptions/subscriptions.module';
-import { UsersModule } from './users/users.module';
+import { AuthModule } from '@/auth/auth.module';
+import { CommentsModule } from '@/comments/comments.module';
+import { CryptoModule } from '@/crypto/crypto.module';
+import { FilesModule } from '@/files/files.module';
+import { HashModule } from '@/hash/hash.module';
+import { MessagesModule } from '@/messages/messages.module';
+import { NewsModule } from '@/news/news.module';
+import { PostModule } from '@/posts/posts.module';
+import { SubscriptionsModule } from '@/subscriptions/subscriptions.module';
+import { UsersModule } from '@/users/users.module';
 
-import { Comment, CommentLike } from './comments/models';
-import { Message, Room } from './messages/models';
-import { PostLike, Post } from './posts/models';
-import { Subscription } from './subscriptions/models/subscription.model';
-import { User } from './users/models/user.model';
+import { Comment, CommentLike } from '@/comments/models';
+import { Message, Room } from '@/messages/models';
+import { PostLike, Post } from '@/posts/models';
+import { Subscription } from '@/subscriptions/models/subscription.model';
+import { User } from '@/users/models/user.model';
 
 @Module({
   imports: [

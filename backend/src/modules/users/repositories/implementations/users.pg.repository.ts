@@ -10,6 +10,24 @@ import {
   UpdatePasswordDto,
 } from '@/users/dto';
 
+type Filters = {
+  id: { [Op.ne]: number };
+  country?: string;
+  city?: string;
+  [Op.or]?: [
+    {
+      firstName: {
+        [Op.or]: { [Op.iLike]: string }[];
+      };
+    },
+    {
+      lastName: {
+        [Op.or]: { [Op.iLike]: string }[];
+      };
+    },
+  ];
+};
+
 export class UsersPgRepository implements UsersRepository {
   constructor(private usersRepository: Repository<UserModel>) {}
 
@@ -113,7 +131,7 @@ export class UsersPgRepository implements UsersRepository {
       substrChecks: [firstSubstr, secondSubstr],
     } = searchParams;
 
-    let filters: { [key: string]: any } = {
+    let filters: Filters = {
       id: {
         [Op.ne]: currentUserId,
       },

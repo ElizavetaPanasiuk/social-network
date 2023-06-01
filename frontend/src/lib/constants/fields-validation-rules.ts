@@ -1,4 +1,4 @@
-const FIELDS_LENGTH = {
+const FIELDS_VALIDATION_RULES = {
   FIRST_NAME: {
     MIN: 2,
     MAX: 24,
@@ -18,8 +18,9 @@ const FIELDS_LENGTH = {
   EMAIL: {
     MIN: 2,
     MAX: 50,
+    REGEXP: /\S+@\S+\.\S+/,
   },
-  PASSWORD: { MIN: 8, MAX: 24 },
+  PASSWORD: { MIN: 8, MAX: 24, REGEXP: /(?=.*[A-ZА-Я])(?=.*\d)/ },
   COMMENT_TEXT: {
     MIN: 1,
     MAX: 256,
@@ -34,4 +35,4 @@ const FIELDS_LENGTH = {
   },
 };
 
-export default FIELDS_LENGTH;
+export default FIELDS_VALIDATION_RULES;

@@ -6,18 +6,20 @@ import {
   MinLength,
 } from 'class-validator';
 
-import { passwordValidationRules } from '@/utils/validation-rules';
-import FIELDS_LENGTH from '@/constants/fields-length';
+import {
+  PASSWORD_VALIDATION_RULES,
+  FIELDS_VALIDATION_RULES,
+} from '@/lib/constants/fields-validation-rules';
 
 export class SignInDto {
   @ApiProperty({ example: 'lizaveta.panasiuk@gmail.com', description: 'Email' })
   @IsEmail()
-  @MinLength(FIELDS_LENGTH.EMAIL.MIN)
-  @MaxLength(FIELDS_LENGTH.EMAIL.MAX)
+  @MinLength(FIELDS_VALIDATION_RULES.EMAIL.MIN)
+  @MaxLength(FIELDS_VALIDATION_RULES.EMAIL.MAX)
   readonly email: string;
 
   @ApiProperty({ example: 'Admin123', description: 'Password' })
-  @IsStrongPassword(passwordValidationRules)
-  @MaxLength(FIELDS_LENGTH.PASSWORD.MAX)
+  @IsStrongPassword(PASSWORD_VALIDATION_RULES)
+  @MaxLength(FIELDS_VALIDATION_RULES.PASSWORD.MAX)
   readonly password: string;
 }

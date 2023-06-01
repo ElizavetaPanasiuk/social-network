@@ -14,20 +14,16 @@ type AvatarProps = {
 
 const Avatar = ({ alt, src, size = 'small', border = false, edit = false, onChange }: AvatarProps) => {
   const { t } = useTranslation();
-  const [uploadedFile, setUploadedFile] = useState();
+  const [uploadedFile, setUploadedFile] = useState<string | null>();
 
-  return !edit ? (
-    <img
-      className={`${styles.avatar} ${styles[size]} ${border ? styles.border : ''}`}
-      alt={alt}
-      src={`http://localhost:5000/${src}`}
-    />
-  ) : (
-    <div className={styles.editableContainer}>
+  return edit && onChange ? (
+    <div className={styles.editButtonContainer}>
       <img
-        className={`${styles.avatar} ${styles[size]} ${border ? styles.border : ''}`}
+        className={styles.avatar}
         alt={alt}
         src={uploadedFile ? uploadedFile : src}
+        data-border={border}
+        data-size={size}
       />
       <label
         htmlFor="avatar"
@@ -39,15 +35,23 @@ const Avatar = ({ alt, src, size = 'small', border = false, edit = false, onChan
         name="avatar"
         type="file"
         id="avatar"
-        className={styles.fileUploaderButton}
+        className={styles.fileInput}
         onChange={(e) => {
           if (e.target.files) {
             onChange('avatar', e.target.files[0]);
-            setUploadedFile(URL.createObjectURL(e.target.files[0]));
+            setUploadedFile(URL.createObjectURL(e.target.files[0]) as string);
           }
         }}
       />
     </div>
+  ) : (
+    <img
+      className={styles.avatar}
+      alt={alt}
+      src={`http://localhost:5000/${src}`}
+      data-border={border}
+      data-size={size}
+    />
   );
 };
 

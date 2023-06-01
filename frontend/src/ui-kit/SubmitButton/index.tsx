@@ -9,9 +9,11 @@ type SubmitButtonProps = {
 
 const SubmitButton = ({ title, disabled = false, variant = 'contained', size = 'large' }: SubmitButtonProps) => (
   <button
-    className={`${styles.button} ${styles[variant]} ${styles[size]}`}
+    className={styles.button}
     type="submit"
     disabled={disabled}
+    data-size={size}
+    data-variant={variant}
   >
     {title}
   </button>

@@ -2,7 +2,7 @@ import { Inject, Injectable, HttpException, HttpStatus } from '@nestjs/common';
 
 import { HashService } from '@/hash/hash.service';
 import { FilesService } from '@/files/files.service';
-import { Repository } from '@/constants/repositories';
+import { Repository } from '@/lib/enums/repositories';
 
 import {
   CreateUserDto,
@@ -20,8 +20,7 @@ export class UsersService {
     @Inject(Repository.Users) private usersRepository: UsersRepository,
     private filesService: FilesService,
     private hashService: HashService,
-  ) {
-  }
+  ) {}
 
   async getProfileById(id: number, currentUserId: number) {
     return this.usersRepository.getProfileDataById(id, currentUserId);

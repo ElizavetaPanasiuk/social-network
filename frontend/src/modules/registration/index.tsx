@@ -7,7 +7,7 @@ import jwtDecode from 'jwt-decode';
 
 import { Form, LanguageSelector } from '@/components';
 import { useForm, useMutation } from '@/hooks';
-import FIELDS_LENGTH from '@/lib/constants/fields-length';
+import FIELDS_VALIDATION_RULES from '@/lib/constants/fields-validation-rules';
 import { RegistrationService } from '@/lib/service';
 import { signIn } from '@/store/userSlice';
 import { Box } from '@/ui-kit';
@@ -26,31 +26,31 @@ const RegistrationPage = () => {
   const { formData, onChange, isValid } = useForm({
     email: {
       value: '',
-      minLength: FIELDS_LENGTH.EMAIL.MIN,
-      maxLength: FIELDS_LENGTH.EMAIL.MAX,
-      regexp: FIELDS_LENGTH.EMAIL.REGEXP,
+      minLength: FIELDS_VALIDATION_RULES.EMAIL.MIN,
+      maxLength: FIELDS_VALIDATION_RULES.EMAIL.MAX,
+      regexp: FIELDS_VALIDATION_RULES.EMAIL.REGEXP,
     },
     password: {
       value: '',
-      minLength: FIELDS_LENGTH.PASSWORD.MIN,
-      maxLength: FIELDS_LENGTH.PASSWORD.MAX,
-      regexp: FIELDS_LENGTH.PASSWORD.REGEXP,
+      minLength: FIELDS_VALIDATION_RULES.PASSWORD.MIN,
+      maxLength: FIELDS_VALIDATION_RULES.PASSWORD.MAX,
+      regexp: FIELDS_VALIDATION_RULES.PASSWORD.REGEXP,
     },
     passwordRepeat: {
       value: '',
-      minLength: FIELDS_LENGTH.PASSWORD.MIN,
-      maxLength: FIELDS_LENGTH.PASSWORD.MAX,
-      regexp: FIELDS_LENGTH.PASSWORD.REGEXP,
+      minLength: FIELDS_VALIDATION_RULES.PASSWORD.MIN,
+      maxLength: FIELDS_VALIDATION_RULES.PASSWORD.MAX,
+      regexp: FIELDS_VALIDATION_RULES.PASSWORD.REGEXP,
     },
     firstName: {
       value: '',
-      minLength: FIELDS_LENGTH.FIRST_NAME.MIN,
-      maxLength: FIELDS_LENGTH.FIRST_NAME.MAX,
+      minLength: FIELDS_VALIDATION_RULES.FIRST_NAME.MIN,
+      maxLength: FIELDS_VALIDATION_RULES.FIRST_NAME.MAX,
     },
     lastName: {
       value: '',
-      minLength: FIELDS_LENGTH.LAST_NAME.MIN,
-      maxLength: FIELDS_LENGTH.LAST_NAME.MAX,
+      minLength: FIELDS_VALIDATION_RULES.LAST_NAME.MIN,
+      maxLength: FIELDS_VALIDATION_RULES.LAST_NAME.MAX,
     },
     dateOfBirth: {
       value: {
@@ -61,13 +61,13 @@ const RegistrationPage = () => {
     },
     country: {
       value: '',
-      minLength: FIELDS_LENGTH.COUNTRY.MIN,
-      maxLength: FIELDS_LENGTH.COUNTRY.MAX,
+      minLength: FIELDS_VALIDATION_RULES.COUNTRY.MIN,
+      maxLength: FIELDS_VALIDATION_RULES.COUNTRY.MAX,
     },
     city: {
       value: '',
-      minLength: FIELDS_LENGTH.CITY.MIN,
-      maxLength: FIELDS_LENGTH.CITY.MAX,
+      minLength: FIELDS_VALIDATION_RULES.CITY.MIN,
+      maxLength: FIELDS_VALIDATION_RULES.CITY.MAX,
     },
     avatar: {
       value: null,

@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
 
-import FIELDS_LENGTH from '@/lib/constants/fields-length';
+import FIELDS_VALIDATION_RULES from '@/lib/constants/fields-validation-rules';
 import { IconButton, Textarea } from '@/ui-kit';
 
 import styles from './styles.module.scss';
@@ -22,7 +22,7 @@ const MessageInput = ({ message, onChange, onSend }: MessageInputProps) => {
         onChange={onChange}
         placeholder={t('Write a message') as string}
         onEnter={onSend}
-        maxLength={FIELDS_LENGTH.MESSAGE_TEXT.MAX}
+        maxLength={FIELDS_VALIDATION_RULES.MESSAGE_TEXT.MAX}
       />
       <IconButton
         icon={faPaperPlane}

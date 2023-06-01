@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common';
 
-import { Repository } from '@/constants/repositories';
+import { Repository } from '@/lib/enums/repositories';
 
 import { CreatePostDto, UpdatePostDto, PostLikeDto } from './dto';
 import { PostsRepository } from './repositories/post/posts.repository.interface';

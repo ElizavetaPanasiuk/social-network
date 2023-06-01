@@ -31,8 +31,10 @@ function useQuery<T>(
       } else {
         setData(result);
       }
-    } catch (error: any) {
-      setError({ value: true, message: error.message });
+    } catch (error) {
+      if (error instanceof Error) {
+        setError({ value: true, message: error.message });
+      }
     } finally {
       setLoading(false);
     }

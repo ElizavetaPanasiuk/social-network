@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable, Inject } from '@nestjs/common';
 
-import { Repository } from '@/constants/repositories';
+import { Repository } from '@/lib/enums/repositories';
 
 import { CreateSubscriptionDto } from './dto/create-subscription.dto';
 import { SubscriptionsRepository } from './repositories/subscriptions.repository.interface';

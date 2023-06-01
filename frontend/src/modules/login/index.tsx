@@ -8,7 +8,7 @@ import { Form, LanguageSelector } from '@/components';
 import { useForm, useMutation } from '@/hooks';
 import { Box, Input, SubmitButton } from '@/ui-kit';
 import { LoginService } from '@/lib/service';
-import FIELDS_LENGTH from '@/lib/constants/fields-length';
+import FIELDS_VALIDATION_RULES from '@/lib/constants/fields-validation-rules';
 import { signIn } from '@/store/userSlice';
 
 import styles from './styles.module.scss';
@@ -23,15 +23,15 @@ const LoginPage = () => {
   const { formData, onChange, isValid } = useForm({
     email: {
       value: '',
-      minLength: FIELDS_LENGTH.EMAIL.MIN,
-      maxLength: FIELDS_LENGTH.EMAIL.MAX,
-      regexp: FIELDS_LENGTH.EMAIL.REGEXP,
+      minLength: FIELDS_VALIDATION_RULES.EMAIL.MIN,
+      maxLength: FIELDS_VALIDATION_RULES.EMAIL.MAX,
+      regexp: FIELDS_VALIDATION_RULES.EMAIL.REGEXP,
     },
     password: {
       value: '',
-      minLength: FIELDS_LENGTH.PASSWORD.MIN,
-      maxLength: FIELDS_LENGTH.PASSWORD.MAX,
-      regexp: FIELDS_LENGTH.PASSWORD.REGEXP,
+      minLength: FIELDS_VALIDATION_RULES.PASSWORD.MIN,
+      maxLength: FIELDS_VALIDATION_RULES.PASSWORD.MAX,
+      regexp: FIELDS_VALIDATION_RULES.PASSWORD.REGEXP,
     },
   });
 

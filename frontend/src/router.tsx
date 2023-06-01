@@ -5,7 +5,6 @@ import {
   LoginPage,
   MessagesPage,
   NewsPage,
-  NotificationsPage,
   PostPage,
   ProfilePage,
   RegistrationPage,
@@ -39,10 +38,6 @@ const router = createBrowserRouter([
       {
         path: '/news',
         element: <NewsPage />,
-      },
-      {
-        path: '/notifications',
-        element: <NotificationsPage />,
       },
       {
         path: '/settings',

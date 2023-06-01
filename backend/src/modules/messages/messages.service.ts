@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 
 import { CryptoService } from '@/crypto/crypto.service';
 import { UsersService } from '@/users/users.service';
-import { Repository } from '@/constants/repositories';
+import { Repository } from '@/lib/enums/repositories';
 
 import { CreateMessageDto, CreateRoomDto } from './dto';
 import { RoomsRepository } from './repositories/rooms/rooms.repository.interface';

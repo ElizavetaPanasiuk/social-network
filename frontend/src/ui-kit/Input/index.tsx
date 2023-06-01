@@ -16,12 +16,12 @@ type InputProps = {
 const Input = ({
   value,
   onChange,
+  onEnter,
   placeholder = '',
   type = 'text',
-  onEnter = () => {},
   className = '',
   valid = true,
-  prompt,
+  prompt = '',
 }: InputProps) => {
   const [validationActive, setValidationActive] = useState(false);
 
@@ -34,7 +34,7 @@ const Input = ({
         placeholder={placeholder}
         type={type}
         onKeyUp={(e) => {
-          if (e.key === 'Enter') {
+          if (e.key === 'Enter' && onEnter) {
             onEnter();
           }
         }}

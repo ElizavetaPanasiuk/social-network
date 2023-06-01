@@ -4,31 +4,31 @@
   border-radius: 50%;
   object-fit: cover;
 
-  &.small {
+  &[data-border='true'] {
+    border: $white 0.25rem solid;
+  }
+
+  &[data-size='small'] {
     width: 2.5rem;
     height: 2.5rem;
   }
 
-  &.medium {
+  &[data-size='medium'] {
     width: 5rem;
     height: 5rem;
   }
 
-  &.large {
+  &[data-size='large'] {
     width: 10rem;
     height: 10rem;
   }
-
-  &.border {
-    border: $white 0.25rem solid;
-  }
 }
 
-.editableContainer {
+.editButtonContainer {
   position: relative;
   height: fit-content;
 
-  .fileUploaderButton {
+  .fileInput {
     display: none;
   }
 
@@ -36,11 +36,11 @@
     display: block;
     width: 100%;
     padding: 0.25rem 0 0.75rem;
-    background-color: rgba(255, 255, 255, 0.5);
-    cursor: pointer;
     position: absolute;
     bottom: 0rem;
     left: 0;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
     text-align: center;
   }
 }
