@@ -1,5 +1,5 @@
 import { Repository } from 'sequelize-typescript';
-import { Sequelize, WhereOptions } from 'sequelize';
+import { Sequelize, Op } from 'sequelize';
 
 import { User as UserModel } from '@/users/models/user.model';
 import { UsersRepository } from '../users.repository.interface';
@@ -97,10 +97,61 @@ export class UsersPgRepository implements UsersRepository {
   }
 
   async getSearchResult(
-    filters: WhereOptions<User>,
+    searchParams: {
+      currentUserId: number;
+      country: string;
+      city: string;
+      substrChecks: string[];
+    },
     page: number,
     limit: number,
   ) {
+    const {
+      currentUserId,
+      country,
+      city,
+      substrChecks: [firstSubstr, secondSubstr],
+    } = searchParams;
+
+    let filters: { [key: string]: any } = {
+      id: {
+        [Op.ne]: currentUserId,
+      },
+    };
+
+    if (country) {
+      filters.country = country;
+    }
+    if (city) {
+      filters.city = city;
+    }
+    const substrChecks = [];
+
+    if (firstSubstr) {
+      substrChecks.push({ [Op.iLike]: firstSubstr });
+    }
+    if (secondSubstr) {
+      substrChecks.push({ [Op.iLike]: secondSubstr });
+    }
+
+    if (substrChecks.length) {
+      filters = {
+        ...filters,
+        [Op.or]: [
+          {
+            firstName: {
+              [Op.or]: substrChecks,
+            },
+          },
+          {
+            lastName: {
+              [Op.or]: substrChecks,
+            },
+          },
+        ],
+      };
+    }
+
     const users = await this.usersRepository.findAll({
       where: filters,
       order: [

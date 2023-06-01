@@ -1,5 +1,4 @@
 import { Inject, Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { Op } from 'sequelize';
 
 import { HashService } from '@/hash/hash.service';
 import { FilesService } from '@/files/files.service';
@@ -21,7 +20,8 @@ export class UsersService {
     @Inject(Repository.Users) private usersRepository: UsersRepository,
     private filesService: FilesService,
     private hashService: HashService,
-  ) {}
+  ) {
+  }
 
   async getProfileById(id: number, currentUserId: number) {
     return this.usersRepository.getProfileDataById(id, currentUserId);
@@ -55,48 +55,20 @@ export class UsersService {
     city: string | null = '',
     page: number | null = 1,
   ) {
-    let searchParams: { [key: string]: any } = {
-      id: {
-        [Op.ne]: currentUserId,
-      },
+    const searchParams = {
+      country,
+      city,
+      currentUserId,
+      substrChecks: [],
     };
 
-    if (country) {
-      searchParams.country = country;
-    }
-    if (city) {
-      searchParams.city = city;
-    }
     const [firstSubstr = '', secondSubstr = ''] = search
       .split(' ')
       .filter((el) => el)
       .map((el) => `%${el}%`);
 
-    const substrChecks = [];
-    if (firstSubstr) {
-      substrChecks.push({ [Op.iLike]: firstSubstr });
-    }
-    if (secondSubstr) {
-      substrChecks.push({ [Op.iLike]: secondSubstr });
-    }
+    searchParams.substrChecks = [firstSubstr, secondSubstr];
 
-    if (substrChecks.length) {
-      searchParams = {
-        ...searchParams,
-        [Op.or]: [
-          {
-            firstName: {
-              [Op.or]: substrChecks,
-            },
-          },
-          {
-            lastName: {
-              [Op.or]: substrChecks,
-            },
-          },
-        ],
-      };
-    }
     return this.usersRepository.getSearchResult(searchParams, page, LIMIT);
   }
 

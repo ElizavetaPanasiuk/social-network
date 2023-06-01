@@ -1,5 +1,3 @@
-import { WhereOptions } from 'sequelize';
-
 import { User } from '../entities/user.entity';
 import {
   CreateUserDto,
@@ -14,7 +12,12 @@ export interface UsersRepository {
   getLoginData(email: string): Promise<User>;
   getUserPasswordByEmail(email: string): Promise<string>;
   getSearchResult(
-    filters: WhereOptions<User>,
+    searchParams: {
+      currentUserId: number;
+      country: string;
+      city: string;
+      substrChecks: string[];
+    },
     page: number,
     limit: number,
   ): Promise<{ isLast: boolean; data: User[] }>;
