@@ -18,12 +18,12 @@ import { Room } from './entities';
 
 @ApiTags('Messages')
 @Controller('messages')
+@UseGuards(AuthGuard)
 export class MessagesController {
   constructor(private messagesService: MessagesService) {}
 
   @ApiOperation({ summary: 'Get conversations' })
   @ApiResponse({ status: 200, type: Array<Room> })
-  @UseGuards(AuthGuard)
   @Get('')
   getConversations(@Request() req) {
     const userId = req.user.id;
@@ -32,7 +32,6 @@ export class MessagesController {
 
   @ApiOperation({ summary: 'Get interlocutor' })
   @ApiResponse({ status: 200, type: User })
-  @UseGuards(AuthGuard)
   @Get('interlocutor')
   getInterlocutor(
     @Request() req,
@@ -44,7 +43,6 @@ export class MessagesController {
 
   @ApiOperation({ summary: 'Create room / conversation' })
   @ApiResponse({ status: 201, type: Room })
-  @UseGuards(AuthGuard)
   @Post('')
   createRoom(@Request() req, @Body() body: { interlocutorId: number }) {
     const createRoomDto = {

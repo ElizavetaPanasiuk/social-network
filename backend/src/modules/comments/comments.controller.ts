@@ -21,12 +21,12 @@ import { Comment, CommentLike } from './entities';
 
 @ApiTags('Comments')
 @Controller('comments')
+@UseGuards(AuthGuard)
 export class CommentsController {
   constructor(private commentsService: CommentsService) {}
 
   @ApiOperation({ summary: 'Get comments to the post by post ID' })
   @ApiResponse({ status: 200, type: Array<Comment> })
-  @UseGuards(AuthGuard)
   @Get('')
   getComments(@Request() req, @Query('postId', ParseIntPipe) postId: number) {
     const userId = req.user.id;
@@ -35,7 +35,6 @@ export class CommentsController {
 
   @ApiOperation({ summary: 'Create comment to post' })
   @ApiResponse({ status: 201, type: Comment })
-  @UseGuards(AuthGuard)
   @Post()
   createComment(@Request() req, @Body() createCommentDto: CreateCommentDto) {
     createCommentDto.userId = req.user.id;
@@ -44,7 +43,6 @@ export class CommentsController {
 
   @ApiOperation({ summary: 'Update comment to post by comment id' })
   @ApiResponse({ status: 200 }) // add type
-  @UseGuards(AuthGuard)
   @Put(':id')
   updateComment(
     @Param('id', ParseIntPipe) id: number,
@@ -55,7 +53,6 @@ export class CommentsController {
 
   @ApiOperation({ summary: 'Dislike comment' })
   @ApiResponse({ status: 200, type: Number })
-  @UseGuards(AuthGuard)
   @Delete('dislike')
   dislikeComment(@Request() req, @Body() commentLikeDto: CommentLikeDto) {
     commentLikeDto.userId = req.user.id;
@@ -64,7 +61,6 @@ export class CommentsController {
 
   @ApiOperation({ summary: 'Delete comment by comment id' })
   @ApiResponse({ status: 200, type: Number })
-  @UseGuards(AuthGuard)
   @Delete(':id')
   deleteComment(@Param('id', ParseIntPipe) id: number) {
     return this.commentsService.deleteComment(id);
@@ -72,7 +68,6 @@ export class CommentsController {
 
   @ApiOperation({ summary: 'Like comment' })
   @ApiResponse({ status: 201, type: CommentLike })
-  @UseGuards(AuthGuard)
   @Post('like')
   likeComment(@Request() req, @Body() commentLikeDto: CommentLikeDto) {
     commentLikeDto.userId = req.user.id;

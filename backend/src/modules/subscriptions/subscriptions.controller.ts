@@ -18,11 +18,11 @@ import { Subscription } from './entities/subscription.entity';
 
 @ApiTags('Subscriptions')
 @Controller('subscriptions')
+@UseGuards(AuthGuard)
 export class SubscriptionsController {
   constructor(private subscriptionsService: SubscriptionsService) {}
   @ApiOperation({ summary: 'Get subscriptions by user id' })
   @ApiResponse({ status: 200, type: Array<Subscription> })
-  @UseGuards(AuthGuard)
   @Get(':userId')
   getSubscriptions(@Param('userId', ParseIntPipe) userId: number) {
     return this.subscriptionsService.getSubscriptions(userId);
@@ -30,7 +30,6 @@ export class SubscriptionsController {
 
   @ApiOperation({ summary: 'Get subscribers by user id' })
   @ApiResponse({ status: 200, type: Array<Subscription> })
-  @UseGuards(AuthGuard)
   @Get('subscribers/:userId')
   getSubscribers(@Param('userId', ParseIntPipe) userId: number) {
     return this.subscriptionsService.getSubscribers(userId);
@@ -38,7 +37,6 @@ export class SubscriptionsController {
 
   @ApiOperation({ summary: 'Create subscription' })
   @ApiResponse({ status: 201, type: Subscription })
-  @UseGuards(AuthGuard)
   @Post()
   subscribe(@Body() createSubscriptionDto: CreateSubscriptionDto) {
     return this.subscriptionsService.subscribe(createSubscriptionDto);
@@ -46,7 +44,6 @@ export class SubscriptionsController {
 
   @ApiOperation({ summary: 'Delete subscription by subscription id' })
   @ApiResponse({ status: 200, type: Number })
-  @UseGuards(AuthGuard)
   @Delete('')
   unsubscribe(@Body() dto: CreateSubscriptionDto) {
     return this.subscriptionsService.unsubscribe(dto);

@@ -28,12 +28,12 @@ import {
 
 @ApiTags('Users')
 @Controller('users')
+@UseGuards(AuthGuard)
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @ApiOperation({ summary: 'Create user' })
   @ApiResponse({ status: 201, type: User })
-  @UseGuards(AuthGuard)
   @Post()
   @UseInterceptors(FileInterceptor('avatar'))
   post(
@@ -45,7 +45,6 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Search users' })
   @ApiResponse({ status: 200, type: Array<User> })
-  @UseGuards(AuthGuard)
   @Get()
   search(
     @Request() req,
@@ -60,7 +59,6 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Get user by ID' })
   @ApiResponse({ status: 200, type: User })
-  @UseGuards(AuthGuard)
   @Get(':id')
   getById(@Param('id', ParseIntPipe) id: number, @Request() req) {
     const currentUserId = req.user.id;
@@ -69,7 +67,6 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Delete user' })
   @ApiResponse({ status: 200, type: Number })
-  @UseGuards(AuthGuard)
   @Delete(':id')
   deleteUser(@Param('id', ParseIntPipe) id: number) {
     // TODO add cascade delete with other tables
@@ -78,7 +75,6 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Update profile data' })
   @ApiResponse({ status: 200 }) // add type
-  @UseGuards(AuthGuard)
   @Put('profile/:id')
   updateCommonProfileData(
     @Param('id', ParseIntPipe) id: number,
@@ -89,7 +85,6 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Update user password' })
   @ApiResponse({ status: 200 }) // add type
-  @UseGuards(AuthGuard)
   @Put('password/:id')
   updatePassword(
     @Param('id', ParseIntPipe) id: number,
@@ -100,7 +95,6 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Update user avatar' })
   @ApiResponse({ status: 200 }) // add type
-  @UseGuards(AuthGuard)
   @Put('avatar/:id')
   @UseInterceptors(FileInterceptor('avatar'))
   updateAvatar(
