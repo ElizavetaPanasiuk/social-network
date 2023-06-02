@@ -1,16 +1,28 @@
 import * as bcrypt from 'bcrypt';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 
 @Injectable()
 export class HashService {
+  private logger = new Logger('HASH');
+
   async hashPassword(password: string) {
-    const salt = await bcrypt.genSalt(Number(process.env.SALT_ROUNDS));
-    const hash = await bcrypt.hash(password, salt);
-    return hash;
+    try {
+      const salt = await bcrypt.genSalt(Number(process.env.SALT_ROUNDS));
+      const hash = await bcrypt.hash(password, salt);
+      return hash;
+    } catch (error) {
+      this.logger.error('Failed to generate hash for password', error);
+      throw new Error(error); // TODO
+    }
   }
 
   async matchPassword(password: string, passwordHash: string) {
-    const isMatch = await bcrypt.compare(password, passwordHash);
-    return isMatch;
+    try {
+      const isMatch = await bcrypt.compare(password, passwordHash);
+      return isMatch;
+    } catch (error) {
+      this.logger.error('Failed to match password with hash', error);
+      throw new Error(error); // TODO
+    }
   }
 }

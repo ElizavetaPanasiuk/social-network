@@ -1,8 +1,10 @@
 import * as path from 'path';
-import { Module } from '@nestjs/common';
+import { Module, MiddlewareConsumer, NestModule } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
 import { ServeStaticModule } from '@nestjs/serve-static';
+
+import { LoggerMiddleware } from '@/lib/middleware/logger.middleware';
 
 import { AuthModule } from '@/auth/auth.module';
 import { CommentsModule } from '@/comments/comments.module';
@@ -61,4 +63,8 @@ import { User } from '@/users/models/user.model';
     HashModule,
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes('*');
+  }
+}

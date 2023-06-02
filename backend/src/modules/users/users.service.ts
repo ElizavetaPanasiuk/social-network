@@ -34,7 +34,7 @@ export class UsersService {
   }
 
   async createUser(file: Express.Multer.File, dto: CreateUserDto) {
-    dto.avatar = await this.filesService.createFile(file);
+    dto.avatar = await this.filesService.createFile(file, 'images');
     const user = await this.usersRepository.create(dto);
     return user;
   }
@@ -100,7 +100,7 @@ export class UsersService {
   }
 
   async updateAvatar(id: number, file: Express.Multer.File) {
-    const avatar = await this.filesService.createFile(file);
+    const avatar = await this.filesService.createFile(file, 'images');
     const { avatar: userPreviousAvatar } = await this.getUserById(id, [
       'avatar',
     ]);
