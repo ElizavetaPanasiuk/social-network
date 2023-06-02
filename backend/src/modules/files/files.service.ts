@@ -35,7 +35,7 @@ export class FilesService {
       return `${dir}/${fileName}`;
     } catch (error) {
       this.logger.error(`Failed to save file '${dir}/${fileName}'`, error);
-      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new Error(error);
     }
   }
 
@@ -56,7 +56,7 @@ export class FilesService {
       }
     } catch (error) {
       this.logger.error(`Failed to remove file '${fileName}'`, error);
-      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new Error(error);
     }
   }
 }
