@@ -17,48 +17,5 @@
     > :not(:last-child) {
       margin-bottom: 0.5rem;
     }
-
-    .postHeader {
-      display: flex;
-      width: 100%;
-      position: relative;
-
-      .name {
-        font-weight: bold;
-        margin-right: 0.5rem;
-      }
-
-      .postActionsButton {
-        position: absolute;
-        right: 0;
-        height: fit-content;
-        width: fit-content;
-        padding: 0.5rem;
-        color: $gray-dark;
-
-        &:hover {
-          background-color: $gray-light;
-          border-radius: 50%;
-        }
-      }
-    }
-
-    .postFooter {
-      display: flex;
-      gap: 1rem;
-
-      .comment {
-        display: flex;
-        align-items: center;
-
-        > :first-child {
-          margin-right: 0.5rem;
-        }
-
-        &:hover {
-          color: $blue;
-        }
-      }
-    }
   }
 }

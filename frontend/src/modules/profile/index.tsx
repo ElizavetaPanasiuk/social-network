@@ -2,10 +2,10 @@ import { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { Post } from '@/components';
+import { PageWrapper, Post } from '@/components';
 import { useMutation, useQuery } from '@/hooks';
 import { MessagesService, PostsService, ProfileService, SubscriptionsService } from '@/lib/service';
-import { PostInfo } from '@/lib/global/types';
+import { PostInfo, QueryError } from '@/lib/global/types';
 import { RootState } from '@/store';
 import { Loader } from '@/ui-kit';
 
@@ -27,14 +27,16 @@ const ProfilePage = () => {
     loading: postsLoading,
     data: posts,
     setData: setPosts,
+    error: errorGetPost,
   }: {
     loading: boolean;
     data: PostInfo[];
     setData: (updatedPosts: PostInfo[]) => void;
+    error: QueryError;
   } = useQuery((page?: number) => postsService.getUserPosts(Number(profileId), page), {
     pagination: {
       enabled: true,
-      ref: ref,
+      ref: ref as unknown as HTMLElement,
     },
   });
 
@@ -42,6 +44,7 @@ const ProfilePage = () => {
     loading: profileLoading,
     data: profile,
     setData: setProfileData,
+    error: errorGetProfile,
   } = useQuery(() => profileService.getProfile(Number(profileId)));
 
   const { mutate: publish, loading: createPostLoading } = useMutation((text: string) => postsService.createPost(text), {
@@ -88,38 +91,37 @@ const ProfilePage = () => {
   });
 
   return (
-    <div ref={ref}>
-      {(postsLoading && !posts.length) || profileLoading ? (
-        <Loader />
-      ) : (
-        <>
-          <ProfileInfo
-            {...profile}
-            subscribe={subscribe}
-            unsubscribe={unsubscribe}
-            startMessaging={startMessaging}
+    <PageWrapper
+      loading={(postsLoading && !posts?.length) || profileLoading}
+      error={[errorGetPost, errorGetProfile]}
+    >
+      <div ref={ref}>
+        <ProfileInfo
+          {...profile}
+          subscribe={subscribe}
+          unsubscribe={unsubscribe}
+          startMessaging={startMessaging}
+        />
+        {+profileId === userId && (
+          <NewPost
+            publish={publish}
+            loading={createPostLoading}
           />
-          {+profileId === userId && (
-            <NewPost
-              publish={publish}
-              loading={createPostLoading}
-            />
-          )}
-          {posts.map((post) => (
-            <Post
-              key={post.id}
-              {...post}
-              like={like}
-              dislike={dislike}
-              onDelete={deletePost}
-              onUpdate={updatePost}
-              loading={updatePostLoading}
-            />
-          ))}
-          {postsLoading && posts.length && <Loader />}
-        </>
-      )}
-    </div>
+        )}
+        {posts?.map((post) => (
+          <Post
+            key={post.id}
+            {...post}
+            like={like}
+            dislike={dislike}
+            onDelete={deletePost}
+            onUpdate={updatePost}
+            loading={updatePostLoading}
+          />
+        ))}
+        {postsLoading && posts?.length && <Loader />}
+      </div>
+    </PageWrapper>
   );
 };
 

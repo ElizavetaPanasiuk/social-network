@@ -48,7 +48,7 @@ const Avatar = ({ alt, src, size = 'small', border = false, edit = false, onChan
     <img
       className={styles.avatar}
       alt={alt}
-      src={`http://localhost:5000/${src}`}
+      src={`${import.meta.env.VITE_API_URL}/${src}`}
       data-border={border}
       data-size={size}
     />

@@ -5,12 +5,12 @@ class SubscriptionsService extends Service {
     super('subscriptions');
   }
 
-  getSubscribers(id: number) {
-    return this.getById(id, '/subscribers');
+  getSubscribers(userId: number) {
+    return this.getById(userId, '/subscribers');
   }
 
-  getSubscriptions(id: number) {
-    return this.getById(id);
+  getSubscriptions(userId: number) {
+    return this.getById(userId);
   }
 
   subscribe(subscriberId: number, profileId: number) {

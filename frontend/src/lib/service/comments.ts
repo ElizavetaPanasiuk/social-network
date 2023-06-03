@@ -9,8 +9,8 @@ class CommentsService extends Service {
     return this.get({ postId });
   }
 
-  createComment(text: string, id: number) {
-    return this.post({ text, postId: id });
+  createComment(text: string, postId: number) {
+    return this.post({ text, postId });
   }
 
   like(commentId: number) {

@@ -44,7 +44,7 @@ const ProfileInfo = ({
 }: ProfileInfoProps) => {
   const { t } = useTranslation();
   const { profileId } = useParams();
-  const currentUserId = useSelector((state: RootState) => state.user.id);
+  const userId = useSelector((state: RootState) => state.user.id);
 
   return (
     <div className={styles.profileHeader}>
@@ -55,7 +55,7 @@ const ProfileInfo = ({
           size="large"
           border
         />
-        {profileId && currentUserId !== +profileId && (
+        {profileId && userId !== +profileId && (
           <div className={styles.profileActions}>
             <Button
               title={t('Message')}
@@ -77,9 +77,9 @@ const ProfileInfo = ({
         )}
       </div>
       <div className={styles.profileInfo}>
-        <h2>
+        <h1>
           {firstName} {lastName}
-        </h2>
+        </h1>
         <div className={styles.details}>
           <p className={styles.detailsLine}>
             <FontAwesomeIcon icon={faBirthdayCake} />

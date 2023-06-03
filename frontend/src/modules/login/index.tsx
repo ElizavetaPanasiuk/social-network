@@ -7,7 +7,7 @@ import jwtDecode from 'jwt-decode';
 import { Form, LanguageSelector } from '@/components';
 import { useForm, useMutation } from '@/hooks';
 import { Box, Input, SubmitButton } from '@/ui-kit';
-import { LoginService } from '@/lib/service';
+import { AuthService } from '@/lib/service';
 import FIELDS_VALIDATION_RULES from '@/lib/constants/fields-validation-rules';
 import { signIn } from '@/store/userSlice';
 
@@ -18,7 +18,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  const loginService = new LoginService();
+  const authService = new AuthService();
 
   const { formData, onChange, isValid } = useForm({
     email: {
@@ -36,7 +36,7 @@ const LoginPage = () => {
   });
 
   const { mutate: login, loading } = useMutation(
-    () => loginService.signIn(formData.email.value, formData.password.value),
+    () => authService.signIn(formData.email.value, formData.password.value),
     {
       onSuccess: (result) => {
         const { access_token } = result;

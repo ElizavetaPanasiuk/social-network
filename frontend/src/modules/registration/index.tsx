@@ -8,11 +8,11 @@ import jwtDecode from 'jwt-decode';
 import { Form, LanguageSelector } from '@/components';
 import { useForm, useMutation } from '@/hooks';
 import FIELDS_VALIDATION_RULES from '@/lib/constants/fields-validation-rules';
-import { RegistrationService } from '@/lib/service';
+import { AuthService } from '@/lib/service';
 import { signIn } from '@/store/userSlice';
 import { Box } from '@/ui-kit';
 
-import { Finish, Step1, Step2, Step3, Step4 } from './components';
+import { Step1, Step2, Step3, Step4 } from './components';
 import styles from './styles.module.scss';
 
 const RegistrationPage = () => {
@@ -21,7 +21,7 @@ const RegistrationPage = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
 
-  const registrationService = new RegistrationService();
+  const authService = new AuthService();
 
   const { formData, onChange, isValid } = useForm({
     email: {
@@ -76,13 +76,13 @@ const RegistrationPage = () => {
 
   const { mutate: onSubmit, loading } = useMutation(
     () =>
-      registrationService.signUp({
-        email: formData.email.value,
-        password: formData.password.value,
-        firstName: formData.firstName.value,
-        lastName: formData.lastName.value,
-        country: formData.country.value,
-        city: formData.city.value,
+      authService.signUp({
+        email: formData.email.value as string,
+        password: formData.password.value as string,
+        firstName: formData.firstName.value as string,
+        lastName: formData.lastName.value as string,
+        country: formData.country.value as string,
+        city: formData.city.value as string,
         avatar: formData.avatar.value,
         dateOfBirth: new Date(
           formData.dateOfBirth.value?.year,
@@ -101,8 +101,6 @@ const RegistrationPage = () => {
         };
         dispatch(signIn({ id, firstName, lastName }));
         navigate(`/profile/${id}`);
-
-        //setStep(5); // return step 5 when add activation by email
       },
     },
   );
@@ -148,7 +146,6 @@ const RegistrationPage = () => {
         key={4}
       />,
     ],
-    [5, <Finish key={5} />],
   ]);
 
   return (

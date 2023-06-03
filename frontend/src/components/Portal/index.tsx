@@ -14,7 +14,9 @@ const Portal = ({ children, elementId, className }: PortalProps) => {
   useEffect(() => {
     portal?.appendChild(el);
     el.classList.add(className);
-    return () => portal?.removeChild(el);
+    return () => {
+      portal?.removeChild(el);
+    };
   }, [el, portal]);
 
   return createPortal(children, el);

@@ -13,7 +13,7 @@ function useQuery<T>(
   { dependencies = [], pagination = { enabled: false, ref: null } }: UseQueryOptions = {},
 ) {
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState<T | Array<T>>([]);
+  const [data, setData] = useState<T>();
   const [error, setError] = useState({ value: false, message: '' });
   const [page, setPage] = useState(1);
   const [isLast, setLast] = useState(false);
@@ -22,14 +22,16 @@ function useQuery<T>(
     setLoading(true);
     try {
       const result = await queryFn(page);
-      if (pagination.enabled && page === 1) {
-        setData(result.data);
-        setLast(result.isLast);
-      } else if (pagination.enabled && page > 1) {
-        setData([...data, ...result.data]);
-        setLast(result.isLast);
+      if (pagination.enabled && result instanceof Object) {
+        if (page === 1) {
+          setData(result.data);
+          setLast(result.isLast);
+        } else {
+          setData([...data, ...result.data] as T);
+          setLast(result.isLast);
+        }
       } else {
-        setData(result);
+        setData(result as T);
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -49,15 +51,15 @@ function useQuery<T>(
   };
 
   useEffect(() => {
+    sendQuery(1);
+  }, []);
+
+  useEffect(() => {
     if (!loading) {
       setPage(1);
       sendQuery(1);
     }
   }, dependencies);
-
-  useEffect(() => {
-    sendQuery(1);
-  }, []);
 
   useEffect(() => {
     if (pagination.enabled) {

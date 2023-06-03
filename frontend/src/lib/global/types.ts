@@ -1,4 +1,4 @@
-type ProfileMainInfo = {
+export type ProfileMainInfo = {
   id: number;
   firstName: string;
   lastName: string;
@@ -80,4 +80,22 @@ export type MessageType = {
   updatedAt: string;
   userId: number;
   user: BasicProfileInfo;
+};
+
+export type RegistrationData = {
+  password: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  country: string;
+  city: string;
+  dateOfBirth: Date;
+  avatar: File;
+};
+
+export type NotificationType = 'success' | 'warning' | 'error' | 'info';
+
+export type QueryError = {
+  value: boolean;
+  message: string;
 };

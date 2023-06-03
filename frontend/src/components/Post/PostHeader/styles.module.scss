@@ -1,0 +1,26 @@
+@import '@/styles/colors.scss';
+
+.postHeader {
+  display: flex;
+  width: 100%;
+  position: relative;
+
+  .name {
+    font-weight: bold;
+    margin-right: 0.5rem;
+  }
+
+  .postActionsButton {
+    position: absolute;
+    right: 0;
+    height: fit-content;
+    width: fit-content;
+    padding: 0.5rem;
+    color: $gray-dark;
+
+    &:hover {
+      background-color: $gray-light;
+      border-radius: 50%;
+    }
+  }
+}

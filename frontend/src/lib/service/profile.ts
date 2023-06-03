@@ -9,8 +9,14 @@ class ProfileService extends Service {
     return this.getById(id);
   }
 
-  // TODO: add default values
-  searchUsers(searchParams: { search: string; country: string; city: string; page?: number }) {
+  searchUsers(
+    searchParams: { search: string; country: string; city: string; page?: number } = {
+      search: '',
+      country: '',
+      city: '',
+      page: 1,
+    },
+  ) {
     if (!searchParams.page) {
       searchParams.page = 1;
     }

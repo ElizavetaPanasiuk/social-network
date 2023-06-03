@@ -1,11 +1,17 @@
+import { RegistrationData } from '@/lib/global/types';
+
 import Service from './service';
 
-class RegistrationService extends Service {
+class AuthService extends Service {
   constructor() {
-    super('auth/signUp');
+    super('auth');
   }
 
-  signUp(userData) {
+  signIn(email: string, password: string): Promise<{ access_token: string }> {
+    return this.post({ email, password }, '/signIn');
+  }
+
+  signUp(userData: RegistrationData) {
     const formData = new FormData();
     formData.append('password', userData.password);
     formData.append('email', userData.email);
@@ -15,8 +21,8 @@ class RegistrationService extends Service {
     formData.append('city', userData.city);
     formData.append('dateOfBirth', userData.dateOfBirth.toISOString());
     formData.append('avatar', userData.avatar as File);
-    return this.post(formData);
+    return this.post(formData, '/signUp');
   }
 }
 
-export default RegistrationService;
+export default AuthService;

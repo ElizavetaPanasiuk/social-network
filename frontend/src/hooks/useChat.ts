@@ -11,6 +11,7 @@ const useChat = () => {
   const [socket, setSocket] = useState<Socket>();
   const [loading, setLoading] = useState(true);
   const [messages, setMessages] = useState([]);
+  const [error, setError] = useState({ value: false, message: '' });
 
   const send = (text: string) => {
     const payload = {
@@ -28,24 +29,36 @@ const useChat = () => {
   useEffect(() => {
     if (!socket) {
       setSocket(
-        io('http://localhost:5000/messages', {
+        io(`${import.meta.env.VITE_API_URL}/messages`, {
           query: {
             userId,
             roomId,
           },
-        }).on('connection', (socket) => socket.join(roomId)),
+        })
+          .on('connection', (socket) => socket.join(roomId))
+          .on('error', (error) => {
+            if (error instanceof Error) {
+              setError({ value: true, message: error.message });
+            }
+          }),
       );
     }
 
-    socket?.on('messages', (messages) => {
-      setMessages(messages);
-      setLoading(false);
-    });
+    socket
+      ?.on('messages', (messages) => {
+        setMessages(messages);
+        setLoading(false);
+      })
+      .on('error', (error) => {
+        if (error instanceof Error) {
+          setError({ value: true, message: error.message });
+        }
+      });
 
     socket?.emit('messages:get');
   }, []);
 
-  return { messages, loading, chatActions };
+  return { messages, loading, chatActions, error };
 };
 
 export default useChat;

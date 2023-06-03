@@ -1,16 +1,11 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { faCommentAlt } from '@fortawesome/free-regular-svg-icons';
-import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
-import { RootState } from '@/store';
-import { Avatar, IconButton } from '@/ui-kit';
-import { TimeLabel } from '@/components';
+import { Avatar } from '@/ui-kit';
 
-import Like from './Like';
-import ActionsMenu from './ActionsMenu';
 import PostEdit from './PostEdit';
+import PostFooter from './PostFooter';
+import PostHeader from './PostHeader';
 import styles from './styles.module.scss';
 
 type PostProps = {
@@ -48,9 +43,6 @@ const Post = ({
   onDelete = () => {},
   onUpdate = () => {},
 }: PostProps) => {
-  const navigate = useNavigate();
-  const currentUserId = useSelector((state: RootState) => state.user.id);
-  const [actionsMenuVisible, setActionsMenuVisible] = useState(false);
   const [editMode, setEditMode] = useState(false);
 
   const saveEditedPost = async (newPostContent: string) => {
@@ -66,31 +58,15 @@ const Post = ({
         alt="post"
       />
       <div className={styles.postContent}>
-        <p className={styles.postHeader}>
-          <Link
-            to={`/profile/${userId}`}
-            className={styles.name}
-          >
-            {firstName} {lastName}
-          </Link>
-          <TimeLabel date={createdAt} />
-          {currentUserId === +userId && (
-            <>
-              <IconButton
-                icon={faEllipsisH}
-                onClick={() => setActionsMenuVisible(!actionsMenuVisible)}
-                className={styles.postActionsButton}
-              />
-              {actionsMenuVisible && (
-                <ActionsMenu
-                  onDelete={() => onDelete(id)}
-                  onEdit={() => setEditMode(true)}
-                  setActionsMenuVisible={setActionsMenuVisible}
-                />
-              )}
-            </>
-          )}
-        </p>
+        <PostHeader
+          id={id}
+          userId={userId}
+          firstName={firstName}
+          lastName={lastName}
+          createdAt={createdAt}
+          onDelete={onDelete}
+          setEditMode={setEditMode}
+        />
         {editMode ? (
           <PostEdit
             postContent={text}
@@ -100,21 +76,14 @@ const Post = ({
         ) : (
           <p className={styles.postContent}>{text}</p>
         )}
-        <div className={styles.postFooter}>
-          <Like
-            likes={likes}
-            liked={liked}
-            like={() => like(id)}
-            dislike={() => dislike(id)}
-          />
-          <div className={styles.comment}>
-            <IconButton
-              icon={faCommentAlt}
-              onClick={() => navigate(`/post/${id}`)}
-            />
-            <span>{comments}</span>
-          </div>
-        </div>
+        <PostFooter
+          id={id}
+          likes={likes}
+          liked={liked}
+          like={like}
+          dislike={dislike}
+          comments={comments}
+        />
       </div>
     </>
   );

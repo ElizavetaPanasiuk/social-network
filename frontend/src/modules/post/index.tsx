@@ -1,11 +1,10 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { Post } from '@/components';
+import { PageWrapper, Post } from '@/components';
 import { useMutation, useQuery } from '@/hooks';
 import { CommentsService, PostsService } from '@/lib/service';
-import { CommentInfo, PostInfo } from '@/lib/global/types';
-import { Loader } from '@/ui-kit';
+import { CommentInfo, PostInfo, QueryError } from '@/lib/global/types';
 import { addNotification } from '@/store/notificationsSlice';
 
 import { Comment } from './components';
@@ -21,23 +20,27 @@ const PostPage = () => {
   const commentsService = new CommentsService();
 
   const {
-    loading,
+    loading: loadingPost,
     data: post,
     setData: setPost,
+    error: errorGetPost,
   }: {
     loading: boolean;
     data: PostInfo;
     setData: (newPost: PostInfo) => void;
+    error: QueryError;
   } = useQuery(() => postsService.getPost(postId));
 
   const {
     loading: loadingComments,
     data: comments,
     setData: setComments,
+    error: errorGetComments,
   }: {
     loading: boolean;
     data: CommentInfo[];
     setData: (updatedCommentsList: CommentInfo[]) => void;
+    error: QueryError;
   } = useQuery(() => commentsService.getCommentsByPostId(Number(postId)));
 
   const { mutate: likePost } = useMutation(() => postsService.like(+postId), {
@@ -84,35 +87,38 @@ const PostPage = () => {
     {
       onSuccess: (_result, args) => {
         dispatch(addNotification({ id: Date.now(), message: 'Success', type: 'success' }));
-        setPost({ ...post, text: args[1] });
+        setPost({ ...post, text: args[1] as string });
       },
     },
   );
 
-  return loading || loadingComments ? (
-    <Loader />
-  ) : (
-    <>
-      <Post
-        {...post}
-        like={likePost}
-        dislike={dislikePost}
-        onDelete={deletePost}
-        onUpdate={updatePost}
-      />
-      <NewComment
-        publish={publishComment}
-        loading={loadingPublishComment}
-      />
-      {comments.map((comment) => (
-        <Comment
-          key={comment.id}
-          {...comment}
-          like={likeComment}
-          dislike={dislikeComment}
+  return (
+    <PageWrapper
+      loading={loadingPost || loadingComments}
+      error={[errorGetComments, errorGetPost]}
+    >
+      <>
+        <Post
+          {...post}
+          like={likePost}
+          dislike={dislikePost}
+          onDelete={deletePost}
+          onUpdate={updatePost}
         />
-      ))}
-    </>
+        <NewComment
+          publish={publishComment}
+          loading={loadingPublishComment}
+        />
+        {comments?.map((comment) => (
+          <Comment
+            key={comment.id}
+            {...comment}
+            like={likeComment}
+            dislike={dislikeComment}
+          />
+        ))}
+      </>
+    </PageWrapper>
   );
 };
 

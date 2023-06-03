@@ -17,12 +17,12 @@ import styles from './styles.module.scss';
 
 const Sidebar = () => {
   const { t } = useTranslation();
-  const id = useSelector((state: RootState) => state.user.id);
+  const userId = useSelector((state: RootState) => state.user.id);
 
   const MENU_ITEMS = [
     {
       title: t('Profile'),
-      to: `/profile/${id}`,
+      to: `/profile/${userId}`,
       icon: faUser,
       activeIcon: faUserSolid,
     },
@@ -38,12 +38,6 @@ const Sidebar = () => {
       icon: faEnvelope,
       activeIcon: faEnvelopeSolid,
     },
-    /* {
-      title: t('Notifications'),
-      to: '/notifications',
-      icon: faBell,
-      activeIcon: faBellSolid,
-    }, */
     {
       title: t('Search'),
       to: '/search',

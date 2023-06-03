@@ -7,7 +7,7 @@ import styles from './styles.module.scss';
 type SelectProps<T> = {
   label: string;
   options: {
-    label: T;
+    label: string;
     value: T;
   }[];
   value: T;
@@ -32,9 +32,7 @@ function Select<T>({ label, options, value, onChange, disabled = false, classNam
         onClick={() => setVisible(!visible)}
         disabled={disabled}
       >
-        <span className={styles.selectTitle}>
-          {(options.find((el) => el.value === value)?.label as string) || (label as string)}
-        </span>
+        <span className={styles.selectTitle}>{options.find((el) => el.value === value)?.label || label}</span>
         <FontAwesomeIcon
           icon={faAngleDown}
           className={visible ? styles.selectAngleOpened : ''}
@@ -49,7 +47,7 @@ function Select<T>({ label, options, value, onChange, disabled = false, classNam
               onClick={() => onSelect(el.value)}
               className={styles.option}
             >
-              {el.label as string}
+              {el.label}
             </button>
           ))}
         </div>

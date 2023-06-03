@@ -19,8 +19,6 @@ function useForm<T>(fields: Fields<T>, outerDataLoader?: boolean) {
       if (maxLength) {
         isValid = isValid && newValueLength <= maxLength;
       }
-    } else if (newValue instanceof File || fieldName === 'dateOfBirth') {
-      isValid = true;
     }
 
     return isValid;

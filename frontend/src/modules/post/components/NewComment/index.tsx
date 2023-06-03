@@ -5,13 +5,12 @@ import { Form, SymbolCounter } from '@/components';
 import { SubmitButton, Textarea } from '@/ui-kit';
 
 import styles from './styles.module.scss';
+import FIELDS_VALIDATION_RULES from '@/lib/constants/fields-validation-rules';
 
 type NewCommentProps = {
   publish: (text: string) => void;
   loading: boolean;
 };
-
-const MAX_COMMENT_LENGTH = 256;
 
 const NewComment = ({ publish, loading }: NewCommentProps) => {
   const { t } = useTranslation();
@@ -31,7 +30,7 @@ const NewComment = ({ publish, loading }: NewCommentProps) => {
         value={commentText}
         onChange={setCommentText}
         placeholder={t('Write a comment') as string}
-        maxLength={MAX_COMMENT_LENGTH}
+        maxLength={FIELDS_VALIDATION_RULES.COMMENT_TEXT.MAX}
       />
       <div className={styles.newCommentFooter}>
         <SubmitButton
@@ -40,7 +39,7 @@ const NewComment = ({ publish, loading }: NewCommentProps) => {
         />
         <SymbolCounter
           value={commentText}
-          max={MAX_COMMENT_LENGTH}
+          max={FIELDS_VALIDATION_RULES.COMMENT_TEXT.MAX}
         />
       </div>
     </Form>

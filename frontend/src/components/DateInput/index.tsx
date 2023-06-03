@@ -56,7 +56,7 @@ const DateInput = ({ value: { year, month, date }, onChange }: DateInputProps) =
         label={t('Year')}
         onChange={onChangeYear}
         options={Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i).map((year) => ({
-          label: year,
+          label: year.toString(),
           value: year,
         }))}
       />
@@ -75,7 +75,7 @@ const DateInput = ({ value: { year, month, date }, onChange }: DateInputProps) =
         onChange={onChangeDate}
         options={Array.from({ length: getMonthDaysCount(year as number, month as number) }, (_, i) => i + 1).map(
           (date) => ({
-            label: date,
+            label: date.toString(),
             value: date,
           }),
         )}

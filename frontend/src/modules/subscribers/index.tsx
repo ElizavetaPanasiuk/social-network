@@ -1,12 +1,10 @@
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import { EmptyListMessage, ProfileRow } from '@/components';
+import { EmptyListMessage, PageWrapper, ProfileRow } from '@/components';
 import { useQuery } from '@/hooks';
 import { SubscriptionsService } from '@/lib/service';
-import { SubscribersResponse } from '@/lib/global/types';
-
-import { Loader } from '@/ui-kit';
+import { QueryError, SubscribersResponse } from '@/lib/global/types';
 
 const SubscribersPage = () => {
   const { t } = useTranslation();
@@ -14,21 +12,32 @@ const SubscribersPage = () => {
 
   const subscribersService = new SubscriptionsService();
 
-  const { loading, data: subscribers }: { loading: boolean; data: SubscribersResponse } = useQuery(() =>
+  const {
+    loading,
+    data: subscribers,
+    error,
+  }: { loading: boolean; data: SubscribersResponse; error: QueryError } = useQuery(() =>
     subscribersService.getSubscribers(Number(profileId)),
   );
 
-  return loading ? (
-    <Loader />
-  ) : !subscribers.length ? (
-    <EmptyListMessage text={t('No subscribers')} />
-  ) : (
-    subscribers.map(({ subscriber }) => (
-      <ProfileRow
-        key={subscriber.id}
-        {...subscriber}
-      />
-    ))
+  return (
+    <PageWrapper
+      loading={loading}
+      error={error}
+    >
+      {!subscribers?.length ? (
+        <EmptyListMessage text={t('No subscribers')} />
+      ) : (
+        <>
+          {subscribers.map(({ subscriber }) => (
+            <ProfileRow
+              key={subscriber.id}
+              {...subscriber}
+            />
+          ))}
+        </>
+      )}
+    </PageWrapper>
   );
 };
 

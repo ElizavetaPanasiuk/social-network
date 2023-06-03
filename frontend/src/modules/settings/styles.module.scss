@@ -4,25 +4,4 @@
   > :not(:last-child) {
     margin-bottom: 1rem;
   }
-
-  .profileSettings {
-    display: flex;
-    gap: 1rem;
-
-    .profileData {
-      .row {
-        display: flex;
-        gap: 1rem;
-      }
-
-      > :not(:last-child) {
-        margin-bottom: 1rem;
-      }
-    }
-  }
-
-  .passwordForm {
-    display: flex;
-    gap: 1rem;
-  }
 }

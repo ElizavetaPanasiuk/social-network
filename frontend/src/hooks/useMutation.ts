@@ -9,7 +9,7 @@ type useMutationOptions<T_ARGS, T_RESPONSE> = {
 };
 
 function useMutation<T_ARGS, T_RESPONSE>(
-  queryFn: (...args: T_ARGS[]) => T_RESPONSE,
+  queryFn: (...args: T_ARGS[]) => Promise<T_RESPONSE>,
   { onSuccess = () => {}, onError = () => {} }: useMutationOptions<T_ARGS, T_RESPONSE>,
 ) {
   const dispatch = useDispatch();

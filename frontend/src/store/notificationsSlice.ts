@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
+import { NotificationType } from '@/lib/global/types';
+
 type Notification = {
   id: number;
   message: string;
-  type: 'success' | 'warning' | 'error' | 'info';
+  type: NotificationType;
 };
 
 interface NotificationsState {
