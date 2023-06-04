@@ -20,7 +20,7 @@ export class SubscriptionsService {
   }
 
   getSubscribers(userId: number) {
-    return this.getSubscribers(userId);
+    return this.subscriptionsRepository.getUserSubscribers(userId);
   }
 
   async subscribe(dto: CreateSubscriptionDto) {

@@ -8,7 +8,12 @@ import {
   Query,
   ParseUUIDPipe,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 
 import { AuthGuard } from '@/auth/auth.guard';
 import { User } from '@/users/entities/user.entity';
@@ -17,6 +22,7 @@ import { MessagesService } from './messages.service';
 import { Room } from './entities';
 
 @ApiTags('Messages')
+@ApiBearerAuth('JWT-auth')
 @Controller('messages')
 @UseGuards(AuthGuard)
 export class MessagesController {

@@ -11,7 +11,12 @@ import {
   Query,
   ParseIntPipe,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiOperation,
+  ApiTags,
+  ApiResponse,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 
 import { AuthGuard } from '@/auth/auth.guard';
 
@@ -20,6 +25,7 @@ import { CreatePostDto, UpdatePostDto, PostLikeDto } from './dto';
 import { PostLike, Post as PostEntity } from './entities';
 
 @ApiTags('Posts')
+@ApiBearerAuth('JWT-auth')
 @Controller('posts')
 @UseGuards(AuthGuard)
 export class PostsController {

@@ -8,7 +8,12 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 
 import { AuthGuard } from '@/auth/auth.guard';
 
@@ -17,6 +22,7 @@ import { CreateSubscriptionDto } from './dto/create-subscription.dto';
 import { Subscription } from './entities/subscription.entity';
 
 @ApiTags('Subscriptions')
+@ApiBearerAuth('JWT-auth')
 @Controller('subscriptions')
 @UseGuards(AuthGuard)
 export class SubscriptionsController {

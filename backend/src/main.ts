@@ -8,7 +8,20 @@ const start = async () => {
   const port = process.env.POST || 5000;
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
-  const config = new DocumentBuilder().setTitle('Social network api').build();
+  const config = new DocumentBuilder()
+    .setTitle('Social network api')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        name: 'JWT',
+        description: 'Enter JWT token',
+        in: 'header',
+      },
+      'JWT-auth',
+    )
+    .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
   app.enableCors();

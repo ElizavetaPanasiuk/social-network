@@ -13,7 +13,12 @@ import {
   ParseIntPipe,
   Request,
 } from '@nestjs/common';
-import { ApiResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiResponse,
+  ApiOperation,
+  ApiTags,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 import { AuthGuard } from '@/auth/auth.guard';
@@ -27,6 +32,7 @@ import {
 } from './dto';
 
 @ApiTags('Users')
+@ApiBearerAuth('JWT-auth')
 @Controller('users')
 @UseGuards(AuthGuard)
 export class UsersController {

@@ -11,7 +11,12 @@ import {
   Request,
   ParseIntPipe,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 
 import { AuthGuard } from '@/auth/auth.guard';
 
@@ -20,6 +25,7 @@ import { CreateCommentDto, UpdateCommentDto, CommentLikeDto } from './dto';
 import { Comment, CommentLike } from './entities';
 
 @ApiTags('Comments')
+@ApiBearerAuth('JWT-auth')
 @Controller('comments')
 @UseGuards(AuthGuard)
 export class CommentsController {
