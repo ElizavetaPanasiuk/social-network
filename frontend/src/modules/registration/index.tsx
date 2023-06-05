@@ -141,6 +141,7 @@ const RegistrationPage = () => {
       4,
       <Step4
         onChange={onChange}
+        registrationData={formData}
         isFormDataValid={isValid}
         loading={loading}
         key={4}
