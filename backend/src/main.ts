@@ -1,12 +1,15 @@
-import { NestFactory } from '@nestjs/core';
+import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 
-import { AppModule } from './modules/app.module';
+import { AllExceptionsFilter } from '@/lib/filters/all-exceptions.filter';
+import { AppModule } from '@/modules/app.module';
 
 const start = async () => {
   const port = process.env.POST || 5000;
   const app = await NestFactory.create(AppModule);
+  const httpAdapter = app.get(HttpAdapterHost);
+  app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
   app.useGlobalPipes(new ValidationPipe());
   const config = new DocumentBuilder()
     .setTitle('Social network api')
