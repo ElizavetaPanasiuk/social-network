@@ -142,6 +142,7 @@ const RegistrationPage = () => {
       4,
       <Step4
         onChange={onChange as (key: string, value: File | string) => void}
+        registrationData={formData}
         isFormDataValid={isValid}
         loading={loading}
         key={4}

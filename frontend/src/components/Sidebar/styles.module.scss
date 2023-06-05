@@ -1,4 +1,5 @@
 @import '@/styles/colors.scss';
+@import '@/styles/breakpoints.scss';
 
 .sidebar {
   position: sticky;
@@ -12,7 +13,7 @@
     font-size: 1.25rem;
     width: 14rem;
 
-    @media (max-width: 768px) {
+    @media (max-width: $sm) {
       width: fit-content;
     }
 
@@ -26,10 +27,14 @@
 
     .navIcon {
       margin-right: 1rem;
+
+      @media (max-width: $sm) {
+        margin-right: 0;
+      }
     }
 
     .navItemTitle {
-      @media (max-width: 768px) {
+      @media (max-width: $sm) {
         display: none;
       }
     }

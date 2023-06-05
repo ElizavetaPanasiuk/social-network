@@ -26,9 +26,9 @@ const Input = ({
   const [validationActive, setValidationActive] = useState(false);
 
   return (
-    <div className={styles.inputContainer}>
+    <div className={`${styles.inputContainer} ${className}`}>
       <input
-        className={`${styles.input} ${className}`}
+        className={styles.input}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
