@@ -15,6 +15,7 @@ type Step3Props<T> = {
 
 function Step3<T>({ onContinue, registrationData, onChange }: Step3Props<T>) {
   const { t } = useTranslation();
+  const dateOfBirth = registrationData.dateOfBirth.value as DateObj;
 
   return (
     <>
@@ -67,9 +68,9 @@ function Step3<T>({ onContinue, registrationData, onChange }: Step3Props<T>) {
             registrationData.lastName.valid &&
             registrationData.country &&
             registrationData.city &&
-            registrationData.dateOfBirth.value.year &&
-            registrationData.dateOfBirth.value.month &&
-            registrationData.dateOfBirth.value.date
+            dateOfBirth.year &&
+            dateOfBirth.month &&
+            dateOfBirth.date
           )
         }
       />

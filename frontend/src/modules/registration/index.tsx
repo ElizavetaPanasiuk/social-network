@@ -24,7 +24,7 @@ const RegistrationPage = () => {
 
   const authService = new AuthService();
 
-  const { formData, onChange, isValid } = useForm({
+  const { formData, onChange, isValid } = useForm<string | File | DateObj | null>({
     email: {
       value: '',
       minLength: FIELDS_VALIDATION_RULES.EMAIL.MIN,
@@ -76,21 +76,19 @@ const RegistrationPage = () => {
   });
 
   const { mutate: onSubmit, loading } = useMutation(
-    () =>
-      authService.signUp({
+    () => {
+      const dateOfBirth = formData.dateOfBirth.value as DateObj;
+      return authService.signUp({
         email: formData.email.value as string,
         password: formData.password.value as string,
         firstName: formData.firstName.value as string,
         lastName: formData.lastName.value as string,
         country: formData.country.value as string,
         city: formData.city.value as string,
-        avatar: formData.avatar.value,
-        dateOfBirth: new Date(
-          formData.dateOfBirth.value?.year,
-          formData.dateOfBirth.value?.month,
-          formData.dateOfBirth.value?.date,
-        ),
-      }),
+        avatar: formData.avatar.value as File,
+        dateOfBirth: new Date(dateOfBirth.year as number, dateOfBirth.month as number, dateOfBirth.date as number),
+      });
+    },
     {
       onSuccess: (result) => {
         const { access_token } = result;

@@ -27,7 +27,7 @@ function useQuery<T>(
           setData(result.data);
           setLast(result.isLast);
         } else {
-          setData([...data, ...result.data] as T);
+          setData([...(data as []), ...(result.data as [])] as T);
           setLast(result.isLast);
         }
       } else {
