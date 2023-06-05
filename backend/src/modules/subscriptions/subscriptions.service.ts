@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 
 import { Repository } from '@/lib/enums/repositories';
 
@@ -26,10 +26,7 @@ export class SubscriptionsService {
   async subscribe(dto: CreateSubscriptionDto) {
     const { subscriberId, profileId } = dto;
     if (subscriberId === profileId) {
-      throw new HttpException(
-        "A user can't subscribe on himself",
-        HttpStatus.NOT_ACCEPTABLE,
-      );
+      throw new Error("A user can't subscribe on himself");
     }
     const existingSubscription =
       await this.subscriptionsRepository.getSubscription(
@@ -37,10 +34,7 @@ export class SubscriptionsService {
         profileId,
       );
     if (existingSubscription) {
-      throw new HttpException(
-        'Subscription already exists',
-        HttpStatus.CONFLICT,
-      );
+      throw new Error('Subscription already exists');
     }
     return this.subscriptionsRepository.create(dto);
   }

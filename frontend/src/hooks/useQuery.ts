@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { MutableRefObject, useEffect, useState } from 'react';
 
 type UseQueryOptions = {
   dependencies?: string[];
@@ -43,7 +43,7 @@ function useQuery<T>(
   };
 
   const scrollHandler = () => {
-    const elementRef = pagination.ref;
+    const elementRef = pagination.ref as unknown as MutableRefObject<HTMLDivElement>;
     if (window.scrollY + window.innerHeight + 1 >= elementRef?.current.clientHeight && !loading && !isLast) {
       sendQuery(page + 1);
       setPage(page + 1);

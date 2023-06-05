@@ -19,14 +19,14 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @ApiOperation({ summary: 'Sign in with email and password' })
-  @ApiResponse({ status: 201 }) // add type
+  @ApiResponse({ status: 201 })
   @Post('signIn')
   singIn(@Body() signInDto: SignInDto) {
     return this.authService.signIn(signInDto.email, signInDto.password);
   }
 
   @ApiOperation({ summary: 'Sign up' })
-  @ApiResponse({ status: 201 }) // add type
+  @ApiResponse({ status: 201 })
   @Post('signUp')
   @UseInterceptors(FileInterceptor('avatar'))
   signUp(

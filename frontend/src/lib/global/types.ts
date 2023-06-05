@@ -99,3 +99,9 @@ export type QueryError = {
   value: boolean;
   message: string;
 };
+
+export type DateObj = {
+  year: number | null;
+  month: number | null;
+  date: number | null;
+};

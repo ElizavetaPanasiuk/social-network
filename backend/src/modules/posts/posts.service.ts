@@ -40,7 +40,6 @@ export class PostsService {
   }
 
   removePost(id: number) {
-    // TODO: cascade delete with post-likes
     return this.postsRepository.deleteOne(id);
   }
 

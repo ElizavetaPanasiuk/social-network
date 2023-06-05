@@ -87,7 +87,7 @@ const PostPage = () => {
     {
       onSuccess: (_result, args) => {
         dispatch(addNotification({ id: Date.now(), message: 'Success', type: 'success' }));
-        setPost({ ...post, text: args[1] as string });
+        setPost({ ...post, text: args[1] });
       },
     },
   );

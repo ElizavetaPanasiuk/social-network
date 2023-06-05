@@ -59,27 +59,21 @@ const ProfileSettingsPage = () => {
     mutate: onSubmit,
     loading,
     error,
-  } = useMutation(
-    () =>
-      profileService.updateProfile(userId as number, {
-        firstName: formData.firstName.value,
-        lastName: formData.lastName.value,
-        country: formData.country.value,
-        city: formData.city.value,
-        dateOfBirth: new Date(
-          formData.dateOfBirth.value.year,
-          formData.dateOfBirth.value.month,
-          formData.dateOfBirth.value.date,
-        ),
-      }),
-    {
-      onSuccess: () => {},
-    },
+  } = useMutation(() =>
+    profileService.updateProfile(userId as number, {
+      firstName: formData.firstName.value,
+      lastName: formData.lastName.value,
+      country: formData.country.value,
+      city: formData.city.value,
+      dateOfBirth: new Date(
+        formData.dateOfBirth.value.year,
+        formData.dateOfBirth.value.month,
+        formData.dateOfBirth.value.date,
+      ),
+    }),
   );
 
-  const { mutate: onUpdateAvatar } = useMutation((file) => profileService.updateAvatar(Number(userId), file as File), {
-    onSuccess: () => {},
-  });
+  const { mutate: onUpdateAvatar } = useMutation((file) => profileService.updateAvatar(Number(userId), file as File));
 
   return (
     <PageWrapper

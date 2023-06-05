@@ -1,14 +1,9 @@
 import { useTranslation } from 'react-i18next';
 
 import { Select } from '@/ui-kit';
+import { DateObj } from '@/lib/global/types';
 
 import styles from './styles.module.scss';
-
-type DateObj = {
-  year: number | null;
-  month: number | null;
-  date: number | null;
-};
 
 type DateInputProps = {
   value: DateObj;

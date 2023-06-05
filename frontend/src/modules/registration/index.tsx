@@ -11,6 +11,7 @@ import FIELDS_VALIDATION_RULES from '@/lib/constants/fields-validation-rules';
 import { AuthService } from '@/lib/service';
 import { signIn } from '@/store/userSlice';
 import { Box } from '@/ui-kit';
+import { DateObj } from '@/lib/global/types';
 
 import { Step1, Step2, Step3, Step4 } from './components';
 import styles from './styles.module.scss';
@@ -133,14 +134,14 @@ const RegistrationPage = () => {
       <Step3
         onContinue={onContinue}
         registrationData={formData}
-        onChange={onChange}
+        onChange={onChange as (key: string | number, value: string | DateObj) => void}
         key={3}
       />,
     ],
     [
       4,
       <Step4
-        onChange={onChange}
+        onChange={onChange as (key: string, value: File | string) => void}
         isFormDataValid={isValid}
         loading={loading}
         key={4}

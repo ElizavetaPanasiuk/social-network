@@ -16,7 +16,6 @@ export class NewsService {
   ) {}
 
   async getNews(userId: number, page: number) {
-    // TODO: make in one query
     const subscriptions = await this.subscriptionsService.getSubscriptionsIds(
       userId,
     );

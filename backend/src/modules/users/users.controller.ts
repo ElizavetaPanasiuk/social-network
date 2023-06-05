@@ -75,12 +75,11 @@ export class UsersController {
   @ApiResponse({ status: 200, type: Number })
   @Delete(':id')
   deleteUser(@Param('id', ParseIntPipe) id: number) {
-    // TODO add cascade delete with other tables
     return this.usersService.deleteUser(id);
   }
 
   @ApiOperation({ summary: 'Update profile data' })
-  @ApiResponse({ status: 200 }) // add type
+  @ApiResponse({ status: 200 })
   @Put('profile/:id')
   updateCommonProfileData(
     @Param('id', ParseIntPipe) id: number,
@@ -90,7 +89,7 @@ export class UsersController {
   }
 
   @ApiOperation({ summary: 'Update user password' })
-  @ApiResponse({ status: 200 }) // add type
+  @ApiResponse({ status: 200 })
   @Put('password/:id')
   updatePassword(
     @Param('id', ParseIntPipe) id: number,
@@ -100,7 +99,7 @@ export class UsersController {
   }
 
   @ApiOperation({ summary: 'Update user avatar' })
-  @ApiResponse({ status: 200 }) // add type
+  @ApiResponse({ status: 200 })
   @Put('avatar/:id')
   @UseInterceptors(FileInterceptor('avatar'))
   updateAvatar(

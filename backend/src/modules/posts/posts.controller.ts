@@ -60,7 +60,7 @@ export class PostsController {
   }
 
   @ApiOperation({ summary: 'Update post' })
-  @ApiResponse({ status: 200 }) // add type
+  @ApiResponse({ status: 200 })
   @Put(':id')
   updatePost(
     @Param('id', ParseIntPipe) id: number,

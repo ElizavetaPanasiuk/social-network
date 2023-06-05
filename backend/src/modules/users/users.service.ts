@@ -1,4 +1,4 @@
-import { Inject, Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 
 import { HashService } from '@/hash/hash.service';
 import { FilesService } from '@/files/files.service';
@@ -90,9 +90,8 @@ export class UsersService {
     dto.password = await this.hashService.hashPassword(dto.password);
 
     if (isMatch) {
-      throw new HttpException(
+      throw new Error(
         'New password is the same as previous. Create a new password.',
-        HttpStatus.NOT_ACCEPTABLE,
       );
     }
 

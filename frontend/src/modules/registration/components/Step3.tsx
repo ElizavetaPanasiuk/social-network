@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 
 import { DateInput } from '@/components';
 import { locations } from '@/lib/constants/country-city';
-import { FormData } from '@/lib/global/types';
+import { DateObj, FormData } from '@/lib/global/types';
 import { Button, Input, Select } from '@/ui-kit';
 
 import styles from './styles.module.scss';
@@ -10,7 +10,7 @@ import styles from './styles.module.scss';
 type Step3Props<T> = {
   onContinue: () => void;
   registrationData: FormData<T>;
-  onChange: (key: keyof FormData<T>, value: string) => void;
+  onChange: (key: keyof FormData<T>, value: string | DateObj) => void;
 };
 
 function Step3<T>({ onContinue, registrationData, onChange }: Step3Props<T>) {
@@ -33,7 +33,7 @@ function Step3<T>({ onContinue, registrationData, onChange }: Step3Props<T>) {
       />
       <p>{t('Birthday')}</p>
       <DateInput
-        value={registrationData.dateOfBirth.value}
+        value={registrationData.dateOfBirth.value as DateObj}
         onChange={(value) => onChange('dateOfBirth', value)}
       />
       <Select
@@ -50,7 +50,10 @@ function Step3<T>({ onContinue, registrationData, onChange }: Step3Props<T>) {
         disabled={!registrationData.country}
         options={
           registrationData.country.value
-            ? locations?.[registrationData.country.value].map((city: string) => ({ label: city, value: city }))
+            ? locations?.[registrationData.country.value as keyof typeof locations].map((city: string) => ({
+                label: city,
+                value: city,
+              }))
             : []
         }
         className={styles.locationSelect}

@@ -48,7 +48,7 @@ export class CommentsController {
   }
 
   @ApiOperation({ summary: 'Update comment to post by comment id' })
-  @ApiResponse({ status: 200 }) // add type
+  @ApiResponse({ status: 200 })
   @Put(':id')
   updateComment(
     @Param('id', ParseIntPipe) id: number,
