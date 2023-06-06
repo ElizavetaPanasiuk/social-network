@@ -26,24 +26,24 @@ const useChat = () => {
     send,
   };
 
-  useEffect(() => {
-    if (!socket) {
-      setSocket(
-        io(`${import.meta.env.VITE_API_URL}/messages`, {
-          query: {
-            userId,
-            roomId,
-          },
-        })
-          .on('connection', (socket) => socket.join(roomId))
-          .on('error', (error) => {
-            if (error instanceof Error) {
-              setError({ value: true, message: error.message });
-            }
-          }),
-      );
-    }
+  if (!socket) {
+    setSocket(
+      io(`${import.meta.env.VITE_API_URL}/messages`, {
+        query: {
+          userId,
+          roomId,
+        },
+      })
+        .on('connection', (socket) => socket.join(roomId))
+        .on('error', (error) => {
+          if (error instanceof Error) {
+            setError({ value: true, message: error.message });
+          }
+        }),
+    );
+  }
 
+  useEffect(() => {
     socket
       ?.on('messages', (messages) => {
         setMessages(messages);
