@@ -27,7 +27,7 @@ class ProfileService extends Service {
     id: number,
     data: { firstName: string; lastName: string; country: string; city: string; dateOfBirth: Date },
   ) {
-    return this.updateById(id, { ...data, dateOfBirth: data.dateOfBirth.toISOString() }, '/common');
+    return this.updateById(id, { ...data, dateOfBirth: data.dateOfBirth.toISOString() }, '/profile');
   }
 
   updatePassword(id: number, data: { password: string }) {

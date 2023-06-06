@@ -86,7 +86,6 @@ const PostPage = () => {
     (id: number, newContent: string) => postsService.updatePost(id, newContent),
     {
       onSuccess: (_result, args) => {
-        dispatch(addNotification({ id: Date.now(), message: 'Success', type: 'success' }));
         setPost({ ...post, text: args[1] });
       },
     },

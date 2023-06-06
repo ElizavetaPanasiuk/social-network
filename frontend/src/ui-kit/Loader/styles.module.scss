@@ -1,7 +1,14 @@
 @import '@/styles/colors.scss';
 
-.loader {
-  display: block;
-  margin: 0 auto;
-  color: $gray-dark;
+.loaderContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+  .loader {
+    display: block;
+    margin: 0 auto;
+    color: $gray-dark;
+  }
 }

@@ -21,6 +21,10 @@ function useForm<T>(fields: Fields<T>, outerDataLoader?: boolean) {
       }
     }
 
+    if (newValue && typeof newValue === 'object' && 'year' in newValue && 'month' in newValue && 'date' in newValue) {
+      isValid = isValid && newValue.year !== null && newValue.month !== null && newValue.date !== null;
+    }
+
     return isValid;
   };
 

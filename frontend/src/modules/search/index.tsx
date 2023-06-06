@@ -52,7 +52,7 @@ const SearchPage = () => {
           error={error}
         >
           {!data?.length ? (
-            <EmptyListMessage text="No users matching the parameters" />
+            <EmptyListMessage text={t('No users matching the parameters')} />
           ) : (
             data.map((profile) => (
               <ProfileRow
