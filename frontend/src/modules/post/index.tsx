@@ -1,17 +1,14 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 import { PageWrapper, Post } from '@/components';
 import { useMutation, useQuery } from '@/hooks';
 import { CommentsService, PostsService } from '@/lib/service';
 import { CommentInfo, PostInfo, QueryError } from '@/lib/global/types';
-import { addNotification } from '@/store/notificationsSlice';
 
 import { Comment } from './components';
 import NewComment from './components/NewComment';
 
 const PostPage = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
   const postId = Number(params.postId);

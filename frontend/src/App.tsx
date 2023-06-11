@@ -16,12 +16,12 @@ const App = () => {
   useEffect(() => {
     const token = Cookies.get('token');
     if (token) {
-      const { id, firstName, lastName, exp } = jwtDecode(token) as {
+      const { id, firstName, lastName, exp } = jwtDecode<{
         id: number;
         firstName: string;
         lastName: string;
         exp: number;
-      };
+      }>(token);
       if (exp * 1000 <= Date.now()) {
         dispatch(signOut());
         Cookies.remove('token');

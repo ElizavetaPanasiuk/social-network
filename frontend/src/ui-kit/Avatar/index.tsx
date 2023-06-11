@@ -39,7 +39,7 @@ const Avatar = ({ alt, src, size = 'small', border = false, edit = false, onChan
         onChange={(e) => {
           if (e.target.files) {
             onChange('avatar', e.target.files[0]);
-            setUploadedFile(URL.createObjectURL(e.target.files[0]) as string);
+            setUploadedFile(URL.createObjectURL(e.target.files[0]));
           }
         }}
       />

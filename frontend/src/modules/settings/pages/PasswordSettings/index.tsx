@@ -17,7 +17,7 @@ const PasswordSettingsPage = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userId = useSelector((state: RootState) => state.user.id);
+  const userId = useSelector((state: RootState) => state.user.id as number);
 
   const profileService = new ProfileService();
 
@@ -38,7 +38,7 @@ const PasswordSettingsPage = () => {
 
   const { mutate: onSubmit, loading } = useMutation(
     () =>
-      profileService.updatePassword(userId as number, {
+      profileService.updatePassword(userId, {
         password: formData.password.value,
       }),
     {
@@ -60,17 +60,17 @@ const PasswordSettingsPage = () => {
         value={formData.password.value as string}
         valid={formData.password.valid}
         onChange={(value) => onChange('password', value)}
-        placeholder={t('Enter password') as string}
+        placeholder={t('Enter password')}
         type="password"
-        prompt={t('Password must contain at least 1 uppercase and 1 number. Minimum 8 symbols.') as string}
+        prompt={t('Password must contain at least 1 uppercase and 1 number. Minimum 8 symbols.')}
       />
       <Input
         value={formData.passwordRepeat.value as string}
         valid={formData.passwordRepeat.valid && formData.passwordRepeat.value === formData.password.value}
         onChange={(value) => onChange('passwordRepeat', value)}
-        placeholder={t('Confirm password') as string}
+        placeholder={t('Confirm password')}
         type="password"
-        prompt={t('Password must contain at least 1 uppercase and 1 number. Minimum 8 symbols.') as string}
+        prompt={t('Password must contain at least 1 uppercase and 1 number. Minimum 8 symbols.')}
       />
       <SubmitButton
         title={t('Save')}

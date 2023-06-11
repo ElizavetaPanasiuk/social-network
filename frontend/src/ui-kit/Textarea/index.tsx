@@ -3,7 +3,7 @@ import styles from './styles.module.scss';
 type TextareaProps = {
   value: string;
   onChange: (value: string) => void;
-  placeholder?: string;
+  placeholder?: string | null;
   onEnter?: () => void;
   disabled?: boolean;
   minLength?: number;
@@ -21,7 +21,7 @@ const Textarea = ({
 }: TextareaProps) => (
   <textarea
     className={styles.textarea}
-    placeholder={placeholder}
+    placeholder={placeholder as string}
     value={value}
     onChange={(e) => onChange(e.target.value)}
     rows={5}

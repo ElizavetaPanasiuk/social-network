@@ -29,7 +29,7 @@ const NewComment = ({ publish, loading }: NewCommentProps) => {
       <Textarea
         value={commentText}
         onChange={setCommentText}
-        placeholder={t('Write a comment') as string}
+        placeholder={t('Write a comment')}
         maxLength={FIELDS_VALIDATION_RULES.COMMENT_TEXT.MAX}
       />
       <div className={styles.newCommentFooter}>

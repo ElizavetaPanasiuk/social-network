@@ -24,13 +24,13 @@ function Step3<T>({ onContinue, registrationData, onChange }: Step3Props<T>) {
         value={registrationData.firstName.value as string}
         valid={registrationData.firstName.valid}
         onChange={(value) => onChange('firstName', value)}
-        placeholder={t('Name') as string}
+        placeholder={t('Name')}
       />
       <Input
         value={registrationData.lastName.value as string}
         valid={registrationData.lastName.valid}
         onChange={(value) => onChange('lastName', value)}
-        placeholder={t('Surname') as string}
+        placeholder={t('Surname')}
       />
       <p>{t('Birthday')}</p>
       <DateInput

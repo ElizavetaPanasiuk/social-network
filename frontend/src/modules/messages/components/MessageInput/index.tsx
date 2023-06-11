@@ -20,7 +20,7 @@ const MessageInput = ({ message, onChange, onSend }: MessageInputProps) => {
       <Textarea
         value={message}
         onChange={onChange}
-        placeholder={t('Write a message') as string}
+        placeholder={t('Write a message')}
         onEnter={onSend}
         maxLength={FIELDS_VALIDATION_RULES.MESSAGE_TEXT.MAX}
       />

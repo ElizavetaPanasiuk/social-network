@@ -1,4 +1,4 @@
-import { RegistrationData } from '@/lib/global/types';
+import { Profile } from '@/lib/global/types';
 
 import Service from './service';
 
@@ -11,7 +11,12 @@ class AuthService extends Service {
     return this.post({ email, password }, '/signIn');
   }
 
-  signUp(userData: RegistrationData) {
+  signUp(
+    userData: Pick<
+      Profile<File>,
+      'password' | 'email' | 'firstName' | 'lastName' | 'city' | 'country' | 'dateOfBirth' | 'avatar'
+    >,
+  ) {
     const formData = new FormData();
     formData.append('password', userData.password);
     formData.append('email', userData.email);
@@ -20,7 +25,7 @@ class AuthService extends Service {
     formData.append('country', userData.country);
     formData.append('city', userData.city);
     formData.append('dateOfBirth', userData.dateOfBirth.toISOString());
-    formData.append('avatar', userData.avatar as File);
+    formData.append('avatar', userData.avatar);
     return this.post(formData, '/signUp');
   }
 }

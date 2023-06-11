@@ -93,11 +93,9 @@ const RegistrationPage = () => {
       onSuccess: (result) => {
         const { access_token } = result;
         Cookies.set('token', access_token);
-        const { id, firstName, lastName } = jwtDecode(access_token) as {
-          id: number;
-          firstName: string;
-          lastName: string;
-        };
+        const { id, firstName, lastName } = jwtDecode<{ id: number; firstName: string; lastName: string; exp: number }>(
+          access_token,
+        );
         dispatch(signIn({ id, firstName, lastName }));
         navigate(`/profile/${id}`);
       },

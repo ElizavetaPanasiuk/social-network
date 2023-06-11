@@ -21,7 +21,7 @@ function Step1<T>({ onContinue, registrationData, onChange }: Step1Props<T>) {
         value={registrationData.email.value as string}
         valid={registrationData.email.valid}
         onChange={(value) => onChange('email', value)}
-        placeholder={t('Email') as string}
+        placeholder={t('Email')}
         type="email"
       />
       <Button

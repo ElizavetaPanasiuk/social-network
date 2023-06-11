@@ -28,7 +28,7 @@ const NewPost = ({ publish, loading }: NewPostProps) => {
       <Textarea
         value={postText}
         onChange={setPostText}
-        placeholder={t("What's new?") as string}
+        placeholder={t("What's new?")}
       />
       <SubmitButton
         title={t('Publish')}

@@ -1,30 +1,35 @@
-export type ProfileMainInfo = {
+export type Profile<AVATAR_T> = {
   id: number;
   firstName: string;
   lastName: string;
-  avatar: string;
+  avatar: AVATAR_T;
+  country: string;
+  city: string;
+  dateOfBirth: Date;
+  password: string;
+  email: string;
 };
 
 export type ConversationsResponse = {
   id: string;
   userId1: number;
   userId2: number;
-  user1: ProfileMainInfo;
-  user2: ProfileMainInfo;
+  user1: Pick<Profile<string>, 'id' | 'avatar' | 'firstName' | 'lastName'>;
+  user2: Pick<Profile<string>, 'id' | 'avatar' | 'firstName' | 'lastName'>;
 }[];
 
 export type SubscribersResponse = {
   id: number;
   subscriberId: number;
   profileId: number;
-  subscriber: ProfileMainInfo;
+  subscriber: Pick<Profile<string>, 'id' | 'avatar' | 'firstName' | 'lastName'>;
 }[];
 
 export type SubscriptionsResponse = {
   id: number;
   subscriberId: number;
   profileId: number;
-  profile: ProfileMainInfo;
+  profile: Pick<Profile<string>, 'id' | 'avatar' | 'firstName' | 'lastName'>;
 }[];
 
 export type Field<T> = {
@@ -44,13 +49,6 @@ export type FormData<T> = {
   [fieldName: string]: FormField<T>;
 };
 
-export type BasicProfileInfo = {
-  id: number;
-  firstName: string;
-  lastName: string;
-  avatar: string;
-};
-
 export type PostInfo = {
   id: number;
   text: string;
@@ -59,7 +57,7 @@ export type PostInfo = {
   likes: number;
   createdAt: string;
   comments: number;
-  user: BasicProfileInfo;
+  user: Pick<Profile<string>, 'id' | 'avatar' | 'firstName' | 'lastName'>;
 };
 
 export type CommentInfo = {
@@ -69,7 +67,7 @@ export type CommentInfo = {
   likes: number;
   text: string;
   userId: number;
-  user: BasicProfileInfo;
+  user: Pick<Profile<string>, 'id' | 'avatar' | 'firstName' | 'lastName'>;
 };
 
 export type MessageType = {
@@ -79,18 +77,7 @@ export type MessageType = {
   text: string;
   updatedAt: string;
   userId: number;
-  user: BasicProfileInfo;
-};
-
-export type RegistrationData = {
-  password: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  country: string;
-  city: string;
-  dateOfBirth: Date;
-  avatar: File;
+  user: Pick<Profile<string>, 'id' | 'avatar' | 'firstName' | 'lastName'>;
 };
 
 export type NotificationType = 'success' | 'warning' | 'error' | 'info';

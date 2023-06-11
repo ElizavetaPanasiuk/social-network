@@ -15,13 +15,14 @@
     "max-params": ["warn", 3],
     "no-alert": "warn",
     "no-console": "warn",
-    "@typescript-eslint/no-empty-function": ["error", {"allow": ["arrowFunctions"]}],
     "no-eq-null": "warn",
     "no-param-reassign": "warn",
     "no-unused-expressions": "warn",
     "no-var": "warn",
     "prefer-arrow-callback": "warn",
     "prefer-const": "warn",
-    "prefer-destructuring": "warn"
+    "prefer-destructuring": "warn",
+    "@typescript-eslint/no-empty-function": ["error", {"allow": ["arrowFunctions"]}],
+    "@typescript-eslint/no-explicit-any": "error"
   }
 }
