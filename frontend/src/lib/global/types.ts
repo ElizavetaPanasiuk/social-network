@@ -1,8 +1,8 @@
-export type Profile<AVATAR_T> = {
+export type Profile<AvatarT> = {
   id: number;
   firstName: string;
   lastName: string;
-  avatar: AVATAR_T;
+  avatar: AvatarT;
   country: string;
   city: string;
   dateOfBirth: Date;
@@ -40,13 +40,13 @@ export type Field<T> = {
 };
 
 export type Fields<T> = {
-  [fieldName: string]: Field<T>;
+  [key in keyof T]: Field<T[key]>;
 };
 
 export type FormField<T> = Field<T> & { valid: boolean };
 
 export type FormData<T> = {
-  [fieldName: string]: FormField<T>;
+  [key in keyof T]: FormField<T[key]>;
 };
 
 export type PostInfo = {

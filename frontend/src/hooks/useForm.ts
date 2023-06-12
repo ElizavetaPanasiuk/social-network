@@ -3,7 +3,10 @@ import { useState, useEffect } from 'react';
 import { Fields, FormData } from '@/lib/global/types';
 
 function useForm<T>(fields: Fields<T>, outerDataLoader?: boolean) {
-  const validateField = (fieldName: keyof typeof fields, newValue: T) => {
+
+  <K extends keyof any, T extends Record<K, string>>
+
+  const validateField = < <K extends keyof any, T extends Record<K, string>>>(fieldName: keyof T, newValue: T) => {
     let isValid = true;
 
     if (typeof newValue === 'string') {
@@ -28,20 +31,22 @@ function useForm<T>(fields: Fields<T>, outerDataLoader?: boolean) {
     return isValid;
   };
 
-  const initFormData = () => {
-    const initialFormData: FormData<T> = {};
-    Object.keys(fields).forEach(
-      (field: string) =>
-        (initialFormData[field] = { ...fields[field], valid: validateField(field, fields[field].value) }),
-    );
-
+  const initFormData = (): FormData<T> => {
+    const initialFormData: FormData<T> = {} as FormData<T>;
+    Object.keys(fields).forEach((field) => {
+      const currentField = field as keyof T;
+      initialFormData[currentField] = {
+        ...fields[currentField],
+        valid: validateField(currentField, fields[currentField].value),
+      };
+    });
     return initialFormData;
   };
 
   const [formData, setFormData] = useState<FormData<T>>(initFormData());
   const [formValid, setFormValid] = useState(true);
 
-  const onChange = (fieldName: keyof typeof formData, newValue: T) => {
+  const onChange = (fieldName: keyof T, newValue: any) => {
     setFormData({
       ...formData,
       [fieldName]: { ...formData[fieldName], value: newValue, valid: validateField(fieldName, newValue) },

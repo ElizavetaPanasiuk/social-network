@@ -20,7 +20,7 @@ const LoginPage = () => {
 
   const authService = new AuthService();
 
-  const { formData, onChange, isValid } = useForm({
+  const { formData, onChange, isValid } = useForm<{email: string, password: string}>({
     email: {
       value: '',
       minLength: FIELDS_VALIDATION_RULES.EMAIL.MIN,
@@ -59,14 +59,14 @@ const LoginPage = () => {
         <Box className={styles.loginContainer}>
           <h1>{t('Login')}</h1>
           <Input
-            value={formData.email.value as string}
+            value={formData.email.value}
             valid={formData.email.valid}
             placeholder={t('Email')}
-            onChange={(value) => onChange('email', value)}
+            onChange={(value: string) => onChange('email', value)}
             type="email"
           />
           <Input
-            value={formData.password.value as string}
+            value={formData.password.value}
             valid={formData.password.valid}
             placeholder={t('Password')}
             onChange={(value) => onChange('password', value)}

@@ -57,7 +57,7 @@ const PasswordSettingsPage = () => {
       className={styles.passwordForm}
     >
       <Input
-        value={formData.password.value as string}
+        value={formData.password.value}
         valid={formData.password.valid}
         onChange={(value) => onChange('password', value)}
         placeholder={t('Enter password')}
@@ -65,7 +65,7 @@ const PasswordSettingsPage = () => {
         prompt={t('Password must contain at least 1 uppercase and 1 number. Minimum 8 symbols.')}
       />
       <Input
-        value={formData.passwordRepeat.value as string}
+        value={formData.passwordRepeat.value}
         valid={formData.passwordRepeat.valid && formData.passwordRepeat.value === formData.password.value}
         onChange={(value) => onChange('passwordRepeat', value)}
         placeholder={t('Confirm password')}

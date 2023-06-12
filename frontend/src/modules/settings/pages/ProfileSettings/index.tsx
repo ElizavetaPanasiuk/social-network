@@ -60,7 +60,7 @@ const ProfileSettingsPage = () => {
     loading,
     error,
   } = useMutation(() =>
-    profileService.updateProfile(userId as number, {
+    profileService.updateProfile(userId, {
       firstName: formData.firstName.value,
       lastName: formData.lastName.value,
       country: formData.country.value,
@@ -98,13 +98,13 @@ const ProfileSettingsPage = () => {
           <div className={styles.profileData}>
             <div className={styles.row}>
               <Input
-                value={formData.firstName.value as string}
+                value={formData.firstName.value}
                 valid={formData.firstName.valid}
                 onChange={(value) => onChange('firstName', value)}
                 placeholder={t('Name')}
               />
               <Input
-                value={formData.lastName.value as string}
+                value={formData.lastName.value}
                 valid={formData.lastName.valid}
                 onChange={(value) => onChange('lastName', value)}
                 placeholder={t('Surname')}
@@ -117,14 +117,14 @@ const ProfileSettingsPage = () => {
             />
             <div className={styles.row}>
               <Select
-                value={formData.country.value as string}
+                value={formData.country.value}
                 onChange={(value) => onChange('country', value as keyof typeof locations)}
                 label={t('Country')}
                 options={Object.keys(locations).map((country) => ({ label: country, value: country }))}
               />
               <Select
-                value={formData.city.value as string}
-                onChange={(value) => onChange('city', value as string)}
+                value={formData.city.value}
+                onChange={(value) => onChange('city', value)}
                 label={t('City')}
                 disabled={!formData.country}
                 options={
