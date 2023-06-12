@@ -11,7 +11,7 @@ import FIELDS_VALIDATION_RULES from '@/lib/constants/fields-validation-rules';
 import { AuthService } from '@/lib/service';
 import { signIn } from '@/store/userSlice';
 import { Box } from '@/ui-kit';
-import { DateObj } from '@/lib/global/types';
+import { DateObj, Profile } from '@/lib/global/types';
 
 import { Step1, Step2, Step3, Step4 } from './components';
 import styles from './styles.module.scss';
@@ -24,7 +24,12 @@ const RegistrationPage = () => {
 
   const authService = new AuthService();
 
-  const { formData, onChange, isValid } = useForm<string | File | DateObj | null>({
+  const { formData, onChange, isValid } = useForm<
+    Pick<Profile<File | null>, 'email' | 'password' | 'firstName' | 'lastName' | 'city' | 'country' | 'avatar'> & {
+      passwordRepeat: string;
+      dateOfBirth: DateObj;
+    }
+  >({
     email: {
       value: '',
       minLength: FIELDS_VALIDATION_RULES.EMAIL.MIN,
@@ -77,14 +82,14 @@ const RegistrationPage = () => {
 
   const { mutate: onSubmit, loading } = useMutation(
     () => {
-      const dateOfBirth = formData.dateOfBirth.value as DateObj;
+      const dateOfBirth = formData.dateOfBirth.value;
       return authService.signUp({
-        email: formData.email.value as string,
-        password: formData.password.value as string,
-        firstName: formData.firstName.value as string,
-        lastName: formData.lastName.value as string,
-        country: formData.country.value as string,
-        city: formData.city.value as string,
+        email: formData.email.value,
+        password: formData.password.value,
+        firstName: formData.firstName.value,
+        lastName: formData.lastName.value,
+        country: formData.country.value,
+        city: formData.city.value,
         avatar: formData.avatar.value as File,
         dateOfBirth: new Date(dateOfBirth.year as number, dateOfBirth.month as number, dateOfBirth.date as number),
       });
@@ -93,11 +98,9 @@ const RegistrationPage = () => {
       onSuccess: (result) => {
         const { access_token } = result;
         Cookies.set('token', access_token);
-        const { id, firstName, lastName } = jwtDecode(access_token) as {
-          id: number;
-          firstName: string;
-          lastName: string;
-        };
+        const { id, firstName, lastName } = jwtDecode<{ id: number; firstName: string; lastName: string; exp: number }>(
+          access_token,
+        );
         dispatch(signIn({ id, firstName, lastName }));
         navigate(`/profile/${id}`);
       },
@@ -132,14 +135,14 @@ const RegistrationPage = () => {
       <Step3
         onContinue={onContinue}
         registrationData={formData}
-        onChange={onChange as (key: string | number, value: string | DateObj) => void}
+        onChange={onChange}
         key={3}
       />,
     ],
     [
       4,
       <Step4
-        onChange={onChange as (key: string, value: File | string) => void}
+        onChange={onChange}
         registrationData={formData}
         isFormDataValid={isValid}
         loading={loading}

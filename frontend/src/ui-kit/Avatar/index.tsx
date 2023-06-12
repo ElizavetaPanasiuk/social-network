@@ -9,7 +9,7 @@ type AvatarProps = {
   size?: 'small' | 'medium' | 'large';
   border?: boolean;
   edit?: boolean;
-  onChange?: (key: 'avatar', value: string | File) => void;
+  onChange?: (key: 'avatar', value: File) => void;
 };
 
 const Avatar = ({ alt, src, size = 'small', border = false, edit = false, onChange }: AvatarProps) => {
@@ -39,7 +39,7 @@ const Avatar = ({ alt, src, size = 'small', border = false, edit = false, onChan
         onChange={(e) => {
           if (e.target.files) {
             onChange('avatar', e.target.files[0]);
-            setUploadedFile(URL.createObjectURL(e.target.files[0]) as string);
+            setUploadedFile(URL.createObjectURL(e.target.files[0]));
           }
         }}
       />

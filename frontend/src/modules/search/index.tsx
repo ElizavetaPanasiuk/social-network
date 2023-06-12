@@ -5,7 +5,7 @@ import { EmptyListMessage, PageWrapper, ProfileRow } from '@/components';
 import { useQuery } from '@/hooks';
 import { ProfileService } from '@/lib/service';
 import { locations } from '@/lib/constants/country-city';
-import { BasicProfileInfo, QueryError } from '@/lib/global/types';
+import { Profile, QueryError } from '@/lib/global/types';
 import { Input, Select } from '@/ui-kit';
 
 import styles from './styles.module.scss';
@@ -25,7 +25,7 @@ const SearchPage = () => {
     error,
   }: {
     loading: boolean;
-    data: BasicProfileInfo[];
+    data: Pick<Profile<string>, 'id' | 'avatar' | 'firstName' | 'lastName'>[];
     error: QueryError;
   } = useQuery((page?: number) => profileService.searchUsers({ search: searchString, city, country, page }), {
     dependencies: [country, city, searchString],
@@ -44,7 +44,7 @@ const SearchPage = () => {
         <Input
           value={searchString}
           onChange={setSearchString}
-          placeholder={t('Search') as string}
+          placeholder={t('Search')}
           className={styles.searchInput}
         />
         <PageWrapper

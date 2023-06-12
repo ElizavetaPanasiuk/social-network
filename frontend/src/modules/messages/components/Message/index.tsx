@@ -1,5 +1,5 @@
 import { TimeLabel } from '@/components';
-import { BasicProfileInfo } from '@/lib/global/types';
+import { Profile } from '@/lib/global/types';
 import { Avatar } from '@/ui-kit';
 
 import styles from './styles.module.scss';
@@ -7,7 +7,7 @@ import styles from './styles.module.scss';
 type MessageProps = {
   text: string;
   createdAt: string;
-  user: BasicProfileInfo;
+  user: Pick<Profile<string>, 'avatar' | 'firstName' | 'lastName'>;
 };
 
 const Message = ({ text, createdAt, user: { firstName, lastName, avatar } }: MessageProps) => (

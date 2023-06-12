@@ -1,15 +1,17 @@
 import { useTranslation } from 'react-i18next';
 
-import { FormData } from '@/lib/global/types';
+import { FormData, Profile } from '@/lib/global/types';
 import { Button, Input } from '@/ui-kit';
 
-type Step2Props<T> = {
+type Step2Form = FormData<Pick<Profile<null>, 'password'> & { passwordRepeat: string }>;
+
+type Step2Props = {
   onContinue: () => void;
-  registrationData: FormData<T>;
-  onChange: (key: keyof FormData<T>, value: string) => void;
+  registrationData: Step2Form;
+  onChange: (key: keyof Step2Form, value: string) => void;
 };
 
-function Step2<T>({ onContinue, registrationData, onChange }: Step2Props<T>) {
+const Step2 = ({ onContinue, registrationData, onChange }: Step2Props) => {
   const { t } = useTranslation();
 
   return (
@@ -17,23 +19,23 @@ function Step2<T>({ onContinue, registrationData, onChange }: Step2Props<T>) {
       <h2>{t('Create a password')}</h2>
       <p>{t('To protect your account, create a strong password')}</p>
       <Input
-        value={registrationData.password.value as string}
+        value={registrationData.password.value}
         valid={registrationData.password.valid}
         onChange={(value) => onChange('password', value)}
-        placeholder={t('Enter password') as string}
+        placeholder={t('Enter password')}
         type="password"
-        prompt={t('Password must contain at least 1 uppercase and 1 number. Minimum 8 symbols.') as string}
+        prompt={t('Password must contain at least 1 uppercase and 1 number. Minimum 8 symbols.')}
       />
       <Input
-        value={registrationData.passwordRepeat.value as string}
+        value={registrationData.passwordRepeat.value}
         valid={
           registrationData.passwordRepeat.valid &&
           registrationData.passwordRepeat.value === registrationData.password.value
         }
         onChange={(value) => onChange('passwordRepeat', value)}
-        placeholder={t('Confirm password') as string}
+        placeholder={t('Confirm password')}
         type="password"
-        prompt={t('Password must contain at least 1 uppercase and 1 number. Minimum 8 symbols.') as string}
+        prompt={t('Password must contain at least 1 uppercase and 1 number. Minimum 8 symbols.')}
       />
       <Button
         title={t('Continue')}
@@ -48,6 +50,6 @@ function Step2<T>({ onContinue, registrationData, onChange }: Step2Props<T>) {
       />
     </>
   );
-}
+};
 
 export default Step2;

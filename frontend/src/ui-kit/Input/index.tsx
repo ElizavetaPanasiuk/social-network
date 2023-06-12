@@ -5,12 +5,12 @@ import styles from './styles.module.scss';
 type InputProps = {
   value: string;
   onChange: (value: string) => void;
-  placeholder?: string;
+  placeholder?: string | null;
   type?: 'text' | 'password' | 'email';
   onEnter?: () => void;
   className?: string;
   valid?: boolean;
-  prompt?: string;
+  prompt?: string | null;
 };
 
 const Input = ({
@@ -31,7 +31,7 @@ const Input = ({
         className={styles.input}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder}
+        placeholder={placeholder as string}
         type={type}
         onKeyUp={(e) => {
           if (e.key === 'Enter' && onEnter) {

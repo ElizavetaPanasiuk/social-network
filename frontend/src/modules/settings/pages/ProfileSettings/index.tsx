@@ -13,11 +13,11 @@ import styles from './styles.module.scss';
 
 const ProfileSettingsPage = () => {
   const { t } = useTranslation();
-  const userId = useSelector((state: RootState) => state.user.id);
+  const userId = useSelector((state: RootState) => state.user.id as number);
 
   const profileService = new ProfileService();
 
-  const { loading: profileLoading, data: profile = {} } = useQuery(() => profileService.getProfile(Number(userId)));
+  const { loading: profileLoading, data: profile = {} } = useQuery(() => profileService.getProfile(userId));
 
   const { formData, onChange, isValid } = useForm(
     {
@@ -60,7 +60,7 @@ const ProfileSettingsPage = () => {
     loading,
     error,
   } = useMutation(() =>
-    profileService.updateProfile(userId as number, {
+    profileService.updateProfile(userId, {
       firstName: formData.firstName.value,
       lastName: formData.lastName.value,
       country: formData.country.value,
@@ -98,16 +98,16 @@ const ProfileSettingsPage = () => {
           <div className={styles.profileData}>
             <div className={styles.row}>
               <Input
-                value={formData.firstName.value as string}
+                value={formData.firstName.value}
                 valid={formData.firstName.valid}
                 onChange={(value) => onChange('firstName', value)}
-                placeholder={t('Name') as string}
+                placeholder={t('Name')}
               />
               <Input
-                value={formData.lastName.value as string}
+                value={formData.lastName.value}
                 valid={formData.lastName.valid}
                 onChange={(value) => onChange('lastName', value)}
-                placeholder={t('Surname') as string}
+                placeholder={t('Surname')}
               />
             </div>
             <p>{t('Birthday')}</p>
@@ -117,14 +117,14 @@ const ProfileSettingsPage = () => {
             />
             <div className={styles.row}>
               <Select
-                value={formData.country.value as string}
-                onChange={(value) => onChange('country', value as keyof typeof locations)}
+                value={formData.country.value}
+                onChange={(value) => onChange('country', value)}
                 label={t('Country')}
                 options={Object.keys(locations).map((country) => ({ label: country, value: country }))}
               />
               <Select
-                value={formData.city.value as string}
-                onChange={(value) => onChange('city', value as string)}
+                value={formData.city.value}
+                onChange={(value) => onChange('city', value)}
                 label={t('City')}
                 disabled={!formData.country}
                 options={

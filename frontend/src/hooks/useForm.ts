@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 
-import { Fields, FormData } from '@/lib/global/types';
+import { Fields, FormData, FormField } from '@/lib/global/types';
 
 function useForm<T>(fields: Fields<T>, outerDataLoader?: boolean) {
-  const validateField = (fieldName: keyof typeof fields, newValue: T) => {
+  const validateField = (fieldName: keyof typeof fields, newValue: unknown) => {
     let isValid = true;
 
     if (typeof newValue === 'string') {
@@ -29,11 +29,15 @@ function useForm<T>(fields: Fields<T>, outerDataLoader?: boolean) {
   };
 
   const initFormData = () => {
-    const initialFormData: FormData<T> = {};
-    Object.keys(fields).forEach(
-      (field: string) =>
-        (initialFormData[field] = { ...fields[field], valid: validateField(field, fields[field].value) }),
-    );
+    const initialFormData: FormData<T> = {} as FormData<T>;
+
+    Object.keys(fields).forEach((field: string) => {
+      const currentField = field as keyof T;
+      initialFormData[currentField] = {
+        ...fields[currentField],
+        valid: validateField(currentField, fields[currentField].value),
+      };
+    });
 
     return initialFormData;
   };
@@ -41,7 +45,7 @@ function useForm<T>(fields: Fields<T>, outerDataLoader?: boolean) {
   const [formData, setFormData] = useState<FormData<T>>(initFormData());
   const [formValid, setFormValid] = useState(true);
 
-  const onChange = (fieldName: keyof typeof formData, newValue: T) => {
+  const onChange = (fieldName: keyof typeof formData, newValue: unknown) => {
     setFormData({
       ...formData,
       [fieldName]: { ...formData[fieldName], value: newValue, valid: validateField(fieldName, newValue) },
@@ -53,7 +57,7 @@ function useForm<T>(fields: Fields<T>, outerDataLoader?: boolean) {
   };
 
   useEffect(() => {
-    const isFormValid = Object.values(formData).every((field) => field.valid);
+    const isFormValid = Object.values(formData).every((field) => (field as FormField<T>).valid);
     setFormValid(isFormValid);
   }, [formData]);
 

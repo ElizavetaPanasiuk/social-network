@@ -4,14 +4,14 @@ import moment from 'moment';
 
 import { useChat, useQuery } from '@/hooks';
 import { MessagesService } from '@/lib/service';
-import { BasicProfileInfo, MessageType, QueryError } from '@/lib/global/types';
+import { Profile, MessageType, QueryError } from '@/lib/global/types';
 import { PageWrapper } from '@/components';
 
 import { Message, MessageInput, MessagesHeader } from './components';
 import styles from './styles.module.scss';
 
 const MessagesPage = () => {
-  const { roomId } = useParams();
+  const { roomId } = useParams() as { roomId: string };
   const [text, setText] = useState('');
   const messagesContainerRef = useRef<HTMLDivElement>(null);
 
@@ -35,9 +35,11 @@ const MessagesPage = () => {
     data: user,
     loading: loadingUser,
     error: errorGetUser,
-  }: { data: BasicProfileInfo; loading: boolean; error: QueryError } = useQuery(() =>
-    messagesService.getInterlocutor(roomId as string),
-  );
+  }: {
+    data: Pick<Profile<string>, 'avatar' | 'firstName' | 'lastName'>;
+    loading: boolean;
+    error: QueryError;
+  } = useQuery(() => messagesService.getInterlocutor(roomId));
 
   const sendMessage = () => {
     if (text.trim()) {

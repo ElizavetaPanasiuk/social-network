@@ -16,13 +16,15 @@ const SettingsPage = () => {
     { label: t('Password'), value: './password' },
   ];
 
-  const [tab, setTab] = useState(TABS.find((t) => location.pathname.split('/').at(-1) === t.value.slice(2))?.value);
+  const [tab, setTab] = useState<string>(
+    TABS.find((t) => location.pathname.split('/').at(-1) === t.value.slice(2))?.value || '',
+  );
 
   return (
     <div className={styles.settingsPage}>
       <Tabs
         tabs={TABS}
-        value={tab as string}
+        value={tab}
         onChange={(tab) => {
           setTab(tab.value);
           navigate(tab.value);

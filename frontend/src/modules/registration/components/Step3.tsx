@@ -2,51 +2,55 @@ import { useTranslation } from 'react-i18next';
 
 import { DateInput } from '@/components';
 import { locations } from '@/lib/constants/country-city';
-import { DateObj, FormData } from '@/lib/global/types';
+import { DateObj, FormData, Profile } from '@/lib/global/types';
 import { Button, Input, Select } from '@/ui-kit';
 
 import styles from './styles.module.scss';
 
-type Step3Props<T> = {
+type Step3Form = FormData<
+  Pick<Profile<null>, 'firstName' | 'lastName' | 'country' | 'city'> & { dateOfBirth: DateObj }
+>;
+
+type Step3Props = {
   onContinue: () => void;
-  registrationData: FormData<T>;
-  onChange: (key: keyof FormData<T>, value: string | DateObj) => void;
+  registrationData: Step3Form;
+  onChange: (key: keyof Step3Form, value: string | DateObj) => void;
 };
 
-function Step3<T>({ onContinue, registrationData, onChange }: Step3Props<T>) {
+const Step3 = ({ onContinue, registrationData, onChange }: Step3Props) => {
   const { t } = useTranslation();
-  const dateOfBirth = registrationData.dateOfBirth.value as DateObj;
+  const dateOfBirth = registrationData.dateOfBirth.value;
 
   return (
     <>
       <h2>{t('Personal information')}</h2>
       <Input
-        value={registrationData.firstName.value as string}
+        value={registrationData.firstName.value}
         valid={registrationData.firstName.valid}
         onChange={(value) => onChange('firstName', value)}
-        placeholder={t('Name') as string}
+        placeholder={t('Name')}
       />
       <Input
-        value={registrationData.lastName.value as string}
+        value={registrationData.lastName.value}
         valid={registrationData.lastName.valid}
         onChange={(value) => onChange('lastName', value)}
-        placeholder={t('Surname') as string}
+        placeholder={t('Surname')}
       />
       <p>{t('Birthday')}</p>
       <DateInput
-        value={registrationData.dateOfBirth.value as DateObj}
+        value={registrationData.dateOfBirth.value}
         onChange={(value) => onChange('dateOfBirth', value)}
       />
       <Select
-        value={registrationData.country.value as string}
-        onChange={(value) => onChange('country', value as keyof typeof locations)}
+        value={registrationData.country.value}
+        onChange={(value) => onChange('country', value)}
         label={t('Country')}
         options={Object.keys(locations).map((country) => ({ label: country, value: country }))}
         className={styles.locationSelect}
       />
       <Select
-        value={registrationData.city.value as string}
-        onChange={(value) => onChange('city', value as string)}
+        value={registrationData.city.value}
+        onChange={(value) => onChange('city', value)}
         label={t('City')}
         disabled={!registrationData.country}
         options={
@@ -76,6 +80,6 @@ function Step3<T>({ onContinue, registrationData, onChange }: Step3Props<T>) {
       />
     </>
   );
-}
+};
 
 export default Step3;

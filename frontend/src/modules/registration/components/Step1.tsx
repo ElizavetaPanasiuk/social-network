@@ -1,16 +1,18 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import { FormData } from '@/lib/global/types';
+import { FormData, Profile } from '@/lib/global/types';
 import { Button, Input } from '@/ui-kit';
 
-type Step1Props<T> = {
+type Step1Form = FormData<Pick<Profile<null>, 'email'>>;
+
+type Step1Props = {
   onContinue: () => void;
-  registrationData: FormData<T>;
-  onChange: (key: keyof FormData<T>, value: string) => void;
+  registrationData: Step1Form;
+  onChange: (key: keyof Step1Form, value: string) => void;
 };
 
-function Step1<T>({ onContinue, registrationData, onChange }: Step1Props<T>) {
+const Step1 = ({ onContinue, registrationData, onChange }: Step1Props) => {
   const { t } = useTranslation();
 
   return (
@@ -18,10 +20,10 @@ function Step1<T>({ onContinue, registrationData, onChange }: Step1Props<T>) {
       <h2>{t('Enter email')}</h2>
       <p>{t('Your email will be used to login')}</p>
       <Input
-        value={registrationData.email.value as string}
+        value={registrationData.email.value}
         valid={registrationData.email.valid}
         onChange={(value) => onChange('email', value)}
-        placeholder={t('Email') as string}
+        placeholder={t('Email')}
         type="email"
       />
       <Button
@@ -32,6 +34,6 @@ function Step1<T>({ onContinue, registrationData, onChange }: Step1Props<T>) {
       <Link to="/login">{t('Or Sign In')}</Link>
     </>
   );
-}
+};
 
 export default Step1;

@@ -3,14 +3,14 @@ import { useSelector } from 'react-redux';
 
 import { RootState } from '@/store';
 import { Avatar } from '@/ui-kit';
-import { ProfileMainInfo } from '@/lib/global/types';
+import { Profile } from '@/lib/global/types';
 
 import styles from './styles.module.scss';
 
 type ConversationRowProps = {
   id: string;
-  user1: ProfileMainInfo;
-  user2: ProfileMainInfo;
+  user1: Pick<Profile<string>, 'id' | 'avatar' | 'firstName' | 'lastName'>;
+  user2: Pick<Profile<string>, 'id' | 'avatar' | 'firstName' | 'lastName'>;
 };
 
 const ConversationRow = ({ id, user1, user2 }: ConversationRowProps) => {
