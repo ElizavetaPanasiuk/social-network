@@ -11,7 +11,7 @@ https://github.com/ElizavetaPanasiuk/social-network
 ### Pull request
 https://github.com/ElizavetaPanasiuk/social-network/pull/1
 ### How to run an app:
-link to env files: https://drive.google.com/file/d/1qeFvDHWeCHmOmCWaVlHsPV4snpIXh39b/view?usp=sharing
+link to env files: since the repository is public - please contact me in skype and I will provide env files
 1. Add .env to frontend folder
 2. Add .development.env to backend folder
 3. Run frontend: cd frontend -> npm run dev
