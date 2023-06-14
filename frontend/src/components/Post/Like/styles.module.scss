@@ -1,0 +1,18 @@
+@import '@/styles/colors.scss';
+
+.like {
+  display: flex;
+  align-items: center;
+
+  > :first-child {
+    margin-right: 0.5rem;
+  }
+
+  &.liked {
+    color: $pink;
+  }
+
+  &:hover {
+    color: $pink;
+  }
+}

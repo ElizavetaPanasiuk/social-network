@@ -1,0 +1,46 @@
+@import '@/styles/colors.scss';
+@import '@/styles/breakpoints.scss';
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+
+  .navLink {
+    display: block;
+    padding: 1rem;
+    border-radius: 1.5rem;
+    font-size: 1.25rem;
+    width: 14rem;
+
+    @media (max-width: $sm) {
+      width: fit-content;
+    }
+
+    &:hover {
+      background-color: $gray-light;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 0.5rem;
+    }
+
+    .navIcon {
+      margin-right: 1rem;
+
+      @media (max-width: $sm) {
+        margin-right: 0;
+      }
+    }
+
+    .navItemTitle {
+      @media (max-width: $sm) {
+        display: none;
+      }
+    }
+  }
+
+  .active {
+    font-weight: bold;
+  }
+}

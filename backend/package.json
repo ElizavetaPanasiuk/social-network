@@ -17,24 +17,41 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "migration:run": "npx sequelize-cli db:migrate",
+    "migration:create": "npx sequelize-cli migration:generate --name crate-something"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
+    "@nestjs/config": "^2.3.1",
     "@nestjs/core": "^9.0.0",
+    "@nestjs/jwt": "^10.0.3",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/platform-socket.io": "^9.4.0",
     "@nestjs/sequelize": "^9.0.2",
+    "@nestjs/serve-static": "^3.0.1",
+    "@nestjs/swagger": "^6.3.0",
+    "@nestjs/websockets": "^9.4.0",
+    "bcrypt": "^5.1.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "cross-env": "^7.0.3",
+    "pg": "^8.10.0",
+    "pg-hstore": "^2.3.4",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
     "sequelize": "^6.30.0",
-    "sequelize-typescript": "^2.1.5"
+    "sequelize-typescript": "^2.1.5",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",
+    "@types/bcrypt": "^5.0.0",
     "@types/express": "^4.17.13",
     "@types/jest": "29.2.4",
+    "@types/multer": "^1.4.7",
     "@types/node": "18.11.18",
     "@types/sequelize": "^4.28.14",
     "@types/supertest": "^2.0.11",
@@ -60,6 +77,20 @@
       "ts"
     ],
     "rootDir": "src",
+    "moduleNameMapper": {
+      "^@/auth(.*)$": "<rootDir>/modules/auth/$1",
+      "^@/comments(.*)$": "<rootDir>/modules/comments/$1",
+      "^@/crypto(.*)$": "<rootDir>/modules/crypto/$1",
+      "^@/files(.*)$": "<rootDir>/modules/files/$1",
+      "^@/hash(.*)$": "<rootDir>/modules/hash/$1",
+      "^@/messages(.*)$": "<rootDir>/modules/messages/$1",
+      "^@/news(.*)$": "<rootDir>/modules/news/$1",
+      "^@/posts(.*)$": "<rootDir>/modules/posts/$1",
+      "^@/subscriptions(.*)$": "<rootDir>/modules/subscriptions/$1",
+      "^@/users(.*)$": "<rootDir>/modules/users/$1",
+      "^@/constants(.*)$": "<rootDir>/constants/$1",
+      "^@/utils(.*)$": "<rootDir>/utils/$1"
+    },
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"

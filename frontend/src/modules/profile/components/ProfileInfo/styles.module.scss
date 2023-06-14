@@ -1,0 +1,46 @@
+@import '@/styles/colors.scss';
+
+.profileHeader {
+  .profileHeaderBackground {
+    background-color: $gray-super-light;
+    height: 12rem;
+    position: relative;
+
+    > :first-child {
+      position: absolute;
+      bottom: -5rem;
+      left: 1rem;
+    }
+
+    .profileActions {
+      position: absolute;
+      bottom: -4rem;
+      right: 1rem;
+
+      > :not(:last-child) {
+        margin-right: 1rem;
+      }
+    }
+  }
+
+  .profileInfo {
+    margin-top: 6rem;
+    padding: 1rem;
+
+    .details {
+      color: $gray-dark;
+
+      .detailsLine {
+        margin-top: 0.5rem;
+
+        .detailsIndicator {
+          font-weight: bold;
+        }
+
+        > :first-child {
+          margin-right: 0.5rem;
+        }
+      }
+    }
+  }
+}

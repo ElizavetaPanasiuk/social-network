@@ -1,0 +1,54 @@
+@import '@/styles/colors.scss';
+
+%selectButton {
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 1px solid $primary;
+  color: $primary;
+  background-color: $white;
+}
+
+.selectContainer {
+  position: relative;
+  width: fit-content;
+
+  .select {
+    @extend %selectButton;
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .selectTitle {
+      display: inline-block;
+      margin-right: 0.5rem;
+    }
+
+    .selectAngleOpened {
+      transform: rotate(180deg);
+    }
+  }
+
+  .active {
+    border-radius: 0.25rem 0.25rem 0 0;
+  }
+
+  .options {
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+    max-height: 10rem;
+    overflow-y: auto;
+
+    .option {
+      @extend %selectButton;
+      border-top: none;
+
+      &:last-child {
+        border-radius: 0 0 0.5rem 0.5rem;
+      }
+    }
+  }
+}

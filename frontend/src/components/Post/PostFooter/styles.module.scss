@@ -1,0 +1,19 @@
+@import '@/styles/colors.scss';
+
+.postFooter {
+  display: flex;
+  gap: 1rem;
+
+  .comment {
+    display: flex;
+    align-items: center;
+
+    > :first-child {
+      margin-right: 0.5rem;
+    }
+
+    &:hover {
+      color: $blue;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+@import '@/styles/breakpoints.scss';
+
+.passwordForm {
+  display: flex;
+  gap: 1rem;
+
+  @media (max-width: $xs) {
+    flex-direction: column;
+  }
+}

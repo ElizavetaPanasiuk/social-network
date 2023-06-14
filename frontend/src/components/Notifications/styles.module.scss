@@ -1,0 +1,9 @@
+.notifications {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+
+  > :not(:last-child) {
+    margin-bottom: 1rem;
+  }
+}

@@ -1,0 +1,35 @@
+@import '@/styles/colors.scss';
+
+.searchPage {
+  display: flex;
+
+  .mainPanel {
+    padding: 1rem;
+    min-height: 100%;
+
+    .searchInput {
+      width: 100%;
+    }
+  }
+
+  > :first-child {
+    flex: 1;
+  }
+
+  .filters {
+    border-left: 1px solid $gray-light;
+    padding: 1rem;
+    min-width: 10rem;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+
+    > * {
+      width: 100%;
+    }
+
+    > :not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+}

@@ -1,0 +1,7 @@
+.settingsPage {
+  padding: 0 1rem 1rem;
+
+  > :not(:last-child) {
+    margin-bottom: 1rem;
+  }
+}

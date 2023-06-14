@@ -1,0 +1,21 @@
+@import '@/styles/colors.scss';
+
+.messagesContainer {
+  height: 100vh;
+  position: relative;
+  overflow-y: auto;
+
+  .messages {
+    height: calc(100vh - 10rem);
+    overflow-y: auto;
+    margin-bottom: 7rem;
+    scroll-behavior: smooth;
+  }
+
+  .dateHeader {
+    font-size: 0.75rem;
+    text-align: center;
+    margin: 1rem 0;
+    color: $gray-dark;
+  }
+}

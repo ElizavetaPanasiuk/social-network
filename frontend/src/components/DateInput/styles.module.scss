@@ -1,0 +1,12 @@
+.dateInput {
+  display: flex;
+  gap: 0.5rem;
+
+  > :nth-child(2n + 1) {
+    flex: 1;
+  }
+
+  > :nth-child(2) {
+    flex: 2;
+  }
+}

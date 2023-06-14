@@ -1,0 +1,28 @@
+{
+  "plugins": ["react", "@typescript-eslint"],
+  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:@typescript-eslint/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "dot-notation": "warn",
+    "max-params": ["warn", 3],
+    "no-alert": "warn",
+    "no-console": "warn",
+    "no-eq-null": "warn",
+    "no-param-reassign": "warn",
+    "no-unused-expressions": "warn",
+    "no-var": "warn",
+    "prefer-arrow-callback": "warn",
+    "prefer-const": "warn",
+    "prefer-destructuring": "warn",
+    "@typescript-eslint/no-empty-function": ["error", {"allow": ["arrowFunctions"]}],
+    "@typescript-eslint/no-explicit-any": "error"
+  }
+}

@@ -1,0 +1,21 @@
+@import '@/styles/colors.scss';
+
+.post {
+  position: relative;
+  border-bottom: 1px solid $gray-light;
+  padding: 1rem;
+  display: flex;
+  gap: 1rem;
+
+  &.link:hover {
+    background-color: $gray-super-light;
+  }
+
+  .postContent {
+    width: 100%;
+
+    > :not(:last-child) {
+      margin-bottom: 0.5rem;
+    }
+  }
+}

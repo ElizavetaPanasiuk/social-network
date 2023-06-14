@@ -1,0 +1,23 @@
+@import '@/styles/colors.scss';
+
+.messageInput {
+  display: flex;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  border-top: 1px solid $gray-light;
+  border-bottom: 1px solid $gray-light;
+  padding: 1rem;
+  background-color: $white;
+
+  .sendButton {
+    height: fit-content;
+    padding: 0.5rem;
+    color: $gray-dark;
+
+    &:hover {
+      background-color: $gray-super-light;
+      border-radius: 50%;
+    }
+  }
+}
